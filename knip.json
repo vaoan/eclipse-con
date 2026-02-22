@@ -1,0 +1,12 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": ["src/main.tsx"],
+  "project": ["src/**/*.{ts,tsx}"],
+  "ignore": ["src/vite-env.d.ts"],
+  "ignoreDependencies": [
+    "@tailwindcss/vite",
+    "@secretlint/core",
+    "@secretlint/secretlint-rule-preset-recommend",
+    "@ls-lint/ls-lint"
+  ]
+}

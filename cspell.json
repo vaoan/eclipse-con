@@ -1,0 +1,31 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "clsx",
+    "tailwindcss",
+    "tailwindmerge",
+    "twmerge",
+    "shadcn",
+    "lucide",
+    "vitest",
+    "jsdom",
+    "sonarjs",
+    "jscpd",
+    "secretlint",
+    "knip",
+    "stylelint",
+    "prettierrc",
+    "tsconfig",
+    "vitejs",
+    "endofline",
+    "eclipsecon",
+    "ffxiv",
+    "camelcase",
+    "middlewares",
+    "codecov",
+    "lcov",
+    "reactdom"
+  ],
+  "ignorePaths": ["node_modules", "dist", "coverage", "pnpm-lock.yaml", "*.svg"]
+}

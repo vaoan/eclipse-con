@@ -1,0 +1,12 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Page not found"
+  },
+  "home": {
+    "title": "Eclipse Con",
+    "description": "Welcome to Eclipse Con"
+  }
+}

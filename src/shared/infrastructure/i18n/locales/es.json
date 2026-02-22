@@ -1,0 +1,12 @@
+{
+  "common": {
+    "welcome": "Bienvenido",
+    "loading": "Cargando...",
+    "error": "Ocurrio un error",
+    "notFound": "Pagina no encontrada"
+  },
+  "home": {
+    "title": "Eclipse Con",
+    "description": "Bienvenido a Eclipse Con"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "threshold": 0,
+  "reporters": ["console"],
+  "ignore": ["node_modules", "dist", "coverage", "pnpm-lock.yaml", ".claude"],
+  "absolute": false,
+  "minLines": 5,
+  "maxLines": 1000
+}

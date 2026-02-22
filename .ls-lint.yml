@@ -1,0 +1,16 @@
+ls:
+  src:
+    .ts: PascalCase | camelCase | index
+    .tsx: PascalCase | index
+    .css: kebab-case | index
+    .json: kebab-case
+  src/shared/application/utils:
+    .ts: camelCase
+  e2e:
+    .ts: kebab-case
+
+ignore:
+  - node_modules
+  - dist
+  - coverage
+  - .git
