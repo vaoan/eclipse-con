@@ -3,38 +3,167 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-background: #ffffff;
-  --color-foreground: #0a0a0a;
-  --color-muted: #f5f5f5;
-  --color-muted-foreground: #737373;
-  --color-border: #e5e5e5;
-  --color-primary: #171717;
-  --color-primary-foreground: #fafafa;
-  --color-accent: #f5f5f5;
-  --color-accent-foreground: #171717;
+  /* Neo-Edo palette */
+  --color-background: #0a0b1a;
+  --color-foreground: #e8e4df;
+  --color-surface: #12132a;
+  --color-surface-elevated: #1a1b3a;
+  --color-muted: #2a2b4a;
+  --color-muted-foreground: #9994a8;
+  --color-border: #2a2b4a;
+  --color-border-accent: #c9a84c;
+
+  /* Primary — vermillion red */
+  --color-primary: #c53030;
+  --color-primary-foreground: #fff1f1;
+  --color-primary-glow: #e53e3e;
+
+  /* Accent — gold */
+  --color-accent: #c9a84c;
+  --color-accent-foreground: #0a0b1a;
+  --color-accent-glow: #d4b85c;
+
+  /* Sakura pinks */
+  --color-sakura: #f0a0b0;
+  --color-sakura-light: #f5c6d0;
+
+  /* Destructive */
   --color-destructive: #ef4444;
   --color-destructive-foreground: #fafafa;
+
+  /* Radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
+
+  /* Fonts */
+  --font-display: "Kaisei Tokumin", serif;
+  --font-body: "Zen Kaku Gothic New", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family:
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: var(--font-body);
   color: var(--color-foreground);
   background-color: var(--color-background);
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 *,
 *::before,
 *::after {
   border-color: var(--color-border);
+}
+
+/* ── Keyframe Animations ── */
+
+@keyframes float-petal {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) translateX(80px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes gold-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cloud-drift {
+  0% {
+    transform: translateX(-5%);
+  }
+  50% {
+    transform: translateX(5%);
+  }
+  100% {
+    transform: translateX(-5%);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Utility Classes ── */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.gold-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    #ffe5a0 40%,
+    var(--color-accent) 80%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 4s linear infinite;
+}
+
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+.reveal-visible {
+  animation: reveal-up 0.7s ease-out forwards;
+}
+
+.cloud-drift {
+  animation: cloud-drift 20s ease-in-out infinite;
+}
+
+.glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
 }

@@ -2,11 +2,144 @@
   "common": {
     "welcome": "Bienvenido",
     "loading": "Cargando...",
-    "error": "Ocurrio un error",
-    "notFound": "Pagina no encontrada"
+    "error": "Ocurrió un error",
+    "notFound": "Página no encontrada"
   },
-  "home": {
-    "title": "Eclipse Con",
-    "description": "Bienvenido a Eclipse Con"
+  "convention": {
+    "nav": {
+      "about": "Acerca",
+      "events": "Eventos",
+      "guests": "Invitados",
+      "venue": "Sede",
+      "registration": "Registro",
+      "faq": "FAQ"
+    },
+    "hero": {
+      "title": "Eclipse Con",
+      "date": "14–16 de agosto, 2026",
+      "tagline": "Donde la elegancia oriental se encuentra con el espíritu indomable",
+      "cta": "Obtén tu entrada"
+    },
+    "about": {
+      "title": "Acerca de Eclipse Con",
+      "paragraph1": "Eclipse Con es una celebración donde la belleza atemporal del arte y la mitología japonesa se encuentra con la vibrante creatividad de la comunidad furry. Con un escenario de linternas de papel y puertas torii, nuestra convención te invita a explorar un mundo donde la tradición y la imaginación se entrelazan.",
+      "paragraph2": "Desde exhibiciones de arte inspiradas en ukiyo-e hasta animadas festividades de matsuri, cada rincón de Eclipse Con está diseñado para sumergirte en una experiencia cultural única. Ya seas artista, intérprete o fanático apasionado, encontrarás tu lugar entre espíritus afines.",
+      "highlight": "Tres días de arte, cultura y comunidad bajo la luna del eclipse."
+    },
+    "events": {
+      "title": "Eventos y actividades",
+      "subtitle": "Desde el atardecer hasta el amanecer, cada hora trae algo extraordinario.",
+      "panels": {
+        "title": "Paneles y charlas",
+        "description": "Presentaciones de artistas, talleres de worldbuilding y discusiones comunitarias dirigidas por talentosos creadores de todo el mundo."
+      },
+      "workshops": {
+        "title": "Talleres creativos",
+        "description": "Sesiones prácticas de artesanías japonesas tradicionales: origami, pintura sumi-e, patronaje de fursuits y más."
+      },
+      "matsuri": {
+        "title": "Danza Matsuri",
+        "description": "Nuestro festival nocturno insignia con danzas bon-odori, tambores taiko y un espectacular desfile de linternas."
+      },
+      "art": {
+        "title": "Exhibición de arte",
+        "description": "Una galería curada de obras originales que fusionan la estética japonesa con el arte de personajes antropomórficos."
+      },
+      "cosplay": {
+        "title": "Concurso de cosplay",
+        "description": "Muestra tus mejores fursuits y creaciones de cosplay en el escenario, juzgadas por reconocidos diseñadores de vestuario."
+      },
+      "dealers": {
+        "title": "Dealer's Den",
+        "description": "Explora y compra de más de cien artistas y vendedores que ofrecen impresiones, peluches, accesorios y comisiones."
+      }
+    },
+    "guests": {
+      "title": "Invitados destacados",
+      "subtitle": "Conoce a los artistas y creadores que dan forma a nuestra comunidad.",
+      "guest1": {
+        "name": "Hikaru Mori",
+        "role": "Invitado de honor — Ilustrador",
+        "bio": "Reconocido por fusionar técnicas tradicionales de sumi-e con diseño de personajes moderno, el trabajo de Hikaru ha adornado galerías desde Tokio hasta Berlín."
+      },
+      "guest2": {
+        "name": "Sable Kitsune",
+        "role": "Diseñadora de fursuits e intérprete",
+        "bio": "Una maestra artesana cuyos fursuits inspirados en kitsune han ganado múltiples premios en convenciones internacionales y cautivado audiencias en todo el mundo."
+      },
+      "guest3": {
+        "name": "Ren Tanaka",
+        "role": "Músico y compositor",
+        "bio": "Fusionando melodías de shamisen con ritmos electrónicos, Ren crea paisajes sonoros que conectan siglos de tradición musical japonesa con los ritmos modernos."
+      }
+    },
+    "venue": {
+      "title": "La Sede",
+      "name": "Centro de Convenciones Sakura Grand",
+      "location": "Distrito de la Bahía de Neo-Tokio",
+      "description": "Ubicado junto al paseo marítimo con vistas panorámicas de la bahía, el Sakura Grand ofrece 4,600 metros cuadrados de espacio para convenciones, múltiples salones de baile y un jardín exterior perfecto para nuestras celebraciones nocturnas de matsuri.",
+      "feature1": "4,600 m² de piso de convención",
+      "feature2": "Jardín y escenario frente al mar",
+      "feature3": "Hotel en sitio con tarifas grupales",
+      "feature4": "Accesibilidad completa"
+    },
+    "registration": {
+      "title": "Registro",
+      "subtitle": "Asegura tu lugar en el eclipse.",
+      "standard": {
+        "name": "Estándar",
+        "price": "$75",
+        "feature1": "Acceso completo de 3 días",
+        "feature2": "Eventos y paneles",
+        "feature3": "Acceso al Dealer's Den",
+        "feature4": "Guía digital del programa"
+      },
+      "premium": {
+        "name": "Premium",
+        "price": "$150",
+        "feature1": "Todo en Estándar",
+        "feature2": "Asientos prioritarios",
+        "feature3": "Paquete exclusivo de merch",
+        "feature4": "Acceso al meet & greet"
+      },
+      "patron": {
+        "name": "Patrón",
+        "price": "$300",
+        "feature1": "Todo en Premium",
+        "feature2": "Acceso al lounge VIP",
+        "feature3": "Impresión de arte firmada",
+        "feature4": "Nombre en los créditos"
+      },
+      "cta": "Regístrate ahora"
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "q1": {
+        "question": "¿Qué es Eclipse Con?",
+        "answer": "Eclipse Con es una convención furry con temática japonesa que celebra el arte, la cultura y la comunidad. Reúne a artistas, intérpretes y fanáticos durante tres días de paneles, talleres, exhibiciones y festividades nocturnas de matsuri."
+      },
+      "q2": {
+        "question": "¿Hay requisito de edad?",
+        "answer": "Los asistentes deben tener 18 años o más. Se requiere una identificación oficial con foto válida al momento del registro."
+      },
+      "q3": {
+        "question": "¿Puedo obtener un reembolso de mi entrada?",
+        "answer": "Los reembolsos completos están disponibles hasta 30 días antes del evento. Después de eso, las entradas pueden transferirse a otra persona pero no son reembolsables."
+      },
+      "q4": {
+        "question": "¿Se requieren fursuits?",
+        "answer": "¡Absolutamente no! Aunque los fursuits son bienvenidos y celebrados, la mayoría de los asistentes vienen en ropa casual. Se anima el cosplay de cualquier tipo, pero nunca es obligatorio."
+      },
+      "q5": {
+        "question": "¿Cómo me convierto en vendedor o panelista?",
+        "answer": "Las solicitudes para vendedores del Dealer's Den y anfitriones de paneles se abren seis meses antes de la convención. Síguenos en redes sociales para anuncios."
+      }
+    },
+    "footer": {
+      "tagline": "Una celebración de arte, cultura y comunidad",
+      "social": "Síguenos",
+      "credits": "Creado con pasión por el equipo de Eclipse Con",
+      "copyright": "© 2026 Eclipse Con. Todos los derechos reservados."
+    }
   }
 }
