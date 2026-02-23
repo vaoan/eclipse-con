@@ -29,3 +29,11 @@ blob-report/
 .DS_Store
 Thumbs.db
 /e2e
+/.claude/skills/.system
+/.claude/sessions
+/.claude/tmp
+.claude/auth.json
+.claude/.personality_migration
+.claude/history.jsonl
+.claude/models_cache.json
+.claude/version.json
