@@ -6,12 +6,14 @@ interface SectionWrapperProps {
   readonly id: string;
   readonly children: React.ReactNode;
   readonly className?: string;
+  readonly decorations?: React.ReactNode;
 }
 
 export function SectionWrapper({
   id,
   children,
   className,
+  decorations,
 }: Readonly<SectionWrapperProps>) {
   const { ref, state } = useScrollReveal();
 
@@ -20,14 +22,15 @@ export function SectionWrapper({
       id={id}
       ref={ref}
       className={cn(
-        "relative px-4 py-20 md:py-28",
+        "relative overflow-hidden px-4 py-20 md:py-28",
         state === "hidden" && "reveal-hidden",
         state === "visible" && "reveal-visible",
         className
       )}
       {...tid(`section-${id}`)}
     >
-      <div className="mx-auto max-w-6xl">{children}</div>
+      {decorations}
+      <div className="relative z-10 mx-auto max-w-6xl">{children}</div>
     </section>
   );
 }

@@ -13,12 +13,7 @@ export function useParallax(speed = 0.3) {
       ticking = true;
 
       requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        const viewportHeight = window.innerHeight;
-
-        if (scrollY <= viewportHeight) {
-          setOffset(scrollY * speed);
-        }
+        setOffset(window.scrollY * speed);
 
         ticking = false;
       });

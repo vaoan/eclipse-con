@@ -1,7 +1,6 @@
 import { tid } from "@/shared/application/utils/tid";
 import { NavigationBar } from "./components/NavigationBar";
 import { SakuraParticles } from "./components/SakuraParticles";
-import { JapaneseCloudDivider } from "./components/JapaneseCloudDivider";
 import { HeroSection } from "./sections/HeroSection";
 import { AboutSection } from "./sections/AboutSection";
 import { EventsSection } from "./sections/EventsSection";
@@ -17,17 +16,11 @@ export function Component() {
       <NavigationBar />
       <SakuraParticles />
       <HeroSection />
-      <JapaneseCloudDivider />
       <AboutSection />
-      <JapaneseCloudDivider flip />
       <EventsSection />
-      <JapaneseCloudDivider />
       <GuestsSection />
-      <JapaneseCloudDivider flip />
       <VenueSection />
-      <JapaneseCloudDivider />
       <RegistrationSection />
-      <JapaneseCloudDivider flip />
       <FaqSection />
       <FooterSection />
     </div>
