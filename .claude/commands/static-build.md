@@ -1,0 +1,1 @@
+Run the static build workflow: check types and lint, build a single self-contained HTML file, and verify it works on file:// protocol with the Playwright e2e test. Follow the steps in `.claude/skills/static-build/prompt.md`.
