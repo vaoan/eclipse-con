@@ -13,7 +13,7 @@ export function SectionWrapper({
   children,
   className,
 }: Readonly<SectionWrapperProps>) {
-  const { ref, isVisible } = useScrollReveal();
+  const { ref, state } = useScrollReveal();
 
   return (
     <section
@@ -21,7 +21,8 @@ export function SectionWrapper({
       ref={ref}
       className={cn(
         "relative px-4 py-20 md:py-28",
-        isVisible ? "reveal-visible" : "reveal-hidden",
+        state === "hidden" && "reveal-hidden",
+        state === "visible" && "reveal-visible",
         className
       )}
       {...tid(`section-${id}`)}

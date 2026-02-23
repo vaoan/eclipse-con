@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
+type RevealState = "pending" | "hidden" | "visible";
+
 export function useScrollReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [state, setState] = useState<RevealState>("pending");
 
   useEffect(() => {
     const element = ref.current;
@@ -14,8 +16,10 @@ export function useScrollReveal(threshold = 0.1) {
       (entries) => {
         const entry = entries[0];
         if (entry?.isIntersecting) {
-          setIsVisible(true);
+          setState("visible");
           observer.unobserve(element);
+        } else {
+          setState("hidden");
         }
       },
       { threshold }
@@ -28,5 +32,5 @@ export function useScrollReveal(threshold = 0.1) {
     };
   }, [threshold]);
 
-  return { ref, isVisible };
+  return { ref, state };
 }

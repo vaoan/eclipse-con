@@ -11,6 +11,8 @@ export default tseslint.config(
   {
     ignores: [
       "dist/**",
+      "dist-static/**",
+      "e2e/**",
       "node_modules/**",
       "coverage/**",
       "playwright-report/**",
