@@ -785,7 +785,7 @@ body {
 .hero-sticky {
   position: sticky;
   top: 0;
-  height: 150vh;
+  height: 102vh;
   z-index: 0;
 }
 
@@ -796,7 +796,7 @@ body {
 
 @media (max-width: 768px) {
   .hero-sticky {
-    height: 132vh;
+    height: 106vh;
   }
 }
 
