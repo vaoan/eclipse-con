@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
+import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
 import { usePrefersReducedMotion } from "@/shared/application/hooks/usePrefersReducedMotion";
 
 export function useParallax(speed = 0.3) {
   const [offset, setOffset] = useState(0);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const isMobileViewport = useIsMobileViewport();
 
   useEffect(() => {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || isMobileViewport) {
       setOffset(0);
       return undefined;
     }
@@ -31,7 +33,7 @@ export function useParallax(speed = 0.3) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [speed, prefersReducedMotion]);
+  }, [speed, prefersReducedMotion, isMobileViewport]);
 
   return offset;
 }
