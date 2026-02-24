@@ -57,7 +57,7 @@ export function SakuraParticles() {
       {petals.map((petal) => (
         <span
           key={petal.id}
-          className="absolute"
+          className="absolute sakura-petal"
           style={{
             left: petal.left,
             top: `${petal.topOffset}px`,

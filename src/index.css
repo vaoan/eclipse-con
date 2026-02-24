@@ -802,9 +802,9 @@ body {
 }
 
 @media (max-width: 768px) {
-  *,
-  *::before,
-  *::after {
+  *:not(.sakura-petal),
+  *:not(.sakura-petal)::before,
+  *:not(.sakura-petal)::after {
     animation: none !important;
     transition: none !important;
   }
