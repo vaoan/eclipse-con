@@ -977,3 +977,12 @@ body {
     position: relative;
   }
 }
+
+@media (max-width: 768px) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -20,11 +20,8 @@ export function SakuraParticles() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const isMobileViewport = useIsMobileViewport();
   const particleCount = useMemo(() => {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || isMobileViewport) {
       return 0;
-    }
-    if (isMobileViewport) {
-      return Math.max(6, Math.round(SAKURA_PARTICLE_COUNT / 2));
     }
     return SAKURA_PARTICLE_COUNT;
   }, [isMobileViewport, prefersReducedMotion]);
