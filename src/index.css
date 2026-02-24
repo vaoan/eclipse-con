@@ -58,10 +58,10 @@
   inset: 0;
   pointer-events: none;
   background-image: url("/wave-pattern.svg");
-  background-size: 320px auto;
+  background-size: 220px auto;
   background-repeat: repeat;
-  opacity: 0.35;
-  mix-blend-mode: multiply;
+  opacity: 0.65;
+  mix-blend-mode: normal;
   z-index: 0;
 }
 
