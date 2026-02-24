@@ -177,15 +177,13 @@ function HeroStarField() {
 
 export function HeroSection() {
   const { t } = useTranslation();
-  const heroOffset = useParallax(0.18);
-  const heroFade = Math.max(0.2, 1 - Math.abs(heroOffset) / 600);
+  const moonOffset = useParallax(0.08);
 
   return (
     <section
       id={SECTION_IDS.HERO}
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
       {...tid("section-hero")}
-      style={{ transform: `translate3d(0, ${heroOffset}px, 0)` }}
     >
       <div
         className="absolute inset-0 bg-gradient-to-b from-[#0a0b1a] via-[#111233] to-[#0a0b1a]"
@@ -198,9 +196,12 @@ export function HeroSection() {
       {/* Overall hero glow wash for sky + banner */}
       <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_38%,_rgba(255,214,140,0.25),_rgba(10,12,30,0)_50%,_rgba(6,8,22,0.7)_100%)] glow-breathe" />
 
-      {/* Eclipse moon — centered over title as focal point */}
-      <ParallaxLayer speed={0.1} className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 w-72 -translate-x-1/2 -translate-y-[65%] md:w-96 lg:w-[28rem]">
+      {/* Eclipse moon — behind the hero photos */}
+      <ParallaxLayer speed={0.1} className="absolute inset-0 z-[5]">
+        <div
+          className="absolute top-1/2 left-1/2 w-72 -translate-x-1/2 -translate-y-[65%] md:w-96 lg:w-[28rem]"
+          style={{ transform: `translate3d(0, ${moonOffset}px, 0)` }}
+        >
           <EclipseMoon />
         </div>
       </ParallaxLayer>
@@ -215,33 +216,33 @@ export function HeroSection() {
         </div>
       </ParallaxLayer>
 
-      <div className="absolute bottom-0 left-0 right-0 z-10 overflow-hidden">
+      <div className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden">
         <div className="relative z-0 mx-auto flex h-[330px] items-center justify-center gap-0 sm:h-[400px] md:h-[480px] lg:h-[560px]">
           <img
             src={heroBath}
             alt=""
-            className="h-full w-auto flex-none scale-x-[-1] object-cover brightness-60"
+            className="h-full w-auto flex-none select-none scale-x-[-1] object-cover brightness-60"
             loading="lazy"
+            draggable={false}
           />
           <img
             src={heroBath}
             alt=""
-            className="h-full w-auto flex-none object-cover brightness-60"
+            className="h-full w-auto flex-none select-none object-cover brightness-60"
             loading="lazy"
+            draggable={false}
           />
           <img
             src={heroBath}
             alt=""
-            className="h-full w-auto flex-none scale-x-[-1] object-cover brightness-60"
+            className="h-full w-auto flex-none select-none scale-x-[-1] object-cover brightness-60"
             loading="lazy"
+            draggable={false}
           />
         </div>
       </div>
 
-      <div
-        className="relative z-20 px-4 text-center"
-        style={{ opacity: heroFade }}
-      >
+      <div className="relative z-30 px-4 text-center">
         <p className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-accent/80">
           {t("convention.hero.date")}
         </p>
