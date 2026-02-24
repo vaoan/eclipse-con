@@ -6,6 +6,12 @@
     "notFound": "Página no encontrada"
   },
   "convention": {
+    "language": {
+      "english": "English",
+      "spanish": "Español",
+      "toggleAria": "Cambiar idioma. Idioma actual: {{language}}",
+      "current": "Idioma actual: {{language}}"
+    },
     "nav": {
       "about": "¿Por qué?",
       "events": "¿Qué esperar?",

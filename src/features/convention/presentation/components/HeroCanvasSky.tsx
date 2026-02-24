@@ -58,9 +58,9 @@ export function HeroCanvasSky({
     const midStars: Star[] = [];
     const brightStars: Star[] = [];
     const shootingStars: ShootingStar[] = [];
-    const farStarCount = isMobileViewport ? 760 : 1900;
-    const midStarCount = isMobileViewport ? 320 : 780;
-    const brightStarCount = isMobileViewport ? 120 : 320;
+    const farStarCount = isMobileViewport ? 1100 : 3200;
+    const midStarCount = isMobileViewport ? 480 : 1300;
+    const brightStarCount = isMobileViewport ? 180 : 520;
     const maxShootingStars = isMobileViewport ? 3 : 5;
     const minShootDelayMs = isMobileViewport ? 1200 : 900;
     const maxShootDelayMs = isMobileViewport ? 2800 : 2200;
@@ -126,13 +126,13 @@ export function HeroCanvasSky({
       brightStars.length = 0;
 
       for (let index = 0; index < farStarCount; index += 1) {
-        farStars.push(buildStar(0.95, 2.55, 0.3, 0.9, 0.08, 0.24, 0.35, 1.2));
+        farStars.push(buildStar(0.94, 3.45, 0.3, 0.9, 0.08, 0.24, 0.35, 1.2));
       }
       for (let index = 0; index < midStarCount; index += 1) {
-        midStars.push(buildStar(0.9, 2.15, 0.6, 1.2, 0.16, 0.42, 0.6, 1.4));
+        midStars.push(buildStar(0.86, 3.05, 0.6, 1.2, 0.16, 0.42, 0.6, 1.4));
       }
       for (let index = 0; index < brightStarCount; index += 1) {
-        brightStars.push(buildStar(0.84, 1.65, 0.9, 1.8, 0.28, 0.54, 0.95, 2));
+        brightStars.push(buildStar(0.78, 2.55, 0.9, 1.8, 0.28, 0.54, 0.95, 2));
       }
     };
 
@@ -266,15 +266,15 @@ export function HeroCanvasSky({
       const zenithGlow = context.createLinearGradient(0, 0, 0, height);
       zenithGlow.addColorStop(
         0,
-        `rgba(92, 142, 230, ${((0.23 + drift * 0.08) * desktopTintScale).toFixed(3)})`
+        `rgba(92, 142, 230, ${((0.26 + drift * 0.1) * desktopTintScale).toFixed(3)})`
       );
       zenithGlow.addColorStop(
         0.25,
-        `rgba(70, 113, 218, ${(0.18 * desktopTintScale).toFixed(3)})`
+        `rgba(70, 113, 218, ${(0.21 * desktopTintScale).toFixed(3)})`
       );
       zenithGlow.addColorStop(
-        isMobileViewport ? 0.42 : 0.34,
-        `rgba(36, 57, 133, ${(0.05 * desktopTintScale).toFixed(3)})`
+        isMobileViewport ? 0.46 : 0.38,
+        `rgba(36, 57, 133, ${(0.07 * desktopTintScale).toFixed(3)})`
       );
       zenithGlow.addColorStop(
         isMobileViewport ? 0.6 : 0.46,

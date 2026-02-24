@@ -4,8 +4,9 @@ import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 
 export function LanguageToggle() {
-  const { i18n } = useTranslation();
-  const isEnglish = i18n.language === "en";
+  const { i18n, t } = useTranslation();
+  const isEnglish = i18n.resolvedLanguage?.startsWith("en") ?? true;
+  const activeLanguageLabel = isEnglish ? "English" : "Español";
 
   function toggleLanguage() {
     void i18n.changeLanguage(isEnglish ? "es" : "en");
@@ -16,13 +17,48 @@ export function LanguageToggle() {
       type="button"
       onClick={toggleLanguage}
       className={cn(
-        "rounded-md border border-accent/40 px-2.5 py-1 text-xs font-medium",
-        "text-accent transition-colors hover:bg-accent/10"
+        "group relative inline-flex h-9 min-w-[170px] items-center overflow-hidden rounded-full border border-accent/40 p-1",
+        "bg-[linear-gradient(120deg,rgba(201,168,76,0.14),rgba(18,19,42,0.92),rgba(201,168,76,0.1))]",
+        "transition-colors hover:border-accent/65",
+        "focus-visible:ring-accent/50 focus-visible:ring-2 focus-visible:outline-none"
       )}
-      aria-label={isEnglish ? "Cambiar a español" : "Switch to English"}
+      role="switch"
+      aria-checked={isEnglish}
+      aria-label={t("convention.language.toggleAria", {
+        language: activeLanguageLabel,
+      })}
       {...tid("language-toggle")}
     >
-      {isEnglish ? "ES" : "EN"}
+      <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <span className="pointer-events-none absolute inset-y-1 left-1 right-1 z-0">
+        <span
+          className={cn(
+            "block h-full w-1/2 rounded-full border border-accent/30 bg-accent shadow-[0_0_14px_rgba(201,168,76,0.32)] transition-transform duration-300 ease-out",
+            isEnglish ? "translate-x-0" : "translate-x-full"
+          )}
+        />
+      </span>
+      <span className="relative z-10 grid w-full grid-cols-2 items-center text-[11px] font-semibold tracking-[0.01em]">
+        <span
+          className={cn(
+            "flex h-7 items-center justify-center transition-colors",
+            isEnglish ? "text-accent-foreground" : "text-foreground/60"
+          )}
+        >
+          English
+        </span>
+        <span
+          className={cn(
+            "flex h-7 items-center justify-center transition-colors",
+            !isEnglish ? "text-accent-foreground" : "text-foreground/60"
+          )}
+        >
+          Español
+        </span>
+      </span>
+      <span className="sr-only">
+        {t("convention.language.current", { language: activeLanguageLabel })}
+      </span>
     </button>
   );
 }

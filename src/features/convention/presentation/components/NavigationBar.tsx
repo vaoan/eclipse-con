@@ -22,6 +22,7 @@ export function NavigationBar() {
 
   return (
     <nav
+      data-anchor-nav="true"
       className={cn(
         "fixed top-0 right-0 left-0 z-50",
         "border-b border-white/5 bg-background/80 backdrop-blur-md"

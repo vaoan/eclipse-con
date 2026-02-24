@@ -6,6 +6,12 @@
     "notFound": "Page not found"
   },
   "convention": {
+    "language": {
+      "english": "English",
+      "spanish": "Español",
+      "toggleAria": "Switch language. Current language: {{language}}",
+      "current": "Current language: {{language}}"
+    },
     "nav": {
       "about": "Why",
       "events": "What to expect",
