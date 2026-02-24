@@ -81,6 +81,8 @@ const COMMUNITY_LINKS: {
 
 export function FooterSection() {
   const { t } = useTranslation();
+  const appVersion =
+    (import.meta.env.VITE_APP_VERSION as string | undefined) ?? "dev";
 
   return (
     <footer className="relative bg-surface" {...tid("section-footer")}>
@@ -137,6 +139,9 @@ export function FooterSection() {
             </p>
             <p className="mt-1 text-xs text-muted-foreground/60">
               {t("convention.footer.copyright")}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground/60">
+              {t("convention.footer.version", { version: appVersion })}
             </p>
           </div>
         </div>

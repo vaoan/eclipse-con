@@ -158,7 +158,8 @@
       "communityTitle": "Furry Colombia",
       "communityHashtag": "#SomosFurryColombia",
       "credits": "Organizado por Furry Colombia",
-      "copyright": "© 2025 Furry Colombia. Todos los derechos reservados."
+      "copyright": "© 2025 Furry Colombia. Todos los derechos reservados.",
+      "version": "Versión: {{version}}"
     }
   }
 }
