@@ -41,13 +41,6 @@
     "itc-avant-garde-gothic-pro", "Avenir", "Segoe UI", sans-serif;
   --font-body: "itc-avant-garde-gothic-pro", "Avenir", "Segoe UI", sans-serif;
   --font-hero: "Unbounded", sans-serif;
-
-  /* Japanese cloud pattern controls */
-  --cloud-pattern-color: rgba(232, 192, 86, 0.5);
-  --cloud-pattern-opacity: 0.58;
-  --cloud-pattern-size-x: 430px;
-  --cloud-pattern-size-y: 240px;
-  --cloud-pattern-speed: 42s;
 }
 
 .section-surface {
@@ -57,82 +50,6 @@
 
 .section-surface:nth-of-type(even) {
   background-color: var(--color-surface-elevated);
-}
-
-.section-surface:nth-of-type(even)::before {
-  content: none;
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-color: var(--cloud-pattern-color);
-  mask-image: url("/cloud-mask.svg");
-  -webkit-mask-image: url("/cloud-mask.svg");
-  mask-repeat: repeat;
-  -webkit-mask-repeat: repeat;
-  mask-size: var(--cloud-pattern-size-x) var(--cloud-pattern-size-y);
-  -webkit-mask-size: var(--cloud-pattern-size-x) var(--cloud-pattern-size-y);
-  mask-position: 0 0;
-  -webkit-mask-position: 0 0;
-  opacity: var(--cloud-pattern-opacity);
-  mix-blend-mode: multiply;
-  animation: cloud-pattern-drift var(--cloud-pattern-speed) linear infinite;
-  z-index: 0;
-}
-
-.section-cloud-parallax {
-  position: absolute;
-  inset: -12% 0 -12%;
-  display: none;
-  --cloud-parallax-y: 0px;
-  pointer-events: none;
-  mask-image: url("/cloud-mask.svg");
-  -webkit-mask-image: url("/cloud-mask.svg");
-  mask-repeat: repeat;
-  -webkit-mask-repeat: repeat;
-  mask-size: calc(var(--cloud-pattern-size-x) * 0.96)
-    calc(var(--cloud-pattern-size-y) * 0.96);
-  -webkit-mask-size: calc(var(--cloud-pattern-size-x) * 0.96)
-    calc(var(--cloud-pattern-size-y) * 0.96);
-  will-change: transform;
-}
-
-.section-cloud-parallax--far {
-  background-color: rgba(222, 178, 76, 0.22);
-  mask-size: calc(var(--cloud-pattern-size-x) * 1.08)
-    calc(var(--cloud-pattern-size-y) * 1.08);
-  -webkit-mask-size: calc(var(--cloud-pattern-size-x) * 1.08)
-    calc(var(--cloud-pattern-size-y) * 1.08);
-  mask-position: 24px 8px;
-  -webkit-mask-position: 24px 8px;
-  opacity: 0.5;
-  z-index: 1;
-  animation: cloud-horizontal-far 48s linear infinite;
-}
-
-.section-cloud-parallax--mid {
-  background-color: rgba(236, 191, 92, 0.2);
-  mask-size: calc(var(--cloud-pattern-size-x) * 0.96)
-    calc(var(--cloud-pattern-size-y) * 0.96);
-  -webkit-mask-size: calc(var(--cloud-pattern-size-x) * 0.96)
-    calc(var(--cloud-pattern-size-y) * 0.96);
-  mask-position: -36px 20px;
-  -webkit-mask-position: -36px 20px;
-  opacity: 0.56;
-  z-index: 2;
-  animation: cloud-horizontal-mid 34s linear infinite;
-}
-
-.section-cloud-parallax--near {
-  background-color: rgba(246, 210, 132, 0.24);
-  mask-size: calc(var(--cloud-pattern-size-x) * 0.84)
-    calc(var(--cloud-pattern-size-y) * 0.84);
-  -webkit-mask-size: calc(var(--cloud-pattern-size-x) * 0.84)
-    calc(var(--cloud-pattern-size-y) * 0.84);
-  mask-position: 14px -12px;
-  -webkit-mask-position: 14px -12px;
-  opacity: 0.74;
-  z-index: 3;
-  animation: cloud-horizontal-near 22s linear infinite;
 }
 
 html {
@@ -184,44 +101,6 @@ body {
   }
 }
 
-@keyframes cloud-pattern-drift {
-  0% {
-    mask-position: 0 0;
-    -webkit-mask-position: 0 0;
-  }
-  100% {
-    mask-position: var(--cloud-pattern-size-x) 18px;
-    -webkit-mask-position: var(--cloud-pattern-size-x) 18px;
-  }
-}
-
-@keyframes cloud-horizontal-far {
-  from {
-    transform: translate3d(-64px, var(--cloud-parallax-y), 0);
-  }
-  to {
-    transform: translate3d(64px, var(--cloud-parallax-y), 0);
-  }
-}
-
-@keyframes cloud-horizontal-mid {
-  from {
-    transform: translate3d(52px, var(--cloud-parallax-y), 0);
-  }
-  to {
-    transform: translate3d(-52px, var(--cloud-parallax-y), 0);
-  }
-}
-
-@keyframes cloud-horizontal-near {
-  from {
-    transform: translate3d(-80px, var(--cloud-parallax-y), 0);
-  }
-  to {
-    transform: translate3d(80px, var(--cloud-parallax-y), 0);
-  }
-}
-
 @keyframes float-petal-2 {
   0% {
     transform: translateY(-10vh) translateX(0) rotate(0deg);
@@ -245,28 +124,6 @@ body {
   100% {
     transform: translateY(110vh) translateX(-60px) rotate(-200deg);
     opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .section-surface:nth-of-type(even)::before {
-    animation: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .section-surface:nth-of-type(even)::before {
-    content: none;
-  }
-}
-
-@media (min-width: 769px) {
-  .section-surface:nth-of-type(even)::before {
-    content: none;
-  }
-
-  .section-surface:nth-of-type(even) .section-cloud-parallax {
-    display: block;
   }
 }
 
