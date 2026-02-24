@@ -1,1 +1,3 @@
+pnpm version:auto
+git add .env.development
 pnpm precommit
