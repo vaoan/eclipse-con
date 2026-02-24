@@ -26,4 +26,19 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
     questionKey: "convention.faq.q5.question",
     answerKey: "convention.faq.q5.answer",
   },
+  {
+    id: "q6",
+    questionKey: "convention.faq.q6.question",
+    answerKey: "convention.faq.q6.answer",
+  },
+  {
+    id: "q7",
+    questionKey: "convention.faq.q7.question",
+    answerKey: "convention.faq.q7.answer",
+  },
+  {
+    id: "q8",
+    questionKey: "convention.faq.q8.question",
+    answerKey: "convention.faq.q8.answer",
+  },
 ];

@@ -9,8 +9,9 @@ const PETAL_KEYFRAMES = [
 ] as const;
 
 function seededValue(index: number, offset: number) {
-  // Deterministic-looking spread based on index for visual variety
-  return ((index * 7 + offset * 13) % 100) / 100;
+  // Deterministic pseudo-random value for less-uniform motion
+  const seed = Math.sin((index + 1) * 12.9898 + offset * 78.233) * 43758.5453;
+  return seed - Math.floor(seed);
 }
 
 export function SakuraParticles() {
@@ -21,13 +22,15 @@ export function SakuraParticles() {
         return {
           id: index,
           left: `${seededValue(index, 0) * 100}%`,
-          delay: `${seededValue(index, 1) * 12}s`,
-          duration: `${8 + seededValue(index, 2) * 8}s`,
+          delay: `${seededValue(index, 1) * 16}s`,
+          duration: `${10 + seededValue(index, 2) * 10}s`,
           width: `${size}px`,
           height: `${size * 0.5}px`,
-          opacity: 0.3 + seededValue(index, 4) * 0.5,
+          opacity: 0.08 + seededValue(index, 4) * 0.25,
           keyframe: PETAL_KEYFRAMES[index % 3],
           initialRotation: Math.round(seededValue(index, 5) * 360),
+          topOffset: -(10 + seededValue(index, 6) * 40),
+          blur: 0.2 + seededValue(index, 7) * 0.8,
         };
       }),
     []
@@ -44,12 +47,13 @@ export function SakuraParticles() {
           className="absolute"
           style={{
             left: petal.left,
-            top: "-10px",
+            top: `${petal.topOffset}px`,
             width: petal.width,
             height: petal.height,
             borderRadius: "50% 50% 50% 0",
             opacity: petal.opacity,
             backgroundColor: "var(--color-sakura)",
+            filter: `blur(${petal.blur}px)`,
             transform: `rotate(${String(petal.initialRotation)}deg)`,
             animation: `${petal.keyframe} ${petal.duration} ${petal.delay} linear infinite`,
           }}

@@ -1,3 +1,4 @@
+import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import { SECTION_IDS } from "@/features/convention/domain/constants";
@@ -99,6 +100,38 @@ export function RegistrationSection() {
           <TicketCard key={tier.id} tier={tier} />
         ))}
       </div>
+      <RegistrationCta t={t} />
     </SectionWrapper>
+  );
+}
+
+function RegistrationCta({ t }: Readonly<{ t: TFunction }>) {
+  return (
+    <div className="mt-10 flex flex-col items-center gap-4 text-center">
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="https://www.estelarpaipa.com/es/"
+          className="inline-flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-bold text-accent-foreground transition-colors hover:bg-accent-glow"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {t("convention.registration.reserveLink")}
+        </a>
+        <a
+          href="https://moonfest-b63fa.web.app/page/moonfest/soon.html"
+          className="inline-flex items-center justify-center rounded-lg border border-white/10 px-6 py-3 text-sm font-bold text-foreground transition-colors hover:border-accent/40 hover:text-accent"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {t("convention.registration.ticketLink")}
+        </a>
+      </div>
+      <p className="text-sm text-muted-foreground">
+        {t("convention.registration.devNote")}
+      </p>
+      <p className="text-sm text-muted-foreground">
+        {t("convention.registration.note")}
+      </p>
+    </div>
   );
 }

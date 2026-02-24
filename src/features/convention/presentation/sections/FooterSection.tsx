@@ -1,14 +1,31 @@
 import { useTranslation } from "react-i18next";
-import { Globe, AtSign, MessageCircle } from "lucide-react";
+import { AtSign, Camera, Globe, MessageCircle } from "lucide-react";
 
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { WavePattern } from "../components/WavePattern";
 
 const SOCIAL_LINKS = [
-  { icon: Globe, label: "Website", href: "#" },
-  { icon: AtSign, label: "Social", href: "#" },
-  { icon: MessageCircle, label: "Discord", href: "#" },
+  {
+    icon: Globe,
+    label: "Website",
+    href: "https://moonfest-b63fa.web.app/",
+  },
+  {
+    icon: MessageCircle,
+    label: "Facebook",
+    href: "https://www.facebook.com/share/19xWYLxUYY/",
+  },
+  {
+    icon: AtSign,
+    label: "X",
+    href: "https://x.com/MoonfestCol",
+  },
+  {
+    icon: Camera,
+    label: "Instagram",
+    href: "https://www.instagram.com/moonfest2026/",
+  },
 ] as const;
 
 export function FooterSection() {
@@ -21,7 +38,7 @@ export function FooterSection() {
       <div className="mx-auto max-w-6xl px-4 pb-8 pt-12">
         <div className="flex flex-col items-center gap-6 text-center">
           <h2 className="gold-shimmer-text font-display text-3xl font-bold">
-            Eclipse Con
+            Moonfest 2026
           </h2>
           <p className="text-sm text-muted-foreground">
             {t("convention.footer.tagline")}

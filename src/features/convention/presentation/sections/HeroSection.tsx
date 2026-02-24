@@ -72,10 +72,16 @@ export function HeroSection() {
       </ParallaxLayer>
 
       <div className="relative z-20 px-4 text-center">
+        <img
+          src="https://moonfest-b63fa.web.app/assets/moonfest/moonfest-logotipo.svg"
+          alt={t("convention.hero.logoAlt")}
+          className="mx-auto mb-6 w-40 md:w-56"
+          loading="lazy"
+        />
         <p className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-accent/80">
           {t("convention.hero.date")}
         </p>
-        <h1 className="gold-shimmer-text font-display text-6xl font-extrabold leading-tight md:text-8xl lg:text-9xl">
+        <h1 className="hero-title gold-shimmer-text text-6xl font-extrabold leading-tight md:text-8xl lg:text-9xl">
           {t("convention.hero.title")}
         </h1>
         <p className="mx-auto mt-6 max-w-lg text-lg text-foreground/70 md:text-xl">

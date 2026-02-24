@@ -40,7 +40,7 @@ export function EventCard({ event }: Readonly<EventCardProps>) {
       <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
         <Icon size={24} />
       </div>
-      <h3 className="font-display mb-2 text-lg font-bold text-foreground">
+      <h3 className="mb-2 text-base font-bold text-foreground">
         {t(event.titleKey)}
       </h3>
       <p className="text-sm leading-relaxed text-muted-foreground">

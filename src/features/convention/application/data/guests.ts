@@ -6,20 +6,20 @@ export const GUESTS: readonly Guest[] = [
     nameKey: "convention.guests.guest1.name",
     roleKey: "convention.guests.guest1.role",
     bioKey: "convention.guests.guest1.bio",
-    initials: "HM",
+    initials: "BO",
   },
   {
     id: "guest2",
     nameKey: "convention.guests.guest2.name",
     roleKey: "convention.guests.guest2.role",
     bioKey: "convention.guests.guest2.bio",
-    initials: "SK",
+    initials: "AC",
   },
   {
     id: "guest3",
     nameKey: "convention.guests.guest3.name",
     roleKey: "convention.guests.guest3.role",
     bioKey: "convention.guests.guest3.bio",
-    initials: "RT",
+    initials: "MS",
   },
 ];

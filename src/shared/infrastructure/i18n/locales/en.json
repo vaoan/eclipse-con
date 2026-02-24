@@ -1,4 +1,4 @@
-{
+﻿{
   "common": {
     "welcome": "Welcome",
     "loading": "Loading...",
@@ -7,139 +7,156 @@
   },
   "convention": {
     "nav": {
-      "about": "About",
-      "events": "Events",
-      "guests": "Guests",
+      "about": "Why",
+      "events": "What to expect",
+      "guests": "Hotel",
       "venue": "Venue",
-      "registration": "Register",
+      "registration": "Reservations",
       "faq": "FAQ"
     },
     "hero": {
-      "title": "Eclipse Con",
-      "date": "August 14–16, 2026",
-      "tagline": "Where Eastern elegance meets untamed spirit",
-      "cta": "Get Your Ticket"
+      "title": "Moonfest 2026",
+      "date": "July 10-13, 2026",
+      "tagline": "The biggest furry community event in Colombia",
+      "cta": "Reserve now",
+      "logoAlt": "Moonfest logo"
     },
     "about": {
-      "title": "About Eclipse Con",
-      "paragraph1": "Eclipse Con is a celebration where the timeless beauty of Japanese art and mythology meets the vibrant creativity of the furry community. Set against a backdrop of paper lanterns and torii gates, our convention invites you to explore a world where tradition and imagination intertwine.",
-      "paragraph2": "From ukiyo-e–inspired art showcases to lively matsuri festivities, every corner of Eclipse Con is designed to immerse you in a unique cultural experience. Whether you're an artist, a performer, or a passionate fan, you'll find your place among kindred spirits.",
-      "highlight": "Three days of art, culture, and community under the eclipse moon."
+      "title": "Why Moonfest?",
+      "paragraph1": "Moonfest is the biggest and most anticipated furry convention in Colombia. With a unique experience, exciting activities, and spaces for the furry community, it’s an event you can’t miss!",
+      "paragraph2": "In 2025, Moonfest returned stronger than ever, bringing together hundreds of attendees from across the country, and now in 2026 we invite you to be part of this celebration.",
+      "highlight": "Want to attend? Reserve today and secure your place at this unforgettable event."
     },
     "events": {
-      "title": "Events & Activities",
-      "subtitle": "From dusk till dawn, every hour brings something extraordinary.",
+      "title": "What to expect at Moonfest",
+      "subtitle": "Community, activities, and an all-inclusive experience in Paipa, Boyacá.",
+      "community": {
+        "title": "Community & fun",
+        "description": "Share with friends and meet new people in an inclusive, welcoming environment."
+      },
+      "games": {
+        "title": "Games & activities",
+        "description": "Join a wide variety of games and activities."
+      },
+      "hotSprings": {
+        "title": "Thermal pools",
+        "description": "Enjoy thermal pools inside the hotel."
+      },
+      "nature": {
+        "title": "Nature connection",
+        "description": "Take in the spectacular view of Lake Calima."
+      },
       "panels": {
-        "title": "Panels & Talks",
-        "description": "Artist spotlights, worldbuilding workshops, and community discussions led by talented creators from around the globe."
-      },
-      "workshops": {
-        "title": "Craft Workshops",
-        "description": "Hands-on sessions in traditional Japanese crafts — origami, sumi-e ink painting, fursuit patterning, and more."
-      },
-      "matsuri": {
-        "title": "Matsuri Dance",
-        "description": "Our signature evening festival featuring bon-odori dances, taiko drums, and a spectacular lantern parade."
-      },
-      "art": {
-        "title": "Art Exhibition",
-        "description": "A curated gallery of original works blending Japanese aesthetics with anthropomorphic character art."
-      },
-      "cosplay": {
-        "title": "Cosplay Contest",
-        "description": "Showcase your finest fursuits and cosplay creations on stage, judged by renowned costume designers."
+        "title": "Panels & workshops",
+        "description": "Attend talks, panels, and workshops with special guests."
       },
       "dealers": {
-        "title": "Dealer's Den",
-        "description": "Browse and shop from over a hundred artists and vendors offering prints, plushies, accessories, and commissions."
+        "title": "Dealer Den",
+        "description": "Buy and sell products, art, and community merchandise."
+      },
+      "mainEvent": {
+        "title": "Main event night",
+        "description": "A special night with contests, shows, and performances."
       }
     },
     "guests": {
-      "title": "Featured Guests",
-      "subtitle": "Meet the artists and creators shaping our community.",
+      "title": "Meet the organizers",
+      "subtitle": "The furry team behind Moonfest.",
       "guest1": {
-        "name": "Hikaru Mori",
-        "role": "Guest of Honor — Illustrator",
-        "bio": "Renowned for blending traditional sumi-e techniques with modern character design, Hikaru's work has graced gallery walls from Tokyo to Berlin."
+        "name": "Bo Ocelot",
+        "role": "Event director",
+        "bio": "International furry community reference and creative lead for the event."
       },
       "guest2": {
-        "name": "Sable Kitsune",
-        "role": "Fursuit Designer & Performer",
-        "bio": "A master craftsperson whose kitsune-inspired fursuits have won multiple awards at international conventions and captivated audiences worldwide."
+        "name": "Ash Coyote",
+        "role": "Operations & logistics",
+        "bio": "Experienced in convention planning and large‑team coordination."
       },
       "guest3": {
-        "name": "Ren Tanaka",
-        "role": "Musician & Composer",
-        "bio": "Blending shamisen melodies with electronic beats, Ren creates soundscapes that bridge centuries of Japanese musical tradition with modern grooves."
+        "name": "Majira Stark",
+        "role": "Community & artists",
+        "bio": "Global event presence and direct connection with the furry community."
       }
     },
     "venue": {
-      "title": "The Venue",
-      "name": "Sakura Grand Convention Center",
-      "location": "Neo-Tokyo Bay District",
-      "description": "Nestled along the waterfront with panoramic views of the bay, the Sakura Grand offers 50,000 square feet of convention space, multiple ballrooms, and an outdoor garden perfect for our evening matsuri celebrations.",
-      "feature1": "50,000 sq ft convention floor",
-      "feature2": "Waterfront garden & stage",
-      "feature3": "On-site hotel with group rates",
-      "feature4": "Full accessibility"
+      "title": "Official venue",
+      "name": "ESTELAR Paipa Hotel & Convention Center",
+      "location": "Paipa, Boyacá, Colombia",
+      "description": "On Lake Sochagota, a calm area that brings peace. Enjoy forest walks, thermal jacuzzis, a wellness spa, and nearby tourist sites.",
+      "feature1": "Dates: July 10-13, 2026",
+      "feature2": "Thermal pools and jacuzzis",
+      "feature3": "Wellness spa and forest walks",
+      "feature4": "Lake Sochagota activities",
+      "imageAlt": "ESTELAR Paipa Hotel & Convention Center",
+      "logoAlt": "Hoteles Estelar logo"
     },
     "registration": {
-      "title": "Registration",
-      "subtitle": "Secure your spot at the eclipse.",
-      "standard": {
-        "name": "Standard",
-        "price": "$75",
-        "feature1": "Full 3-day access",
-        "feature2": "Events & panels",
-        "feature3": "Dealer's Den access",
-        "feature4": "Digital program guide"
+      "title": "Reservations",
+      "subtitle": "Includes entry, Bogotá-convention bus, and room.",
+      "package": {
+        "feature1": "Event entry",
+        "feature2": "Bus transport from Bogotá",
+        "feature3": "Shared room",
+        "feature4": "Find your group for the best price"
       },
-      "premium": {
-        "name": "Premium",
-        "price": "$150",
-        "feature1": "Everything in Standard",
-        "feature2": "Priority seating",
-        "feature3": "Exclusive merch bundle",
-        "feature4": "Meet & greet access"
+      "trio": {
+        "name": "Room for 3 people",
+        "price": "$1,700,000 COP each"
       },
-      "patron": {
-        "name": "Patron",
-        "price": "$300",
-        "feature1": "Everything in Premium",
-        "feature2": "VIP lounge access",
-        "feature3": "Signed art print",
-        "feature4": "Name in credits"
+      "quad": {
+        "name": "Room for 4 people",
+        "price": "$1,000,000 COP each"
       },
-      "cta": "Register Now"
+      "soloDuo": {
+        "name": "Room for 1 or 2 people",
+        "price": "$2,400,000 COP each"
+      },
+      "cta": "Reserve",
+      "reserveLink": "Reserve hotel",
+      "ticketLink": "Buy ticket (coming soon)",
+      "devNote": "Price is per person. Everyone pays their entry; the extra cost is for room exclusivity.",
+      "note": "Questions: info@moonfest.com.co"
     },
     "faq": {
-      "title": "Frequently Asked Questions",
+      "title": "Frequently asked questions",
       "q1": {
-        "question": "What is Eclipse Con?",
-        "answer": "Eclipse Con is a Japanese-themed furry convention celebrating art, culture, and community. It brings together artists, performers, and fans for three days of panels, workshops, exhibitions, and evening matsuri festivities."
+        "question": "Can I book just one night?",
+        "answer": "No, Moonfest only offers 4-day, 3-night packages."
       },
       "q2": {
-        "question": "Is there an age requirement?",
-        "answer": "Attendees must be 18 years or older. A valid government-issued ID is required at check-in."
+        "question": "What does the package include?",
+        "answer": "Includes event entry, bus transport from Bogotá, room, and breakfast."
       },
       "q3": {
-        "question": "Can I get a refund on my ticket?",
-        "answer": "Full refunds are available up to 30 days before the event. After that, tickets may be transferred to another person but are non-refundable."
+        "question": "How can I book?",
+        "answer": "You must reserve directly with the hotel using the official booking link."
       },
       "q4": {
-        "question": "Are fursuits required?",
-        "answer": "Absolutely not! While fursuits are welcome and celebrated, most attendees come in casual attire. Cosplay of any kind is encouraged but never required."
+        "question": "What happens if I don’t pay on time?",
+        "answer": "Your reservation is canceled automatically."
       },
       "q5": {
-        "question": "How do I become a vendor or panelist?",
-        "answer": "Applications for Dealer's Den vendors and panel hosts open six months before the convention. Follow us on social media for announcements."
+        "question": "Can I attend without staying at the hotel?",
+        "answer": "No, Moonfest is exclusive to hotel guests."
+      },
+      "q6": {
+        "question": "Can I buy my ticket without booking?",
+        "answer": "Yes, but you won’t be able to attend without lodging. The ticket grants access to activities, but the reservation is required."
+      },
+      "q7": {
+        "question": "What if I want to change my reservation?",
+        "answer": "Contact the hotel directly for any changes."
+      },
+      "q8": {
+        "question": "What if I have questions?",
+        "answer": "Email info@moonfest.com.co."
       }
     },
     "footer": {
-      "tagline": "A celebration of art, culture & community",
-      "social": "Follow Us",
-      "credits": "Crafted with passion by the Eclipse Con team",
-      "copyright": "© 2026 Eclipse Con. All rights reserved."
+      "tagline": "Colombia’s biggest furry convention",
+      "social": "Follow us",
+      "credits": "Organized by Furry Colombia",
+      "copyright": "© 2025 Furry Colombia. All rights reserved."
     }
   }
 }

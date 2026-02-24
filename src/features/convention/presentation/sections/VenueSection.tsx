@@ -3,7 +3,6 @@ import { MapPin, Maximize2, Trees, Hotel, Accessibility } from "lucide-react";
 
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { SectionWrapper } from "../components/SectionWrapper";
-import { ToriiGateSilhouette } from "../components/ToriiGateSilhouette";
 import { VenueDecorations } from "../components/VenueDecorations";
 
 const VENUE_FEATURES = [
@@ -31,6 +30,12 @@ export function VenueSection() {
             <MapPin size={14} className="text-primary" />
             {t("convention.venue.location")}
           </p>
+          <img
+            src="https://www.estelarpaipa.com/uploads/cms/TC_transparent_BF_Logo_L_2025_RGB_1.png"
+            alt={t("convention.venue.logoAlt")}
+            className="mt-4 h-10 w-auto opacity-80"
+            loading="lazy"
+          />
           <p className="mt-4 leading-relaxed text-muted-foreground">
             {t("convention.venue.description")}
           </p>
@@ -47,13 +52,18 @@ export function VenueSection() {
           </ul>
         </div>
 
-        {/* Decorative torii */}
+        {/* Hotel image */}
         <div
           className="relative flex items-center justify-center"
           aria-hidden="true"
         >
           <div className="absolute h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
-          <ToriiGateSilhouette className="relative w-48 text-accent/20 md:w-64" />
+          <img
+            src="https://www.estelarpaipa.com/media/uploads/cms/estelar-paipa-hotel-1_ps6qOHg.webp?q=pr%3Asharp%2Frs%3Afill%2Fmw%3A100%2Fh%3A500%2Fg%3Ace%2Ff%3Ajpg"
+            alt={t("convention.venue.imageAlt")}
+            className="relative w-full max-w-sm rounded-2xl border border-white/10 object-cover shadow-xl"
+            loading="lazy"
+          />
           <div className="absolute -bottom-4 h-1 w-3/4 rounded-full bg-accent/10 blur-sm" />
         </div>
       </div>

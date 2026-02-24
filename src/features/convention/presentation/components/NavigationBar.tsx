@@ -33,7 +33,7 @@ export function NavigationBar() {
           href={`#${SECTION_IDS.HERO}`}
           className="font-display text-lg font-bold text-accent"
         >
-          Eclipse Con
+          Moonfest 2026
         </a>
 
         {/* Desktop nav */}

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -37,8 +37,9 @@
   --radius-lg: 0.5rem;
 
   /* Fonts */
-  --font-display: "Kaisei Tokumin", serif;
-  --font-body: "Zen Kaku Gothic New", sans-serif;
+  --font-display: "Shippori Mincho", serif;
+  --font-body: "Hanken Grotesk", sans-serif;
+  --font-hero: "Unbounded", sans-serif;
 }
 
 html {
@@ -50,6 +51,7 @@ body {
   color: var(--color-foreground);
   background-color: var(--color-background);
   margin: 0;
+  font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -61,7 +63,7 @@ body {
   border-color: var(--color-border);
 }
 
-/* ── Keyframe Animations ── */
+/* â”€â”€ Keyframe Animations â”€â”€ */
 
 @keyframes float-petal-1 {
   0% {
@@ -180,10 +182,53 @@ body {
   }
 }
 
-/* ── Utility Classes ── */
+/* â”€â”€ Utility Classes â”€â”€ */
 
 .font-display {
   font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  font-size: 1em;
+}
+
+.hero-title {
+  font-family: var(--font-hero);
+  letter-spacing: -0.02em;
+}
+
+.font-display.text-2xl {
+  font-size: 1.85rem;
+}
+
+.font-display.text-3xl {
+  font-size: 2.3rem;
+}
+
+.font-display.text-4xl {
+  font-size: 3.1rem;
+}
+
+.font-display.text-5xl {
+  font-size: 3.9rem;
+}
+
+.font-display.text-6xl {
+  font-size: 5rem;
+}
+
+.font-display.text-8xl {
+  font-size: 7.4rem;
+}
+
+.font-display.text-9xl {
+  font-size: 8.8rem;
+}
+
+.text-sm {
+  font-size: 1rem;
+}
+
+.text-lg {
+  font-size: 1.25rem;
 }
 
 .gold-shimmer-text {
@@ -213,7 +258,7 @@ body {
   animation: glow-pulse 3s ease-in-out infinite;
 }
 
-/* ── Parallax Ambient Animations ── */
+/* â”€â”€ Parallax Ambient Animations â”€â”€ */
 
 @keyframes float-gentle {
   0%,

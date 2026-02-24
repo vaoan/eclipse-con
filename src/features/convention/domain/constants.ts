@@ -1,4 +1,4 @@
-export const CONVENTION_NAME = "Eclipse Con";
+export const CONVENTION_NAME = "Moonfest 2026";
 
 export const SECTION_IDS = {
   HERO: "hero",
