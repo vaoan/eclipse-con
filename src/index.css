@@ -57,11 +57,11 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 60'%3E%3Cpath d='M0 60c20-40 100-40 120 0M-30 60c20-40 100-40 120 0M30 60c20-40 100-40 120 0' fill='none' stroke='rgba(201,168,76,0.18)' stroke-width='2'/%3E%3C/svg%3E");
-  background-size: 120px 60px;
+  background-image: url("/wave-pattern.jpg");
+  background-size: 480px auto;
   background-repeat: repeat;
   opacity: 0.35;
-  mix-blend-mode: normal;
+  mix-blend-mode: multiply;
   z-index: 0;
 }
 
