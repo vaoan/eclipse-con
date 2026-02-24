@@ -16,66 +16,55 @@ const COMMUNITY_LINKS: {
   label: string;
   href: string;
   icon: LinkIcon;
+  iconColor: string;
 }[] = [
   {
     label: "Website",
     href: "https://moonfest-b63fa.web.app/",
     icon: { type: "lucide", component: Globe },
+    iconColor: BRAND_ICON_COLOR,
   },
   {
     label: "Carrd",
     href: "https://furrycolombia.carrd.co/",
     icon: { type: "brand", slug: "carrd" },
+    iconColor: "596cdf",
   },
   {
     label: "Facebook",
     href: "https://www.facebook.com/furry.colombia",
     icon: { type: "brand", slug: "facebook" },
-  },
-  {
-    label: "X",
-    href: "https://x.com/MoonfestCol",
-    icon: { type: "brand", slug: "x" },
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/moonfest2026/",
-    icon: { type: "brand", slug: "instagram" },
+    iconColor: "1877f2",
   },
   {
     label: "Discord",
     href: "https://discord.gg/ymPPhvd62D",
     icon: { type: "brand", slug: "discord" },
-  },
-  {
-    label: "Facebook Group",
-    href: "https://www.facebook.com/groups/FurryColombia",
-    icon: { type: "brand", slug: "facebook" },
+    iconColor: "5865f2",
   },
   {
     label: "Telegram",
     href: "https://t.me/furrycolombia",
     icon: { type: "brand", slug: "telegram" },
+    iconColor: "26a5e4",
   },
   {
     label: "Twitter",
     href: "https://twitter.com/FurryColombia",
     icon: { type: "brand", slug: "x" },
+    iconColor: "ffffff",
   },
   {
     label: "Instagram",
     href: "https://www.instagram.com/furrycolombia/",
     icon: { type: "brand", slug: "instagram" },
+    iconColor: "ff4da6",
   },
   {
     label: "Fur Affinity",
     href: "https://www.furaffinity.net/user/furrycolombia/",
     icon: { type: "brand", slug: "furaffinity" },
-  },
-  {
-    label: "Bluesky",
-    href: "https://furrycolombia.bsky.app/",
-    icon: { type: "brand", slug: "bluesky" },
+    iconColor: "ffffff",
   },
 ] as const;
 
@@ -85,64 +74,72 @@ export function FooterSection() {
     (import.meta.env.VITE_APP_VERSION as string | undefined) ?? "dev";
 
   return (
-    <footer className="relative bg-surface" {...tid("section-footer")}>
-      <WavePattern className="rotate-180" />
-
-      <div className="mx-auto max-w-6xl px-4 pb-8 pt-12">
-        <div className="flex flex-col items-center gap-8 text-center">
-          <h2 className="gold-shimmer-text font-display text-3xl font-bold">
-            Moonfest 2026
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            {t("convention.footer.tagline")}
-          </p>
-
-          <div className="mt-2 w-full max-w-4xl">
-            <p className="text-sm font-semibold text-foreground">
-              {t("convention.footer.communityTitle")}
+    <footer
+      className="relative overflow-hidden bg-surface"
+      {...tid("section-footer")}
+    >
+      <WavePattern className="rotate-180 opacity-35" />
+      <div className="relative border-t border-white/10">
+        <div className="mx-auto max-w-5xl px-4 pb-10 pt-12">
+          <div className="flex flex-col items-center text-center">
+            <h2 className="gold-shimmer-text font-display text-3xl font-bold sm:text-4xl">
+              Moonfest 2026
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm text-muted-foreground sm:text-base">
+              {t("convention.footer.tagline")}
             </p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {t("convention.footer.communityHashtag")}
+            <p className="mt-3 text-xs text-muted-foreground sm:text-sm">
+              <span className="font-medium text-foreground/90">
+                {t("convention.footer.communityTitle")}
+              </span>{" "}
+              <span className="text-accent">
+                {t("convention.footer.communityHashtag")}
+              </span>
             </p>
-            <div className="mt-4 flex flex-wrap justify-center gap-3 text-xs text-muted-foreground">
-              {COMMUNITY_LINKS.map(({ icon, label, href }) => (
+
+            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              {t("convention.footer.social")}
+            </p>
+            <div className="mt-4 flex flex-wrap justify-center gap-2.5 sm:gap-3">
+              {COMMUNITY_LINKS.map(({ icon, label, href, iconColor }) => (
                 <a
                   key={href}
                   href={href}
                   target="_blank"
                   rel="noreferrer"
                   className={cn(
-                    "inline-flex items-center gap-2 rounded-full border border-white/10",
-                    "px-3 py-1.5 transition-colors hover:border-accent/40 hover:text-accent"
+                    "group inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/18 bg-[#111840]/80 text-foreground",
+                    "transition-all duration-200 hover:-translate-y-0.5 hover:border-white/30 hover:bg-[#182157]",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/75 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
                   )}
                   aria-label={label}
                   title={label}
                 >
                   {icon.type === "brand" ? (
                     <img
-                      src={`https://cdn.simpleicons.org/${icon.slug}/${BRAND_ICON_COLOR}?viewbox=auto`}
+                      src={`https://cdn.simpleicons.org/${icon.slug}/${iconColor}?viewbox=auto`}
                       alt=""
-                      className="h-3.5 w-3.5"
+                      className="h-[18px] w-[18px] opacity-100 transition-transform duration-200 group-hover:scale-110"
                       loading="lazy"
                     />
                   ) : (
-                    <icon.component size={14} />
+                    <icon.component
+                      size={18}
+                      className="text-foreground transition-transform duration-200 group-hover:scale-110"
+                    />
                   )}
+                  <span className="sr-only">{label}</span>
                 </a>
               ))}
             </div>
-          </div>
 
-          <div className="mt-2 border-t border-white/5 pt-6">
-            <p className="text-xs text-muted-foreground">
-              {t("convention.footer.credits")}
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground/60">
-              {t("convention.footer.copyright")}
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground/60">
-              {t("convention.footer.version", { version: appVersion })}
-            </p>
+            <div className="mt-6 space-y-1 text-center text-xs text-muted-foreground/75">
+              <p>{t("convention.footer.credits")}</p>
+              <p>{t("convention.footer.copyright")}</p>
+              <p className="text-muted-foreground/65">
+                {t("convention.footer.version", { version: appVersion })}
+              </p>
+            </div>
           </div>
         </div>
       </div>
