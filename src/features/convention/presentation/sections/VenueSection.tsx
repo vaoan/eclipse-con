@@ -34,12 +34,6 @@ export function VenueSection() {
             <MapPin size={14} className="text-primary" />
             {t("convention.venue.location")}
           </p>
-          <img
-            src="https://www.estelarpaipa.com/uploads/cms/TC_transparent_BF_Logo_L_2025_RGB_1.png"
-            alt={t("convention.venue.logoAlt")}
-            className="mt-4 h-10 w-auto opacity-80"
-            loading="lazy"
-          />
           <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface/40 px-3 py-1.5 text-xs text-foreground/80">
             <img
               src="https://cdn.simpleicons.org/tripadvisor/ffffff?viewbox=auto"

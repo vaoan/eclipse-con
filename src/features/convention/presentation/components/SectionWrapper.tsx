@@ -17,7 +17,7 @@ export function SectionWrapper({
     <section
       id={id}
       className={cn(
-        "relative z-10 overflow-hidden bg-surface px-4 py-20 md:py-28",
+        "relative overflow-hidden bg-surface px-4 py-20 md:py-28",
         className
       )}
       {...tid(`section-${id}`)}
