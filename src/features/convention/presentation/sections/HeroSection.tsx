@@ -4,10 +4,13 @@ import { useTranslation } from "react-i18next";
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { useParallax } from "@/features/convention/application/hooks/useParallax";
+import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
 import { EclipseMoon } from "../components/EclipseMoon";
 import { ParallaxLayer } from "../components/ParallaxLayer";
 import { ToriiGateSilhouette } from "../components/ToriiGateSilhouette";
 import heroBath from "../assets/hero-bath.png";
+import heroBath1600 from "../assets/hero-bath-1600.png";
+import heroBath900 from "../assets/hero-bath-900.png";
 
 const SHOOTING_STARS = [
   {
@@ -134,6 +137,29 @@ const STAR_SPARKS = [
   },
 ];
 
+const HERO_BATH_SRC_SET = `${heroBath900} 900w, ${heroBath1600} 1600w, ${heroBath} 2970w`;
+const HERO_BATH_SIZES =
+  "(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw";
+
+function HeroBathPicture({ className = "" }: { readonly className?: string }) {
+  const pictureClasses = "flex-none h-full";
+  const baseClasses = "h-full w-auto select-none object-cover brightness-60";
+
+  return (
+    <picture className={pictureClasses}>
+      <source type="image/png" srcSet={HERO_BATH_SRC_SET} sizes={HERO_BATH_SIZES} />
+      <img
+        src={heroBath1600}
+        alt=""
+        className={`${baseClasses} ${className}`}
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+      />
+    </picture>
+  );
+}
+
 function HeroStarField() {
   return (
     <ParallaxLayer speed={0.05} className="absolute inset-0">
@@ -178,6 +204,7 @@ function HeroStarField() {
 export function HeroSection() {
   const { t } = useTranslation();
   const moonOffset = useParallax(0.08);
+  const isMobileViewport = useIsMobileViewport();
 
   return (
     <section
@@ -218,27 +245,13 @@ export function HeroSection() {
 
       <div className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden">
         <div className="relative z-0 mx-auto flex h-[330px] items-center justify-center gap-0 sm:h-[400px] md:h-[480px] lg:h-[560px]">
-          <img
-            src={heroBath}
-            alt=""
-            className="h-full w-auto flex-none select-none scale-x-[-1] object-cover brightness-60"
-            loading="lazy"
-            draggable={false}
-          />
-          <img
-            src={heroBath}
-            alt=""
-            className="h-full w-auto flex-none select-none object-cover brightness-60"
-            loading="lazy"
-            draggable={false}
-          />
-          <img
-            src={heroBath}
-            alt=""
-            className="h-full w-auto flex-none select-none scale-x-[-1] object-cover brightness-60"
-            loading="lazy"
-            draggable={false}
-          />
+          {!isMobileViewport && (
+            <HeroBathPicture className="scale-x-[-1]" />
+          )}
+          <HeroBathPicture />
+          {!isMobileViewport && (
+            <HeroBathPicture className="scale-x-[-1]" />
+          )}
         </div>
       </div>
 
