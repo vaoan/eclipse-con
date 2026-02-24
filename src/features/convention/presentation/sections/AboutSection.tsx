@@ -7,7 +7,7 @@ export function AboutSection() {
   const { t } = useTranslation();
 
   return (
-    <SectionWrapper id={SECTION_IDS.ABOUT}>
+    <SectionWrapper id={SECTION_IDS.ABOUT} surfaceTone="deep">
       <div className="mx-auto max-w-3xl text-center">
         <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
           {t("convention.about.title")}

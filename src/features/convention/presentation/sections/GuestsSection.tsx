@@ -9,7 +9,7 @@ export function GuestsSection() {
   const { t } = useTranslation();
 
   return (
-    <SectionWrapper id={SECTION_IDS.GUESTS}>
+    <SectionWrapper id={SECTION_IDS.GUESTS} surfaceTone="elevated">
       <div className="text-center">
         <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
           {t("convention.guests.title")}

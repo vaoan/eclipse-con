@@ -6,6 +6,7 @@ interface SectionWrapperProps {
   readonly children: React.ReactNode;
   readonly className?: string;
   readonly decorations?: React.ReactNode;
+  readonly surfaceTone?: "deep" | "elevated";
 }
 
 export function SectionWrapper({
@@ -13,14 +14,19 @@ export function SectionWrapper({
   children,
   className,
   decorations,
+  surfaceTone = "deep",
 }: Readonly<SectionWrapperProps>) {
   return (
     <section
       id={id}
       className={cn(
         "section-surface relative overflow-hidden px-4 py-20 md:py-28",
+        surfaceTone === "elevated"
+          ? "section-surface--elevated"
+          : "section-surface--deep",
         className
       )}
+      data-surface-tone={surfaceTone}
       {...tid(`section-${id}`)}
     >
       {decorations}

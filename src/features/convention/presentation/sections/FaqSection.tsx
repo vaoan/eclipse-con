@@ -9,7 +9,7 @@ export function FaqSection() {
   const { t } = useTranslation();
 
   return (
-    <SectionWrapper id={SECTION_IDS.FAQ}>
+    <SectionWrapper id={SECTION_IDS.FAQ} surfaceTone="deep">
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">

@@ -15,7 +15,7 @@ export function VenueSection() {
   const { t } = useTranslation();
 
   return (
-    <SectionWrapper id={SECTION_IDS.VENUE}>
+    <SectionWrapper id={SECTION_IDS.VENUE} surfaceTone="deep">
       <div className="grid items-center gap-12 md:grid-cols-2">
         <div>
           <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">

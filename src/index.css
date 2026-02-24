@@ -44,12 +44,15 @@
 }
 
 .section-surface {
-  background-color: var(--color-surface);
   position: relative;
 }
 
-.section-surface:nth-of-type(even) {
-  background-color: var(--color-surface-elevated);
+.section-surface--deep {
+  background-color: var(--color-surface);
+}
+
+.section-surface--elevated {
+  background-color: rgba(26, 27, 58, 0.48);
 }
 
 html {
@@ -793,12 +796,7 @@ body {
 
 @media (max-width: 768px) {
   .hero-sticky {
-    position: static;
-    height: auto;
-  }
-
-  .hero-sticky > section {
-    position: relative;
+    height: 132vh;
   }
 }
 
