@@ -6,34 +6,20 @@ import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
 import { ParallaxLayer } from "../components/ParallaxLayer";
 import { ToriiGateSilhouette } from "../components/ToriiGateSilhouette";
-import heroBath from "../assets/hero-bath.png";
-import heroBath1600 from "../assets/hero-bath-1600.png";
-import heroBath900 from "../assets/hero-bath-900.png";
-
-const HERO_BATH_SRC_SET = `${heroBath900} 900w, ${heroBath1600} 1600w, ${heroBath} 2970w`;
-const HERO_BATH_SIZES =
-  "(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw";
+import heroBathSingle from "../assets/hero-bath-optimized.webp";
 
 function HeroBathPicture({ className = "" }: { readonly className?: string }) {
-  const pictureClasses = "flex-none h-full";
   const baseClasses = "h-full w-auto select-none object-cover brightness-60";
 
   return (
-    <picture className={pictureClasses}>
-      <source
-        type="image/png"
-        srcSet={HERO_BATH_SRC_SET}
-        sizes={HERO_BATH_SIZES}
-      />
-      <img
-        src={heroBath1600}
-        alt=""
-        className={`${baseClasses} ${className}`}
-        loading="lazy"
-        decoding="async"
-        draggable={false}
-      />
-    </picture>
+    <img
+      src={heroBathSingle}
+      alt=""
+      className={`${baseClasses} ${className}`}
+      loading="lazy"
+      decoding="async"
+      draggable={false}
+    />
   );
 }
 
