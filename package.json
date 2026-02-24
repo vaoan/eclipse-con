@@ -24,7 +24,8 @@
     "test:e2e:ui": "playwright test --ui",
     "precommit": "lint-staged",
     "prepare": "husky",
-    "upload:pcloud": "node scripts/upload-to-pcloud.mjs"
+    "upload:pcloud": "node scripts/upload-to-pcloud.mjs",
+    "auth:pcloud": "node scripts/get-pcloud-token.mjs"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
