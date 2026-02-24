@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice">
-  <g fill="none" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
-    <path d="M0 80q25-50 50 0t50 0t50 0t50 0"/>
-    <path d="M-25 100q25-50 50 0t50 0t50 0t50 0"/>
-    <path d="M0 120q25-50 50 0t50 0t50 0t50 0"/>
-  </g>
-</svg>
