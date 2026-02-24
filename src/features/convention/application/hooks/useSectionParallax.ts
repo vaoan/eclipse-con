@@ -2,11 +2,17 @@ import { type RefObject, useEffect, useState } from "react";
 
 export function useSectionParallax(
   ref: RefObject<HTMLElement | null>,
-  speed = 0.3
+  speed = 0.3,
+  enabled = true
 ) {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
+    if (!enabled) {
+      setOffset(0);
+      return;
+    }
+
     let ticking = false;
 
     function handleScroll() {
@@ -41,7 +47,7 @@ export function useSectionParallax(
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [ref, speed]);
+  }, [enabled, ref, speed]);
 
   return offset;
 }
