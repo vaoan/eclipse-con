@@ -58,12 +58,12 @@
   inset: 0;
   pointer-events: none;
   background-color: rgba(201, 168, 76, 0.55);
-  mask-image: url("/wind-mask.svg");
-  -webkit-mask-image: url("/wind-mask.svg");
+  mask-image: url("/cloud-mask.svg");
+  -webkit-mask-image: url("/cloud-mask.svg");
   mask-repeat: repeat;
   -webkit-mask-repeat: repeat;
-  mask-size: 240px 140px;
-  -webkit-mask-size: 240px 140px;
+  mask-size: 260px 160px;
+  -webkit-mask-size: 260px 160px;
   opacity: 0.55;
   mix-blend-mode: multiply;
   z-index: 0;
