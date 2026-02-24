@@ -98,12 +98,14 @@
     },
     "registration": {
       "title": "Reservations",
-      "subtitle": "Includes entry, Bogotá-convention bus, and room.",
+      "subtitle": "4-day, 3-night package. Includes entry, Bogotá-convention bus, and room.",
       "package": {
-        "feature1": "Event entry",
-        "feature2": "Bus transport from Bogotá",
+        "feature1": "Full package: 4 days and 3 nights",
+        "feature2": "Round-trip bus transport: Bogotá -> hotel -> Bogotá",
         "feature3": "Shared room",
-        "feature4": "Find your group for the best price"
+        "feature4": "Find your group for the best price",
+        "feature4SoloDuo": "Enjoy full privacy for you and/or one companion",
+        "feature5": "Includes breakfast ONLY"
       },
       "trio": {
         "name": "Room for 3 people",

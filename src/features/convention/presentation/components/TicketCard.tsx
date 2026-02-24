@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
+import { RESERVATION_URL } from "@/features/convention/domain/constants";
 import type { TicketTier } from "@/features/convention/domain/types";
 
 interface TicketCardProps {
@@ -45,17 +46,19 @@ export function TicketCard({ tier }: Readonly<TicketCardProps>) {
           </li>
         ))}
       </ul>
-      <button
-        type="button"
+      <a
+        href={RESERVATION_URL}
+        target="_blank"
+        rel="noreferrer"
         className={cn(
-          "mt-6 w-full rounded-lg px-4 py-3 text-sm font-bold transition-colors",
+          "mt-6 inline-flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-bold transition-colors",
           tier.highlighted
             ? "bg-accent text-accent-foreground hover:bg-accent-glow"
             : "bg-primary/15 text-primary hover:bg-primary/25"
         )}
       >
         {t("convention.registration.cta")}
-      </button>
+      </a>
     </div>
   );
 }

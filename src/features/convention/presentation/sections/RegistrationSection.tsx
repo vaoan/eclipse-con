@@ -1,7 +1,10 @@
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
-import { SECTION_IDS } from "@/features/convention/domain/constants";
+import {
+  RESERVATION_URL,
+  SECTION_IDS,
+} from "@/features/convention/domain/constants";
 import { TICKET_TIERS } from "@/features/convention/application/data/ticketTiers";
 import { SectionWrapper } from "../components/SectionWrapper";
 import { TicketCard } from "../components/TicketCard";
@@ -35,7 +38,7 @@ function RegistrationCta({ t }: Readonly<{ t: TFunction }>) {
     <div className="mt-10 flex flex-col items-center gap-4 text-center">
       <div className="flex flex-wrap items-center justify-center gap-4">
         <a
-          href="https://www.estelarpaipa.com/es/"
+          href={RESERVATION_URL}
           className="inline-flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-bold text-accent-foreground transition-colors hover:bg-accent-glow"
           target="_blank"
           rel="noreferrer"

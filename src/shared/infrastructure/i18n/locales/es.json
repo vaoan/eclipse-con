@@ -98,12 +98,14 @@
     },
     "registration": {
       "title": "Reservas",
-      "subtitle": "Incluye entrada, bus Bogotá-convención y habitación.",
+      "subtitle": "Paquete de 4 días y 3 noches. Incluye entrada, bus Bogotá-convención y habitación.",
       "package": {
-        "feature1": "Entrada al evento",
-        "feature2": "Transporte en bus desde Bogotá",
+        "feature1": "Paquete completo: 4 días y 3 noches",
+        "feature2": "Transporte en bus Bogotá -> hotel -> Bogotá",
         "feature3": "Habitación compartida",
-        "feature4": "Encuentra tu grupo para mejor precio"
+        "feature4": "Encuentra tu grupo para mejor precio",
+        "feature4SoloDuo": "Disfruta de total privacidad para ti y/o un acompañante",
+        "feature5": "Incluye SOLO desayuno"
       },
       "trio": {
         "name": "Habitación para 3 personas",
