@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 
 import { SAKURA_PARTICLE_COUNT } from "@/features/convention/domain/constants";
+import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
+import { usePrefersReducedMotion } from "@/shared/application/hooks/usePrefersReducedMotion";
 
 const PETAL_KEYFRAMES = [
   "float-petal-1",
@@ -15,9 +17,21 @@ function seededValue(index: number, offset: number) {
 }
 
 export function SakuraParticles() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const isMobileViewport = useIsMobileViewport();
+  const particleCount = useMemo(() => {
+    if (prefersReducedMotion) {
+      return 0;
+    }
+    if (isMobileViewport) {
+      return Math.max(6, Math.round(SAKURA_PARTICLE_COUNT / 2));
+    }
+    return SAKURA_PARTICLE_COUNT;
+  }, [isMobileViewport, prefersReducedMotion]);
+
   const petals = useMemo(
     () =>
-      Array.from({ length: SAKURA_PARTICLE_COUNT }, (_, index) => {
+      Array.from({ length: particleCount }, (_, index) => {
         const size = 6 + seededValue(index, 3) * 8;
         return {
           id: index,
@@ -33,8 +47,12 @@ export function SakuraParticles() {
           blur: 0.2 + seededValue(index, 7) * 0.8,
         };
       }),
-    []
+    [particleCount]
   );
+
+  if (!particleCount) {
+    return null;
+  }
 
   return (
     <div
