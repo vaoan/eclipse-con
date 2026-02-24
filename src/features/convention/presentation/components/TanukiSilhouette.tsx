@@ -4,20 +4,23 @@ interface TanukiSilhouetteProps {
   readonly className?: string;
 }
 
-const PATH =
-  "M14,46 L26,36 L26,22 L36,30 L42,20 L52,32 L60,44 L84,20 L74,40 L68,58 L65,95 L25,95 L16,68 Z";
+const SVG_MARKUP = `<g id="g18726" transform="matrix(1.3333333,0,0,-1.3333333,0,800)"> <g id="g18728"> <g id="g18730"></g> </g> </g>`;
 
 export function TanukiSilhouette({
   className,
 }: Readonly<TanukiSilhouetteProps>) {
   return (
     <svg
-      viewBox="0 0 100 100"
       className={cn("h-auto w-full", className)}
-      fill="currentColor"
       aria-hidden="true"
+      viewBox="0 0 800 800"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeOpacity="0.25"
+      strokeWidth="0.5"
+      strokeLinejoin="round"
     >
-      <path d={PATH} />
+      <g dangerouslySetInnerHTML={{ __html: SVG_MARKUP }} />
     </svg>
   );
 }
