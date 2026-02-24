@@ -16,7 +16,7 @@ export function TicketCard({ tier }: Readonly<TicketCardProps>) {
   return (
     <div
       className={cn(
-        "relative rounded-xl border p-6",
+        "relative flex h-full flex-col rounded-xl border p-6",
         "transition-all duration-300",
         tier.highlighted
           ? "border-accent/50 bg-surface-elevated shadow-lg shadow-accent/5"
@@ -35,7 +35,7 @@ export function TicketCard({ tier }: Readonly<TicketCardProps>) {
       <p className="mt-2 font-display text-4xl font-bold text-accent">
         {t(tier.priceKey)}
       </p>
-      <ul className="mt-6 space-y-3">
+      <ul className="mt-6 flex-1 space-y-3">
         {tier.featuresKeys.map((featureKey) => (
           <li
             key={featureKey}
