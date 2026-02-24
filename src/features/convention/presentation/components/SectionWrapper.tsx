@@ -22,7 +22,7 @@ export function SectionWrapper({
       id={id}
       ref={ref}
       className={cn(
-        "relative overflow-hidden px-4 py-20 md:py-28",
+        "relative z-10 overflow-hidden bg-surface px-4 py-20 md:py-28",
         state === "hidden" && "reveal-hidden",
         state === "visible" && "reveal-visible",
         className

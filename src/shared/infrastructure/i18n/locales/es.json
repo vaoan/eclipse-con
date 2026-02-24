@@ -82,7 +82,7 @@
       "title": "Sede oficial",
       "name": "ESTELAR Paipa Hotel & Centro de Convenciones",
       "location": "Paipa, Boyacá, Colombia",
-      "description": "En el lago Sochagota, una zona calmada que te llena de paz. Disfruta de caminatas por el bosque, aguas termales en jacuzzis, wellness spa y sitios turísticos cercanos.",
+      "description": "En el lago Sochagota, una zona calmada que te llena de paz. Conocido como \"Gota de Agua de la Luna\" en lengua muisca. Disfruta de caminatas por el bosque, aguas termales en jacuzzis, wellness spa y sitios turísticos cercanos.",
       "feature1": "Fechas: 10-13 julio de 2026",
       "feature2": "Aguas termales y jacuzzis",
       "feature3": "Wellness spa y caminatas",
@@ -155,6 +155,8 @@
     "footer": {
       "tagline": "La convención furry más grande de Colombia",
       "social": "Síguenos",
+      "communityTitle": "Furry Colombia",
+      "communityHashtag": "#SomosFurryColombia",
       "credits": "Organizado por Furry Colombia",
       "copyright": "© 2025 Furry Colombia. Todos los derechos reservados."
     }

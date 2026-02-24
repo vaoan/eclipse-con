@@ -18,7 +18,6 @@ export function RegistrationSection() {
   return (
     <SectionWrapper
       id={SECTION_IDS.REGISTRATION}
-      className="bg-surface"
       decorations={
         <>
           {/* Giant trotting fox — charging in from bottom-left */}

@@ -16,7 +16,6 @@ export function GuestsSection() {
   return (
     <SectionWrapper
       id={SECTION_IDS.GUESTS}
-      className="bg-surface"
       decorations={
         <>
           {/* Enormous koi diving in from the top-left */}

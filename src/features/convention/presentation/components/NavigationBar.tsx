@@ -29,11 +29,13 @@ export function NavigationBar() {
       {...tid("navigation-bar")}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <a
-          href={`#${SECTION_IDS.HERO}`}
-          className="font-display text-lg font-bold text-accent"
-        >
-          Moonfest 2026
+        <a href={`#${SECTION_IDS.HERO}`} className="flex items-center">
+          <img
+            src="https://moonfest-b63fa.web.app/assets/moonfest/moonfest-logotipo.svg"
+            alt={t("convention.hero.logoAlt")}
+            className="h-8 w-auto sm:h-9"
+            loading="lazy"
+          />
         </a>
 
         {/* Desktop nav */}

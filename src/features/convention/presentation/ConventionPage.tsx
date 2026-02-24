@@ -15,13 +15,15 @@ export function Component() {
     <div {...tid("convention-page")}>
       <NavigationBar />
       <SakuraParticles />
-      <HeroSection />
+      <div className="hero-sticky">
+        <HeroSection />
+      </div>
       <AboutSection />
       <EventsSection />
-      <GuestsSection />
       <VenueSection />
       <RegistrationSection />
       <FaqSection />
+      <GuestsSection />
       <FooterSection />
     </div>
   );

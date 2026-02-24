@@ -38,7 +38,7 @@ export function SakuraParticles() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-10 overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-[15] overflow-hidden"
       aria-hidden="true"
     >
       {petals.map((petal) => (

@@ -16,7 +16,11 @@ export function VenueSection() {
   const { t } = useTranslation();
 
   return (
-    <SectionWrapper id={SECTION_IDS.VENUE} decorations={<VenueDecorations />}>
+    <SectionWrapper
+      id={SECTION_IDS.VENUE}
+      className="bg-surface"
+      decorations={<VenueDecorations />}
+    >
       <div className="grid items-center gap-12 md:grid-cols-2">
         <div>
           <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
@@ -36,6 +40,15 @@ export function VenueSection() {
             className="mt-4 h-10 w-auto opacity-80"
             loading="lazy"
           />
+          <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface/40 px-3 py-1.5 text-xs text-foreground/80">
+            <img
+              src="https://cdn.simpleicons.org/tripadvisor/ffffff?viewbox=auto"
+              alt="Tripadvisor"
+              className="h-4 w-4"
+              loading="lazy"
+            />
+            Tripadvisor
+          </div>
           <p className="mt-4 leading-relaxed text-muted-foreground">
             {t("convention.venue.description")}
           </p>

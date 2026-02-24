@@ -44,7 +44,7 @@
       },
       "nature": {
         "title": "Nature connection",
-        "description": "Take in the spectacular view of Lake Calima."
+        "description": "Take in the spectacular view of Lake Sochagota."
       },
       "panels": {
         "title": "Panels & workshops",
@@ -82,7 +82,7 @@
       "title": "Official venue",
       "name": "ESTELAR Paipa Hotel & Convention Center",
       "location": "Paipa, Boyacá, Colombia",
-      "description": "On Lake Sochagota, a calm area that brings peace. Enjoy forest walks, thermal jacuzzis, a wellness spa, and nearby tourist sites.",
+      "description": "On Lake Sochagota, a calm area that brings peace. Known as \"Drop of Water of the Moon\" in the Muisca language. Enjoy forest walks, thermal jacuzzis, a wellness spa, and nearby tourist sites.",
       "feature1": "Dates: July 10-13, 2026",
       "feature2": "Thermal pools and jacuzzis",
       "feature3": "Wellness spa and forest walks",
@@ -155,6 +155,8 @@
     "footer": {
       "tagline": "Colombia’s biggest furry convention",
       "social": "Follow us",
+      "communityTitle": "Furry Colombia",
+      "communityHashtag": "#SomosFurryColombia",
       "credits": "Organized by Furry Colombia",
       "copyright": "© 2025 Furry Colombia. All rights reserved."
     }
