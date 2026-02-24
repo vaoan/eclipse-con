@@ -12,3 +12,6 @@ collab = true
 
 [mcp_servers.figma]
 url = "https://mcp.figma.com/mcp"
+
+[sandbox_workspace_write]
+network_access = true

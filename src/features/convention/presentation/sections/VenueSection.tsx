@@ -54,7 +54,6 @@ export function VenueSection() {
           </ul>
         </div>
 
-        {/* Hotel image */}
         <div
           className="relative flex items-center justify-center"
           aria-hidden="true"
