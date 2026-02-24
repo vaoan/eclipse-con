@@ -48,7 +48,11 @@
   position: relative;
 }
 
-.section-surface::before {
+.section-surface:nth-of-type(even) {
+  background-color: var(--color-surface-elevated);
+}
+
+.section-surface:nth-of-type(even)::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -59,14 +63,6 @@
   opacity: 0.35;
   mix-blend-mode: normal;
   z-index: 0;
-}
-
-.section-surface:nth-of-type(even) {
-  background-color: var(--color-surface-elevated);
-}
-
-.section-surface:nth-of-type(even)::before {
-  opacity: 0.28;
 }
 
 html {
