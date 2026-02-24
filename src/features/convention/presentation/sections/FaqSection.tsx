@@ -16,7 +16,6 @@ export function FaqSection() {
   return (
     <SectionWrapper
       id={SECTION_IDS.FAQ}
-      className="bg-surface"
       decorations={
         <>
           <SectionParallaxLayer

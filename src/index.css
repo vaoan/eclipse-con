@@ -43,6 +43,14 @@
   --font-hero: "Unbounded", sans-serif;
 }
 
+.section-surface {
+  background-color: var(--color-surface);
+}
+
+.section-surface:nth-of-type(even) {
+  background-color: var(--color-surface-elevated);
+}
+
 html {
   scroll-behavior: smooth;
 }

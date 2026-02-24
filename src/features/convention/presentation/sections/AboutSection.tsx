@@ -14,7 +14,6 @@ export function AboutSection() {
   return (
     <SectionWrapper
       id={SECTION_IDS.ABOUT}
-      className="bg-surface"
       decorations={
         <>
           {/* Massive sitting fox — only ears and head peek from bottom-right */}
