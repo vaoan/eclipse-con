@@ -3,7 +3,6 @@ import { MapPin, Maximize2, Trees, Hotel, Accessibility } from "lucide-react";
 
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { SectionWrapper } from "../components/SectionWrapper";
-import { VenueDecorations } from "../components/VenueDecorations";
 
 const VENUE_FEATURES = [
   { key: "convention.venue.feature1", icon: Maximize2 },
@@ -16,7 +15,7 @@ export function VenueSection() {
   const { t } = useTranslation();
 
   return (
-    <SectionWrapper id={SECTION_IDS.VENUE} decorations={<VenueDecorations />}>
+    <SectionWrapper id={SECTION_IDS.VENUE}>
       <div className="grid items-center gap-12 md:grid-cols-2">
         <div>
           <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
