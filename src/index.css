@@ -57,7 +57,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-color: rgba(201, 168, 76, 0.55);
+  background-color: rgba(132, 186, 255, 0.5);
   mask-image: url("/cloud-mask.svg");
   -webkit-mask-image: url("/cloud-mask.svg");
   mask-repeat: repeat;
