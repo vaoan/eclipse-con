@@ -37,3 +37,4 @@ Thumbs.db
 .claude/history.jsonl
 .claude/models_cache.json
 .claude/version.json
+/tmp
