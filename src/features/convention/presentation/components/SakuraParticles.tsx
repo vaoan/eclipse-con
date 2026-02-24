@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 
 import { SAKURA_PARTICLE_COUNT } from "@/features/convention/domain/constants";
-import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
 import { usePrefersReducedMotion } from "@/shared/application/hooks/usePrefersReducedMotion";
 
 const PETAL_KEYFRAMES = [
@@ -18,13 +17,12 @@ function seededValue(index: number, offset: number) {
 
 export function SakuraParticles() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const isMobileViewport = useIsMobileViewport();
   const particleCount = useMemo(() => {
-    if (prefersReducedMotion || isMobileViewport) {
+    if (prefersReducedMotion) {
       return 0;
     }
     return SAKURA_PARTICLE_COUNT;
-  }, [prefersReducedMotion, isMobileViewport]);
+  }, [prefersReducedMotion]);
 
   const petals = useMemo(
     () =>
