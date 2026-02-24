@@ -57,11 +57,15 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("/wave-pattern.svg");
-  background-size: 220px auto;
-  background-repeat: repeat;
-  opacity: 0.65;
-  mix-blend-mode: normal;
+  background-color: rgba(201, 168, 76, 0.55);
+  mask-image: url("/seigaiha-mask.svg");
+  -webkit-mask-image: url("/seigaiha-mask.svg");
+  mask-repeat: repeat;
+  -webkit-mask-repeat: repeat;
+  mask-size: 200px 100px;
+  -webkit-mask-size: 200px 100px;
+  opacity: 0.6;
+  mix-blend-mode: multiply;
   z-index: 0;
 }
 
