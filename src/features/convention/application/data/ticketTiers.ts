@@ -35,7 +35,6 @@ export const TICKET_TIERS: readonly TicketTier[] = [
       "convention.registration.package.feature1",
       "convention.registration.package.feature2",
       "convention.registration.package.feature5",
-      "convention.registration.package.feature3",
       "convention.registration.package.feature4SoloDuo",
     ],
     highlighted: false,

@@ -12,6 +12,11 @@ export function MainLayout() {
         return;
       }
 
+      if (id === "hero") {
+        window.scrollTo({ top: 0, behavior });
+        return;
+      }
+
       const target = document.getElementById(id);
       if (!target) {
         return;

@@ -52,11 +52,18 @@ export function VenueSection() {
   const isSpanish = i18n.language.startsWith("es");
   const tripadvisorUrl = isSpanish ? TRIPADVISOR_URLS.es : TRIPADVISOR_URLS.en;
   const servicesUrl = isSpanish ? SERVICES_URLS.es : SERVICES_URLS.en;
-  const venueBadges = [
+  const venueBadges: {
+    key:
+      | "convention.venue.rating"
+      | "convention.venue.award"
+      | "convention.venue.certification";
+    href: string;
+    icon?: boolean;
+  }[] = [
     { key: "convention.venue.rating", href: tripadvisorUrl, icon: true },
     { key: "convention.venue.award", href: tripadvisorUrl },
     { key: "convention.venue.certification", href: CERTIFICATIONS_URL },
-  ] as const;
+  ];
   const venueSources = [
     { key: "convention.venue.sourceTripadvisor", href: tripadvisorUrl },
     { key: "convention.venue.sourceServices", href: servicesUrl },
