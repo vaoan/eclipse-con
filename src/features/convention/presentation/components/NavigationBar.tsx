@@ -1,7 +1,15 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
@@ -19,7 +27,6 @@ const NAV_SECTIONS = [
 
 export function NavigationBar() {
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav
@@ -41,15 +48,16 @@ export function NavigationBar() {
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
           {NAV_SECTIONS.map((section) => (
-            <a
+            <Button
               key={section.id}
-              href={`#${section.id}`}
-              className="text-sm text-foreground/70 transition-colors hover:text-accent"
+              asChild
+              variant="ghost"
+              className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/70 hover:text-accent"
             >
-              {t(section.key)}
-            </a>
+              <a href={`#${section.id}`}>{t(section.key)}</a>
+            </Button>
           ))}
           <LanguageToggle />
         </div>
@@ -57,40 +65,44 @@ export function NavigationBar() {
         {/* Mobile menu button */}
         <div className="flex items-center gap-3 md:hidden">
           <LanguageToggle />
-          <button
-            type="button"
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-            className="text-foreground/70 transition-colors hover:text-accent"
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-            {...tid("mobile-menu-toggle")}
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-foreground/70 hover:text-accent"
+                aria-label={t("convention.nav.mobileToggle")}
+                {...tid("mobile-menu-toggle")}
+              >
+                <Menu size={24} />
+              </Button>
+            </SheetTrigger>
+            <SheetContent
+              side="right"
+              className="border-white/10 bg-background/95 backdrop-blur"
+            >
+              <SheetHeader>
+                <SheetTitle className="font-display text-lg">
+                  {t("convention.nav.title")}
+                </SheetTitle>
+              </SheetHeader>
+              <div className="mt-6 flex flex-col gap-2">
+                {NAV_SECTIONS.map((section) => (
+                  <SheetClose asChild key={section.id}>
+                    <Button
+                      asChild
+                      variant="ghost"
+                      className="justify-start text-sm text-foreground/70 hover:bg-surface hover:text-accent"
+                    >
+                      <a href={`#${section.id}`}>{t(section.key)}</a>
+                    </Button>
+                  </SheetClose>
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
-
-      {/* Mobile nav */}
-      {isOpen && (
-        <div className="border-t border-white/5 bg-background/95 backdrop-blur-md md:hidden">
-          <div className="flex flex-col gap-1 px-4 py-3">
-            {NAV_SECTIONS.map((section) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                className="rounded-md px-3 py-2 text-sm text-foreground/70 transition-colors hover:bg-surface hover:text-accent"
-                onClick={() => {
-                  setIsOpen(false);
-                }}
-              >
-                {t(section.key)}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
     </nav>
   );
 }

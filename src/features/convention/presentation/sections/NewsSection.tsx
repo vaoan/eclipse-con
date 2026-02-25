@@ -2,7 +2,29 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
+import { cn } from "@/shared/application/utils/cn";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 import {
@@ -14,11 +36,43 @@ import {
   NEWS_LAYOUT_MODES,
   type NewsLayoutMode,
   type TelegramArchive,
+  type TelegramMessage,
 } from "./news/types";
 import { useNewsRenderers } from "./news/renderers";
+import { buildMediaSource, isImage, isVideo } from "./news/utilities";
 
 const INITIAL_VISIBLE = 12;
 const PAGE_SIZE = 12;
+
+const NewsCard = ({
+  className,
+  contentClassName,
+  children,
+  variant,
+  ...props
+}: React.ComponentProps<typeof Card> & {
+  readonly contentClassName?: string;
+  readonly variant?: "default" | "polaroid";
+}) => (
+  <Card
+    className={cn(
+      "rounded-2xl border-white/10 bg-surface/60 shadow-md",
+      className
+    )}
+    variant={variant}
+    {...props}
+  >
+    <CardContent
+      className={cn(
+        "p-0",
+        variant === "polaroid" && "p-4 pb-10",
+        contentClassName
+      )}
+    >
+      {children}
+    </CardContent>
+  </Card>
+);
 
 const getGridClassName = (layoutMode: NewsLayoutMode) => {
   switch (layoutMode) {
@@ -35,19 +89,21 @@ const getGridClassName = (layoutMode: NewsLayoutMode) => {
     case "slanted":
       return "grid gap-6 md:grid-cols-2 xl:grid-cols-3";
     case "polaroid":
-      return "grid gap-6 sm:grid-cols-2 lg:grid-cols-4";
+      return "grid gap-6 sm:grid-cols-2";
+    case "polaroidReadmore":
+      return "grid gap-6 md:grid-cols-2 lg:grid-cols-3";
     case "poster":
       return "grid gap-6 md:grid-cols-2 xl:grid-cols-3";
     case "gallery":
       return "grid gap-4 sm:grid-cols-2 lg:grid-cols-4";
     case "split":
       return "grid gap-6 lg:grid-cols-2";
-    case "ledger":
-      return "space-y-4";
     case "billboard":
       return "space-y-6";
     case "index":
       return "space-y-4";
+    case "email":
+      return "space-y-5";
     case "magazine":
       return "grid gap-6 lg:grid-cols-3";
     default:
@@ -66,6 +122,44 @@ const getMosaicSpan = (layoutMode: NewsLayoutMode, index: number) => {
     return "md:col-span-2";
   }
   return "";
+};
+
+const renderIndexMedia = (message: TelegramMessage, fallbackLabel: string) => {
+  if (!message.media?.length) {
+    return null;
+  }
+  const item = message.media[0];
+  if (!item) {
+    return null;
+  }
+  const source = buildMediaSource(item.path);
+  if (isImage(source, item.mime)) {
+    return (
+      <div className="h-24 w-24 flex-none overflow-hidden rounded-xl border border-white/10 bg-surface/70 shadow">
+        <img
+          src={source}
+          alt={item.name ?? fallbackLabel}
+          className="h-full w-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    );
+  }
+  if (isVideo(source, item.mime)) {
+    return (
+      <div className="flex h-24 w-24 flex-none items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-surface/70 text-xs uppercase tracking-[0.2em] text-foreground/70 shadow">
+        Video
+      </div>
+    );
+  }
+  return (
+    <a
+      href={source}
+      className="text-xs uppercase tracking-[0.2em] text-accent underline decoration-dashed underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+    >
+      {item.name ?? source}
+    </a>
+  );
 };
 
 export function NewsSection() {
@@ -90,6 +184,7 @@ export function NewsSection() {
     null
   );
   const [activeZoomId, setActiveZoomId] = useState<number | null>(null);
+  const [activeEmailId, setActiveEmailId] = useState<number | null>(null);
   const [hoveredSpotlightId, setHoveredSpotlightId] = useState<number | null>(
     null
   );
@@ -187,6 +282,19 @@ export function NewsSection() {
   const messages = archive?.messages ?? [];
   const visibleMessages = messages.slice(0, visibleCount);
 
+  useEffect(() => {
+    if (layoutMode !== "email") {
+      return;
+    }
+    if (!visibleMessages.length) {
+      return;
+    }
+    const firstMessage = visibleMessages[0];
+    if (activeEmailId === null && firstMessage) {
+      setActiveEmailId(firstMessage.id);
+    }
+  }, [layoutMode, visibleMessages, activeEmailId]);
+
   return (
     <SectionWrapper id={SECTION_IDS.NEWS} surfaceTone="elevated">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -195,26 +303,83 @@ export function NewsSection() {
           <p className="max-w-md text-sm text-muted-foreground sm:text-base">
             {t("convention.news.subtitle")}
           </p>
-          <div className="flex flex-wrap gap-2">
-            {NEWS_LAYOUT_MODES.map((mode) => {
-              const isActive = layoutMode === mode.id;
-              return (
-                <button
-                  key={mode.id}
-                  type="button"
-                  onClick={() => {
-                    setLayoutMode(mode.id);
-                  }}
-                  className={`rounded-full border px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition ${
-                    isActive
-                      ? "border-accent/50 bg-accent/15 text-accent"
-                      : "border-white/10 text-foreground/70 hover:border-white/30 hover:text-foreground"
-                  }`}
+          <div className="flex flex-wrap items-center gap-3">
+            <Badge
+              variant="outline"
+              className="border-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-foreground/70"
+            >
+              {t("convention.news.modeLabel")}
+            </Badge>
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                size="icon"
+                variant="outline"
+                aria-label={t("convention.news.actions.previous")}
+                className="h-9 w-9 border-white/10 bg-surface/60 text-foreground/70 hover:border-white/30 hover:text-foreground"
+                onClick={() => {
+                  const currentIndex = NEWS_LAYOUT_MODES.findIndex(
+                    (mode) => mode.id === layoutMode
+                  );
+                  const safeIndex = currentIndex === -1 ? 0 : currentIndex;
+                  const nextIndex =
+                    (safeIndex - 1 + NEWS_LAYOUT_MODES.length) %
+                    NEWS_LAYOUT_MODES.length;
+                  const nextMode = NEWS_LAYOUT_MODES[nextIndex];
+                  if (nextMode) {
+                    setLayoutMode(nextMode.id);
+                  }
+                }}
+              >
+                <span aria-hidden="true">‹</span>
+              </Button>
+              <Select
+                value={layoutMode}
+                onValueChange={(value) => {
+                  setLayoutMode(value as NewsLayoutMode);
+                }}
+              >
+                <SelectTrigger
+                  className="w-[220px] border-white/10 bg-surface/60 text-xs uppercase tracking-[0.2em]"
+                  aria-label={t("convention.news.modeLabel")}
                 >
-                  {t(mode.labelKey)}
-                </button>
-              );
-            })}
+                  <SelectValue
+                    placeholder={t("convention.news.modePlaceholder")}
+                  />
+                </SelectTrigger>
+                <SelectContent className="border-white/10 bg-surface">
+                  {NEWS_LAYOUT_MODES.map((mode) => (
+                    <SelectItem
+                      key={mode.id}
+                      value={mode.id}
+                      className="text-xs uppercase tracking-[0.2em]"
+                    >
+                      {t(mode.labelKey)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Button
+                type="button"
+                size="icon"
+                variant="outline"
+                aria-label={t("convention.news.actions.next")}
+                className="h-9 w-9 border-white/10 bg-surface/60 text-foreground/70 hover:border-white/30 hover:text-foreground"
+                onClick={() => {
+                  const currentIndex = NEWS_LAYOUT_MODES.findIndex(
+                    (mode) => mode.id === layoutMode
+                  );
+                  const safeIndex = currentIndex === -1 ? 0 : currentIndex;
+                  const nextIndex = (safeIndex + 1) % NEWS_LAYOUT_MODES.length;
+                  const nextMode = NEWS_LAYOUT_MODES[nextIndex];
+                  if (nextMode) {
+                    setLayoutMode(nextMode.id);
+                  }
+                }}
+              >
+                <span aria-hidden="true">›</span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -235,7 +400,7 @@ export function NewsSection() {
                 </div>
                 <div className="relative">
                   <div className="absolute -left-[2.7rem] top-2 hidden h-full w-px bg-white/10 md:block" />
-                  <article
+                  <NewsCard
                     className={`group relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-surface/70 ${
                       isFeatured ? "ring-1 ring-accent/20" : ""
                     }`}
@@ -245,66 +410,240 @@ export function NewsSection() {
                         {dateLabel}
                       </p>
                       {isFeatured && (
-                        <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
+                        <Badge className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
                           {t("convention.news.featured")}
-                        </span>
+                        </Badge>
                       )}
                     </div>
                     {renderMedia(message)}
                     {renderText(message)}
-                  </article>
+                  </NewsCard>
                 </div>
               </div>
             );
           })}
         </div>
       ) : layoutMode === "table" ? (
-        <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-surface/60 shadow-md">
-          <div className="grid grid-cols-[160px_1fr] gap-0 border-b border-white/10 px-6 py-4 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            <span>{t("convention.news.table.date")}</span>
-            <span>{t("convention.news.table.update")}</span>
-          </div>
-          <div className="divide-y divide-white/10">
-            {visibleMessages.map((message) => (
-              <div
-                key={message.id}
-                className="grid grid-cols-[160px_1fr] gap-6 px-6 py-5"
-              >
-                <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  {formatter.format(new Date(message.date))}
-                </p>
-                <div className="flex flex-col gap-4">
-                  {renderText(message)}
-                  {renderMedia(message)}
-                </div>
+        <Card className="mt-10 overflow-hidden border-white/10 bg-surface/60 shadow-md">
+          <CardContent className="p-0">
+            <table className="w-full border-collapse text-left">
+              <thead>
+                <tr className="border-b border-white/10 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                  <th className="px-6 py-4 font-medium">
+                    {t("convention.news.table.date")}
+                  </th>
+                  <th className="px-6 py-4 font-medium">
+                    {t("convention.news.table.update")}
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                {visibleMessages.map((message) => (
+                  <tr key={message.id} className="align-top text-foreground/85">
+                    <td className="px-6 py-5 text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                      {formatter.format(new Date(message.date))}
+                    </td>
+                    <td className="px-6 py-5">
+                      <div className="flex flex-col gap-4">
+                        {renderText(message)}
+                        {renderMedia(message)}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </CardContent>
+        </Card>
+      ) : layoutMode === "email" ? (
+        <div className="mt-10 grid gap-6 lg:grid-cols-[0.85fr_1.65fr] lg:items-stretch">
+          <Card className="max-h-[480px] min-h-[400px] gap-0 overflow-hidden border-white/10 bg-surface/60 !py-0 shadow-md">
+            <CardContent className="flex h-full flex-col p-0">
+              <div className="border-b border-white/10 bg-surface/80 px-4 py-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                {t("convention.news.title")}
               </div>
-            ))}
-          </div>
+              <div className="news-email-scroll flex-1 overflow-y-auto">
+                {visibleMessages.map((message) => {
+                  const subjectLine =
+                    message.text?.split("\n").find((line) => line.trim()) ??
+                    t("convention.news.table.update");
+                  const isActive = message.id === activeEmailId;
+                  return (
+                    <button
+                      key={message.id}
+                      type="button"
+                      onClick={() => {
+                        setActiveEmailId(message.id);
+                      }}
+                      className={`group flex w-full flex-col gap-2 border-b border-white/10 px-4 py-3 text-left transition hover:bg-surface/80 ${
+                        isActive
+                          ? "relative bg-surface/80 ring-1 ring-accent/20"
+                          : ""
+                      }`}
+                    >
+                      {isActive && (
+                        <span className="absolute left-0 top-3 h-[calc(100%-1.5rem)] w-1 rounded-full bg-accent shadow-[0_0_12px_rgba(201,168,76,0.6)]" />
+                      )}
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">
+                          {formatter.format(new Date(message.date))}
+                        </span>
+                        {message.id === visibleMessages[0]?.id && (
+                          <Badge className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[0.55rem] font-semibold uppercase tracking-[0.2em] text-accent">
+                            {t("convention.news.featured")}
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-sm font-semibold text-foreground">
+                        {subjectLine}
+                      </p>
+                      <p className="text-xs text-foreground/70">
+                        {renderPreview(message, 120)}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="max-h-[480px] min-h-[400px] overflow-hidden border-white/10 bg-surface/60 !py-0 shadow-md">
+            <CardContent className="flex h-full flex-col p-0">
+              {visibleMessages.map((message) => {
+                if (message.id !== activeEmailId) {
+                  return null;
+                }
+                const subjectLine =
+                  message.text?.split("\n").find((line) => line.trim()) ??
+                  t("convention.news.table.update");
+                return (
+                  <div
+                    key={message.id}
+                    className="news-email-scroll h-full overflow-y-auto px-5 py-4"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <p className="text-lg font-semibold text-foreground">
+                        {subjectLine}
+                      </p>
+                      <Badge
+                        variant="outline"
+                        className="border-white/10 bg-surface/70 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-foreground/70"
+                      >
+                        {formatter.format(new Date(message.date))}
+                      </Badge>
+                    </div>
+                    <div className="flex flex-col gap-5">
+                      {renderMedia(message)}
+                      {renderText(message)}
+                    </div>
+                  </div>
+                );
+              })}
+            </CardContent>
+          </Card>
         </div>
       ) : layoutMode === "readmore" ? (
         <div className="mt-10 space-y-4">
-          {visibleMessages.map((message) => (
-            <details
-              key={message.id}
-              className="group rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition hover:border-white/30"
-            >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm text-foreground/85">
-                <div className="flex flex-col gap-2">
-                  <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
-                    {formatter.format(new Date(message.date))}
-                  </p>
-                  {renderPreview(message, 120)}
-                </div>
-                <span className="rounded-full border border-white/10 bg-surface/80 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-foreground/70 transition group-open:border-accent/50 group-open:text-accent">
-                  {t("convention.news.modes.readmore")}
-                </span>
-              </summary>
-              <div className="mt-4 flex flex-col gap-4 text-sm text-foreground/85">
-                {renderMedia(message)}
-                {renderText(message)}
+          {visibleMessages.map((message) => {
+            const isOpen = activeAccordionId === message.id;
+            return (
+              <NewsCard key={message.id} className="p-5">
+                <Collapsible
+                  open={isOpen}
+                  onOpenChange={() => {
+                    setActiveAccordionId(isOpen ? null : message.id);
+                  }}
+                >
+                  <CollapsibleTrigger asChild>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="flex w-full items-center justify-between px-0 text-left text-sm text-foreground/85"
+                    >
+                      <div className="flex flex-col gap-2">
+                        <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
+                          {formatter.format(new Date(message.date))}
+                        </p>
+                        {renderPreview(message, 120)}
+                      </div>
+                      <Badge
+                        variant="outline"
+                        className="border-white/10 bg-surface/80 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-foreground/70"
+                      >
+                        {t("convention.news.modes.readmore")}
+                      </Badge>
+                    </Button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="mt-4 flex flex-col gap-4 text-sm text-foreground/85">
+                    {renderMedia(message)}
+                    {renderText(message)}
+                  </CollapsibleContent>
+                </Collapsible>
+              </NewsCard>
+            );
+          })}
+        </div>
+      ) : layoutMode === "polaroidReadmore" ? (
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {visibleMessages.map((message) => {
+            const isOpen = activeAccordionId === message.id;
+            const hasMedia = (message.media?.length ?? 0) > 0;
+            const preview = renderPreview(message, 120);
+            const mediaBlock = hasMedia ? (
+              <div className="[&>div]:mt-0">{renderMedia(message)}</div>
+            ) : (
+              <div className="flex min-h-[11rem] items-center justify-center rounded-xl border border-white/10 bg-surface/70 p-4 text-sm text-foreground/80 shadow">
+                {preview ?? (
+                  <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                    {t("convention.news.table.update")}
+                  </span>
+                )}
               </div>
-            </details>
-          ))}
+            );
+            return (
+              <NewsCard
+                key={message.id}
+                variant="polaroid"
+                contentClassName="text-foreground"
+              >
+                <Collapsible
+                  open={isOpen}
+                  onOpenChange={() => {
+                    setActiveAccordionId(isOpen ? null : message.id);
+                  }}
+                >
+                  <div className="flex flex-col gap-4">
+                    {mediaBlock}
+                    <div className="news-polaroid-caption space-y-2">
+                      <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
+                        {formatter.format(new Date(message.date))}
+                      </p>
+                      {hasMedia ? preview : null}
+                    </div>
+                    <CollapsibleTrigger asChild>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="w-full justify-between border-white/10 bg-surface/80 text-[0.65rem] uppercase tracking-[0.25em] text-foreground/70 hover:border-white/30 hover:text-foreground"
+                      >
+                        <span>
+                          {isOpen
+                            ? t("convention.news.actions.close")
+                            : t("convention.news.actions.open")}
+                        </span>
+                        <span className="text-base text-foreground/70">
+                          {isOpen ? "-" : "+"}
+                        </span>
+                      </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="flex flex-col gap-4 text-sm text-foreground/85">
+                      {renderText(message)}
+                    </CollapsibleContent>
+                  </div>
+                </Collapsible>
+              </NewsCard>
+            );
+          })}
         </div>
       ) : layoutMode === "focus" ? (
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -312,12 +651,21 @@ export function NewsSection() {
             const isActive = activeFocusId === message.id;
             const isDim = activeFocusId !== null && !isActive;
             return (
-              <article
+              <NewsCard
                 key={message.id}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isActive}
                 onClick={() => {
                   setActiveFocusId(isActive ? null : message.id);
                 }}
-                className={`cursor-pointer rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition ${
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setActiveFocusId(isActive ? null : message.id);
+                  }
+                }}
+                className={`cursor-pointer rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:outline-none ${
                   isActive ? "ring-1 ring-accent/30 scale-[1.02]" : ""
                 } ${isDim ? "opacity-40 blur-[1px]" : ""}`}
               >
@@ -326,7 +674,7 @@ export function NewsSection() {
                 </p>
                 {renderMedia(message)}
                 {renderText(message)}
-              </article>
+              </NewsCard>
             );
           })}
         </div>
@@ -335,25 +683,24 @@ export function NewsSection() {
           {visibleMessages.map((message) => {
             const isOpen = activeDrawerId === message.id;
             return (
-              <div
-                key={message.id}
-                className="rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md"
-              >
+              <NewsCard key={message.id} className="p-5">
                 <div className="flex items-center justify-between gap-4">
                   <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
                     {formatter.format(new Date(message.date))}
                   </p>
-                  <button
+                  <Button
                     type="button"
+                    variant="outline"
+                    size="sm"
                     onClick={() => {
                       setActiveDrawerId(isOpen ? null : message.id);
                     }}
-                    className="rounded-full border border-white/10 bg-surface/80 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-foreground/70 transition hover:border-white/30 hover:text-foreground"
+                    className="rounded-full border-white/10 bg-surface/80 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
                   >
                     {isOpen
                       ? t("convention.news.actions.close")
                       : t("convention.news.actions.open")}
-                  </button>
+                  </Button>
                 </div>
                 <div className="mt-3">{renderPreview(message, 160)}</div>
                 {isOpen && (
@@ -362,7 +709,7 @@ export function NewsSection() {
                     {renderText(message)}
                   </div>
                 )}
-              </div>
+              </NewsCard>
             );
           })}
         </div>
@@ -371,16 +718,14 @@ export function NewsSection() {
           {visibleMessages.map((message) => {
             const isOpen = activeAccordionId === message.id;
             return (
-              <div
-                key={message.id}
-                className="rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md"
-              >
-                <button
+              <NewsCard key={message.id} className="p-5">
+                <Button
                   type="button"
+                  variant="ghost"
                   onClick={() => {
                     setActiveAccordionId(isOpen ? null : message.id);
                   }}
-                  className="flex w-full items-center justify-between text-left"
+                  className="flex h-auto w-full items-center justify-between px-0 text-left"
                 >
                   <div>
                     <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
@@ -389,27 +734,37 @@ export function NewsSection() {
                     <div className="mt-2">{renderPreview(message, 120)}</div>
                   </div>
                   <span className="text-xl text-foreground/60">
-                    {isOpen ? "−" : "+"}
+                    {isOpen ? "-" : "+"}
                   </span>
-                </button>
+                </Button>
                 {isOpen && (
                   <div className="mt-4 flex flex-col gap-4">
                     {renderMedia(message)}
                     {renderText(message)}
                   </div>
                 )}
-              </div>
+              </NewsCard>
             );
           })}
         </div>
       ) : layoutMode === "zoom" ? (
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visibleMessages.map((message) => (
-            <article
+            <NewsCard
               key={message.id}
-              className="cursor-zoom-in rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition hover:border-white/30"
+              role="button"
+              tabIndex={0}
+              aria-haspopup="dialog"
+              aria-label={t("convention.news.actions.openItem")}
+              className="cursor-zoom-in rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition hover:border-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
               onClick={() => {
                 setActiveZoomId(message.id);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  setActiveZoomId(message.id);
+                }
               }}
             >
               <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
@@ -417,7 +772,7 @@ export function NewsSection() {
               </p>
               {renderMedia(message)}
               {renderText(message)}
-            </article>
+            </NewsCard>
           ))}
         </div>
       ) : layoutMode === "spotlight" ? (
@@ -427,7 +782,7 @@ export function NewsSection() {
             const isDim =
               hoveredSpotlightId !== null && hoveredSpotlightId !== message.id;
             return (
-              <article
+              <NewsCard
                 key={message.id}
                 onMouseEnter={() => {
                   setHoveredSpotlightId(message.id);
@@ -435,7 +790,14 @@ export function NewsSection() {
                 onMouseLeave={() => {
                   setHoveredSpotlightId(null);
                 }}
-                className={`rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition ${
+                tabIndex={0}
+                onFocus={() => {
+                  setHoveredSpotlightId(message.id);
+                }}
+                onBlur={() => {
+                  setHoveredSpotlightId(null);
+                }}
+                className={`rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 ${
                   isHovered ? "scale-[1.03] ring-1 ring-accent/30" : ""
                 } ${isDim ? "opacity-40 blur-[1px]" : ""}`}
               >
@@ -444,72 +806,107 @@ export function NewsSection() {
                 </p>
                 {renderMedia(message)}
                 {renderText(message)}
-              </article>
+              </NewsCard>
             );
           })}
         </div>
       ) : layoutMode === "carouselThumbs" ? (
         <div className="mt-10">
-          <div className="rounded-2xl border border-white/10 bg-surface/60 p-6 shadow-md">
-            {visibleMessages[carouselIndex] && (
-              <div className="flex flex-col gap-4">
-                <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
-                  {formatter.format(
-                    new Date(visibleMessages[carouselIndex].date)
-                  )}
-                </p>
-                {renderMedia(visibleMessages[carouselIndex])}
-                {renderText(visibleMessages[carouselIndex])}
+          <NewsCard className="overflow-hidden p-0">
+            <div className="flex flex-col">
+              <div className="p-6">
+                {visibleMessages[carouselIndex] && (
+                  <div className="flex flex-col gap-4">
+                    <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
+                      {formatter.format(
+                        new Date(visibleMessages[carouselIndex].date)
+                      )}
+                    </p>
+                    {renderMedia(visibleMessages[carouselIndex])}
+                    {renderText(visibleMessages[carouselIndex])}
+                  </div>
+                )}
               </div>
-            )}
-            <div className="mt-6 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setCarouselIndex((previous) =>
-                    previous === 0 ? visibleMessages.length - 1 : previous - 1
-                  );
-                }}
-                className="rounded-full border border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:border-white/30 hover:text-foreground"
-              >
-                ←
-              </button>
-              <div className="flex flex-1 gap-2 overflow-x-auto pb-2">
-                {visibleMessages.map((message, index) => (
-                  <button
-                    key={message.id}
-                    type="button"
-                    onClick={() => {
-                      setCarouselIndex(index);
-                    }}
-                    className={`min-w-[140px] rounded-xl border border-white/10 bg-surface/80 px-3 py-2 text-left text-xs text-foreground/70 transition ${
-                      index === carouselIndex
-                        ? "border-accent/40 text-foreground"
-                        : "hover:border-white/30"
-                    }`}
-                  >
-                    {renderPreview(message, 60)}
-                  </button>
-                ))}
+              <div className="border-t border-white/10 bg-surface/80 px-4 py-3">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                    {t("convention.news.modes.carouselThumbs")}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setCarouselIndex((previous) =>
+                          previous === 0
+                            ? visibleMessages.length - 1
+                            : previous - 1
+                        );
+                      }}
+                      aria-label={t("convention.news.actions.previous")}
+                      className="rounded-full border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
+                    >
+                      &lsaquo;
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setCarouselIndex((previous) =>
+                          previous === visibleMessages.length - 1
+                            ? 0
+                            : previous + 1
+                        );
+                      }}
+                      aria-label={t("convention.news.actions.next")}
+                      className="rounded-full border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
+                    >
+                      &rsaquo;
+                    </Button>
+                  </div>
+                </div>
+                <div className="flex gap-3 overflow-x-auto pb-2">
+                  {visibleMessages.map((message, index) => {
+                    const isActive = index === carouselIndex;
+                    const preview = renderPreview(message, 80);
+                    return (
+                      <button
+                        key={message.id}
+                        type="button"
+                        onClick={() => {
+                          setCarouselIndex(index);
+                        }}
+                        className={`group flex min-w-[220px] flex-col gap-2 rounded-2xl border border-white/10 bg-surface/70 px-4 py-3 text-left text-sm transition ${
+                          isActive
+                            ? "border-accent/40 bg-surface/80 shadow-[0_0_18px_rgba(201,168,76,0.2)]"
+                            : "hover:border-white/30"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="text-[0.65rem] uppercase tracking-[0.25em] text-muted-foreground">
+                            {formatter.format(new Date(message.date))}
+                          </span>
+                          <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-surface/80 text-[0.6rem] font-semibold text-foreground/70">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                        </div>
+                        <p className="text-sm font-semibold text-foreground/90">
+                          {preview ?? renderText(message)}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setCarouselIndex((previous) =>
-                    previous === visibleMessages.length - 1 ? 0 : previous + 1
-                  );
-                }}
-                className="rounded-full border border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:border-white/30 hover:text-foreground"
-              >
-                →
-              </button>
             </div>
-          </div>
+          </NewsCard>
         </div>
       ) : layoutMode === "banner" ? (
         <div className="mt-10 space-y-6">
           {visibleMessages.map((message, index) => (
-            <article
+            <NewsCard
               key={message.id}
               className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-r from-surface/60 via-surface/70 to-surface/60 p-6 shadow-lg transition hover:border-white/30 ${
                 index % 2 === 0 ? "lg:pr-10" : "lg:pl-10"
@@ -530,7 +927,7 @@ export function NewsSection() {
                   {renderMedia(message)}
                 </div>
               </div>
-            </article>
+            </NewsCard>
           ))}
         </div>
       ) : layoutMode === "rail" ? (
@@ -540,30 +937,36 @@ export function NewsSection() {
               {t("convention.news.modes.rail")}
             </p>
             <div className="flex items-center gap-2">
-              <button
+              <Button
                 type="button"
+                variant="outline"
+                size="sm"
                 onClick={() => {
                   railBottomRef.current?.scrollBy({
                     left: -420,
                     behavior: "smooth",
                   });
                 }}
-                className="rounded-full border border-white/10 bg-surface/70 px-3 py-2 text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:border-white/30 hover:text-foreground"
+                aria-label={t("convention.news.actions.previous")}
+                className="rounded-full border-white/10 bg-surface/70 px-3 py-2 text-xs uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
               >
-                ←
-              </button>
-              <button
+                &lt;
+              </Button>
+              <Button
                 type="button"
+                variant="outline"
+                size="sm"
                 onClick={() => {
                   railBottomRef.current?.scrollBy({
                     left: 420,
                     behavior: "smooth",
                   });
                 }}
-                className="rounded-full border border-white/10 bg-surface/70 px-3 py-2 text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:border-white/30 hover:text-foreground"
+                aria-label={t("convention.news.actions.next")}
+                className="rounded-full border-white/10 bg-surface/70 px-3 py-2 text-xs uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
               >
-                →
-              </button>
+                &gt;
+              </Button>
             </div>
           </div>
           <div
@@ -581,6 +984,7 @@ export function NewsSection() {
               railSyncingRef.current = "top";
               bottom.scrollLeft = top.scrollLeft;
             }}
+            aria-hidden="true"
             className="news-rail-scroll mb-3 h-3 overflow-x-auto rounded-full bg-white/5"
           >
             <div ref={railSpacerRef} className="h-2 px-2" />
@@ -600,14 +1004,17 @@ export function NewsSection() {
               railSyncingRef.current = "bottom";
               top.scrollLeft = bottom.scrollLeft;
             }}
-            className="news-rail-scroll overflow-x-auto pb-3"
+            role="region"
+            tabIndex={0}
+            aria-label={t("convention.news.modes.rail")}
+            className="news-rail-scroll overflow-x-auto pb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
           >
             <div className="flex w-max gap-5">
               {visibleMessages.map((message, index) => {
                 const dateLabel = formatter.format(new Date(message.date));
                 const isFeatured = index === 0;
                 return (
-                  <article
+                  <NewsCard
                     key={message.id}
                     className={`group relative flex w-[min(420px,85vw)] flex-none flex-col gap-3 overflow-hidden rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-surface/70 ${
                       isFeatured ? "ring-1 ring-accent/20" : ""
@@ -618,14 +1025,14 @@ export function NewsSection() {
                         {dateLabel}
                       </p>
                       {isFeatured && (
-                        <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
+                        <Badge className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
                           {t("convention.news.featured")}
-                        </span>
+                        </Badge>
                       )}
                     </div>
                     {renderMedia(message)}
                     {renderText(message)}
-                  </article>
+                  </NewsCard>
                 );
               })}
             </div>
@@ -643,7 +1050,6 @@ export function NewsSection() {
             const isSplit = layoutMode === "split";
             const isMosaic = layoutMode === "mosaic";
             const isIndex = layoutMode === "index";
-            const isLedger = layoutMode === "ledger";
             const isBillboard = layoutMode === "billboard";
             const isZigzag = layoutMode === "zigzag";
             const isDiagonal = layoutMode === "diagonal";
@@ -653,67 +1059,74 @@ export function NewsSection() {
             const mosaicSpan = getMosaicSpan(layoutMode, index);
 
             if (isIndex) {
-              return (
-                <article
-                  key={message.id}
-                  className="grid gap-4 rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md md:grid-cols-[72px_1fr]"
-                >
-                  <div className="flex items-center justify-center">
-                    <span className="text-3xl font-semibold text-accent">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
-                        {dateLabel}
-                      </p>
-                      {isFeatured && (
-                        <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
-                          {t("convention.news.featured")}
-                        </span>
-                      )}
-                    </div>
-                    {renderMedia(message)}
-                    {renderText(message)}
-                  </div>
-                </article>
+              const preview = renderPreview(message, 180);
+              const compactMedia = renderIndexMedia(
+                message,
+                t("convention.news.mediaAlt")
               );
-            }
-
-            if (isLedger) {
+              const isOpen = activeAccordionId === message.id;
               return (
-                <article
+                <NewsCard
                   key={message.id}
-                  className={`grid gap-4 rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition hover:border-white/30 ${
-                    index % 2 === 0
-                      ? "lg:grid-cols-[1.1fr_0.9fr]"
-                      : "lg:grid-cols-[0.9fr_1.1fr]"
-                  }`}
+                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r from-surface/70 via-surface/60 to-surface/70 p-5 shadow-md transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-surface/70"
                 >
-                  <div className={`${index % 2 === 0 ? "" : "lg:order-2"}`}>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
-                        {dateLabel}
-                      </p>
-                      {isFeatured && (
-                        <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
-                          {t("convention.news.featured")}
+                  <div className="absolute inset-y-0 left-0 hidden w-1 bg-gradient-to-b from-accent/50 via-accent/10 to-transparent md:block" />
+                  <Collapsible
+                    open={isOpen}
+                    onOpenChange={() => {
+                      setActiveAccordionId(isOpen ? null : message.id);
+                    }}
+                  >
+                    <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-5">
+                      <div className="flex w-full items-center gap-4 md:w-auto md:flex-col md:items-center md:gap-3">
+                        <span className="flex h-12 w-12 items-center justify-center rounded-full border border-accent/40 bg-accent/10 text-2xl font-semibold text-accent shadow-[0_0_18px_rgba(201,168,76,0.35)]">
+                          {String(index + 1).padStart(2, "0")}
                         </span>
-                      )}
+                        <div className="h-px w-8 bg-white/10 md:h-8 md:w-px" />
+                        <p className="text-[0.65rem] uppercase tracking-[0.3em] text-muted-foreground">
+                          {dateLabel}
+                        </p>
+                      </div>
+                      <div className="flex flex-1 flex-col gap-4">
+                        <div className="flex flex-wrap items-center gap-3">
+                          {isFeatured && (
+                            <Badge className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
+                              {t("convention.news.featured")}
+                            </Badge>
+                          )}
+                          <CollapsibleTrigger asChild>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="ml-auto border-white/10 bg-surface/80 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
+                            >
+                              {isOpen
+                                ? t("convention.news.actions.close")
+                                : t("convention.news.modes.readmore")}
+                            </Button>
+                          </CollapsibleTrigger>
+                        </div>
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+                          {compactMedia}
+                          <div className="flex-1 text-sm text-foreground/85">
+                            {preview ?? renderText(message)}
+                          </div>
+                        </div>
+                        <CollapsibleContent className="flex flex-col gap-4 text-sm text-foreground/85">
+                          {renderMedia(message)}
+                          {renderText(message)}
+                        </CollapsibleContent>
+                      </div>
                     </div>
-                    {renderText(message)}
-                  </div>
-                  <div className={`${index % 2 === 0 ? "" : "lg:order-1"}`}>
-                    {renderMedia(message)}
-                  </div>
-                </article>
+                  </Collapsible>
+                </NewsCard>
               );
             }
 
             if (isBillboard) {
               return (
-                <article
+                <NewsCard
                   key={message.id}
                   className={`group relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-white/10 bg-surface/60 p-6 shadow-md transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-surface/70 ${
                     isFeatured ? "ring-1 ring-accent/20" : ""
@@ -724,9 +1137,9 @@ export function NewsSection() {
                       {dateLabel}
                     </p>
                     {isFeatured && (
-                      <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
+                      <Badge className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
                         {t("convention.news.featured")}
-                      </span>
+                      </Badge>
                     )}
                   </div>
                   <div
@@ -735,13 +1148,13 @@ export function NewsSection() {
                     {renderText(message)}
                   </div>
                   {renderMedia(message)}
-                </article>
+                </NewsCard>
               );
             }
 
             if (isZigzag) {
               return (
-                <article
+                <NewsCard
                   key={message.id}
                   className={`grid gap-4 rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition hover:border-white/30 lg:grid-cols-[1.2fr_0.8fr] ${
                     index % 2 === 0 ? "" : "lg:grid-cols-[0.8fr_1.2fr]"
@@ -758,13 +1171,13 @@ export function NewsSection() {
                   <div className={`${index % 2 === 0 ? "" : "lg:order-1"}`}>
                     {renderMedia(message)}
                   </div>
-                </article>
+                </NewsCard>
               );
             }
 
             if (isDiagonal) {
               return (
-                <article
+                <NewsCard
                   key={message.id}
                   className={`group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition hover:-translate-y-0.5 hover:border-white/30 ${
                     index % 3 === 0 ? "lg:translate-x-6" : ""
@@ -777,13 +1190,13 @@ export function NewsSection() {
                   </div>
                   {renderMedia(message)}
                   {renderText(message)}
-                </article>
+                </NewsCard>
               );
             }
 
             if (isWall) {
               return (
-                <article
+                <NewsCard
                   key={message.id}
                   className="group relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl border border-white/10 bg-surface/60 p-4 shadow-md transition hover:border-white/30"
                 >
@@ -794,12 +1207,12 @@ export function NewsSection() {
                     </p>
                   </div>
                   {renderText(message)}
-                </article>
+                </NewsCard>
               );
             }
 
             return (
-              <article
+              <NewsCard
                 key={message.id}
                 className={`group relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl border border-white/10 bg-surface/60 shadow-md transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-surface/70 ${
                   isMasonry ? "mb-6 break-inside-avoid p-5" : "p-5"
@@ -818,10 +1231,28 @@ export function NewsSection() {
                       : "-rotate-[0.6deg]"
                     : ""
                 } ${
-                  isPolaroid ? "bg-surface/80 p-4 pb-8 shadow-xl" : ""
-                } ${isGallery ? "cursor-pointer" : ""}`}
+                  isGallery
+                    ? "cursor-pointer focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:outline-none"
+                    : ""
+                }`}
+                variant={isPolaroid ? "polaroid" : "default"}
+                role={isGallery ? "button" : undefined}
+                tabIndex={isGallery ? 0 : undefined}
+                aria-haspopup={isGallery ? "dialog" : undefined}
+                aria-label={
+                  isGallery ? t("convention.news.actions.openItem") : undefined
+                }
                 onClick={() => {
                   if (isGallery) {
+                    setActiveGalleryId(message.id);
+                  }
+                }}
+                onKeyDown={(event) => {
+                  if (!isGallery) {
+                    return;
+                  }
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
                     setActiveGalleryId(message.id);
                   }
                 }}
@@ -832,13 +1263,17 @@ export function NewsSection() {
                       {dateLabel}
                     </p>
                     {isFeatured && layoutMode !== "gallery" && (
-                      <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
+                      <Badge className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
                         {t("convention.news.featured")}
-                      </span>
+                      </Badge>
                     )}
                   </div>
                   {!isGallery && !isPoster && !isSplit && renderMedia(message)}
-                  {!isGallery && renderText(message)}
+                  {!isGallery && (
+                    <div className={isPolaroid ? "news-polaroid-caption" : ""}>
+                      {renderText(message)}
+                    </div>
+                  )}
                   {isGallery && !message.media?.length && (
                     <div className="mt-3 text-sm text-foreground/80">
                       {renderPreview(message, 160)}
@@ -850,111 +1285,136 @@ export function NewsSection() {
                     {renderMedia(message)}
                   </div>
                 )}
-              </article>
+              </NewsCard>
             );
           })}
         </div>
       )}
 
-      {layoutMode === "gallery" && activeGalleryId !== null && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 px-4 py-10">
-          <button
-            type="button"
-            className="absolute inset-0 cursor-default"
-            onClick={() => {
+      {layoutMode === "gallery" && (
+        <Dialog
+          open={activeGalleryId !== null}
+          onOpenChange={(open) => {
+            if (!open) {
               setActiveGalleryId(null);
-            }}
-            aria-label="Close gallery item"
-          />
-          <div className="relative z-10 w-full max-w-3xl rounded-3xl border border-white/15 bg-surface/95 p-6 shadow-2xl backdrop-blur">
-            <button
-              type="button"
-              className="absolute right-4 top-4 rounded-full border border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:border-white/30 hover:text-foreground"
-              onClick={() => {
-                setActiveGalleryId(null);
-              }}
-            >
-              Close
-            </button>
+            }
+          }}
+        >
+          <DialogContent className="w-[95vw] max-w-3xl border-white/15 bg-surface/95">
             {(() => {
               const active = messages.find(
                 (message) => message.id === activeGalleryId
               );
               if (!active) {
-                return null;
+                return (
+                  <DialogHeader>
+                    <DialogTitle>{t("convention.news.title")}</DialogTitle>
+                  </DialogHeader>
+                );
               }
               return (
-                <div className="flex flex-col gap-4">
-                  <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
-                    {formatter.format(new Date(active.date))}
-                  </p>
-                  {renderMedia(active)}
-                  {renderText(active)}
-                </div>
+                <>
+                  <DialogHeader>
+                    <DialogTitle>{t("convention.news.title")}</DialogTitle>
+                  </DialogHeader>
+                  <div className="flex flex-col gap-4">
+                    <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
+                      {formatter.format(new Date(active.date))}
+                    </p>
+                    {renderMedia(active)}
+                    {renderText(active)}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="self-end rounded-full border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
+                      onClick={() => {
+                        setActiveGalleryId(null);
+                      }}
+                    >
+                      {t("convention.news.actions.close")}
+                    </Button>
+                  </div>
+                </>
               );
             })()}
-          </div>
-        </div>
+          </DialogContent>
+        </Dialog>
       )}
 
-      {layoutMode === "zoom" && activeZoomId !== null && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 px-4 py-10">
-          <button
-            type="button"
-            className="absolute inset-0 cursor-default"
-            onClick={() => {
+      {layoutMode === "zoom" && (
+        <Dialog
+          open={activeZoomId !== null}
+          onOpenChange={(open) => {
+            if (!open) {
               setActiveZoomId(null);
-            }}
-            aria-label="Close zoom item"
-          />
-          <div className="relative z-10 w-full max-w-4xl rounded-3xl border border-white/15 bg-surface/95 p-6 shadow-2xl backdrop-blur">
-            <button
-              type="button"
-              className="absolute right-4 top-4 rounded-full border border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 transition hover:border-white/30 hover:text-foreground"
-              onClick={() => {
-                setActiveZoomId(null);
-              }}
-            >
-              Close
-            </button>
+            }
+          }}
+        >
+          <DialogContent className="w-[95vw] max-w-4xl border-white/15 bg-surface/95">
             {(() => {
               const active = messages.find(
                 (message) => message.id === activeZoomId
               );
               if (!active) {
-                return null;
+                return (
+                  <DialogHeader>
+                    <DialogTitle>{t("convention.news.title")}</DialogTitle>
+                  </DialogHeader>
+                );
               }
               return (
-                <div className="flex flex-col gap-4">
-                  <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
-                    {formatter.format(new Date(active.date))}
-                  </p>
-                  {renderMedia(active)}
-                  {renderText(active)}
-                </div>
+                <>
+                  <DialogHeader>
+                    <DialogTitle>{t("convention.news.title")}</DialogTitle>
+                  </DialogHeader>
+                  <div className="flex flex-col gap-4">
+                    <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
+                      {formatter.format(new Date(active.date))}
+                    </p>
+                    {renderMedia(active)}
+                    {renderText(active)}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="self-end rounded-full border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
+                      onClick={() => {
+                        setActiveZoomId(null);
+                      }}
+                    >
+                      {t("convention.news.actions.close")}
+                    </Button>
+                  </div>
+                </>
               );
             })()}
-          </div>
-        </div>
+          </DialogContent>
+        </Dialog>
       )}
 
       {error && (
-        <p className="mt-6 text-sm text-muted-foreground">
+        <p
+          className="mt-6 text-sm text-muted-foreground"
+          role="status"
+          aria-live="polite"
+        >
           {t("convention.news.error")}
         </p>
       )}
 
       {messages.length > visibleCount && (
         <div className="mt-8 flex justify-center">
-          <button
+          <Button
             type="button"
+            variant="outline"
             onClick={() => {
               setVisibleCount((count) => count + PAGE_SIZE);
             }}
-            className="rounded-full border border-white/15 px-6 py-2 text-sm font-semibold text-foreground/80 transition hover:border-white/35 hover:text-foreground"
+            className="rounded-full border-white/15 px-6 py-2 text-sm font-semibold text-foreground/80 hover:border-white/35 hover:text-foreground"
           >
             {t("convention.news.loadMore")}
-          </button>
+          </Button>
         </div>
       )}
 

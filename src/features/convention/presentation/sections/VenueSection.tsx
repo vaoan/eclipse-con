@@ -13,6 +13,14 @@ import {
   Globe,
 } from "lucide-react";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
@@ -89,23 +97,24 @@ export function VenueSection() {
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-foreground/80">
             {venueBadges.map((badge) => (
-              <a
+              <Badge
                 key={badge.key}
-                href={badge.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface/40 px-3 py-1.5 transition hover:text-foreground"
+                asChild
+                variant="outline"
+                className="border-white/10 bg-surface/40 px-3 py-1.5 text-[0.65rem] uppercase tracking-[0.2em] text-foreground/80 hover:text-foreground"
               >
-                {badge.icon && (
-                  <img
-                    src="https://cdn.simpleicons.org/tripadvisor/ffffff?viewbox=auto"
-                    alt="Tripadvisor"
-                    className="h-4 w-4"
-                    loading="lazy"
-                  />
-                )}
-                {t(badge.key)}
-              </a>
+                <a href={badge.href} target="_blank" rel="noreferrer">
+                  {badge.icon && (
+                    <img
+                      src="https://cdn.simpleicons.org/tripadvisor/ffffff?viewbox=auto"
+                      alt="Tripadvisor"
+                      className="h-4 w-4"
+                      loading="lazy"
+                    />
+                  )}
+                  {t(badge.key)}
+                </a>
+              </Badge>
             ))}
           </div>
           <div className="mt-5 space-y-3 text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -136,70 +145,58 @@ export function VenueSection() {
             className="mt-4 w-full rounded-2xl border border-white/10 object-cover shadow-xl"
             loading="lazy"
           />
-          <div
-            className="group mt-6 cursor-pointer rounded-2xl border border-white/10 bg-surface/30 p-4 transition hover:border-white/20"
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              setIsDetailsOpen((open) => !open);
-            }}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                setIsDetailsOpen((open) => !open);
-              }
-            }}
-            aria-expanded={isDetailsOpen}
-            aria-controls="venue-details-panel"
-          >
-            <div className="flex w-full items-center justify-between gap-3 text-left text-sm font-semibold text-foreground/90 transition group-hover:text-foreground">
-              <span className="inline-flex items-center gap-2">
-                <span className="text-foreground/70">+</span>
-                {t("convention.venue.detailsLabel")}
-              </span>
-              <span
-                className={`text-xs text-foreground/60 transition ${
-                  isDetailsOpen ? "rotate-180" : ""
-                }`}
-              >
-                ▼
-              </span>
-            </div>
-            <div
-              id="venue-details-panel"
-              className={`space-y-3 overflow-hidden text-sm text-muted-foreground transition-[max-height,opacity,transform,margin] duration-400 ease-out ${
-                isDetailsOpen
-                  ? "mt-4 max-h-[720px] translate-y-0 opacity-100"
-                  : "mt-0 max-h-0 translate-y-2 opacity-0"
-              }`}
-            >
-              <p>{t("convention.venue.description3")}</p>
-              <ul className="grid gap-3 text-foreground/85 sm:grid-cols-2">
-                {extraFeatures.map(({ key, icon: Icon }) => (
-                  <li key={key} className="flex items-start gap-2">
-                    <Icon size={16} className="mt-0.5 text-accent" />
-                    <span>{t(key)}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-foreground/70">
-                <span className="uppercase tracking-wide text-foreground/50">
-                  {t("convention.venue.sourcesLabel")}
-                </span>
-                {venueSources.map((source) => (
-                  <a
-                    key={source.key}
-                    href={source.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-dashed underline-offset-4 transition hover:text-foreground"
+          <Card className="mt-6 border-white/10 bg-surface/30">
+            <CardContent className="p-4">
+              <Collapsible open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
+                <CollapsibleTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    className="flex w-full items-center justify-between px-0 text-left text-sm font-semibold text-foreground/90 hover:text-foreground"
                   >
-                    {t(source.key)}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
+                    <span className="inline-flex items-center gap-2">
+                      <span className="text-foreground/70">+</span>
+                      {t("convention.venue.detailsLabel")}
+                    </span>
+                    <span
+                      className={`text-xs text-foreground/60 transition ${
+                        isDetailsOpen ? "rotate-180" : ""
+                      }`}
+                    >
+                      v
+                    </span>
+                  </Button>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-4 space-y-3 text-sm text-muted-foreground">
+                  <p>{t("convention.venue.description3")}</p>
+                  <ul className="grid gap-3 text-foreground/85 sm:grid-cols-2">
+                    {extraFeatures.map(({ key, icon: Icon }) => (
+                      <li key={key} className="flex items-start gap-2">
+                        <Icon size={16} className="mt-0.5 text-accent" />
+                        <span>{t(key)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-foreground/70">
+                    <span className="uppercase tracking-wide text-foreground/50">
+                      {t("convention.venue.sourcesLabel")}
+                    </span>
+                    {venueSources.map((source) => (
+                      <a
+                        key={source.key}
+                        href={source.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline decoration-dashed underline-offset-4 transition hover:text-foreground"
+                      >
+                        {t(source.key)}
+                      </a>
+                    ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </SectionWrapper>

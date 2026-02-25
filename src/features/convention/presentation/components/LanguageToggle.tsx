@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 
@@ -7,14 +8,16 @@ export function LanguageToggle() {
   const { i18n, t } = useTranslation();
   const isEnglish = i18n.resolvedLanguage?.startsWith("en") ?? true;
   const activeLanguageLabel = isEnglish ? "English" : "Español";
+  const currentLanguageId = "language-toggle-current";
 
   function toggleLanguage() {
     void i18n.changeLanguage(isEnglish ? "es" : "en");
   }
 
   return (
-    <button
+    <Button
       type="button"
+      variant="ghost"
       onClick={toggleLanguage}
       className={cn(
         "group relative inline-flex h-9 min-w-[170px] items-center overflow-hidden rounded-full border border-accent/40 p-1",
@@ -24,9 +27,7 @@ export function LanguageToggle() {
       )}
       role="switch"
       aria-checked={isEnglish}
-      aria-label={t("convention.language.toggleAria", {
-        language: activeLanguageLabel,
-      })}
+      aria-describedby={currentLanguageId}
       {...tid("language-toggle")}
     >
       <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -56,9 +57,9 @@ export function LanguageToggle() {
           Español
         </span>
       </span>
-      <span className="sr-only">
+      <span id={currentLanguageId} className="sr-only">
         {t("convention.language.current", { language: activeLanguageLabel })}
       </span>
-    </button>
+    </Button>
   );
 }

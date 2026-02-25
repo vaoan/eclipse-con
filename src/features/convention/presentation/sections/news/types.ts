@@ -32,7 +32,6 @@ export type NewsLayoutMode =
   | "magazine"
   | "mosaic"
   | "index"
-  | "ledger"
   | "billboard"
   | "poster"
   | "gallery"
@@ -43,8 +42,10 @@ export type NewsLayoutMode =
   | "wall"
   | "table"
   | "banner"
+  | "email"
   | "slanted"
   | "polaroid"
+  | "polaroidReadmore"
   | "readmore";
 
 export const DEFAULT_NEWS_LAYOUT: NewsLayoutMode = "magazine";
@@ -61,7 +62,6 @@ export const NEWS_LAYOUT_MODES: { id: NewsLayoutMode; labelKey: string }[] = [
   { id: "magazine", labelKey: "convention.news.modes.magazine" },
   { id: "mosaic", labelKey: "convention.news.modes.mosaic" },
   { id: "index", labelKey: "convention.news.modes.index" },
-  { id: "ledger", labelKey: "convention.news.modes.ledger" },
   { id: "billboard", labelKey: "convention.news.modes.billboard" },
   { id: "poster", labelKey: "convention.news.modes.poster" },
   { id: "gallery", labelKey: "convention.news.modes.gallery" },
@@ -72,7 +72,12 @@ export const NEWS_LAYOUT_MODES: { id: NewsLayoutMode; labelKey: string }[] = [
   { id: "wall", labelKey: "convention.news.modes.wall" },
   { id: "table", labelKey: "convention.news.modes.table" },
   { id: "banner", labelKey: "convention.news.modes.banner" },
+  { id: "email", labelKey: "convention.news.modes.email" },
   { id: "slanted", labelKey: "convention.news.modes.slanted" },
   { id: "polaroid", labelKey: "convention.news.modes.polaroid" },
+  {
+    id: "polaroidReadmore",
+    labelKey: "convention.news.modes.polaroidReadmore",
+  },
   { id: "readmore", labelKey: "convention.news.modes.readmore" },
 ];

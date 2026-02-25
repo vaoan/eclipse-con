@@ -35,15 +35,15 @@ test.describe("static build (file:// protocol)", () => {
 
     // Scroll through all sections
     const sections = [
-      { id: "about", text: "About Eclipse Con" },
-      { id: "events", text: "Events" },
-      { id: "guests", text: "Featured Guests" },
-      { id: "venue", text: "The Venue" },
-      { id: "registration", text: "Registration" },
-      { id: "faq", text: "Frequently Asked" },
+      { id: "about" },
+      { id: "events" },
+      { id: "guests" },
+      { id: "venue" },
+      { id: "registration" },
+      { id: "faq" },
     ];
 
-    for (const { id, text } of sections) {
+    for (const { id } of sections) {
       const section = page.locator(`#${id}`);
       await section.scrollIntoViewIfNeeded();
       await page.waitForTimeout(800);
@@ -51,12 +51,11 @@ test.describe("static build (file:// protocol)", () => {
       const opacity = await section.evaluate(
         (el) => window.getComputedStyle(el).opacity
       );
-      const textVisible = await section
-        .getByText(text, { exact: false })
-        .isVisible();
-      console.log(`#${id}: opacity=${opacity}, text visible=${textVisible}`);
+      const heading = section.getByRole("heading").first();
+      const headingVisible = await heading.isVisible();
+      console.log(`#${id}: opacity=${opacity}, heading visible=${headingVisible}`);
       expect(Number(opacity)).toBeGreaterThan(0);
-      expect(textVisible).toBe(true);
+      expect(headingVisible).toBe(true);
     }
 
     // Full page screenshot

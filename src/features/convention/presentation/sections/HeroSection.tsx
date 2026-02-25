@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
+import { Button } from "@/components/ui/button";
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
@@ -15,6 +16,7 @@ function HeroBathPicture({ className = "" }: { readonly className?: string }) {
     <img
       src={heroBathSingle}
       alt=""
+      aria-hidden="true"
       className={`${baseClasses} ${className}`}
       loading="lazy"
       decoding="async"
@@ -23,12 +25,10 @@ function HeroBathPicture({ className = "" }: { readonly className?: string }) {
   );
 }
 
-export function HeroSection() {
-  const { t } = useTranslation();
-  const isMobileViewport = useIsMobileViewport();
-  const bathLayerRef = useRef<HTMLDivElement | null>(null);
-  const textLayerRef = useRef<HTMLDivElement | null>(null);
-
+const useHeroClipOverlap = (
+  bathLayerRef: React.RefObject<HTMLDivElement | null>,
+  textLayerRef: React.RefObject<HTMLDivElement | null>
+) => {
   useEffect(() => {
     let frame = 0;
 
@@ -79,7 +79,15 @@ export function HeroSection() {
       window.removeEventListener("resize", onScrollOrResize);
       window.removeEventListener("orientationchange", onScrollOrResize);
     };
-  }, []);
+  }, [bathLayerRef, textLayerRef]);
+};
+
+export function HeroSection() {
+  const { t } = useTranslation();
+  const isMobileViewport = useIsMobileViewport();
+  const bathLayerRef = useRef<HTMLDivElement | null>(null);
+  const textLayerRef = useRef<HTMLDivElement | null>(null);
+  useHeroClipOverlap(bathLayerRef, textLayerRef);
 
   return (
     <section
@@ -118,17 +126,20 @@ export function HeroSection() {
         <p className="mx-auto mt-6 max-w-lg text-lg text-foreground/70 md:text-xl">
           {t("convention.hero.tagline")}
         </p>
-        <a
-          href={`#${SECTION_IDS.REGISTRATION}`}
-          className="group relative mt-10 inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-accent via-primary to-primary px-10 py-3.5 text-base font-bold text-white ring-1 ring-white/25 transition-all duration-300 hover:-translate-y-1"
+        <Button
+          asChild
+          size="lg"
+          className="group relative mt-10 h-auto rounded-full bg-gradient-to-r from-accent via-primary to-primary px-10 py-3.5 text-base font-bold text-white ring-1 ring-white/25 transition-all duration-300 hover:-translate-y-1"
         >
-          <span className="pointer-events-none absolute -inset-2 -z-10 rounded-full bg-[radial-gradient(circle,rgba(255,198,100,0.45),transparent_60%)] opacity-70 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
-          <span className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.35),transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          <span className="relative">{t("convention.hero.cta")}</span>
-          <span className="relative text-base text-white/70 transition-transform duration-300 group-hover:translate-x-1">
-            →
-          </span>
-        </a>
+          <a href={`#${SECTION_IDS.REGISTRATION}`}>
+            <span className="pointer-events-none absolute -inset-2 -z-10 rounded-full bg-[radial-gradient(circle,rgba(255,198,100,0.45),transparent_60%)] opacity-70 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
+            <span className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.35),transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <span className="relative">{t("convention.hero.cta")}</span>
+            <span className="relative text-base text-white/70 transition-transform duration-300 group-hover:translate-x-1">
+              -&gt;
+            </span>
+          </a>
+        </Button>
       </div>
     </section>
   );

@@ -12,14 +12,19 @@
       "toggleAria": "Cambiar idioma. Idioma actual: {{language}}",
       "current": "Idioma actual: {{language}}"
     },
+    "app": {
+      "skipToContent": "Saltar al contenido"
+    },
     "nav": {
+      "title": "Navegación",
       "about": "¿Por qué?",
       "events": "¿Qué esperar?",
       "guests": "Organizadores",
       "venue": "Hotel",
       "registration": "Reservas",
       "faq": "FAQ",
-      "news": "News"
+      "news": "News",
+      "mobileToggle": "Abrir menú de navegación"
     },
     "hero": {
       "title": "Moonfest 2026",
@@ -31,8 +36,7 @@
     "about": {
       "title": "¿Por qué Moonfest?",
       "paragraph1": "Moonfest es la convención furry más grande y esperada de Colombia. Con una experiencia única, actividades emocionantes y espacios para la comunidad furry, ¡es un evento que no puedes perderte!",
-      "paragraph2": "En 2025, Moonfest regresó con fuerza, reuniendo a cientos de asistentes de todo el país, y ahora en 2026 te invitamos a ser parte de esta celebración.",
-      "highlight": "¿Quieres asistir? Haz tu reservación hoy y asegura tu lugar en este evento inolvidable."
+      "paragraph2": "En 2025, Moonfest regresó con fuerza, reuniendo a cientos de asistentes de todo el país, y ahora en 2026 te invitamos a ser parte de esta celebración."
     },
     "events": {
       "title": "¿Qué esperar de Moonfest?",
@@ -118,6 +122,7 @@
     "registration": {
       "title": "Reservas",
       "subtitle": "Paquete de 4 días y 3 noches. Incluye entrada, bus Bogotá-convención y habitación.",
+      "popular": "Popular",
       "package": {
         "feature1": "Paquete completo: 4 días y 3 noches",
         "feature2": "Transporte en bus Bogotá -> hotel -> Bogotá",
@@ -142,11 +147,14 @@
       "reserveLink": "Reservar hotel",
       "ticketLink": "Comprar boleta (próximamente)",
       "devNote": "Los precios de habitación compartida son por persona. La habitación para 1 o 2 personas tiene precio total fijo.",
-      "note": "Dudas: info@moonfest.com.co"
+      "note": "Dudas: info@moonfest.com.co",
+      "highlight": "¿Quieres asistir? Haz tu reservación hoy y asegura tu lugar en este evento inolvidable."
     },
     "news": {
       "title": "News",
       "subtitle": "Últimas actualizaciones y medios del Telegram de Moonfest.",
+      "modeLabel": "Vista",
+      "modePlaceholder": "Elige un formato",
       "modes": {
         "focus": "Focus",
         "drawer": "Drawer",
@@ -159,7 +167,6 @@
         "magazine": "Magazine",
         "mosaic": "Mosaico",
         "index": "Índice",
-        "ledger": "Ledger",
         "billboard": "Billboard",
         "poster": "Poster",
         "gallery": "Galería",
@@ -170,13 +177,28 @@
         "wall": "Muro",
         "table": "Tabla",
         "banner": "Banner",
+        "email": "Correo",
         "slanted": "Inclinado",
         "polaroid": "Polaroid",
+        "polaroidReadmore": "Polaroid leer más",
         "readmore": "Leer más"
+      },
+      "email": {
+        "fromLabel": "De",
+        "toLabel": "Para",
+        "subjectLabel": "Asunto",
+        "fromValue": "Actualizaciones Moonfest",
+        "toValue": "Comunidad Moonfest",
+        "reply": "Responder",
+        "replyAll": "Responder a todos",
+        "forward": "Reenviar"
       },
       "actions": {
         "open": "Abrir",
-        "close": "Cerrar"
+        "close": "Cerrar",
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "openItem": "Abrir noticia"
       },
       "table": {
         "date": "Fecha",

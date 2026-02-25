@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/shared/application/utils/cn";
 
 interface SectionHeaderProps {
@@ -20,7 +21,7 @@ export function SectionHeader({
       <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
         {title}
       </h2>
-      <div
+      <Separator
         className={cn(
           "mt-4 h-1 w-16 rounded-full bg-accent",
           isCenter && "mx-auto"

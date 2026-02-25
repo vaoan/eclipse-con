@@ -4,11 +4,7 @@ import { spawnSync } from "node:child_process";
 
 const root = process.cwd();
 const staticPublicDir = path.join(root, "tmp", "static-public");
-const staticTelegramMediaDir = path.join(
-  staticPublicDir,
-  "telegram",
-  "media"
-);
+const staticTelegramMediaDir = path.join(staticPublicDir, "telegram", "media");
 
 const copyPublicDir = () => {
   fs.rmSync(staticPublicDir, { recursive: true, force: true });
@@ -29,7 +25,6 @@ const walkFiles = (dir) => {
     return [fullPath];
   });
 };
-
 
 const optimizeTelegramMedia = async () => {
   if (!fs.existsSync(staticTelegramMediaDir)) {

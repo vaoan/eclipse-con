@@ -1,0 +1,4 @@
+.lh-profile/
+.tmp/
+lighthouse-report.report.html
+lighthouse-report.report.json

@@ -23,7 +23,7 @@ export function useNewsRenderers() {
                 <img
                   src={source}
                   alt={item.name ?? t("convention.news.mediaAlt")}
-                  className="h-full w-full object-contain object-center transition group-hover:brightness-105"
+                  className="h-full w-full object-contain object-center transition group-hover:brightness-105 group-focus-within:brightness-105"
                   loading="lazy"
                 />
               </div>
@@ -47,7 +47,7 @@ export function useNewsRenderers() {
             <a
               key={`${message.id}-media-${index}`}
               href={source}
-              className="text-sm text-accent underline decoration-dashed underline-offset-4"
+              className="text-sm text-accent underline decoration-dashed underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
             >
               {item.name ?? source}
             </a>

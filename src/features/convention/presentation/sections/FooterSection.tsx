@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import type { LucideIcon } from "lucide-react";
 import { Globe } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { WavePattern } from "../components/WavePattern";
@@ -99,11 +100,10 @@ export function FooterSection() {
             </p>
             <div className="mt-4 flex flex-wrap justify-center gap-2.5 sm:gap-3">
               {COMMUNITY_LINKS.map(({ icon, label, href, iconUrl }) => (
-                <a
+                <Button
                   key={href}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
+                  asChild
+                  variant="ghost"
                   className={cn(
                     "group inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/18 bg-[#111840]/80 text-foreground",
                     "transition-all duration-200 hover:-translate-y-0.5 hover:border-white/30 hover:bg-[#182157]",
@@ -112,28 +112,30 @@ export function FooterSection() {
                   aria-label={label}
                   title={label}
                 >
-                  {icon.type === "brand" ? (
-                    <img
-                      src={iconUrl ?? ""}
-                      alt=""
-                      className="h-[18px] w-[18px] opacity-100 transition-transform duration-200 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <icon.component
-                      size={18}
-                      className="text-foreground transition-transform duration-200 group-hover:scale-110"
-                    />
-                  )}
-                  <span className="sr-only">{label}</span>
-                </a>
+                  <a href={href} target="_blank" rel="noreferrer">
+                    {icon.type === "brand" ? (
+                      <img
+                        src={iconUrl ?? ""}
+                        alt=""
+                        className="h-[18px] w-[18px] opacity-100 transition-transform duration-200 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <icon.component
+                        size={18}
+                        className="text-foreground transition-transform duration-200 group-hover:scale-110"
+                      />
+                    )}
+                    <span className="sr-only">{label}</span>
+                  </a>
+                </Button>
               ))}
             </div>
 
             <div className="mt-6 space-y-1 text-center text-xs text-muted-foreground/75">
               <p>{t("convention.footer.credits")}</p>
               <p>{t("convention.footer.copyright")}</p>
-              <p className="text-muted-foreground/65">
+              <p className="text-muted-foreground/85">
                 {t("convention.footer.version", { version: appVersion })}
               </p>
             </div>

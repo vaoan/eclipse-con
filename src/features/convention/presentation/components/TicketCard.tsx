@@ -1,6 +1,15 @@
 import { useTranslation } from "react-i18next";
 import { Check } from "lucide-react";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { RESERVATION_URL } from "@/features/convention/domain/constants";
@@ -14,51 +23,56 @@ export function TicketCard({ tier }: Readonly<TicketCardProps>) {
   const { t } = useTranslation();
 
   return (
-    <div
+    <Card
       className={cn(
-        "relative flex h-full flex-col rounded-xl border p-6",
-        "transition-all duration-300",
+        "relative flex h-full flex-col border transition-all duration-300",
         tier.highlighted
-          ? "border-accent/50 bg-surface-elevated shadow-lg shadow-accent/5"
-          : "border-white/5 bg-surface hover:border-white/10"
+          ? "border-accent/50 bg-surface-elevated shadow-lg shadow-accent/10"
+          : "border-white/5 bg-surface/90 hover:border-white/10"
       )}
       {...tid(`ticket-card-${tier.id}`)}
     >
       {tier.highlighted && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 text-xs font-bold text-accent-foreground">
-          Popular
-        </div>
+        <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-accent-foreground">
+          {t("convention.registration.popular")}
+        </Badge>
       )}
-      <h3 className="font-display text-xl font-bold text-foreground">
-        {t(tier.nameKey)}
-      </h3>
-      <p className="mt-2 font-display text-4xl font-bold text-accent">
-        {t(tier.priceKey)}
-      </p>
-      <ul className="mt-6 flex-1 space-y-3">
-        {tier.featuresKeys.map((featureKey) => (
-          <li
-            key={featureKey}
-            className="flex items-center gap-2 text-sm text-muted-foreground"
-          >
-            <Check size={16} className="shrink-0 text-primary" />
-            <span>{t(featureKey)}</span>
-          </li>
-        ))}
-      </ul>
-      <a
-        href={RESERVATION_URL}
-        target="_blank"
-        rel="noreferrer"
-        className={cn(
-          "mt-6 inline-flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-bold transition-colors",
-          tier.highlighted
-            ? "bg-accent text-accent-foreground hover:bg-accent-glow"
-            : "bg-primary/15 text-primary hover:bg-primary/25"
-        )}
-      >
-        {t("convention.registration.cta")}
-      </a>
-    </div>
+      <CardHeader className="gap-2">
+        <CardTitle className="font-display text-xl font-bold text-foreground">
+          {t(tier.nameKey)}
+        </CardTitle>
+        <p className="font-display text-4xl font-bold text-accent">
+          {t(tier.priceKey)}
+        </p>
+      </CardHeader>
+      <CardContent className="flex-1">
+        <ul className="space-y-3">
+          {tier.featuresKeys.map((featureKey) => (
+            <li
+              key={featureKey}
+              className="flex items-center gap-2 text-sm text-muted-foreground"
+            >
+              <Check size={16} className="shrink-0 text-primary" />
+              <span>{t(featureKey)}</span>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+      <CardFooter>
+        <Button
+          asChild
+          className={cn(
+            "w-full",
+            tier.highlighted
+              ? "bg-accent text-accent-foreground hover:bg-accent-glow"
+              : "bg-primary text-primary-foreground hover:bg-primary-glow"
+          )}
+        >
+          <a href={RESERVATION_URL} target="_blank" rel="noreferrer">
+            {t("convention.registration.cta")}
+          </a>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }

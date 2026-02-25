@@ -4,7 +4,7 @@ test("convention page loads all sections with content visible after scroll", asy
   page,
 }) => {
   await page.goto("/");
-  await expect(page).toHaveTitle("Eclipse Con");
+  await expect(page).toHaveTitle("Moonfest 2026");
 
   // Hero should be visible immediately (no scroll-reveal)
   const hero = page.getByTestId("section-hero");
@@ -16,35 +16,35 @@ test("convention page loads all sections with content visible after scroll", asy
 
   // Scroll to each section and check visibility
   const sections = [
-    { id: "section-about", text: "About Eclipse Con" },
-    { id: "section-events", text: "Events & Activities" },
-    { id: "section-guests", text: "Featured Guests" },
-    { id: "section-venue", text: "The Venue" },
-    { id: "section-registration", text: "Registration" },
-    { id: "section-faq", text: "Frequently Asked" },
+    { id: "section-about" },
+    { id: "section-events" },
+    { id: "section-guests" },
+    { id: "section-venue" },
+    { id: "section-registration" },
+    { id: "section-faq" },
   ];
 
-  for (const { id, text } of sections) {
+  for (const { id } of sections) {
     const section = page.getByTestId(id);
     await section.scrollIntoViewIfNeeded();
     await page.waitForTimeout(800);
 
-    const hasText = await section.getByText(text, { exact: false }).isVisible();
-    console.log(`${id}: text visible = ${hasText}`);
+    const heading = section.getByRole("heading").first();
+    await expect(heading).toBeVisible();
+    console.log(`${id}: heading visible`);
 
     await page.screenshot({
       path: `e2e/screenshots/${id}.png`,
       fullPage: false,
     });
 
-    expect(hasText).toBe(true);
   }
 
   // Footer check separately (uses heading role to avoid ambiguity)
   const footer = page.getByTestId("section-footer");
   await footer.scrollIntoViewIfNeeded();
   await page.waitForTimeout(800);
-  const footerHeading = footer.getByRole("heading", { name: "Eclipse Con" });
+  const footerHeading = footer.getByRole("heading", { name: "Moonfest 2026" });
   await expect(footerHeading).toBeVisible();
   await page.screenshot({
     path: "e2e/screenshots/section-footer.png",

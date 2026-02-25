@@ -1,6 +1,7 @@
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
+import { Button } from "@/components/ui/button";
 import {
   RESERVATION_URL,
   SECTION_IDS,
@@ -37,23 +38,27 @@ export function RegistrationSection() {
 function RegistrationCta({ t }: Readonly<{ t: TFunction }>) {
   return (
     <div className="mt-10 flex flex-col items-center gap-4 text-center">
+      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">
+        {t("convention.registration.highlight")}
+      </p>
       <div className="flex flex-wrap items-center justify-center gap-4">
-        <a
-          href={RESERVATION_URL}
-          className="inline-flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-bold text-accent-foreground transition-colors hover:bg-accent-glow"
-          target="_blank"
-          rel="noreferrer"
+        <Button
+          asChild
+          className="bg-accent text-accent-foreground hover:bg-accent-glow"
         >
-          {t("convention.registration.reserveLink")}
-        </a>
-        <a
-          href="https://moonfest-b63fa.web.app/page/moonfest/soon.html"
-          className="inline-flex items-center justify-center rounded-lg border border-white/10 px-6 py-3 text-sm font-bold text-foreground transition-colors hover:border-accent/40 hover:text-accent"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {t("convention.registration.ticketLink")}
-        </a>
+          <a href={RESERVATION_URL} target="_blank" rel="noreferrer">
+            {t("convention.registration.reserveLink")}
+          </a>
+        </Button>
+        <Button asChild variant="outline" className="border-white/10">
+          <a
+            href="https://moonfest-b63fa.web.app/page/moonfest/soon.html"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {t("convention.registration.ticketLink")}
+          </a>
+        </Button>
       </div>
       <p className="text-sm text-muted-foreground">
         {t("convention.registration.devNote")}

@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 
+import { Accordion } from "@/components/ui/accordion";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { FAQ_ITEMS } from "@/features/convention/application/data/faqItems";
 import { FaqAccordionItem } from "../components/FaqAccordionItem";
@@ -13,11 +14,11 @@ export function FaqSection() {
     <SectionWrapper id={SECTION_IDS.FAQ} surfaceTone="deep">
       <div className="mx-auto max-w-4xl">
         <SectionHeader title={t("convention.faq.title")} align="left" />
-        <div className="mt-12">
+        <Accordion type="single" collapsible className="mt-12">
           {FAQ_ITEMS.map((item) => (
             <FaqAccordionItem key={item.id} item={item} />
           ))}
-        </div>
+        </Accordion>
       </div>
     </SectionWrapper>
   );
