@@ -15,22 +15,28 @@ export function GuestCard({ guest }: Readonly<GuestCardProps>) {
   return (
     <Card
       className={cn(
-        "border-white/5 bg-surface/90 text-center transition-all duration-300 hover:border-accent/30 hover:bg-surface-elevated"
+        "group relative overflow-hidden border-white/10 bg-surface/80 pb-6 py-0 text-left shadow-[0_18px_45px_-30px_rgba(15,23,42,0.9)] transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:bg-surface-elevated"
       )}
       {...tid(`guest-card-${guest.id}`)}
     >
-      <CardHeader className="items-center gap-3 border-b border-white/5 pb-4">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/15 ring-2 ring-primary/30">
-          <span className="font-display text-2xl font-bold text-primary">
-            {guest.initials}
-          </span>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.12),_transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-60" />
+      <div className="relative">
+        <div className="relative h-60 w-full overflow-hidden rounded-t-3xl bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%),linear-gradient(135deg,rgba(59,130,246,0.22),rgba(15,23,42,0.94))]">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="font-display text-5xl font-semibold text-white/90 drop-shadow-[0_12px_35px_rgba(15,23,42,0.6)]">
+              {guest.initials}
+            </span>
+          </div>
         </div>
-        <CardTitle className="font-display text-lg font-bold text-foreground">
+      </div>
+      <CardHeader className="relative gap-3 border-b border-white/10 pb-4 pt-5">
+        <CardTitle className="font-display text-xl font-semibold text-foreground">
           {t(guest.nameKey)}
         </CardTitle>
-        <p className="text-sm font-medium text-accent">{t(guest.roleKey)}</p>
+        <p className="text-sm font-medium text-accent/90">{t(guest.roleKey)}</p>
       </CardHeader>
-      <CardContent className="pt-4">
+      <CardContent className="relative pb-6 pt-4">
         <p className="text-sm leading-relaxed text-muted-foreground">
           {t(guest.bioKey)}
         </p>
