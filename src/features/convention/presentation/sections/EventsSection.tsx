@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { EVENTS } from "@/features/convention/application/data/events";
 import { EventCard } from "../components/EventCard";
+import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
 export function EventsSection() {
@@ -10,12 +11,9 @@ export function EventsSection() {
 
   return (
     <SectionWrapper id={SECTION_IDS.EVENTS} surfaceTone="elevated">
-      <div className="text-center">
-        <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
-          {t("convention.events.title")}
-        </h2>
-        <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-accent" />
-        <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <SectionHeader title={t("convention.events.title")} align="left" />
+        <p className="max-w-md text-sm text-muted-foreground sm:text-base">
           {t("convention.events.subtitle")}
         </p>
       </div>

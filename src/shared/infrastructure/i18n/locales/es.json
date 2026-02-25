@@ -15,8 +15,8 @@
     "nav": {
       "about": "¿Por qué?",
       "events": "¿Qué esperar?",
-      "guests": "Hotel",
-      "venue": "Sede",
+      "guests": "Organizadores",
+      "venue": "Hotel",
       "registration": "Reservas",
       "faq": "FAQ"
     },
@@ -103,7 +103,9 @@
       "rating": "Tripadvisor 4,7/5 · 2.400+ reseñas (al 25 feb 2026)",
       "award": "Premio Travelers’ Choice de Tripadvisor",
       "certification": "Safe Guard + Check in Certificado (MinCIT/Bureau Veritas)",
+      "detailsLabel": "Más detalles y fuentes",
       "sourcesLabel": "Fuentes",
+      "imageAltSecondary": "Terraza de piscina termal del Hotel ESTELAR Paipa",
       "sourceTripadvisor": "Ficha en Tripadvisor",
       "sourceServices": "Servicios y amenidades del hotel",
       "sourceEvents": "Salones y capacidad",

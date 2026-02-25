@@ -15,8 +15,8 @@
     "nav": {
       "about": "Why",
       "events": "What to expect",
-      "guests": "Hotel",
-      "venue": "Venue",
+      "guests": "Organizers",
+      "venue": "Hotel",
       "registration": "Reservations",
       "faq": "FAQ"
     },
@@ -103,7 +103,9 @@
       "rating": "Tripadvisor 4.7/5 · 2,400+ reviews (as of Feb 25, 2026)",
       "award": "Tripadvisor Travelers’ Choice award",
       "certification": "Safe Guard + Check in Certificado (MinCIT/Bureau Veritas)",
+      "detailsLabel": "More details & sources",
       "sourcesLabel": "Sources",
+      "imageAltSecondary": "ESTELAR Paipa thermal pool terrace",
       "sourceTripadvisor": "Tripadvisor listing",
       "sourceServices": "Hotel services & amenities",
       "sourceEvents": "Meeting rooms & capacity",

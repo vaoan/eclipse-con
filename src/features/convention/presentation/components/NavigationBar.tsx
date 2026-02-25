@@ -10,10 +10,10 @@ import { LanguageToggle } from "./LanguageToggle";
 const NAV_SECTIONS = [
   { id: SECTION_IDS.ABOUT, key: "convention.nav.about" },
   { id: SECTION_IDS.EVENTS, key: "convention.nav.events" },
-  { id: SECTION_IDS.GUESTS, key: "convention.nav.guests" },
   { id: SECTION_IDS.VENUE, key: "convention.nav.venue" },
   { id: SECTION_IDS.REGISTRATION, key: "convention.nav.registration" },
   { id: SECTION_IDS.FAQ, key: "convention.nav.faq" },
+  { id: SECTION_IDS.GUESTS, key: "convention.nav.guests" },
 ] as const;
 
 export function NavigationBar() {

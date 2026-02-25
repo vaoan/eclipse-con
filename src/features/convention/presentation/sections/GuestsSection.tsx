@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { GUESTS } from "@/features/convention/application/data/guests";
 import { GuestCard } from "../components/GuestCard";
+import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
 export function GuestsSection() {
@@ -10,12 +11,9 @@ export function GuestsSection() {
 
   return (
     <SectionWrapper id={SECTION_IDS.GUESTS} surfaceTone="elevated">
-      <div className="text-center">
-        <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
-          {t("convention.guests.title")}
-        </h2>
-        <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-accent" />
-        <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <SectionHeader title={t("convention.guests.title")} align="left" />
+        <p className="max-w-md text-sm text-muted-foreground sm:text-base">
           {t("convention.guests.subtitle")}
         </p>
       </div>
