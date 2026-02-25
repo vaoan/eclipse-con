@@ -38,3 +38,6 @@ Thumbs.db
 .claude/models_cache.json
 .claude/version.json
 /tmp
+scripts/telegram.session
+scripts/telegram.session-journal
+/scripts/__pycache__

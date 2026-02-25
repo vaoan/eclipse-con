@@ -18,7 +18,8 @@
       "guests": "Organizadores",
       "venue": "Hotel",
       "registration": "Reservas",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "news": "News"
     },
     "hero": {
       "title": "Moonfest 2026",
@@ -142,6 +143,17 @@
       "ticketLink": "Comprar boleta (próximamente)",
       "devNote": "Los precios de habitación compartida son por persona. La habitación para 1 o 2 personas tiene precio total fijo.",
       "note": "Dudas: info@moonfest.com.co"
+    },
+    "news": {
+      "title": "News",
+      "subtitle": "Últimas actualizaciones y medios del Telegram de Moonfest.",
+      "empty": "Este update no tiene texto.",
+      "error": "El feed no está disponible. Ejecuta la sincronización de Telegram.",
+      "loadMore": "Ver más",
+      "featured": "Destacado",
+      "translatedBy": "Traducido por",
+      "source": "Fuente",
+      "mediaAlt": "Medios de Telegram"
     },
     "faq": {
       "title": "Preguntas frecuentes",

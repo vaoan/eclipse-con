@@ -5,7 +5,7 @@ import {
   rmSync,
   existsSync,
 } from "node:fs";
-import { resolve, join } from "node:path";
+import { resolve, join, isAbsolute } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
@@ -32,6 +32,77 @@ const CONTENT_TYPE_BY_EXTENSION: Record<string, string> = {
 };
 const KNOWN_IMAGE_CDN_REGEX =
   /(cdn\.simpleicons\.org|images?|img|media|assets?|cloudinary|unsplash|pexels)/i;
+const STATIC_MEDIA_CONTENT_TYPES: Record<string, string> = {
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".webp": "image/webp",
+  ".gif": "image/gif",
+  ".svg": "image/svg+xml",
+  ".mp4": "video/mp4",
+  ".webm": "video/webm",
+  ".mov": "video/quicktime",
+};
+
+let sharpPromise: Promise<unknown> | null = null;
+
+async function loadSharp(): Promise<any | null> {
+  if (!sharpPromise) {
+    sharpPromise = import("sharp").catch(() => null);
+  }
+  const module = await sharpPromise;
+  if (!module) {
+    return null;
+  }
+  const sharp =
+    (module as { default?: unknown }).default ?? (module as unknown);
+  return typeof sharp === "function" ? sharp : null;
+}
+
+function isRasterImage(contentType: string | undefined, url: string) {
+  if (contentType?.startsWith("image/")) {
+    return !contentType.includes("svg") && !contentType.includes("gif");
+  }
+  const extension = getExtension(url);
+  return extension
+    ? [ "jpg", "jpeg", "png", "webp" ].includes(extension)
+    : false;
+}
+
+async function optimizeImageBuffer(
+  url: string,
+  buffer: Uint8Array,
+  contentType?: string
+) {
+  if (!isRasterImage(contentType, url)) {
+    return buffer;
+  }
+  const sharpFactory = await loadSharp();
+  if (!sharpFactory) {
+    return buffer;
+  }
+  try {
+    const image = sharpFactory(buffer as any);
+    const metadata = await image.metadata();
+    let pipeline = image;
+    const maxWidth = 2000;
+    if (metadata.width && metadata.width > maxWidth) {
+      pipeline = pipeline.resize({ width: maxWidth, withoutEnlargement: true });
+    }
+    const extension = getExtension(url);
+    if (extension === "jpg" || extension === "jpeg") {
+      pipeline = pipeline.jpeg({ quality: 78, mozjpeg: true });
+    } else if (extension === "png") {
+      pipeline = pipeline.png({ compressionLevel: 9, palette: true });
+    } else if (extension === "webp") {
+      pipeline = pipeline.webp({ quality: 78 });
+    }
+    const output = await pipeline.toBuffer();
+    return output.length < buffer.length ? output : buffer;
+  } catch {
+    return buffer;
+  }
+}
 
 type ProgressReporter = (
   phase: string,
@@ -183,8 +254,9 @@ async function inlineExternalUrls(
         );
         continue;
       }
-      const buffer = await response.arrayBuffer();
-      const dataUrl = toDataUrl(url, buffer, contentType);
+      const buffer = new Uint8Array(await response.arrayBuffer());
+      const optimized = await optimizeImageBuffer(url, buffer, contentType);
+      const dataUrl = toDataUrl(url, optimized, contentType);
       output = output.replaceAll(url, dataUrl);
       reportProgress(phase, current, uniqueMatches.length, `Inlined: ${url}`);
     } catch {
@@ -228,9 +300,10 @@ async function inlineCssUrlReferences(
         );
         continue;
       }
-      const buffer = await response.arrayBuffer();
+      const buffer = new Uint8Array(await response.arrayBuffer());
       const contentType = response.headers.get("content-type") ?? undefined;
-      const dataUrl = toDataUrl(url, buffer, contentType);
+      const optimized = await optimizeImageBuffer(url, buffer, contentType);
+      const dataUrl = toDataUrl(url, optimized, contentType);
       output = output.replaceAll(url, dataUrl);
       reportProgress(phase, current, uniqueMatches.length, `Inlined: ${url}`);
     } catch {
@@ -242,7 +315,7 @@ async function inlineCssUrlReferences(
   return output;
 }
 
-function inlineLocalUrls(input: string, outDirectory: string) {
+async function inlineLocalUrls(input: string, outDirectory: string) {
   const matches = input.match(LOCAL_ASSET_URL_REGEX);
   if (!matches) {
     return input;
@@ -263,7 +336,8 @@ function inlineLocalUrls(input: string, outDirectory: string) {
     }
     try {
       const buffer = readFileSync(localPath);
-      const dataUrl = toDataUrl(url, buffer);
+      const optimized = await optimizeImageBuffer(url, buffer);
+      const dataUrl = toDataUrl(url, optimized);
       output = output.replaceAll(url, dataUrl);
     } catch {
       // If local read fails, keep original URL.
@@ -459,7 +533,7 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
         headWithoutPreconnect
       );
       console.log("[static] Inlining CSS bundle URLs");
-      const cssInlined = inlineLocalUrls(
+      const cssInlined = await inlineLocalUrls(
         await inlineCssUrlReferences(
           await inlineExternalUrls(
             cssContent,
@@ -472,7 +546,7 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
         outDirectory
       );
       console.log("[static] Inlining JS bundle URLs");
-      const jsInlined = inlineLocalUrls(
+      const jsInlined = await inlineLocalUrls(
         await inlineExternalUrls(
           jsContent,
           "Inline external URLs in JS bundle",
@@ -481,7 +555,7 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
         outDirectory
       );
       console.log("[static] Inlining body URLs");
-      const bodyInlined = inlineLocalUrls(
+      const bodyInlined = await inlineLocalUrls(
         await inlineExternalUrls(
           bodyContent,
           "Inline external URLs in body",
@@ -492,7 +566,7 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
 
       const inlinedHtml = buildInlinedHtml(
         restoreSocialPreviewMetaUrls(
-          inlineLocalUrls(protectedHtml, outDirectory),
+          await inlineLocalUrls(protectedHtml, outDirectory),
           replacements
         ),
         cssInlined,
@@ -519,9 +593,101 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
   };
 }
 
+function resolveStaticPath(basePath: string, ...segments: string[]) {
+  const resolvedBase = isAbsolute(basePath)
+    ? basePath
+    : resolve(import.meta.dirname, basePath);
+  return resolve(resolvedBase, ...segments);
+}
+
+function readJsonFile(pathname: string) {
+  if (!existsSync(pathname)) {
+    return null;
+  }
+  try {
+    return JSON.parse(readFileSync(pathname, "utf-8"));
+  } catch {
+    return null;
+  }
+}
+
+function toFileDataUrl(pathname: string) {
+  const extension = pathname.split(".").pop()?.toLowerCase();
+  const contentType =
+    (extension ? STATIC_MEDIA_CONTENT_TYPES[`.${extension}`] : undefined) ??
+    "application/octet-stream";
+  const buffer = readFileSync(pathname);
+  if (contentType === "image/svg+xml") {
+    const decoded = buffer.toString("utf8");
+    const encoded = encodeURIComponent(decoded)
+      .replace(/'/g, "%27")
+      .replace(/"/g, "%22");
+    return `data:${contentType};charset=utf-8,${encoded}`;
+  }
+  return `data:${contentType};base64,${buffer.toString("base64")}`;
+}
+
+function embedTelegramMedia(publicDir: string, archive: unknown) {
+  if (!archive || typeof archive !== "object") {
+    return archive ?? null;
+  }
+  const typedArchive = archive as {
+    messages?: Array<{
+      media?: Array<{ path?: string } & Record<string, unknown>>;
+    }>;
+  };
+  if (!Array.isArray(typedArchive.messages)) {
+    return archive;
+  }
+  return {
+    ...typedArchive,
+    messages: typedArchive.messages.map((message) => {
+      const media = Array.isArray(message.media) ? message.media : [];
+      const mappedMedia = media.map((item) => {
+        if (!item?.path) {
+          return item;
+        }
+        const cleanPath = item.path.startsWith("/")
+          ? item.path.slice(1)
+          : item.path;
+        const absolutePath = resolveStaticPath(publicDir, cleanPath);
+        if (!existsSync(absolutePath)) {
+          return item;
+        }
+        return {
+          ...item,
+          path: toFileDataUrl(absolutePath),
+        };
+      });
+      return {
+        ...message,
+        media: mappedMedia,
+      };
+    }),
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const isStatic = mode === "static";
   const outDirectory = isStatic ? "dist-static" : "dist";
+  const publicDir =
+    isStatic && process.env.STATIC_PUBLIC_DIR
+      ? process.env.STATIC_PUBLIC_DIR
+      : "public";
+  const staticTelegramEs = isStatic
+    ? embedTelegramMedia(
+        publicDir,
+        readJsonFile(resolveStaticPath(publicDir, "telegram", "messages.json"))
+      )
+    : null;
+  const staticTelegramEn = isStatic
+    ? embedTelegramMedia(
+        publicDir,
+        readJsonFile(
+          resolveStaticPath(publicDir, "telegram", "messages.en.json")
+        )
+      )
+    : null;
 
   return {
     base: isStatic ? "./" : "/",
@@ -552,5 +718,12 @@ export default defineConfig(({ mode }) => {
         },
       }),
     },
+    publicDir,
+    ...(isStatic && {
+      define: {
+        __STATIC_TELEGRAM_ES__: JSON.stringify(staticTelegramEs ?? null),
+        __STATIC_TELEGRAM_EN__: JSON.stringify(staticTelegramEn ?? null),
+      },
+    }),
   };
 });

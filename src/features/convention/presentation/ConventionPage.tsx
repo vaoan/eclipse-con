@@ -9,6 +9,7 @@ import { GuestsSection } from "./sections/GuestsSection";
 import { VenueSection } from "./sections/VenueSection";
 import { RegistrationSection } from "./sections/RegistrationSection";
 import { FaqSection } from "./sections/FaqSection";
+import { NewsSection } from "./sections/NewsSection";
 import { FooterSection } from "./sections/FooterSection";
 
 export function Component() {
@@ -26,6 +27,7 @@ export function Component() {
         <VenueSection />
         <RegistrationSection />
         <FaqSection />
+        <NewsSection />
         <GuestsSection />
         <FooterSection />
       </div>

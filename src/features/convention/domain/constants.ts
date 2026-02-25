@@ -8,6 +8,7 @@ export const SECTION_IDS = {
   VENUE: "venue",
   REGISTRATION: "registration",
   FAQ: "faq",
+  NEWS: "news",
 } as const;
 
 export const SAKURA_PARTICLE_COUNT = 20;
