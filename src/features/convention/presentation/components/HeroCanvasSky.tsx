@@ -82,8 +82,13 @@ export function HeroCanvasSky({
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
-      width = Math.max(1, Math.round(bounds.width));
-      height = Math.max(1, Math.round(bounds.height));
+      const nextWidth = Math.max(1, Math.round(bounds.width));
+      const nextHeight = Math.max(1, Math.round(bounds.height));
+      if (nextWidth <= width && nextHeight <= height) {
+        return;
+      }
+      width = nextWidth;
+      height = nextHeight;
       hasValidSize = width > 16 && height > 16;
       dpr = clamp(window.devicePixelRatio || 1, 1, isMobileViewport ? 1.5 : 2);
       canvas.width = Math.round(width * dpr);
