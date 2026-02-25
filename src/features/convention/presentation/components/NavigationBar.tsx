@@ -48,13 +48,13 @@ export function NavigationBar() {
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-1.5 md:flex">
           {NAV_SECTIONS.map((section) => (
             <Button
               key={section.id}
               asChild
               variant="ghost"
-              className="text-xs font-semibold uppercase tracking-[0.2em] text-foreground/70 hover:text-accent"
+              className="px-2 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-foreground/70 hover:bg-transparent hover:text-accent focus-visible:bg-transparent"
             >
               <a href={`#${section.id}`}>{t(section.key)}</a>
             </Button>
