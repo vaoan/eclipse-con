@@ -147,6 +147,41 @@
     "news": {
       "title": "News",
       "subtitle": "Últimas actualizaciones y medios del Telegram de Moonfest.",
+      "modes": {
+        "focus": "Focus",
+        "drawer": "Drawer",
+        "accordion": "Acordeón",
+        "zoom": "Zoom",
+        "spotlight": "Spotlight",
+        "carouselThumbs": "Carrusel mini",
+        "masonry": "Masonry",
+        "timeline": "Timeline",
+        "magazine": "Magazine",
+        "mosaic": "Mosaico",
+        "index": "Índice",
+        "ledger": "Ledger",
+        "billboard": "Billboard",
+        "poster": "Poster",
+        "gallery": "Galería",
+        "split": "Split",
+        "rail": "Rail",
+        "zigzag": "Zigzag",
+        "diagonal": "Diagonal",
+        "wall": "Muro",
+        "table": "Tabla",
+        "banner": "Banner",
+        "slanted": "Inclinado",
+        "polaroid": "Polaroid",
+        "readmore": "Leer más"
+      },
+      "actions": {
+        "open": "Abrir",
+        "close": "Cerrar"
+      },
+      "table": {
+        "date": "Fecha",
+        "update": "Update"
+      },
       "empty": "Este update no tiene texto.",
       "error": "El feed no está disponible. Ejecuta la sincronización de Telegram.",
       "loadMore": "Ver más",

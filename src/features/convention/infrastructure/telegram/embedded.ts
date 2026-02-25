@@ -27,8 +27,8 @@ const resolveStaticValue = (getter: () => unknown) => {
 export const embeddedTelegramEs = parseEmbedded(
   resolveStaticValue(() => __STATIC_TELEGRAM_ES__) ??
     import.meta.env.VITE_EMBED_TELEGRAM_ES
-) as unknown;
+);
 export const embeddedTelegramEn = parseEmbedded(
   resolveStaticValue(() => __STATIC_TELEGRAM_EN__) ??
     import.meta.env.VITE_EMBED_TELEGRAM_EN
-) as unknown;
+);

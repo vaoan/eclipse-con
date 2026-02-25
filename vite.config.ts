@@ -1,3 +1,4 @@
+/* eslint-disable max-lines, no-console */
 import {
   readFileSync,
   readdirSync,
@@ -9,12 +10,15 @@ import { resolve, join, isAbsolute } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
+import type { Sharp } from "sharp";
 
+/* eslint-disable sonarjs/slow-regex, sonarjs/regex-complexity */
 const ASSET_EXTENSION_REGEX =
   /\.(png|jpe?g|gif|webp|svg|woff2?|ttf|otf|eot|mp4|webm)(\?|#|$)/i;
 const URL_REGEX = /https?:\/\/[^\s"'()<>]+/gi;
 const LOCAL_ASSET_URL_REGEX =
   /(?:\.\/|\/)[^\s"'()<>]+\.(?:png|jpe?g|gif|webp|svg|woff2?|ttf|otf|eot|mp4|webm)(?:\?[^\s"'()<>]*)?(?:#[^\s"'()<>]*)?/gi;
+/* eslint-enable sonarjs/slow-regex, sonarjs/regex-complexity */
 const CONTENT_TYPE_BY_EXTENSION: Record<string, string> = {
   svg: "image/svg+xml",
   png: "image/png",
@@ -45,18 +49,17 @@ const STATIC_MEDIA_CONTENT_TYPES: Record<string, string> = {
 };
 
 let sharpPromise: Promise<unknown> | null = null;
+type SharpFactory = (input: Uint8Array) => Sharp;
 
-async function loadSharp(): Promise<any | null> {
-  if (!sharpPromise) {
-    sharpPromise = import("sharp").catch(() => null);
-  }
+async function loadSharp(): Promise<SharpFactory | null> {
+  sharpPromise ??= import("sharp").catch(() => null);
   const module = await sharpPromise;
   if (!module) {
     return null;
   }
   const sharp =
     (module as { default?: unknown }).default ?? (module as unknown);
-  return typeof sharp === "function" ? sharp : null;
+  return typeof sharp === "function" ? (sharp as SharpFactory) : null;
 }
 
 function isRasterImage(contentType: string | undefined, url: string) {
@@ -64,9 +67,7 @@ function isRasterImage(contentType: string | undefined, url: string) {
     return !contentType.includes("svg") && !contentType.includes("gif");
   }
   const extension = getExtension(url);
-  return extension
-    ? [ "jpg", "jpeg", "png", "webp" ].includes(extension)
-    : false;
+  return extension ? ["jpg", "jpeg", "png", "webp"].includes(extension) : false;
 }
 
 async function optimizeImageBuffer(
@@ -82,7 +83,7 @@ async function optimizeImageBuffer(
     return buffer;
   }
   try {
-    const image = sharpFactory(buffer as any);
+    const image = sharpFactory(buffer);
     const metadata = await image.metadata();
     let pipeline = image;
     const maxWidth = 2000;
@@ -209,8 +210,13 @@ async function inlineExternalUrls(
   phase = "Inline External URLs",
   reportProgress: ProgressReporter = logProgress
 ) {
-  const matches = input.match(URL_REGEX);
-  if (!matches) {
+  const matches: string[] = [];
+  let match: RegExpExecArray | null;
+  while ((match = URL_REGEX.exec(input)) !== null) {
+    matches.push(match[0]);
+  }
+  URL_REGEX.lastIndex = 0;
+  if (matches.length === 0) {
     reportProgress(phase, 1, 1, "No external URLs found");
     return input;
   }
@@ -376,7 +382,7 @@ async function inlineExternalStylesheets(html: string) {
       continue;
     }
     processed += 1;
-    const hrefMatch = tag.match(/href=["']([^"']+)["']/i);
+    const hrefMatch = /href=["']([^"']+)["']/i.exec(tag);
     const href = hrefMatch?.[1];
     if (!href?.startsWith("http")) {
       logProgress(
@@ -600,12 +606,12 @@ function resolveStaticPath(basePath: string, ...segments: string[]) {
   return resolve(resolvedBase, ...segments);
 }
 
-function readJsonFile(pathname: string) {
+function readJsonFile(pathname: string): unknown {
   if (!existsSync(pathname)) {
     return null;
   }
   try {
-    return JSON.parse(readFileSync(pathname, "utf-8"));
+    return JSON.parse(readFileSync(pathname, "utf-8")) as unknown;
   } catch {
     return null;
   }
@@ -627,14 +633,14 @@ function toFileDataUrl(pathname: string) {
   return `data:${contentType};base64,${buffer.toString("base64")}`;
 }
 
-function embedTelegramMedia(publicDir: string, archive: unknown) {
+function embedTelegramMedia(publicDirectory: string, archive: unknown) {
   if (!archive || typeof archive !== "object") {
     return archive ?? null;
   }
   const typedArchive = archive as {
-    messages?: Array<{
-      media?: Array<{ path?: string } & Record<string, unknown>>;
-    }>;
+    messages?: {
+      media?: ({ path?: string } & Record<string, unknown>)[];
+    }[];
   };
   if (!Array.isArray(typedArchive.messages)) {
     return archive;
@@ -644,13 +650,13 @@ function embedTelegramMedia(publicDir: string, archive: unknown) {
     messages: typedArchive.messages.map((message) => {
       const media = Array.isArray(message.media) ? message.media : [];
       const mappedMedia = media.map((item) => {
-        if (!item?.path) {
+        if (!item.path) {
           return item;
         }
         const cleanPath = item.path.startsWith("/")
           ? item.path.slice(1)
           : item.path;
-        const absolutePath = resolveStaticPath(publicDir, cleanPath);
+        const absolutePath = resolveStaticPath(publicDirectory, cleanPath);
         if (!existsSync(absolutePath)) {
           return item;
         }
@@ -670,21 +676,23 @@ function embedTelegramMedia(publicDir: string, archive: unknown) {
 export default defineConfig(({ mode }) => {
   const isStatic = mode === "static";
   const outDirectory = isStatic ? "dist-static" : "dist";
-  const publicDir =
+  const publicDirectory =
     isStatic && process.env.STATIC_PUBLIC_DIR
       ? process.env.STATIC_PUBLIC_DIR
       : "public";
   const staticTelegramEs = isStatic
     ? embedTelegramMedia(
-        publicDir,
-        readJsonFile(resolveStaticPath(publicDir, "telegram", "messages.json"))
+        publicDirectory,
+        readJsonFile(
+          resolveStaticPath(publicDirectory, "telegram", "messages.json")
+        )
       )
     : null;
   const staticTelegramEn = isStatic
     ? embedTelegramMedia(
-        publicDir,
+        publicDirectory,
         readJsonFile(
-          resolveStaticPath(publicDir, "telegram", "messages.en.json")
+          resolveStaticPath(publicDirectory, "telegram", "messages.en.json")
         )
       )
     : null;
@@ -718,7 +726,7 @@ export default defineConfig(({ mode }) => {
         },
       }),
     },
-    publicDir,
+    publicDir: publicDirectory,
     ...(isStatic && {
       define: {
         __STATIC_TELEGRAM_ES__: JSON.stringify(staticTelegramEs ?? null),
