@@ -38,6 +38,7 @@ const NAV_GROUPS = [
     items: [
       { id: SECTION_IDS.EVENT_OVERVIEW, key: "convention.nav.eventOverview" },
       { id: SECTION_IDS.EVENTS, key: "convention.nav.eventActivities" },
+      { id: SECTION_IDS.REGISTRATION, key: "convention.nav.placePricing" },
     ],
   },
   {
@@ -46,7 +47,6 @@ const NAV_GROUPS = [
       { id: SECTION_IDS.VENUE, key: "convention.nav.placeHotel" },
       { id: SECTION_IDS.TRAVEL, key: "convention.nav.placeTravel" },
       { id: SECTION_IDS.AMENITIES, key: "convention.nav.placeFind" },
-      { id: SECTION_IDS.REGISTRATION, key: "convention.nav.placePricing" },
     ],
   },
   {

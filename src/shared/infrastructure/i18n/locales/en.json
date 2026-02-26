@@ -95,12 +95,43 @@
       "footerNote": "Exact rates are confirmed with the hotel. Some external references may vary. External source:",
       "footerLinkLabel": "Paipa en Bici (prices)",
       "footerLinkUrl": "https://paipaecoturismosas.wixsite.com/website",
+      "restaurants": {
+        "eyebrow": "Dining",
+        "title": "Hotel restaurants",
+        "subtitle": "Food & drinks are extra. Menus and reservations on the official site.",
+        "tonnarello": {
+          "title": "Tonnarello",
+          "description": "Italian restaurant inside the hotel.",
+          "price": "Food & drinks extra",
+          "imageAlt": "Tonnarello restaurant at Estelar Paipa",
+          "linkLabel": "View menu",
+          "linkUrl": "https://menu.tu-mesa.com/tonnarello/7158/"
+        },
+        "kuzina": {
+          "title": "Kuzina",
+          "description": "International cuisine inside the hotel.",
+          "price": "Food & drinks extra",
+          "imageAlt": "Kuzina restaurant at Estelar Paipa",
+          "linkLabel": "View menu",
+          "linkUrl": "https://menu.tu-mesa.com/kuzina/7165/"
+        },
+        "winebar": {
+          "title": "The Wine Bar",
+          "description": "Wine bar with a social atmosphere.",
+          "price": "Food & drinks extra",
+          "imageAlt": "The Wine Bar at Estelar Paipa",
+          "linkLabel": "View menu",
+          "linkUrl": "https://menu.tu-mesa.com/the-wine-bar/7176/"
+        }
+      },
       "cards": {
         "spa": {
           "title": "Spa & wellness",
           "description": "Relax zone with spa, massages, sauna, jacuzzi, and pool.",
           "price": "Extra cost",
           "priceApprox": "Confirm with the hotel",
+          "linkLabel": "View service",
+          "linkUrl": "https://www.estelarpaipa.com/en/services/",
           "imageAlt": "Hotel spa"
         },
         "dining": {
@@ -108,6 +139,8 @@
           "description": "Three restaurants (local, international, Italian) plus a wine bar.",
           "price": "Food & drinks extra",
           "priceApprox": "Confirm with the hotel",
+          "linkLabel": "View restaurants",
+          "linkUrl": "https://www.estelarpaipa.com/en/restaurants/",
           "imageAlt": "Hotel restaurant"
         },
         "stables": {
@@ -115,6 +148,8 @@
           "description": "Horseback rides and guided activities to enjoy the outdoors.",
           "price": "Extra cost",
           "priceApprox": "Confirm with the hotel",
+          "linkLabel": "View service",
+          "linkUrl": "https://www.estelarpaipa.com/en/services/",
           "imageAlt": "Hotel stables"
         },
         "farm": {
@@ -122,6 +157,8 @@
           "description": "Family-friendly farm experience with animals and open spaces.",
           "price": "Extra cost",
           "priceApprox": "Confirm with the hotel",
+          "linkLabel": "View service",
+          "linkUrl": "https://www.estelarpaipa.com/en/services/",
           "imageAlt": "Noé farm"
         },
         "family": {
@@ -130,6 +167,8 @@
           "price": "Extra cost",
           "priceApprox": "$13.000–$55.000 COP",
           "priceNote": "External reference in Paipa (not the hotel): bike rentals.",
+          "linkLabel": "View service",
+          "linkUrl": "https://www.estelarpaipa.com/en/services/",
           "imageAlt": "Outdoor activities"
         }
       }
