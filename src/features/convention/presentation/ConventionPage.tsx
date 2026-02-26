@@ -36,12 +36,7 @@ export function Component() {
     if (typeof window === "undefined") {
       return;
     }
-    const handle = window.setTimeout(() => {
-      setEffectsReady(true);
-    }, 600);
-    return () => {
-      window.clearTimeout(handle);
-    };
+    setEffectsReady(true);
   }, []);
 
   return (

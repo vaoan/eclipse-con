@@ -1,5 +1,5 @@
 /* eslint-disable max-lines, max-lines-per-function, sonarjs/cognitive-complexity, sonarjs/pseudo-random */
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
 import { usePrefersReducedMotion } from "@/shared/application/hooks/usePrefersReducedMotion";
@@ -43,7 +43,7 @@ export function HeroCanvasSky({
   const isMobileViewport = useIsMobileViewport();
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) {
       return;
@@ -61,6 +61,9 @@ export function HeroCanvasSky({
     const farStarCount = isMobileViewport ? 1100 : 3200;
     const midStarCount = isMobileViewport ? 480 : 1300;
     const brightStarCount = isMobileViewport ? 180 : 520;
+    const quickFarStarCount = isMobileViewport ? 220 : 520;
+    const quickMidStarCount = isMobileViewport ? 120 : 260;
+    const quickBrightStarCount = isMobileViewport ? 60 : 120;
     const maxShootingStars = isMobileViewport ? 3 : 5;
     const minShootDelayMs = isMobileViewport ? 1200 : 900;
     const maxShootDelayMs = isMobileViewport ? 2800 : 2200;
@@ -74,27 +77,19 @@ export function HeroCanvasSky({
     let hasValidSize = false;
     let resizeObserver: ResizeObserver | null = null;
     let moonYOffset = 0;
+    let hasFullStars = false;
+    let fullStarTimer = 0;
 
     const readScrollProgress = () => {
       const heroScrollRange = Math.max(window.innerHeight * 1.2, 1);
       return clamp(window.scrollY / heroScrollRange, 0, 1);
     };
 
-    const resize = () => {
-      const bounds = canvas.getBoundingClientRect();
-      const nextWidth = Math.max(1, Math.round(bounds.width));
-      const nextHeight = Math.max(1, Math.round(bounds.height));
-      if (nextWidth <= width && nextHeight <= height) {
-        return;
-      }
-      width = nextWidth;
-      height = nextHeight;
-      hasValidSize = width > 16 && height > 16;
-      dpr = clamp(window.devicePixelRatio || 1, 1, isMobileViewport ? 1.5 : 2);
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
-      context.setTransform(dpr, 0, 0, dpr, 0, 0);
-
+    const buildStars = (
+      farCount: number,
+      midCount: number,
+      brightCount: number
+    ) => {
       const buildStar = (
         yLimit: number,
         yBiasPower: number,
@@ -130,15 +125,49 @@ export function HeroCanvasSky({
       midStars.length = 0;
       brightStars.length = 0;
 
-      for (let index = 0; index < farStarCount; index += 1) {
+      for (let index = 0; index < farCount; index += 1) {
         farStars.push(buildStar(0.94, 3.45, 0.3, 0.9, 0.08, 0.24, 0.35, 1.2));
       }
-      for (let index = 0; index < midStarCount; index += 1) {
+      for (let index = 0; index < midCount; index += 1) {
         midStars.push(buildStar(0.86, 3.05, 0.6, 1.2, 0.16, 0.42, 0.6, 1.4));
       }
-      for (let index = 0; index < brightStarCount; index += 1) {
+      for (let index = 0; index < brightCount; index += 1) {
         brightStars.push(buildStar(0.78, 2.55, 0.9, 1.8, 0.28, 0.54, 0.95, 2));
       }
+    };
+
+    const scheduleFullStars = () => {
+      if (hasFullStars || fullStarTimer !== 0) {
+        return;
+      }
+      fullStarTimer = window.setTimeout(() => {
+        buildStars(farStarCount, midStarCount, brightStarCount);
+        hasFullStars = true;
+        fullStarTimer = 0;
+      }, 0);
+    };
+
+    const resize = () => {
+      const bounds = canvas.getBoundingClientRect();
+      const fallbackWidth = Math.max(1, Math.round(window.innerWidth));
+      const fallbackHeight = Math.max(1, Math.round(window.innerHeight));
+      const nextWidth = Math.max(1, Math.round(bounds.width || fallbackWidth));
+      const nextHeight = Math.max(
+        1,
+        Math.round(bounds.height || fallbackHeight)
+      );
+      if (nextWidth <= width && nextHeight <= height) {
+        return;
+      }
+      width = nextWidth;
+      height = nextHeight;
+      hasValidSize = width > 16 && height > 16;
+      dpr = clamp(window.devicePixelRatio || 1, 1, isMobileViewport ? 1.5 : 2);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildStars(quickFarStarCount, quickMidStarCount, quickBrightStarCount);
+      scheduleFullStars();
     };
 
     const spawnShootingStar = () => {
@@ -666,11 +695,21 @@ export function HeroCanvasSky({
     };
 
     resize();
+    if (width > 16 && height > 16) {
+      const immediateTime = performance.now() / 1000;
+      drawBackground();
+      drawTopHighlights(immediateTime);
+      drawStarField(farStars, immediateTime, 0.74);
+      drawStarField(midStars, immediateTime, 0.96);
+      drawStarField(brightStars, immediateTime, 1.14);
+      drawMoon(immediateTime, 1);
+      drawCinematicVignette();
+    }
     nextShotAt =
       performance.now() +
       minShootDelayMs +
       Math.random() * (maxShootDelayMs - minShootDelayMs);
-    animationFrameId = window.requestAnimationFrame(animate);
+    animate(performance.now());
 
     if (typeof ResizeObserver !== "undefined") {
       resizeObserver = new ResizeObserver(resize);
@@ -684,6 +723,7 @@ export function HeroCanvasSky({
       resizeObserver?.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("orientationchange", resize);
+      window.clearTimeout(fullStarTimer);
     };
   }, [isMobileViewport, prefersReducedMotion]);
 
