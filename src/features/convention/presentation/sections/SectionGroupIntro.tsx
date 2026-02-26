@@ -80,7 +80,7 @@ export function SectionGroupIntro({
         </p>
         {noteKey ? (
           <div
-            className={`mt-5 inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] ${accentStyle.highlight}`}
+            className={`mt-5 w-full max-w-full rounded-full border border-white/10 px-4 py-2 text-center text-xs font-semibold uppercase leading-snug tracking-[0.2em] whitespace-normal break-words ${accentStyle.highlight} sm:w-fit sm:whitespace-nowrap`}
           >
             {t(noteKey)}
           </div>

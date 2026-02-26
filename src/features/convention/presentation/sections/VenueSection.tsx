@@ -105,7 +105,7 @@ export function VenueSection() {
                 key={badge.key}
                 asChild
                 variant="outline"
-                className="border-white/10 bg-surface/40 px-3 py-1.5 text-[0.65rem] uppercase tracking-[0.2em] text-foreground/80 hover:text-foreground"
+                className="w-full min-w-0 max-w-full items-start justify-start border-white/10 bg-surface/40 px-3 py-1.5 text-left text-[0.65rem] uppercase leading-snug tracking-[0.2em] text-foreground/80 whitespace-normal break-words hover:text-foreground sm:w-fit sm:items-center sm:justify-center sm:text-center sm:whitespace-nowrap"
               >
                 <a href={badge.href} target="_blank" rel="noreferrer">
                   {badge.icon && (

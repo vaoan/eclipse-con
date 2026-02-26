@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -119,7 +119,7 @@ function NavDropdownItem({
         className="flex items-center justify-between text-[0.86rem] font-medium text-foreground/75 transition-all duration-200 hover:cursor-pointer hover:text-foreground"
       >
         <span>{label}</span>
-        <span className="text-[0.7rem] text-foreground/35">↗</span>
+        <span className="text-[0.7rem] text-foreground/35">-&gt;</span>
       </a>
     </DropdownMenuItem>
   );
@@ -228,73 +228,116 @@ function MobileNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
           <Button
             variant="ghost"
             size="icon"
-            className="text-foreground/70 hover:text-accent"
+            className="group relative h-11 w-11 rounded-full border border-white/10 bg-surface/40 text-foreground/80 shadow-[0_10px_30px_-18px_rgba(244,63,94,0.6)] transition hover:border-white/20 hover:bg-surface/70 hover:text-foreground"
             aria-label={t("convention.nav.mobileToggle")}
             {...tid("mobile-menu-toggle")}
           >
-            <Menu size={24} />
+            <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_top,_rgba(244,63,94,0.35),_transparent_65%)] opacity-0 transition duration-300 group-hover:opacity-100" />
+            <Menu size={20} className="relative" />
           </Button>
         </SheetTrigger>
         <SheetContent
           side="right"
-          className="border-white/10 bg-gradient-to-b from-background/95 via-background/90 to-background/95 backdrop-blur"
+          showCloseButton={false}
+          className="w-full border-white/10 bg-gradient-to-b from-background/95 via-background/92 to-background/95 backdrop-blur sm:max-w-md"
         >
-          <SheetHeader>
-            <SheetTitle className="font-display text-lg">
-              {t("convention.nav.title")}
-            </SheetTitle>
-          </SheetHeader>
-          <Accordion
-            type="single"
-            collapsible
-            className="mt-6 flex flex-col gap-3"
-          >
-            {groups.map((group) =>
-              group.items.length === 1 ? (
-                <SheetClose asChild key={group.key}>
+          <div className="relative flex h-full flex-col">
+            <div className="relative overflow-hidden border-b border-white/10 px-6 pb-6 pt-7">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(244,63,94,0.25),_transparent_62%)]" />
+              <div className="relative flex items-start justify-between gap-4">
+                <SheetHeader className="p-0">
+                  <SheetTitle className="font-display text-xl text-foreground">
+                    {t("convention.nav.title")}
+                  </SheetTitle>
+                  <p className="text-xs uppercase tracking-[0.26em] text-foreground/50">
+                    {t("convention.hero.date")}
+                  </p>
+                </SheetHeader>
+                <SheetClose asChild>
                   <Button
-                    asChild
+                    type="button"
                     variant="ghost"
-                    className="justify-start rounded-xl text-sm text-foreground/70 hover:cursor-pointer hover:bg-surface/70 hover:text-foreground"
+                    size="icon"
+                    className="h-9 w-9 rounded-full border border-white/10 bg-surface/40 text-foreground/70 hover:bg-surface/70 hover:text-foreground"
+                    aria-label={t("convention.nav.mobileToggle")}
                   >
-                    <a
-                      href={`#${group.items[0].id}`}
-                      className="hover:cursor-pointer"
-                    >
-                      {t(group.items[0].key)}
-                    </a>
+                    <X size={16} />
                   </Button>
                 </SheetClose>
-              ) : (
-                <AccordionItem key={group.key} value={group.key}>
-                  <AccordionTrigger className="rounded-xl text-sm font-semibold tracking-[0.08em] text-foreground/70 hover:bg-surface/60 hover:text-foreground">
-                    {t(group.key)}
-                  </AccordionTrigger>
-                  <AccordionContent className="flex flex-col gap-2 pt-2">
-                    {group.items.map((item) => (
-                      <SheetClose asChild key={item.id}>
-                        <Button
-                          asChild
-                          variant="ghost"
-                          className="justify-start rounded-lg border border-white/5 bg-surface/25 text-sm text-foreground/70 hover:cursor-pointer hover:bg-surface/60 hover:text-foreground"
+              </div>
+              <SheetClose asChild>
+                <Button
+                  asChild
+                  variant="default"
+                  className="mt-5 w-full rounded-full bg-accent text-xs font-semibold uppercase tracking-[0.28em] text-accent-foreground shadow-[0_16px_30px_-22px_rgba(244,63,94,0.7)]"
+                >
+                  <a href={`#${SECTION_IDS.REGISTRATION}`}>
+                    {t("convention.hero.cta")}
+                  </a>
+                </Button>
+              </SheetClose>
+            </div>
+            <div className="flex-1 overflow-y-auto px-5 pb-8 pt-5">
+              <Accordion
+                type="single"
+                collapsible
+                className="flex flex-col gap-4"
+              >
+                {groups.map((group) =>
+                  group.items.length === 1 ? (
+                    <SheetClose asChild key={group.key}>
+                      <Button
+                        asChild
+                        variant="ghost"
+                        className="h-12 justify-between rounded-2xl border border-white/10 bg-surface/30 px-5 text-sm font-semibold uppercase tracking-[0.18em] text-foreground/75 hover:cursor-pointer hover:bg-surface/70 hover:text-foreground"
+                      >
+                        <a
+                          href={`#${group.items[0].id}`}
+                          className="flex w-full items-center justify-between"
                         >
-                          <a
-                            href={`#${item.id}`}
-                            className="flex w-full items-center justify-between gap-3 text-[0.95rem] font-medium hover:cursor-pointer"
-                          >
-                            <span>{t(item.key)}</span>
-                            <span className="text-[0.7rem] text-foreground/35">
-                              ?
-                            </span>
-                          </a>
-                        </Button>
-                      </SheetClose>
-                    ))}
-                  </AccordionContent>
-                </AccordionItem>
-              )
-            )}
-          </Accordion>
+                          <span>{t(group.items[0].key)}</span>
+                          <span className="text-[0.7rem] text-foreground/40">
+                            -&gt;
+                          </span>
+                        </a>
+                      </Button>
+                    </SheetClose>
+                  ) : (
+                    <AccordionItem
+                      key={group.key}
+                      value={group.key}
+                      className="rounded-2xl border border-white/10 bg-surface/20"
+                    >
+                      <AccordionTrigger className="rounded-2xl px-5 text-sm font-semibold uppercase tracking-[0.18em] text-foreground/70 hover:bg-surface/60 hover:text-foreground">
+                        {t(group.key)}
+                      </AccordionTrigger>
+                      <AccordionContent className="flex flex-col gap-2 px-4 pb-4 pt-2">
+                        {group.items.map((item) => (
+                          <SheetClose asChild key={item.id}>
+                            <Button
+                              asChild
+                              variant="ghost"
+                              className="justify-between rounded-xl border border-white/5 bg-surface/40 px-4 py-3 text-sm text-foreground/70 hover:cursor-pointer hover:bg-surface/70 hover:text-foreground"
+                            >
+                              <a
+                                href={`#${item.id}`}
+                                className="flex w-full items-center justify-between gap-3 text-[0.95rem] font-medium hover:cursor-pointer"
+                              >
+                                <span>{t(item.key)}</span>
+                                <span className="text-[0.7rem] text-foreground/40">
+                                  -&gt;
+                                </span>
+                              </a>
+                            </Button>
+                          </SheetClose>
+                        ))}
+                      </AccordionContent>
+                    </AccordionItem>
+                  )
+                )}
+              </Accordion>
+            </div>
+          </div>
         </SheetContent>
       </Sheet>
     </div>
@@ -331,3 +374,4 @@ export function NavigationBar() {
     </nav>
   );
 }
+

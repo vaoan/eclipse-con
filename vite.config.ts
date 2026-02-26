@@ -236,6 +236,16 @@ async function inlineExternalUrls(
 
   for (const url of uniqueMatches) {
     current += 1;
+    const extension = getExtension(url);
+    if (extension === "css") {
+      reportProgress(
+        phase,
+        current,
+        uniqueMatches.length,
+        `Skipped (non-asset): ${url}`
+      );
+      continue;
+    }
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -295,6 +305,16 @@ async function inlineCssUrlReferences(
 
   for (const url of uniqueMatches) {
     current += 1;
+    const extension = getExtension(url);
+    if (extension === "css") {
+      reportProgress(
+        phase,
+        current,
+        uniqueMatches.length,
+        `Skipped (non-asset): ${url}`
+      );
+      continue;
+    }
     try {
       const response = await fetch(url);
       if (!response.ok) {
@@ -719,6 +739,7 @@ export default defineConfig(({ mode }) => {
       sourcemap: !isStatic,
       ...(isStatic && {
         assetsInlineLimit: Number.MAX_SAFE_INTEGER,
+        chunkSizeWarningLimit: 2000,
         rollupOptions: {
           output: {
             inlineDynamicImports: true,

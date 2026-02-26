@@ -210,8 +210,22 @@ const main = async () => {
     ...(appVersion ? { VITE_APP_VERSION: appVersion } : {}),
   };
 
-  const run = (command, args) =>
-    spawnSync(command, args, { stdio: "inherit", shell: true, env });
+  const resolveBin = (command) => {
+    const binName =
+      process.platform === "win32" ? `${command}.cmd` : command;
+    return path.join(root, "node_modules", ".bin", binName);
+  };
+
+  const run = (command, args) => {
+    const resolved = resolveBin(command);
+    if (process.platform === "win32") {
+      return spawnSync("cmd.exe", ["/c", resolved, ...args], {
+        stdio: "inherit",
+        env,
+      });
+    }
+    return spawnSync(resolved, args, { stdio: "inherit", env });
+  };
 
   const tsc = run("tsc", ["-b"]);
   if (tsc.status !== 0) {
