@@ -10,7 +10,7 @@ export function EventsSection() {
   const { t } = useTranslation();
 
   return (
-    <SectionWrapper id={SECTION_IDS.EVENTS} surfaceTone="elevated">
+    <SectionWrapper id={SECTION_IDS.EVENTS} surfaceTone="deep">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <SectionHeader
           title={t("convention.events.title")}

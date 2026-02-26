@@ -175,7 +175,7 @@ const optimizeStaticImages = async () => {
   for (const filePath of textFiles) {
     const original = fs.readFileSync(filePath, "utf8");
     const updated = original.replace(
-      /([\\w\\-/.]+)\\.(png|jpe?g)(\\?[^\"'\\s)]*)?/gi,
+      /([\\w./-]+)\\.(png|jpe?g)(\\?[^\"'\\s)]*)?/gi,
       (match, base, ext, query = "") => {
         const candidate = `${base}.webp`;
         const resolved = resolveCandidate(candidate, filePath);
@@ -195,9 +195,19 @@ const main = async () => {
   copyPublicDir();
   await optimizeTelegramMedia();
 
+  let appVersion = "";
+  try {
+    const envRaw = fs.readFileSync(path.join(root, ".env.development"), "utf8");
+    const match = envRaw.match(/^VITE_APP_VERSION=["']?([0-9]+)["']?/m);
+    appVersion = match?.[1] ?? "";
+  } catch {
+    appVersion = "";
+  }
+
   const env = {
     ...process.env,
     STATIC_PUBLIC_DIR: staticPublicDir,
+    ...(appVersion ? { VITE_APP_VERSION: appVersion } : {}),
   };
 
   const run = (command, args) =>

@@ -14,6 +14,7 @@ export function AttendeesSection() {
       roleKey: "convention.attendees.guest1.role",
       bioKey: "convention.attendees.guest1.bio",
       imageSrc: "/assets/guests/guest-05.png",
+      initials: "NE",
     },
     {
       id: "special-2",
@@ -21,6 +22,7 @@ export function AttendeesSection() {
       roleKey: "convention.attendees.guest2.role",
       bioKey: "convention.attendees.guest2.bio",
       imageSrc: "/assets/guests/guest-06.png",
+      initials: "RV",
     },
     {
       id: "special-3",
@@ -28,6 +30,7 @@ export function AttendeesSection() {
       roleKey: "convention.attendees.guest3.role",
       bioKey: "convention.attendees.guest3.bio",
       imageSrc: "/assets/guests/guest-07.png",
+      initials: "LA",
     },
     {
       id: "special-4",
@@ -35,6 +38,7 @@ export function AttendeesSection() {
       roleKey: "convention.attendees.guest4.role",
       bioKey: "convention.attendees.guest4.bio",
       imageSrc: "/assets/guests/guest-08.png",
+      initials: "KE",
     },
     {
       id: "special-5",
@@ -42,6 +46,7 @@ export function AttendeesSection() {
       roleKey: "convention.attendees.guest5.role",
       bioKey: "convention.attendees.guest5.bio",
       imageSrc: "/assets/guests/guest-09.png",
+      initials: "MS",
     },
   ] as const;
 
