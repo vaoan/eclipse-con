@@ -156,10 +156,12 @@ export function VenueSection() {
                   <Button
                     type="button"
                     variant="ghost"
-                    className="flex w-full items-center justify-between px-0 text-left text-sm font-semibold text-foreground/90 hover:text-foreground"
+                    className="group flex w-full items-center justify-between px-0 text-left text-sm font-semibold text-foreground/90 transition hover:bg-transparent hover:text-rose-300"
                   >
                     <span className="inline-flex items-center gap-2">
-                      <span className="text-foreground/70">+</span>
+                      <span className="text-foreground/70 transition group-hover:text-rose-300">
+                        +
+                      </span>
                       {t("convention.venue.detailsLabel")}
                     </span>
                     <span
