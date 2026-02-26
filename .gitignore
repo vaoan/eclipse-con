@@ -47,3 +47,4 @@ scripts/telegram.session-journal
 .tmp/
 lighthouse-report.report.html
 lighthouse-report.report.json
+/artifacts
