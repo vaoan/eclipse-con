@@ -7,7 +7,7 @@ export const GUESTS: readonly Guest[] = [
     roleKey: "convention.guests.guest1.role",
     bioKey: "convention.guests.guest1.bio",
     initials: "BO",
-    imageSrc: "/assets/organizers/organizer-ballroom.png",
+    imageSrc: "/assets/guests/guest-01.png",
   },
   {
     id: "guest2",
@@ -15,7 +15,7 @@ export const GUESTS: readonly Guest[] = [
     roleKey: "convention.guests.guest2.role",
     bioKey: "convention.guests.guest2.bio",
     initials: "AC",
-    imageSrc: "/assets/organizers/organizer-club.svg",
+    imageSrc: "/assets/guests/guest-02.png",
   },
   {
     id: "guest3",
@@ -23,7 +23,7 @@ export const GUESTS: readonly Guest[] = [
     roleKey: "convention.guests.guest3.role",
     bioKey: "convention.guests.guest3.bio",
     initials: "MS",
-    imageSrc: "/assets/organizers/organizer-swing.svg",
+    imageSrc: "/assets/guests/guest-03.png",
   },
   {
     id: "guest4",
@@ -31,6 +31,6 @@ export const GUESTS: readonly Guest[] = [
     roleKey: "convention.guests.guest4.role",
     bioKey: "convention.guests.guest4.bio",
     initials: "LN",
-    imageSrc: "/assets/organizers/organizer-minimal.png",
+    imageSrc: "/assets/guests/guest-04.png",
   },
 ];

@@ -90,25 +90,132 @@
     },
     "amenities": {
       "title": "What’s at the hotel",
-      "subtitle": "Everything in one place so you don’t have to leave the hotel.",
-      "item1": "Rest areas, lounges, and photo‑friendly spots.",
-      "item2": "Spa, thermal pools, and wellness zones to recharge.",
-      "item3": "Dining options and social hangout points.",
-      "item4": "On‑site services that keep you comfortable all event long."
+      "subtitle": "Hotel services and experiences. Several have an extra cost.",
+      "priceLabel": "Approx. price",
+      "footerNote": "Exact rates are confirmed with the hotel. Some external references may vary. External source:",
+      "footerLinkLabel": "Paipa en Bici (prices)",
+      "footerLinkUrl": "https://paipaecoturismosas.wixsite.com/website",
+      "cards": {
+        "spa": {
+          "title": "Spa & wellness",
+          "description": "Relax zone with spa, massages, sauna, jacuzzi, and pool.",
+          "price": "Extra cost",
+          "priceApprox": "Confirm with the hotel",
+          "imageAlt": "Hotel spa"
+        },
+        "dining": {
+          "title": "Dining & wine bar",
+          "description": "Three restaurants (local, international, Italian) plus a wine bar.",
+          "price": "Food & drinks extra",
+          "priceApprox": "Confirm with the hotel",
+          "imageAlt": "Hotel restaurant"
+        },
+        "stables": {
+          "title": "Stables",
+          "description": "Horseback rides and guided activities to enjoy the outdoors.",
+          "price": "Extra cost",
+          "priceApprox": "Confirm with the hotel",
+          "imageAlt": "Hotel stables"
+        },
+        "farm": {
+          "title": "Noé farm",
+          "description": "Family-friendly farm experience with animals and open spaces.",
+          "price": "Extra cost",
+          "priceApprox": "Confirm with the hotel",
+          "imageAlt": "Noé farm"
+        },
+        "family": {
+          "title": "Outdoor activities",
+          "description": "Bikes, trails, and plans to enjoy Paipa.",
+          "price": "Extra cost",
+          "priceApprox": "$13.000–$55.000 COP",
+          "priceNote": "External reference in Paipa (not the hotel): bike rentals.",
+          "imageAlt": "Outdoor activities"
+        }
+      }
     },
     "travel": {
       "title": "Travel tips",
-      "subtitle": "Quick tips to arrive comfortably and enjoy Paipa.",
-      "tip1": "Arrive early to check in and explore the surroundings.",
-      "tip2": "Bring layers: the weather is cool and great for fursuits.",
-      "tip3": "Use the lake and trails for photo sessions."
+      "subtitle": "Weather, rain, and local plans to make the most of Paipa.",
+      "items": {
+        "weather": {
+          "title": "July weather: cool + humid",
+          "description": "Average highs around 14.8°C and lows near 7.5°C, with about 29.6 rainy days and humidity near 91%. Pack thermal layers.",
+          "sourceLabel": "Weather Atlas",
+          "sourceUrl": "https://www.weather-atlas.com/en/colombia/paipa-climate"
+        },
+        "rain": {
+          "title": "Frequent rain",
+          "description": "July is rainy: bring a rain jacket, a cover for electronics, and non‑slip shoes.",
+          "sourceLabel": "Weather Atlas",
+          "sourceUrl": "https://www.weather-atlas.com/en/colombia/paipa-climate"
+        },
+        "thermals": {
+          "title": "Paipa thermal parks (external)",
+          "description": "There are several thermal complexes (ITP Water Park, El Delfín, Pozo Azul, La Playa). The ITP park is ~4 km from town via Pantano de Vargas; check its website for rates.",
+          "sourceLabel": "Parque Termal Paipa (ITP)",
+          "sourceUrl": "https://www.parquetermalpaipa.com/"
+        },
+        "lago": {
+          "title": "Lake Sochagota",
+          "description": "Located in the hotel zone and created to boost tourism; it’s a key spot for water sports and photos.",
+          "sourceLabel": "Corpoboyacá",
+          "sourceUrl": "https://www.corpoboyaca.gov.co/sochagota/"
+        },
+        "pantano": {
+          "title": "Pantano de Vargas",
+          "description": "Historic site with the Lancers Monument, about 10 km from the urban center.",
+          "sourceLabel": "Lancers Monument",
+          "sourceUrl": "https://en.wikipedia.org/wiki/Pantano_de_Vargas"
+        },
+        "salitre": {
+          "title": "Hacienda El Salitre",
+          "description": "A 17th‑century colonial estate with thermal pools; it served as headquarters after the Battle of Pantano de Vargas and now operates as a hotel.",
+          "sourceLabel": "SITUR Boyacá",
+          "sourceUrl": "https://situr.boyaca.gov.co/atractivo-turistico/hacienda-casona-el-salitre/"
+        },
+        "food": {
+          "title": "Local food",
+          "description": "Paipa’s almojábana and masato are classic local staples; you’ll also find cheeses and baked goods.",
+          "sourceLabel": "Boyacá 95.6 FM",
+          "sourceUrl": "https://956fm.boyaca.gov.co/el-secreto-del-sabor-de-la-almojabana-de-paipa/"
+        },
+        "events": {
+          "title": "Cultural events",
+          "description": "Paipa hosts the National Bands Contest, one of its most recognized cultural events.",
+          "sourceLabel": "Corbandas",
+          "sourceUrl": "https://www.corbandas.com/"
+        }
+      }
     },
     "attendees": {
       "title": "Special guests",
       "subtitle": "Special appearances that elevate the experience and add unique moments.",
-      "group1": "Guest artists and standout creators.",
-      "group2": "Surprises announced throughout the event.",
-      "group3": "Meetups and special moments with the community."
+      "guest1": {
+        "name": "Nova Eclipse",
+        "role": "Guest artist",
+        "bio": "Furry illustration and design focused on portraits and branding."
+      },
+      "guest2": {
+        "name": "Rex Vanta",
+        "role": "Special performer",
+        "bio": "Live show, stage energy, and surprise moments."
+      },
+      "guest3": {
+        "name": "Lumi Aria",
+        "role": "Featured creator",
+        "bio": "Audiovisual content and community activations."
+      },
+      "guest4": {
+        "name": "Koa Ember",
+        "role": "Guest DJ",
+        "bio": "Electronic sets with cinematic textures and high-energy beats."
+      },
+      "guest5": {
+        "name": "Mika Sol",
+        "role": "Guest artist",
+        "bio": "Digital illustration and concept art focused on character work."
+      }
     },
     "guests": {
       "title": "Meet the organizers",
@@ -137,7 +244,7 @@
     "groups": {
       "place": {
         "title": "Official venue: ESTELAR Paipa Hotel & Convention Center",
-        "subtitle": "Place",
+        "subtitle": "",
         "description": "Set on Lake Sochagota, this hotel is the heart of the event. Here’s the essential overview.",
         "note": "Optional hotel services are paid separately"
       },
@@ -148,7 +255,7 @@
       },
       "community": {
         "title": "Community",
-        "subtitle": "No extra cost",
+        "subtitle": "",
         "description": "The most important part: the people, special guests, and the vibe."
       }
     },

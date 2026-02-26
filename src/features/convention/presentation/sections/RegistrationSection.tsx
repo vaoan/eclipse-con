@@ -20,6 +20,7 @@ export function RegistrationSection() {
         <SectionHeader
           title={t("convention.registration.title")}
           align="left"
+          accent="gold"
         />
         <p className="max-w-md text-sm text-muted-foreground sm:text-base">
           {t("convention.registration.subtitle")}

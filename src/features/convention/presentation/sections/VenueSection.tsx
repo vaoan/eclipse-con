@@ -87,12 +87,16 @@ export function VenueSection() {
     <SectionWrapper id={SECTION_IDS.VENUE} surfaceTone="deep">
       <div className="grid items-start gap-10 lg:grid-cols-[1.02fr_0.98fr]">
         <div>
-          <SectionHeader title={t("convention.venue.title")} align="left" />
-          <h3 className="font-display mt-6 text-2xl font-bold text-accent">
+          <SectionHeader
+            title={t("convention.venue.title")}
+            align="left"
+            accent="red"
+          />
+          <h3 className="font-display mt-6 text-2xl font-bold text-rose-300">
             {t("convention.venue.name")}
           </h3>
           <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
-            <MapPin size={14} className="text-primary" />
+            <MapPin size={14} className="text-rose-300" />
             {t("convention.venue.location")}
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-foreground/80">
@@ -106,7 +110,7 @@ export function VenueSection() {
                 <a href={badge.href} target="_blank" rel="noreferrer">
                   {badge.icon && (
                     <img
-                      src="https://cdn.simpleicons.org/tripadvisor/ffffff?viewbox=auto"
+                      src="https://cdn.simpleicons.org/tripadvisor/f43f5e?viewbox=auto"
                       alt="Tripadvisor"
                       className="h-4 w-4"
                       loading="lazy"
@@ -124,7 +128,7 @@ export function VenueSection() {
           <ul className="mt-6 grid gap-3 text-sm text-foreground/85 sm:grid-cols-2">
             {primaryFeatures.map(({ key, icon: Icon }) => (
               <li key={key} className="flex items-start gap-2">
-                <Icon size={16} className="mt-0.5 text-accent" />
+                <Icon size={16} className="mt-0.5 text-rose-300" />
                 <span>{t(key)}</span>
               </li>
             ))}
@@ -172,7 +176,7 @@ export function VenueSection() {
                   <ul className="grid gap-3 text-foreground/85 sm:grid-cols-2">
                     {extraFeatures.map(({ key, icon: Icon }) => (
                       <li key={key} className="flex items-start gap-2">
-                        <Icon size={16} className="mt-0.5 text-accent" />
+                        <Icon size={16} className="mt-0.5 text-rose-300" />
                         <span>{t(key)}</span>
                       </li>
                     ))}

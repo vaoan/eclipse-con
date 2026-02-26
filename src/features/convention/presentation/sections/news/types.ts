@@ -48,7 +48,7 @@ export type NewsLayoutMode =
   | "polaroidReadmore"
   | "readmore";
 
-export const DEFAULT_NEWS_LAYOUT: NewsLayoutMode = "magazine";
+export const DEFAULT_NEWS_LAYOUT: NewsLayoutMode = "rail";
 
 export const NEWS_LAYOUT_MODES: { id: NewsLayoutMode; labelKey: string }[] = [
   { id: "focus", labelKey: "convention.news.modes.focus" },

@@ -12,7 +12,11 @@ export function EventsSection() {
   return (
     <SectionWrapper id={SECTION_IDS.EVENTS} surfaceTone="elevated">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <SectionHeader title={t("convention.events.title")} align="left" />
+        <SectionHeader
+          title={t("convention.events.title")}
+          align="left"
+          accent="gold"
+        />
         <p className="max-w-md text-sm text-muted-foreground sm:text-base">
           {t("convention.events.subtitle")}
         </p>

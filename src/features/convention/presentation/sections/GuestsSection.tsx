@@ -12,7 +12,11 @@ export function GuestsSection() {
   return (
     <SectionWrapper id={SECTION_IDS.GUESTS} surfaceTone="elevated">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <SectionHeader title={t("convention.guests.title")} align="left" />
+        <SectionHeader
+          title={t("convention.guests.title")}
+          align="left"
+          accent="green"
+        />
         <p className="max-w-md text-sm text-muted-foreground sm:text-base">
           {t("convention.guests.subtitle")}
         </p>

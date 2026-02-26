@@ -13,6 +13,7 @@ export function EventOverviewSection() {
         <SectionHeader
           title={t("convention.eventOverview.title")}
           align="left"
+          accent="gold"
         />
         <p className="max-w-md text-sm text-muted-foreground sm:text-base">
           {t("convention.eventOverview.subtitle")}

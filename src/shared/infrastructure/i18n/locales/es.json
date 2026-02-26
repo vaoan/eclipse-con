@@ -90,25 +90,132 @@
     },
     "amenities": {
       "title": "¿Qué hay en el hotel?",
-      "subtitle": "Todo en un mismo lugar para que no tengas que salir del hotel.",
-      "item1": "Áreas de descanso, lounges y spots para fotos.",
-      "item2": "Spa, termales y zonas wellness para recargar energía.",
-      "item3": "Opciones gastronómicas y puntos de encuentro social.",
-      "item4": "Servicios on‑site para mantenerte cómodo todo el evento."
+      "subtitle": "Servicios y experiencias del hotel. Varios tienen costo adicional.",
+      "priceLabel": "Precio aprox.",
+      "footerNote": "Tarifas exactas se consultan en el hotel. Algunas referencias externas pueden variar. Fuente externa:",
+      "footerLinkLabel": "Paipa en Bici (precios)",
+      "footerLinkUrl": "https://paipaecoturismosas.wixsite.com/website",
+      "cards": {
+        "spa": {
+          "title": "Spa & bienestar",
+          "description": "Zona de relajación con spa, masajes, sauna, jacuzzi y piscina para recargar energía.",
+          "price": "Costo adicional",
+          "priceApprox": "Consultar en el hotel",
+          "imageAlt": "Spa del hotel"
+        },
+        "dining": {
+          "title": "Gastronomía y bar",
+          "description": "Tres opciones de restaurante (local, internacional e italiana) y bar de vinos.",
+          "price": "Consumo adicional",
+          "priceApprox": "Consultar en el hotel",
+          "imageAlt": "Restaurante del hotel"
+        },
+        "stables": {
+          "title": "Caballerizas",
+          "description": "Paseos a caballo y actividades guiadas para disfrutar el entorno natural.",
+          "price": "Costo adicional",
+          "priceApprox": "Consultar en el hotel",
+          "imageAlt": "Caballerizas del hotel"
+        },
+        "farm": {
+          "title": "Granja Noé",
+          "description": "Experiencia familiar con animales y espacios al aire libre.",
+          "price": "Costo adicional",
+          "priceApprox": "Consultar en el hotel",
+          "imageAlt": "Granja Noé del hotel"
+        },
+        "family": {
+          "title": "Actividades al aire libre",
+          "description": "Bicicletas, senderos y planes pensados para disfrutar Paipa.",
+          "price": "Costo adicional",
+          "priceApprox": "$13.000–$55.000 COP",
+          "priceNote": "Referencia externa en Paipa (no del hotel): alquiler de bicicletas.",
+          "imageAlt": "Actividades al aire libre"
+        }
+      }
     },
     "travel": {
       "title": "Tips de viaje",
-      "subtitle": "Tips rápidos para llegar cómodo y disfrutar Paipa al máximo.",
-      "tip1": "Llega con tiempo para hacer check‑in y explorar el entorno.",
-      "tip2": "Trae capas de ropa: el clima es fresco y perfecto para fursuits.",
-      "tip3": "Aprovecha el lago y senderos para sesiones fotográficas."
+      "subtitle": "Clima, lluvia y planes locales para aprovechar Paipa.",
+      "items": {
+        "weather": {
+          "title": "Clima de julio: fresco y húmedo",
+          "description": "Promedio de 14,8°C máx y 7,5°C mín, con ~29,6 días de lluvia y humedad ~91%. Lleva capas térmicas.",
+          "sourceLabel": "Weather Atlas",
+          "sourceUrl": "https://www.weather-atlas.com/en/colombia/paipa-climate"
+        },
+        "rain": {
+          "title": "Lluvia casi diaria",
+          "description": "Julio tiene muchos días con lluvia: empaca impermeable, funda para electrónica y calzado antideslizante.",
+          "sourceLabel": "Weather Atlas",
+          "sourceUrl": "https://www.weather-atlas.com/en/colombia/paipa-climate"
+        },
+        "thermals": {
+          "title": "Termales de Paipa (externo al hotel)",
+          "description": "Hay complejos termales como Parque Acuático ITP, El Delfín, Pozo Azul y La Playa. El ITP está a ~4 km por la vía al Pantano de Vargas; revisa tarifas en su web.",
+          "sourceLabel": "Parque Termal Paipa (ITP)",
+          "sourceUrl": "https://www.parquetermalpaipa.com/"
+        },
+        "lago": {
+          "title": "Lago Sochagota",
+          "description": "Está en la zona hotelera y se creó para potenciar el turismo; es un punto clave para deportes náuticos y fotos.",
+          "sourceLabel": "Corpoboyacá",
+          "sourceUrl": "https://www.corpoboyaca.gov.co/sochagota/"
+        },
+        "pantano": {
+          "title": "Pantano de Vargas",
+          "description": "Atractivo histórico con el Monumento a los Lanceros, a unos 10 km del casco urbano.",
+          "sourceLabel": "Monumento a los Lanceros",
+          "sourceUrl": "https://es.wikipedia.org/wiki/Lanceros_del_Pantano_de_Vargas"
+        },
+        "salitre": {
+          "title": "Hacienda El Salitre",
+          "description": "Casona colonial del siglo XVII con piscina termal; fue cuartel tras la Batalla del Pantano de Vargas y hoy funciona como hotel.",
+          "sourceLabel": "SITUR Boyacá",
+          "sourceUrl": "https://situr.boyaca.gov.co/atractivo-turistico/hacienda-casona-el-salitre/"
+        },
+        "food": {
+          "title": "Gastronomía local",
+          "description": "La almojábana de Paipa y el masato son clásicos turísticos. También hay quesos y amasijos tradicionales.",
+          "sourceLabel": "Boyacá 95.6 FM",
+          "sourceUrl": "https://956fm.boyaca.gov.co/el-secreto-del-sabor-de-la-almojabana-de-paipa/"
+        },
+        "events": {
+          "title": "Eventos culturales",
+          "description": "Paipa es sede del Concurso Nacional de Bandas, uno de los eventos culturales más reconocidos.",
+          "sourceLabel": "Corbandas",
+          "sourceUrl": "https://www.corbandas.com/"
+        }
+      }
     },
     "attendees": {
       "title": "Invitados especiales",
       "subtitle": "Apariciones especiales que elevan la experiencia y suman momentos únicos.",
-      "group1": "Artistas invitados y creadores destacados.",
-      "group2": "Sorpresas anunciadas durante el evento.",
-      "group3": "Encuentros y momentos especiales con la comunidad."
+      "guest1": {
+        "name": "Nova Eclipse",
+        "role": "Artista invitada",
+        "bio": "Ilustración y diseño furry con enfoque en retratos y branding."
+      },
+      "guest2": {
+        "name": "Rex Vanta",
+        "role": "Performer especial",
+        "bio": "Show en vivo, dinámica de escenario y momentos sorpresa."
+      },
+      "guest3": {
+        "name": "Lumi Aria",
+        "role": "Creadora destacada",
+        "bio": "Contenido audiovisual y activaciones con la comunidad."
+      },
+      "guest4": {
+        "name": "Koa Ember",
+        "role": "DJ invitado",
+        "bio": "Sets electrónicos con atmósferas cinemáticas y beats energéticos."
+      },
+      "guest5": {
+        "name": "Mika Sol",
+        "role": "Artista invitada",
+        "bio": "Ilustración digital y arte conceptual con enfoque en personajes."
+      }
     },
     "guests": {
       "title": "Conoce a los organizadores",
@@ -137,7 +244,7 @@
     "groups": {
       "place": {
         "title": "Sede oficial: ESTELAR Paipa Hotel & Centro de Convenciones",
-        "subtitle": "Lugar",
+        "subtitle": "",
         "description": "Ubicado frente al lago Sochagota, este hotel es el corazón del evento. Aquí te contamos lo esencial del lugar.",
         "note": "Servicios extra del hotel se pagan por separado"
       },
@@ -148,7 +255,7 @@
       },
       "community": {
         "title": "Comunidad",
-        "subtitle": "Sin costo adicional",
+        "subtitle": "",
         "description": "La parte más importante: la gente, los invitados especiales y el ambiente."
       }
     },

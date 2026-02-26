@@ -38,7 +38,7 @@ export function EventCard({ event }: Readonly<EventCardProps>) {
       {...tid(`event-card-${event.id}`)}
     >
       <CardHeader className="gap-4 border-b border-white/5 pb-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
+        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-400/15 text-amber-300 transition-colors group-hover:bg-amber-400/25">
           <Icon size={24} />
         </div>
         <CardTitle className="text-base font-bold text-foreground">

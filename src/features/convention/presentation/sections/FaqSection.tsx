@@ -13,7 +13,11 @@ export function FaqSection() {
   return (
     <SectionWrapper id={SECTION_IDS.FAQ} surfaceTone="deep">
       <div className="mx-auto max-w-4xl">
-        <SectionHeader title={t("convention.faq.title")} align="left" />
+        <SectionHeader
+          title={t("convention.faq.title")}
+          align="left"
+          accent="gold"
+        />
         <Accordion type="single" collapsible className="mt-12">
           {FAQ_ITEMS.map((item) => (
             <FaqAccordionItem key={item.id} item={item} />

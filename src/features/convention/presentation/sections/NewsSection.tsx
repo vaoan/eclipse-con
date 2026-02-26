@@ -298,7 +298,11 @@ export function NewsSection() {
   return (
     <SectionWrapper id={SECTION_IDS.NEWS} surfaceTone="elevated">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <SectionHeader title={t("convention.news.title")} align="left" />
+        <SectionHeader
+          title={t("convention.news.title")}
+          align="left"
+          accent="green"
+        />
         <div className="flex flex-col items-start gap-4 md:items-end">
           <p className="max-w-md text-sm text-muted-foreground sm:text-base">
             {t("convention.news.subtitle")}

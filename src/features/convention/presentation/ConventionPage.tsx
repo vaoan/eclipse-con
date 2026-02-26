@@ -63,20 +63,20 @@ export function Component() {
             titleKey="convention.groups.event.title"
             subtitleKey="convention.groups.event.subtitle"
             descriptionKey="convention.groups.event.description"
-            accent="primary"
+            accent="gold"
           />
           <EventOverviewSection />
           <EventsSection />
           <RegistrationSection />
+          <VenueSection />
           <SectionGroupIntro
             id={SECTION_IDS.PLACE_GROUP}
             titleKey="convention.groups.place.title"
             subtitleKey="convention.groups.place.subtitle"
             descriptionKey="convention.groups.place.description"
             noteKey="convention.groups.place.note"
-            accent="accent"
+            accent="red"
           />
-          <VenueSection />
           <AmenitiesSection />
           <TravelSection />
           <SectionGroupIntro
@@ -84,11 +84,11 @@ export function Component() {
             titleKey="convention.groups.community.title"
             subtitleKey="convention.groups.community.subtitle"
             descriptionKey="convention.groups.community.description"
-            accent="accent"
+            accent="green"
           />
           <AttendeesSection />
-          <GuestsSection />
           <NewsSection />
+          <GuestsSection />
           <FaqSection />
         </Suspense>
         <FooterSection />

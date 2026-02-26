@@ -5,6 +5,7 @@ import { spawnSync } from "node:child_process";
 const root = process.cwd();
 const staticPublicDir = path.join(root, "tmp", "static-public");
 const staticTelegramMediaDir = path.join(staticPublicDir, "telegram", "media");
+const distDir = path.join(root, "dist");
 
 const copyPublicDir = () => {
   fs.rmSync(staticPublicDir, { recursive: true, force: true });
@@ -93,6 +94,103 @@ const optimizeTelegramMedia = async () => {
   );
 };
 
+const optimizeStaticImages = async () => {
+  if (!fs.existsSync(distDir)) {
+    console.log("[static] No dist directory to optimize");
+    return;
+  }
+
+  let sharpModule;
+  try {
+    sharpModule = await import("sharp");
+  } catch {
+    console.warn("[static] Skipping image optimization: sharp not available");
+    return;
+  }
+
+  const sharp = sharpModule.default ?? sharpModule;
+  const maxWidth = 2200;
+  const sourceExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
+  let optimized = 0;
+  let converted = 0;
+  let bytesSaved = 0;
+
+  const files = walkFiles(distDir);
+  for (const filePath of files) {
+    const extension = path.extname(filePath).toLowerCase();
+    if (!sourceExtensions.has(extension)) {
+      continue;
+    }
+    try {
+      const input = fs.readFileSync(filePath);
+      const image = sharp(input);
+      const metadata = await image.metadata();
+      let pipeline = image;
+      if (metadata.width && metadata.width > maxWidth) {
+        pipeline = pipeline.resize({
+          width: maxWidth,
+          withoutEnlargement: true,
+        });
+      }
+      if (extension === ".webp") {
+        pipeline = pipeline.webp({ quality: 78 });
+        const output = await pipeline.toBuffer();
+        if (output.length < input.length) {
+          fs.writeFileSync(filePath, output);
+          optimized += 1;
+          bytesSaved += input.length - output.length;
+        }
+        continue;
+      }
+
+      const webpPath = filePath.replace(/\.(png|jpg|jpeg)$/i, ".webp");
+      const webpBuffer = await pipeline.webp({ quality: 78 }).toBuffer();
+      fs.writeFileSync(webpPath, webpBuffer);
+      converted += 1;
+    } catch {
+      // Ignore failed conversions
+    }
+  }
+
+  const savedMb = (bytesSaved / (1024 * 1024)).toFixed(2);
+  console.log(
+    `[static] Optimized images: ${optimized} webp adjusted, ${converted} webp generated, saved ${savedMb} MB`
+  );
+
+  const textExtensions = new Set([".html", ".css", ".js", ".mjs"]);
+  const textFiles = files.filter((file) =>
+    textExtensions.has(path.extname(file).toLowerCase())
+  );
+
+  const resolveCandidate = (base, filePath) => {
+    if (base.startsWith("/")) {
+      return path.join(distDir, base);
+    }
+    if (base.startsWith("assets/")) {
+      return path.join(distDir, base);
+    }
+    return path.join(path.dirname(filePath), base);
+  };
+
+  for (const filePath of textFiles) {
+    const original = fs.readFileSync(filePath, "utf8");
+    const updated = original.replace(
+      /([\\w\\-/.]+)\\.(png|jpe?g)(\\?[^\"'\\s)]*)?/gi,
+      (match, base, ext, query = "") => {
+        const candidate = `${base}.webp`;
+        const resolved = resolveCandidate(candidate, filePath);
+        if (fs.existsSync(resolved)) {
+          return `${candidate}${query}`;
+        }
+        return match;
+      }
+    );
+    if (updated !== original) {
+      fs.writeFileSync(filePath, updated);
+    }
+  }
+};
+
 const main = async () => {
   copyPublicDir();
   await optimizeTelegramMedia();
@@ -111,6 +209,7 @@ const main = async () => {
   }
 
   const vite = run("vite", ["build", "--mode", "static"]);
+  await optimizeStaticImages();
   fs.rmSync(staticPublicDir, { recursive: true, force: true });
   process.exit(vite.status ?? 1);
 };

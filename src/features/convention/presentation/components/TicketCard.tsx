@@ -52,7 +52,7 @@ export function TicketCard({ tier }: Readonly<TicketCardProps>) {
               key={featureKey}
               className="flex items-center gap-2 text-sm text-muted-foreground"
             >
-              <Check size={16} className="shrink-0 text-primary" />
+              <Check size={16} className="shrink-0 text-emerald-400" />
               <span>{t(featureKey)}</span>
             </li>
           ))}
@@ -65,7 +65,7 @@ export function TicketCard({ tier }: Readonly<TicketCardProps>) {
             "w-full",
             tier.highlighted
               ? "bg-accent text-accent-foreground hover:bg-accent-glow"
-              : "bg-primary text-primary-foreground hover:bg-primary-glow"
+              : "bg-emerald-600 text-white hover:bg-emerald-500"
           )}
         >
           <a href={RESERVATION_URL} target="_blank" rel="noreferrer">
