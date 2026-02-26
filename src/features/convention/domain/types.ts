@@ -11,6 +11,7 @@ export interface Guest {
   readonly roleKey: string;
   readonly bioKey: string;
   readonly initials: string;
+  readonly imageSrc: string;
 }
 
 export interface TicketTier {

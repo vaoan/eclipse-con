@@ -1,4 +1,5 @@
 import { tid } from "@/shared/application/utils/tid";
+import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { Suspense, lazy, useEffect, useState } from "react";
 
 import { NavigationBar } from "./components/NavigationBar";
@@ -6,6 +7,11 @@ import { SakuraParticles } from "./components/SakuraParticles";
 import { HeroCanvasSky } from "./components/HeroCanvasSky";
 import { HeroSection } from "./sections/HeroSection";
 import { FooterSection } from "./sections/FooterSection";
+import { EventOverviewSection } from "./sections/EventOverviewSection";
+import { AmenitiesSection } from "./sections/AmenitiesSection";
+import { TravelSection } from "./sections/TravelSection";
+import { AttendeesSection } from "./sections/AttendeesSection";
+import { SectionGroupIntro } from "./sections/SectionGroupIntro";
 
 const AboutSection = lazy(async () => ({
   default: (await import("./sections/AboutSection")).AboutSection,
@@ -52,12 +58,38 @@ export function Component() {
           fallback={<div className="px-4 py-20 md:py-28" aria-busy="true" />}
         >
           <AboutSection />
+          <SectionGroupIntro
+            id={SECTION_IDS.EVENT_GROUP}
+            titleKey="convention.groups.event.title"
+            subtitleKey="convention.groups.event.subtitle"
+            descriptionKey="convention.groups.event.description"
+            accent="primary"
+          />
+          <EventOverviewSection />
           <EventsSection />
-          <VenueSection />
           <RegistrationSection />
-          <FaqSection />
-          <NewsSection />
+          <SectionGroupIntro
+            id={SECTION_IDS.PLACE_GROUP}
+            titleKey="convention.groups.place.title"
+            subtitleKey="convention.groups.place.subtitle"
+            descriptionKey="convention.groups.place.description"
+            noteKey="convention.groups.place.note"
+            accent="accent"
+          />
+          <VenueSection />
+          <AmenitiesSection />
+          <TravelSection />
+          <SectionGroupIntro
+            id={SECTION_IDS.COMMUNITY_GROUP}
+            titleKey="convention.groups.community.title"
+            subtitleKey="convention.groups.community.subtitle"
+            descriptionKey="convention.groups.community.description"
+            accent="accent"
+          />
+          <AttendeesSection />
           <GuestsSection />
+          <NewsSection />
+          <FaqSection />
         </Suspense>
         <FooterSection />
       </div>

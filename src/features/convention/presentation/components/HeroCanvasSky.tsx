@@ -156,7 +156,10 @@ export function HeroCanvasSky({
         1,
         Math.round(bounds.height || fallbackHeight)
       );
-      if (nextWidth <= width && nextHeight <= height) {
+      if (
+        Math.abs(nextWidth - width) <= 20 &&
+        Math.abs(nextHeight - height) <= 20
+      ) {
         return;
       }
       width = nextWidth;

@@ -24,55 +24,95 @@
       "registration": "Reservations",
       "faq": "FAQ",
       "news": "News",
+      "place": "Place",
+      "placeHotel": "Hotel",
+      "placeTravel": "Travel tips",
+      "placeFind": "What’s at the hotel",
+      "placePricing": "Packages & pricing",
+      "event": "Event",
+      "eventOverview": "What’s included",
+      "eventActivities": "Activities & schedule",
+      "community": "Community",
+      "communityAttendees": "Special guests",
+      "communityOrganizers": "Organizers",
       "mobileToggle": "Toggle navigation menu"
     },
     "hero": {
       "title": "Moonfest 2026",
       "date": "July 10-13, 2026",
-      "tagline": "The biggest furry community event in Colombia",
+      "tagline": "Colombia’s biggest furry convention. Community, art, and a full experience.",
       "cta": "Reserve now",
       "logoAlt": "Moonfest logo"
     },
     "about": {
       "title": "Why Moonfest?",
-      "paragraph1": "Moonfest is the biggest and most anticipated furry convention in Colombia. With a unique experience, exciting activities, and spaces for the furry community, it’s an event you can’t miss!",
-      "paragraph2": "In 2025, Moonfest returned stronger than ever, bringing together hundreds of attendees from across the country, and now in 2026 we invite you to be part of this celebration."
+      "paragraph1": "Moonfest is Colombia’s biggest and most anticipated furry convention. A complete experience with activities, art, and spaces built for the community.",
+      "paragraph2": "After the 2025 comeback, 2026 brings more energy, better production, and a community ready to meet again."
     },
     "events": {
       "title": "What to expect at Moonfest",
-      "subtitle": "Community, activities, and an all-inclusive experience in Paipa, Boyacá.",
+      "subtitle": "Community, activities, and an all‑inclusive experience in Paipa, Boyacá.",
       "community": {
         "title": "Community & fun",
-        "description": "Share with friends and meet new people in an inclusive, welcoming environment."
+        "description": "Share with friends and meet new people in a safe, welcoming environment."
       },
       "games": {
         "title": "Games & activities",
-        "description": "Join a wide variety of games and activities."
+        "description": "Join games, activities, and challenges for every level."
       },
       "hotSprings": {
         "title": "Thermal pools",
-        "description": "Enjoy thermal pools inside the hotel."
+        "description": "Thermal pools inside the hotel to recharge between events."
       },
       "nature": {
         "title": "Nature connection",
-        "description": "Take in the spectacular view of Lake Sochagota."
+        "description": "Lake Sochagota views and photo‑ready outdoor spaces."
       },
       "panels": {
         "title": "Panels & workshops",
-        "description": "Attend talks, panels, and workshops with special guests."
+        "description": "Talks, panels, and workshops with special guests."
       },
       "dealers": {
         "title": "Dealer Den",
-        "description": "Buy and sell products, art, and community merchandise."
+        "description": "Buy and sell art, products, and community merch."
       },
       "mainEvent": {
         "title": "Main event night",
-        "description": "A special night with contests, shows, and performances."
+        "description": "A special night with contests, shows, and standout performances."
       }
+    },
+    "eventOverview": {
+      "title": "What’s included",
+      "subtitle": "Key moments, spaces to create, and a community‑built experience.",
+      "highlight1": "Competitions, shows, creative zones, and surprise moments.",
+      "highlight2": "Social areas to connect, create content, and meet others.",
+      "highlight3": "A safe, inclusive environment designed for every detail."
+    },
+    "amenities": {
+      "title": "What’s at the hotel",
+      "subtitle": "Everything in one place so you don’t have to leave the hotel.",
+      "item1": "Rest areas, lounges, and photo‑friendly spots.",
+      "item2": "Spa, thermal pools, and wellness zones to recharge.",
+      "item3": "Dining options and social hangout points.",
+      "item4": "On‑site services that keep you comfortable all event long."
+    },
+    "travel": {
+      "title": "Travel tips",
+      "subtitle": "Quick tips to arrive comfortably and enjoy Paipa.",
+      "tip1": "Arrive early to check in and explore the surroundings.",
+      "tip2": "Bring layers: the weather is cool and great for fursuits.",
+      "tip3": "Use the lake and trails for photo sessions."
+    },
+    "attendees": {
+      "title": "Special guests",
+      "subtitle": "Special appearances that elevate the experience and add unique moments.",
+      "group1": "Guest artists and standout creators.",
+      "group2": "Surprises announced throughout the event.",
+      "group3": "Meetups and special moments with the community."
     },
     "guests": {
       "title": "Meet the organizers",
-      "subtitle": "The furry team behind Moonfest.",
+      "subtitle": "The furry team making Moonfest happen.",
       "guest1": {
         "name": "Bo Ocelot",
         "role": "Event director",
@@ -87,6 +127,29 @@
         "name": "Majira Stark",
         "role": "Community & artists",
         "bio": "Global event presence and direct connection with the furry community."
+      },
+      "guest4": {
+        "name": "Luna Nova",
+        "role": "Art & experience",
+        "bio": "Visual curation, ambiance, and detail‑oriented experience design."
+      }
+    },
+    "groups": {
+      "place": {
+        "title": "Official venue: ESTELAR Paipa Hotel & Convention Center",
+        "subtitle": "Place",
+        "description": "Set on Lake Sochagota, this hotel is the heart of the event. Here’s the essential overview.",
+        "note": "Optional hotel services are paid separately"
+      },
+      "event": {
+        "title": "Event & package",
+        "subtitle": "Included with your reservation",
+        "description": "Everything that’s part of the event and covered by the official Moonfest package."
+      },
+      "community": {
+        "title": "Community",
+        "subtitle": "No extra cost",
+        "description": "The most important part: the people, special guests, and the vibe."
       }
     },
     "venue": {
@@ -94,8 +157,8 @@
       "name": "ESTELAR Paipa Hotel & Convention Center",
       "location": "Paipa, Boyacá, Colombia",
       "description": "Lakefront calm, forest trails, thermal jacuzzis, sauna, and a wellness spa make recovery between events effortless. The convention center is built for big gatherings, while three dining options (local, international, and Italian) plus a wine bar keep the nights social.",
-      "description2": "July in Paipa is cool (avg high 14.8°C, low 7.5°C), a comfortable range for fursuits and layered, fashion-forward looks that photograph beautifully. The scenery and spaces invite artistic expression, from shoots by the lake to relaxed lounges for sketching and collaboration.",
-      "description3": "On-site services keep your schedule full without leaving the property: business center, reliable Wi‑Fi, free parking, pet-friendly policies, and outdoor options like farm visits, horseback riding, and bike rides.",
+      "description2": "July in Paipa is cool (avg high 14.8°C, low 7.5°C), a comfortable range for fursuits and layered looks that photograph beautifully. The scenery and spaces invite artistic expression, from shoots by the lake to relaxed lounges for sketching and collaboration.",
+      "description3": "On‑site services keep your schedule full without leaving the property: business center, reliable Wi‑Fi, free parking, pet‑friendly policies, and outdoor options like farm visits, horseback riding, and bike rides.",
       "feature1": "Dates: July 10-13, 2026",
       "feature2": "Thermal jacuzzis, sauna, wellness spa, and pool",
       "feature3": "Lakefront setting, forest trails, and photo-ready views",
@@ -121,7 +184,7 @@
     },
     "registration": {
       "title": "Reservations",
-      "subtitle": "4-day, 3-night package. Includes entry, Bogotá-convention bus, and room.",
+      "subtitle": "Official event package: 4 days and 3 nights. Includes entry, Bogotá‑convention bus, and room. Hotel extras are paid separately.",
       "popular": "Popular",
       "package": {
         "feature1": "Full package: 4 days and 3 nights",
@@ -147,12 +210,13 @@
       "reserveLink": "Reserve hotel",
       "ticketLink": "Buy ticket (coming soon)",
       "devNote": "Shared rooms are priced per person. The room for 1 or 2 people has a fixed total price.",
+      "noteServices": "Additional hotel services (spa, thermal pools, bar, etc.) are not included in the package.",
       "note": "Questions: info@moonfest.com.co",
       "highlight": "Want to attend? Reserve today and secure your place at this unforgettable event."
     },
     "news": {
       "title": "News",
-      "subtitle": "Latest updates and media from the Moonfest Telegram.",
+      "subtitle": "Updates and media straight from the Moonfest Telegram.",
       "modeLabel": "Layout",
       "modePlaceholder": "Pick a layout",
       "modes": {

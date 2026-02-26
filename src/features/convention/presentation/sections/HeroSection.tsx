@@ -7,10 +7,10 @@ import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
 import { ParallaxLayer } from "../components/ParallaxLayer";
 import { ToriiGateSilhouette } from "../components/ToriiGateSilhouette";
-import heroBathSingle from "../assets/hero-bath-optimized.webp";
+const heroBathSingle = "/hero-bath-preview.webp";
 
 function HeroBathPicture({ className = "" }: { readonly className?: string }) {
-  const baseClasses = "h-full w-auto select-none object-cover brightness-60";
+  const baseClasses = "h-full w-auto select-none object-cover brightness-80";
 
   return (
     <img
@@ -109,7 +109,7 @@ export function HeroSection() {
         ref={bathLayerRef}
         className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden"
       >
-        <div className="relative z-0 mx-auto flex h-[330px] items-center justify-center gap-0 sm:h-[400px] md:h-[480px] lg:h-[560px]">
+        <div className="relative z-0 mx-auto flex h-[390px] items-center justify-center gap-0 sm:h-[460px] md:h-[560px] lg:h-[680px]">
           {!isMobileViewport && <HeroBathPicture className="scale-x-[-1]" />}
           <HeroBathPicture />
           {!isMobileViewport && <HeroBathPicture className="scale-x-[-1]" />}

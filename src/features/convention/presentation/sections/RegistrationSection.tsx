@@ -64,6 +64,9 @@ function RegistrationCta({ t }: Readonly<{ t: TFunction }>) {
         {t("convention.registration.devNote")}
       </p>
       <p className="text-sm text-muted-foreground">
+        {t("convention.registration.noteServices")}
+      </p>
+      <p className="text-sm text-muted-foreground">
         {t("convention.registration.note")}
       </p>
     </div>

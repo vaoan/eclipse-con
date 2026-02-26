@@ -23,11 +23,13 @@ export function GuestCard({ guest }: Readonly<GuestCardProps>) {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-60" />
       <div className="relative">
         <div className="relative h-60 w-full overflow-hidden rounded-t-3xl bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%),linear-gradient(135deg,rgba(59,130,246,0.22),rgba(15,23,42,0.94))]">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-display text-5xl font-semibold text-white/90 drop-shadow-[0_12px_35px_rgba(15,23,42,0.6)]">
-              {guest.initials}
-            </span>
-          </div>
+          <img
+            src={guest.imageSrc}
+            alt={t(guest.nameKey)}
+            className="absolute inset-0 h-full w-full object-contain p-6 drop-shadow-[0_22px_45px_rgba(8,10,20,0.55)]"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
       <CardHeader className="relative gap-3 border-b border-white/10 pb-4 pt-5">
