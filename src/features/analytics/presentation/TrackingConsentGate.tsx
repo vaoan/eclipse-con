@@ -167,6 +167,40 @@ function ConsentLanguageSwitcher() {
   );
 }
 
+function ConsentModalHeader() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="relative border-b border-accent/25 bg-gradient-to-r from-primary/30 via-surface-elevated to-accent/20 px-5 py-5 sm:px-6 sm:py-6">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(201,168,76,0.26),transparent_48%),radial-gradient(circle_at_88%_0%,rgba(255,255,255,0.08),transparent_42%)]" />
+      <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <div className="inline-flex items-center gap-3 rounded-full border border-accent/35 bg-black/20 px-3 py-1.5">
+            <img
+              src="/moonfest-logo.svg"
+              alt={t("convention.hero.logoAlt")}
+              className="h-7 w-auto"
+              loading="lazy"
+            />
+            <p className="text-[0.62rem] font-bold uppercase tracking-[0.34em] text-accent">
+              {t("convention.consent.title")}
+            </p>
+          </div>
+          <h2 className="mt-4 max-w-2xl text-2xl leading-snug font-black text-foreground sm:text-[2rem]">
+            {t("convention.consent.headline")}
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm text-foreground/85 sm:text-base">
+            {t("convention.consent.description")}
+          </p>
+        </div>
+        <div className="shrink-0 sm:pt-1">
+          <ConsentLanguageSwitcher />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function useConsentState(blockingEnabled: boolean) {
   const initialValue = useMemo(() => getStoredTrackingConsent(), []);
   const [savedConsent, setSavedConsent] = useState<TrackingConsentState | null>(
@@ -296,25 +330,7 @@ export function TrackingConsentGate({
     <div className="fixed inset-0 z-[210] flex items-end justify-center bg-black/80 p-3 backdrop-blur-sm sm:items-center sm:p-6">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,168,76,0.2),transparent_45%),linear-gradient(180deg,rgba(10,11,26,0.75),rgba(10,11,26,0.95))]" />
       <section className="relative z-10 flex max-h-[min(94vh,820px)] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-accent/35 bg-surface/95 shadow-[0_0_40px_rgba(201,168,76,0.25)]">
-        <div className="border-b border-accent/25 bg-gradient-to-r from-primary/35 via-surface-elevated to-accent/25 px-5 py-4">
-          <div className="flex items-start justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <img
-                src="/moonfest-logo.svg"
-                alt={t("convention.hero.logoAlt")}
-                className="h-8 w-auto"
-                loading="lazy"
-              />
-              <p className="pt-1 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-accent">
-                {t("convention.consent.title")}
-              </p>
-            </div>
-            <ConsentLanguageSwitcher />
-          </div>
-          <h2 className="mt-2 text-xl font-black text-foreground sm:text-2xl">
-            {t("convention.consent.headline")}
-          </h2>
-        </div>
+        <ConsentModalHeader />
 
         <div className="grid flex-1 gap-4 overflow-y-auto px-5 py-4 sm:px-6 sm:py-5 lg:grid-cols-[0.95fr_1.05fr]">
           <ConsentSupportPanel />
