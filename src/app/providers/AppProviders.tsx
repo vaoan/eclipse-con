@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { TrackingConsentGate } from "@/features/analytics/presentation/TrackingConsentGate";
+import { environment } from "@/shared/infrastructure/config/environment";
 
 interface AppProvidersProps {
   readonly children: ReactNode;
@@ -11,6 +12,8 @@ interface AppProvidersProps {
 
 export function AppProviders({ children }: AppProvidersProps) {
   const { i18n } = useTranslation();
+  const isAnalyticsConfigured =
+    environment.analyticsEnabled && environment.analyticsEndpoint.length > 0;
 
   useEffect(() => {
     const language = i18n.language || "es";
@@ -20,7 +23,7 @@ export function AppProviders({ children }: AppProvidersProps) {
   return (
     <TooltipProvider>
       {children}
-      <TrackingConsentGate />
+      <TrackingConsentGate blockingEnabled={isAnalyticsConfigured} />
     </TooltipProvider>
   );
 }

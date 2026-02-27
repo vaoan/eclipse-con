@@ -16,6 +16,10 @@ import {
   trackConsentPreference,
 } from "@/features/analytics/infrastructure/extremeTracking";
 
+interface TrackingConsentGateProps {
+  readonly blockingEnabled?: boolean;
+}
+
 interface PreferenceTogglesProps {
   readonly categories: ConsentCategories;
   readonly onChange: (nextCategories: ConsentCategories) => void;
@@ -163,12 +167,14 @@ function ConsentLanguageSwitcher() {
   );
 }
 
-function useConsentState() {
+function useConsentState(blockingEnabled: boolean) {
   const initialValue = useMemo(() => getStoredTrackingConsent(), []);
   const [savedConsent, setSavedConsent] = useState<TrackingConsentState | null>(
     initialValue
   );
-  const [isCustomizeOpen, setCustomizeOpen] = useState<boolean>(!initialValue);
+  const [isCustomizeOpen, setCustomizeOpen] = useState<boolean>(
+    blockingEnabled && !initialValue
+  );
   const [draftCategories, setDraftCategories] = useState<ConsentCategories>(
     initialValue?.categories ?? DEFAULT_CONSENT_CATEGORIES
   );
@@ -255,7 +261,9 @@ function useConsentState() {
   };
 }
 
-export function TrackingConsentGate() {
+export function TrackingConsentGate({
+  blockingEnabled = true,
+}: TrackingConsentGateProps) {
   const { t } = useTranslation();
   const {
     acceptAll,
@@ -264,11 +272,10 @@ export function TrackingConsentGate() {
     openCustomization,
     rejectOptional,
     saveCustom,
-    savedConsent,
     setDraftCategories,
-  } = useConsentState();
+  } = useConsentState(blockingEnabled);
 
-  if (!isCustomizeOpen && savedConsent) {
+  if (!isCustomizeOpen) {
     return (
       <div className="pointer-events-none fixed right-3 bottom-3 z-40">
         <Button
@@ -291,9 +298,17 @@ export function TrackingConsentGate() {
       <section className="relative z-10 flex max-h-[min(94vh,820px)] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-accent/35 bg-surface/95 shadow-[0_0_40px_rgba(201,168,76,0.25)]">
         <div className="border-b border-accent/25 bg-gradient-to-r from-primary/35 via-surface-elevated to-accent/25 px-5 py-4">
           <div className="flex items-start justify-between gap-3">
-            <p className="pt-1 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-accent">
-              {t("convention.consent.title")}
-            </p>
+            <div className="flex items-center gap-3">
+              <img
+                src="/moonfest-logo.svg"
+                alt={t("convention.hero.logoAlt")}
+                className="h-8 w-auto"
+                loading="lazy"
+              />
+              <p className="pt-1 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-accent">
+                {t("convention.consent.title")}
+              </p>
+            </div>
             <ConsentLanguageSwitcher />
           </div>
           <h2 className="mt-2 text-xl font-black text-foreground sm:text-2xl">
