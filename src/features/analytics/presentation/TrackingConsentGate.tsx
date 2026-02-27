@@ -102,17 +102,22 @@ function ConsentModalHeader() {
     <div className="relative border-b border-accent/25 bg-gradient-to-r from-primary/30 via-surface-elevated to-accent/20 px-5 py-5 sm:px-6 sm:py-6">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(201,168,76,0.26),transparent_48%),radial-gradient(circle_at_88%_0%,rgba(255,255,255,0.08),transparent_42%)]" />
       <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div className="order-2 sm:order-1 min-w-0">
-          <div className="inline-flex items-center gap-3 rounded-full border border-accent/35 bg-black/20 px-3 py-1.5">
-            <img
-              src={moonfestLogo}
-              alt={t("convention.hero.logoAlt")}
-              className="h-7 w-auto"
-              loading="lazy"
-            />
-            <p className="text-[0.62rem] font-bold uppercase tracking-[0.34em] text-accent">
-              {t("convention.consent.title")}
-            </p>
+        <div className="min-w-0">
+          <div className="flex items-center justify-between sm:block">
+            <div className="inline-flex items-center gap-3 rounded-full border border-accent/35 bg-black/20 px-3 py-1.5">
+              <img
+                src={moonfestLogo}
+                alt={t("convention.hero.logoAlt")}
+                className="h-7 w-auto"
+                loading="lazy"
+              />
+              <p className="text-[0.62rem] font-bold uppercase tracking-[0.34em] text-accent">
+                {t("convention.consent.title")}
+              </p>
+            </div>
+            <div className="sm:hidden">
+              <LanguageToggle />
+            </div>
           </div>
           <h2 className="mt-4 max-w-2xl text-2xl leading-snug font-black text-foreground sm:text-[2rem]">
             {t("convention.consent.headline")}
@@ -121,7 +126,7 @@ function ConsentModalHeader() {
             {t("convention.consent.description")}
           </p>
         </div>
-        <div className="order-1 sm:order-2 shrink-0 sm:pt-1">
+        <div className="hidden sm:block shrink-0 sm:pt-1">
           <LanguageToggle />
         </div>
       </div>
