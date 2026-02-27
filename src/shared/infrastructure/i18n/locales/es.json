@@ -524,7 +524,7 @@
       "supportPoint2": "Priorizar mejoras en reservas, boletas y flujo de registro.",
       "supportPoint3": "Medir qué campañas sí traen asistentes reales.",
       "notice": "El seguimiento necesario siempre está activo para que el sitio funcione correctamente.",
-      "scopeNote": "Hoy, solo Analítica activa el seguimiento opcional de comportamiento. Las preferencias de Personalización y Crecimiento de la convención se guardan y nos ayudan a planificar futuras ediciones; ningún servicio externo se activa con esas opciones.",
+      "scopeNote": "",
       "acceptAll": "Aceptar todo",
       "saveSelection": "Guardar preferencias",
       "rejectOptional": "Solo lo necesario",
@@ -536,7 +536,7 @@
         },
         "analytics": {
           "title": "Analítica",
-          "description": "Datos anónimos sobre cómo interactúas con el sitio (clics, secciones visitadas, pasos hacia el registro) para entender qué funciona y mejorar el próximo Moonfest."
+          "description": "Activa el análisis de patrones de navegación, señales de abandono, pruebas A/B y datos demográficos voluntarios. Todo lo demás se recopila de forma anónima sin necesitar esta opción."
         },
         "personalization": {
           "title": "Personalización",

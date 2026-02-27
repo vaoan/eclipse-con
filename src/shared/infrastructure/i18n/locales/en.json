@@ -524,7 +524,7 @@
       "supportPoint2": "Prioritize improvements in reservations, tickets, and registration flow.",
       "supportPoint3": "Measure which campaigns actually bring attendees.",
       "notice": "Necessary tracking remains enabled to keep the service running.",
-      "scopeNote": "Current implementation: Analytics consent gates all optional behavioral tracking. Personalization and Convention Growth preferences are saved and inform future convention planning; no third-party trackers are activated by those toggles today.",
+      "scopeNote": "",
       "acceptAll": "Accept all",
       "saveSelection": "Save selection",
       "rejectOptional": "Reject optional",
@@ -536,7 +536,7 @@
         },
         "analytics": {
           "title": "Analytics",
-          "description": "Anonymous behavior data (clicks, scroll depth, section engagement, funnel steps) to understand what resonates — used to plan a better Moonfest every year."
+          "description": "Enables behavioral profiling: navigation path patterns, exit intent signals, A/B test assignments, and voluntary demographic data. All other usage data is collected anonymously without this flag."
         },
         "personalization": {
           "title": "Personalization",
