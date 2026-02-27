@@ -526,7 +526,6 @@
       "notice": "Necessary tracking remains enabled to keep the service running.",
       "scopeNote": "",
       "acceptAll": "Accept all",
-      "saveSelection": "Save selection",
       "rejectOptional": "Only necessary",
       "manage": "Manage consent",
       "categories": {

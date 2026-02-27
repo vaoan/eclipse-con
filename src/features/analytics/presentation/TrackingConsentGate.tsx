@@ -89,7 +89,7 @@ function useConsentState(blockingEnabled: boolean) {
   const [savedConsent, setSavedConsent] = useState<TrackingConsentState | null>(
     initialValue
   );
-  const [isCustomizeOpen, setCustomizeOpen] = useState<boolean>(
+  const [isModalOpen, setModalOpen] = useState<boolean>(
     blockingEnabled && !initialValue
   );
 
@@ -98,8 +98,7 @@ function useConsentState(blockingEnabled: boolean) {
   }, [savedConsent]);
 
   useEffect(() => {
-    const shouldLockScroll =
-      isCustomizeOpen || (blockingEnabled && !savedConsent);
+    const shouldLockScroll = isModalOpen || (blockingEnabled && !savedConsent);
     if (!shouldLockScroll) {
       return undefined;
     }
@@ -108,7 +107,7 @@ function useConsentState(blockingEnabled: boolean) {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [blockingEnabled, isCustomizeOpen, savedConsent]);
+  }, [blockingEnabled, isModalOpen, savedConsent]);
 
   const persist = (
     categories: Omit<ConsentCategories, "necessary">,
@@ -121,7 +120,7 @@ function useConsentState(blockingEnabled: boolean) {
       updatedAt: savedValue.updatedAt,
     });
     setSavedConsent(savedValue);
-    setCustomizeOpen(false);
+    setModalOpen(false);
   };
 
   const acceptAll = () => {
@@ -142,14 +141,14 @@ function useConsentState(blockingEnabled: boolean) {
     );
   };
 
-  const openCustomization = () => {
-    setCustomizeOpen(true);
+  const openConsentModal = () => {
+    setModalOpen(true);
   };
 
   return {
     acceptAll,
-    isCustomizeOpen,
-    openCustomization,
+    isModalOpen,
+    openConsentModal,
     rejectOptional,
     savedConsent,
   };
@@ -159,16 +158,16 @@ export function TrackingConsentGate({
   blockingEnabled = true,
 }: TrackingConsentGateProps) {
   const { t } = useTranslation();
-  const { acceptAll, isCustomizeOpen, openCustomization, rejectOptional } =
+  const { acceptAll, isModalOpen, openConsentModal, rejectOptional } =
     useConsentState(blockingEnabled);
 
-  if (!isCustomizeOpen) {
+  if (!isModalOpen) {
     return (
       <div className="pointer-events-none fixed right-3 bottom-3 z-40">
         <Button
           aria-label={t("convention.consent.manage")}
           className="pointer-events-auto size-11 border border-accent/60 bg-surface text-accent shadow-[0_0_16px_rgba(201,168,76,0.35)] hover:bg-accent hover:text-accent-foreground focus-visible:ring-accent/70"
-          onClick={openCustomization}
+          onClick={openConsentModal}
           size="icon"
           type="button"
           variant="outline"

@@ -286,7 +286,7 @@ These events fire only after the user grants Analytics consent. They enable UX i
 └──────────────┴──────────────┴─────────────────┴─────────────────┘
 ```
 
-Consent is stored in `localStorage` under key `tracking_consent_v1`. Users can **Accept all**, **Save selection** (per-category toggles), or **Reject optional** at any time. No dark patterns — Accept and Reject have equal visual weight.
+Consent is stored in `localStorage` under key `tracking_consent_v1`. Users can **Accept all** or **Only necessary** at any time. No dark patterns — both options have equal visual weight.
 
 ---
 
@@ -467,5 +467,5 @@ Safe defaults live in `.env.development` (committed). Secrets go in `.env.local`
 
 ### In-app consent UX
 
-- Users can `Accept all`, `Save selection`, or `Reject optional`.
+- Users can `Accept all` or `Only necessary`.
 - Settings can be reopened from the floating **Manage consent** button.

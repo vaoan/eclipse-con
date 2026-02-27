@@ -92,7 +92,7 @@ export interface ExperimentExposurePayload {
 }
 
 export interface ConsentPreferencePayload {
-  source: "accept_all" | "reject_optional" | "customize";
+  source: "accept_all" | "reject_optional";
   analytics: boolean;
   updatedAt: string;
 }
@@ -384,7 +384,6 @@ export function isConsentPreferencePayload(
   const sourceAllowed = new Set<ConsentPreferencePayload["source"]>([
     "accept_all",
     "reject_optional",
-    "customize",
   ]);
   if (!payload.source || !sourceAllowed.has(payload.source)) {
     return false;
