@@ -479,6 +479,8 @@ export function NewsSection() {
                     <button
                       key={message.id}
                       type="button"
+                      data-news-action="email_select"
+                      data-news-item-id={String(message.id)}
                       onClick={() => {
                         setActiveEmailId(message.id);
                       }}
@@ -565,6 +567,8 @@ export function NewsSection() {
                       type="button"
                       variant="ghost"
                       className="flex w-full items-center justify-between px-0 text-left text-sm text-foreground/85"
+                      data-news-action="readmore_toggle"
+                      data-news-item-id={String(message.id)}
                     >
                       <div className="flex flex-col gap-2">
                         <p className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">
@@ -632,6 +636,8 @@ export function NewsSection() {
                         variant="outline"
                         size="sm"
                         className="w-full justify-between border-white/10 bg-surface/80 text-[0.65rem] uppercase tracking-[0.25em] text-foreground/70 hover:border-white/30 hover:text-foreground"
+                        data-news-action="polaroid_readmore_toggle"
+                        data-news-item-id={String(message.id)}
                       >
                         <span>
                           {isOpen
@@ -1351,6 +1357,7 @@ export function NewsSection() {
                       variant="outline"
                       size="sm"
                       className="self-end rounded-full border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
+                      data-news-action="gallery_close"
                       onClick={() => {
                         setActiveGalleryId(null);
                       }}
@@ -1402,6 +1409,7 @@ export function NewsSection() {
                       variant="outline"
                       size="sm"
                       className="self-end rounded-full border-white/10 bg-surface/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-foreground/70 hover:border-white/30 hover:text-foreground"
+                      data-news-action="zoom_close"
                       onClick={() => {
                         setActiveZoomId(null);
                       }}

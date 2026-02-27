@@ -107,7 +107,13 @@ export function VenueSection() {
                 variant="outline"
                 className="w-full min-w-0 max-w-full items-start justify-start border-white/10 bg-surface/40 px-3 py-1.5 text-left text-[0.65rem] uppercase leading-snug tracking-[0.2em] text-foreground/80 whitespace-normal break-words hover:text-foreground sm:w-fit sm:items-center sm:justify-center sm:text-center sm:whitespace-nowrap"
               >
-                <a href={badge.href} target="_blank" rel="noreferrer">
+                <a
+                  href={badge.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-content-section="venue"
+                  data-content-id={badge.key.split(".").pop() ?? badge.key}
+                >
                   {badge.icon && (
                     <img
                       src="https://cdn.simpleicons.org/tripadvisor/f43f5e?viewbox=auto"
@@ -196,6 +202,10 @@ export function VenueSection() {
                         target="_blank"
                         rel="noreferrer"
                         className="underline decoration-dashed underline-offset-4 transition hover:text-foreground"
+                        data-content-section="venue"
+                        data-content-id={
+                          source.key.split(".").pop() ?? source.key
+                        }
                       >
                         {t(source.key)}
                       </a>

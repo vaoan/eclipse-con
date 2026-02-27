@@ -71,7 +71,9 @@ export interface ContentInteractionPayload {
     | "pause"
     | "expand"
     | "collapse"
-    | "download";
+    | "download"
+    | "enable"
+    | "disable";
 }
 
 export interface FunnelStepPayload {
@@ -305,6 +307,8 @@ export function isContentInteractionPayload(
     "expand",
     "collapse",
     "download",
+    "enable",
+    "disable",
   ]);
   if (!payload.sectionId || !isSafeId(payload.sectionId)) {
     return false;

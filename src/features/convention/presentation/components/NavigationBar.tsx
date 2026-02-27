@@ -427,7 +427,17 @@ function MobileNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
                         variant="ghost"
                         className="h-12 justify-start rounded-xl border border-white/10 bg-surface/25 px-4 text-sm font-semibold uppercase tracking-[0.16em] text-foreground/75 hover:cursor-pointer hover:bg-surface/65 hover:text-foreground"
                       >
-                        <Link to={getSectionHref(group.items[0].id)}>
+                        <Link
+                          to={getSectionHref(group.items[0].id)}
+                          data-content-section="navigation"
+                          data-content-id={
+                            getSectionHref(group.items[0].id)
+                              .split("#")
+                              .pop() ?? ""
+                          }
+                          data-cta-id={`nav_mobile_${getSectionHref(group.items[0].id).split("#").pop() ?? ""}`}
+                        >
+                          {" "}
                           {t(group.items[0].key)}
                         </Link>
                       </Button>
@@ -455,6 +465,11 @@ function MobileNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
                               <Link
                                 to={getSectionHref(item.id)}
                                 className="flex w-full items-center gap-3 text-[0.95rem] font-medium hover:cursor-pointer"
+                                data-content-section="navigation"
+                                data-content-id={
+                                  getSectionHref(item.id).split("#").pop() ?? ""
+                                }
+                                data-cta-id={`nav_mobile_${getSectionHref(item.id).split("#").pop() ?? ""}`}
                               >
                                 <span>{t(item.key)}</span>
                               </Link>

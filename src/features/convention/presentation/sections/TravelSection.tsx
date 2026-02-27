@@ -46,6 +46,8 @@ export function TravelSection() {
               target="_blank"
               rel="noreferrer"
               className="mt-3 inline-flex text-xs uppercase tracking-[0.18em] text-muted-foreground underline decoration-dashed underline-offset-4 transition hover:text-foreground"
+              data-content-section="travel"
+              data-content-id={key}
             >
               {t(`convention.travel.items.${key}.sourceLabel`)}
             </a>

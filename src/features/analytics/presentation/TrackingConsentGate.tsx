@@ -15,6 +15,7 @@ import {
   setAnalyticsConsentGranted,
   trackConsentPreference,
 } from "@/features/analytics/infrastructure/extremeTracking";
+import { trackContentInteraction } from "@/features/analytics/infrastructure/trackingCustomEvents";
 import { LanguageToggle } from "@/features/convention/presentation/components/LanguageToggle";
 import moonfestLogo from "@/shared/presentation/assets/moonfest-logo.svg";
 
@@ -36,6 +37,11 @@ function PreferenceToggles({ categories, onChange }: PreferenceTogglesProps) {
       onChange({
         ...categories,
         [key]: event.target.checked,
+      });
+      trackContentInteraction({
+        sectionId: "consent",
+        contentId: `consent_${key}`,
+        interactionType: event.target.checked ? "enable" : "disable",
       });
     };
 
@@ -255,6 +261,9 @@ export function TrackingConsentGate({
           size="icon"
           type="button"
           variant="outline"
+          data-cta-id="consent_manage"
+          data-content-id="consent_modal"
+          data-content-section="consent"
         >
           <ShieldCheck className="size-5" />
         </Button>
@@ -274,12 +283,6 @@ export function TrackingConsentGate({
               categories={draftCategories}
               onChange={setDraftCategories}
             />
-            <p className="mt-4 text-xs uppercase tracking-[0.16em] text-muted-foreground">
-              {t("convention.consent.notice")}
-            </p>
-            <p className="mt-2 text-xs text-foreground/70">
-              {t("convention.consent.scopeNote")}
-            </p>
           </div>
         </div>
         <div className="border-t border-white/10 bg-surface/90 px-5 py-3 sm:px-6 sm:py-4">
@@ -288,6 +291,9 @@ export function TrackingConsentGate({
               className="w-full border border-primary/95 bg-[linear-gradient(135deg,hsl(var(--primary)),hsl(var(--accent)))] py-6 text-base font-black uppercase tracking-[0.18em] text-primary-foreground shadow-[0_16px_40px_-20px_hsl(var(--accent))] hover:scale-[1.01] hover:brightness-110 focus-visible:ring-primary/90 sm:col-span-2"
               onClick={acceptAll}
               type="button"
+              data-cta-id="consent_accept_all"
+              data-content-id="consent_accept_all"
+              data-content-section="consent"
             >
               {t("convention.consent.acceptAll")}
             </Button>
@@ -296,6 +302,9 @@ export function TrackingConsentGate({
               onClick={saveCustom}
               type="button"
               variant="outline"
+              data-cta-id="consent_save"
+              data-content-id="consent_save"
+              data-content-section="consent"
             >
               {t("convention.consent.saveSelection")}
             </Button>
@@ -304,6 +313,9 @@ export function TrackingConsentGate({
               onClick={rejectOptional}
               type="button"
               variant="outline"
+              data-cta-id="consent_reject"
+              data-content-id="consent_reject"
+              data-content-section="consent"
             >
               {t("convention.consent.rejectOptional")}
             </Button>

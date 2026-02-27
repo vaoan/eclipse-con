@@ -207,6 +207,8 @@ export function AmenitiesSection() {
           target="_blank"
           rel="noreferrer"
           className="underline decoration-dashed underline-offset-4 transition hover:text-foreground"
+          data-content-section="amenities"
+          data-content-id="footer_source"
         >
           {t("convention.amenities.footerLinkLabel")}
         </a>

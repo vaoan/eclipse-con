@@ -23,6 +23,9 @@ export function LanguageToggle() {
         language: activeLanguageLabel,
       })}
       onClick={toggleLanguage}
+      data-cta-id="language_toggle"
+      data-content-id="language_toggle"
+      data-content-section="navigation"
       className={cn(
         "group relative inline-flex h-8 w-[68px] cursor-pointer select-none rounded-full p-0.5",
         "border border-accent/20 bg-background",
