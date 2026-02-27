@@ -11,6 +11,11 @@ import {
   setAnalyticsConsentGranted,
 } from "@/features/analytics/infrastructure/extremeTracking";
 
+// Prevent the browser from overriding JS-controlled scroll on refresh
+if (typeof history !== "undefined") {
+  history.scrollRestoration = "manual";
+}
+
 const root = document.querySelector("#root");
 if (!root) {
   throw new Error("Root element not found");
