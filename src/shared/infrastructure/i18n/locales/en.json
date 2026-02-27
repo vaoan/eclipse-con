@@ -523,7 +523,7 @@
       "supportPoint2": "Prioritize improvements in reservations, tickets, and registration flow.",
       "supportPoint3": "Measure which campaigns actually bring attendees.",
       "notice": "Necessary tracking remains enabled to keep the service running.",
-      "scopeNote": "Current implementation: optional tracking is controlled by Analytics consent. Personalization and Advertising preferences are saved for future use and do not currently enable third-party ad tags.",
+      "scopeNote": "Current implementation: optional behavior tracking is enforced only by Analytics consent. Necessary events remain active for operations/reliability. Personalization and Advertising preferences are saved for future use and do not currently enable third-party ad tags.",
       "acceptAll": "Accept all",
       "saveSelection": "Save selection",
       "rejectOptional": "Reject optional",

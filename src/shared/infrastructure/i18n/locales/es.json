@@ -523,7 +523,7 @@
       "supportPoint2": "Priorizar mejoras en reservas, boletas y flujo de registro.",
       "supportPoint3": "Medir qué campañas sí traen asistentes reales.",
       "notice": "El seguimiento necesario permanece activo para mantener el servicio funcionando.",
-      "scopeNote": "Implementación actual: el seguimiento opcional se controla con el consentimiento de Analítica. Las preferencias de Personalización y Publicidad se guardan para uso futuro y no activan etiquetas publicitarias de terceros hoy.",
+      "scopeNote": "Implementación actual: el seguimiento opcional de comportamiento se aplica solo con el consentimiento de Analítica. Los eventos necesarios siguen activos para operación/confiabilidad. Las preferencias de Personalización y Publicidad se guardan para uso futuro y no activan etiquetas publicitarias de terceros hoy.",
       "acceptAll": "Aceptar todo",
       "saveSelection": "Guardar selección",
       "rejectOptional": "Rechazar opcionales",
