@@ -18,6 +18,8 @@ export default tseslint.config(
       "playwright-report/**",
       "test-results/**",
       "scripts/**",
+      ".claude/**",
+      ".lh-profile/**",
       "eslint.config.mjs",
       "stylelint.config.mjs",
     ],

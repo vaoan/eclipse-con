@@ -518,6 +518,46 @@ function restoreSocialPreviewMetaUrls(
   return output;
 }
 
+function deduplicateDataUrisInJs(js: string): string {
+  // Find all quoted data URIs (double or single quoted) that are at least 512 chars
+  const dataUriRegex = /"(data:[^"]{512,})"|'(data:[^']{512,})'/g;
+  const counts = new Map<string, number>();
+  let m: RegExpExecArray | null;
+  while ((m = dataUriRegex.exec(js)) !== null) {
+    const uri = m[1] ?? m[2];
+    if (uri) {
+      counts.set(uri, (counts.get(uri) ?? 0) + 1);
+    }
+  }
+  dataUriRegex.lastIndex = 0;
+
+  const duplicates = Array.from(counts.entries())
+    .filter(([, n]) => n > 1)
+    .sort(([a], [b]) => b.length - a.length);
+
+  if (duplicates.length === 0) {
+    console.log("[static] Dedup: no duplicate data URIs in JS bundle");
+    return js;
+  }
+
+  const declarations: string[] = [];
+  let out = js;
+  let totalSaved = 0;
+  duplicates.forEach(([uri, count], index) => {
+    const variableName = `__INLINED_ASSET_${index}__`;
+    declarations.push(`var ${variableName}=${JSON.stringify(uri)};`);
+    out = out
+      .replaceAll(`"${uri}"`, variableName)
+      .replaceAll(`'${uri}'`, variableName);
+    totalSaved += (count - 1) * uri.length;
+  });
+
+  console.log(
+    `[static] Dedup: extracted ${duplicates.length} duplicate data URI(s), saved ~${(totalSaved / 1024).toFixed(1)} KB`
+  );
+  return `${declarations.join("")}${out}`;
+}
+
 function staticBuildPlugin(): Plugin {
   return {
     name: "static-build",
@@ -580,6 +620,8 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
         ),
         outDirectory
       );
+      console.log("[static] Deduplicating data URIs in JS bundle");
+      const jsDeduped = deduplicateDataUrisInJs(jsInlined);
       console.log("[static] Inlining body URLs");
       const bodyInlined = await inlineLocalUrls(
         await inlineExternalUrls(
@@ -596,7 +638,7 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
           replacements
         ),
         cssInlined,
-        jsInlined,
+        jsDeduped,
         bodyInlined
       );
 

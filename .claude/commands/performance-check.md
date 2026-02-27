@@ -1,0 +1,1 @@
+Run a full performance and accessibility audit: Lighthouse scores (Performance · Accessibility · Best-Practices · SEO) + axe-core WCAG 2.1 AA scan on all pages. Follow the steps in `.claude/skills/performance-check/prompt.md`.

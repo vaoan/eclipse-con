@@ -44,6 +44,7 @@ scripts/telegram.session-journal
 # Local lighthouse artifacts
 .lh-profile/
 .tmp/
+.audit/
 lighthouse-report.report.html
 lighthouse-report.report.json
 /artifacts

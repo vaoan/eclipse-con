@@ -22,6 +22,7 @@ import {
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
+import moonfestLogo from "@/shared/presentation/assets/moonfest-logo.svg";
 import { LanguageToggle } from "./LanguageToggle";
 
 const NAV_GROUPS = [
@@ -466,7 +467,7 @@ export function NavigationBar() {
           className="flex items-center hover:cursor-pointer"
         >
           <img
-            src="/moonfest-logo.svg"
+            src={moonfestLogo}
             alt={t("convention.hero.logoAlt")}
             className="h-8 w-auto sm:h-9"
             loading="lazy"

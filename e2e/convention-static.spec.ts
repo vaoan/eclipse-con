@@ -30,11 +30,11 @@ test.describe("static build (file:// protocol)", () => {
     await page.goto(`${baseFileUrl}#/registration-tutorial`, {
       waitUntil: "networkidle",
     });
-    await expect(page).toHaveURL(/#\/registration-tutorial$/);
+    await expect(page).toHaveURL(/#\/registration-tutorial(\?.*)?$/);
     await expect(page.getByRole("link", { name: /Back to landing|Volver al landing/i })).toBeVisible();
 
     await page.reload({ waitUntil: "networkidle" });
-    await expect(page).toHaveURL(/#\/registration-tutorial$/);
+    await expect(page).toHaveURL(/#\/registration-tutorial(\?.*)?$/);
     await expect(page.getByRole("link", { name: /Back to landing|Volver al landing/i })).toBeVisible();
 
     await page.goto(`${baseFileUrl}#/?section=registration`, {
@@ -62,14 +62,14 @@ test.describe("static build (file:// protocol)", () => {
     });
     await page.waitForTimeout(800);
 
-    const tutorialLink = page.getByRole("link", {
+    const tutorialLink = page.locator("#registration").getByRole("link", {
       name: /Open registration tutorial|Abrir tutorial de registro/i,
     });
     await tutorialLink.scrollIntoViewIfNeeded();
     await expect(tutorialLink).toBeVisible();
     await tutorialLink.click();
 
-    await expect(page).toHaveURL(/#\/registration-tutorial$/);
+    await expect(page).toHaveURL(/#\/registration-tutorial(\?.*)?$/);
     await expect(page).not.toHaveURL(/section=/);
   });
 

@@ -321,6 +321,11 @@ const TutorialChecklist = ({ t }: Readonly<{ t: TFunction }>) => (
 
 export function Component() {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
   const {
     activeStep,
     completedSteps,

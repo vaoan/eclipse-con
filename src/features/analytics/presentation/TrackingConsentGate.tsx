@@ -15,6 +15,7 @@ import {
   setAnalyticsConsentGranted,
   trackConsentPreference,
 } from "@/features/analytics/infrastructure/extremeTracking";
+import moonfestLogo from "@/shared/presentation/assets/moonfest-logo.svg";
 
 interface TrackingConsentGateProps {
   readonly blockingEnabled?: boolean;
@@ -177,7 +178,7 @@ function ConsentModalHeader() {
         <div className="min-w-0">
           <div className="inline-flex items-center gap-3 rounded-full border border-accent/35 bg-black/20 px-3 py-1.5">
             <img
-              src="/moonfest-logo.svg"
+              src={moonfestLogo}
               alt={t("convention.hero.logoAlt")}
               className="h-7 w-auto"
               loading="lazy"
@@ -218,15 +219,17 @@ function useConsentState(blockingEnabled: boolean) {
   }, [savedConsent]);
 
   useEffect(() => {
-    if (!savedConsent || isCustomizeOpen) {
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "";
-      };
+    const shouldLockScroll =
+      isCustomizeOpen || (blockingEnabled && !savedConsent);
+    if (!shouldLockScroll) {
+      return undefined;
     }
 
-    return undefined;
-  }, [isCustomizeOpen, savedConsent]);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [blockingEnabled, isCustomizeOpen, savedConsent]);
 
   const persist = (
     categories: Omit<ConsentCategories, "necessary">,
