@@ -537,14 +537,6 @@
         "analytics": {
           "title": "Analítica",
           "description": "Activa el análisis de patrones de navegación, señales de abandono, pruebas A/B y datos demográficos voluntarios. Todo lo demás se recopila de forma anónima sin necesitar esta opción."
-        },
-        "personalization": {
-          "title": "Personalización",
-          "description": "Próximamente, para adaptar la programación, recomendaciones y mensajes a tus intereses. Por ahora no hay seguimiento activo para esto."
-        },
-        "advertising": {
-          "title": "Crecimiento de la convención",
-          "description": "Datos para entender cómo la gente descubre Moonfest y hacer crecer la comunidad furry en futuras ediciones. Sin plataformas publicitarias ni herramientas de terceros."
         }
       }
     },

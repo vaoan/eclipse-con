@@ -864,8 +864,6 @@ function attachListeners(context: TrackContext): void {
       track(context, "consent_preference_updated", {
         source: payload.source,
         analytics: payload.analytics,
-        personalization: payload.personalization,
-        advertising: payload.advertising,
         updatedAt: payload.updatedAt,
       });
     },

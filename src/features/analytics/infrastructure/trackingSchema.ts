@@ -94,8 +94,6 @@ export interface ExperimentExposurePayload {
 export interface ConsentPreferencePayload {
   source: "accept_all" | "reject_optional" | "customize";
   analytics: boolean;
-  personalization: boolean;
-  advertising: boolean;
   updatedAt: string;
 }
 
@@ -229,13 +227,7 @@ export const EVENT_DATA_ALLOWLIST: Record<TrackedEventName, readonly string[]> =
     content_interaction: ["sectionId", "contentId", "interactionType"],
     funnel_step: ["step", "ctaId", "ctaVariant"],
     experiment_exposure: ["experimentId", "variantId"],
-    consent_preference_updated: [
-      "source",
-      "analytics",
-      "personalization",
-      "advertising",
-      "updatedAt",
-    ],
+    consent_preference_updated: ["source", "analytics", "updatedAt"],
     registration_tutorial_step_selected: ["stepNumber", "origin"],
     registration_tutorial_step_toggled: ["stepNumber", "nextState"],
     registration_tutorial_progress_bucket: ["bucket", "activeStep"],
@@ -398,12 +390,6 @@ export function isConsentPreferencePayload(
     return false;
   }
   if (typeof payload.analytics !== "boolean") {
-    return false;
-  }
-  if (typeof payload.personalization !== "boolean") {
-    return false;
-  }
-  if (typeof payload.advertising !== "boolean") {
     return false;
   }
   if (

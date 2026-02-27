@@ -1,8 +1,6 @@
 export interface ConsentCategories {
   necessary: true;
   analytics: boolean;
-  personalization: boolean;
-  advertising: boolean;
 }
 
 export interface TrackingConsentState {
@@ -13,13 +11,11 @@ export interface TrackingConsentState {
 }
 
 const CONSENT_KEY = "tracking_consent_v1";
-const CONSENT_VERSION = 1;
+const CONSENT_VERSION = 2;
 
 export const DEFAULT_CONSENT_CATEGORIES: ConsentCategories = {
   necessary: true,
   analytics: false,
-  personalization: false,
-  advertising: false,
 };
 
 export function getStoredTrackingConsent(): TrackingConsentState | null {
@@ -37,9 +33,7 @@ export function getStoredTrackingConsent(): TrackingConsentState | null {
     if (
       parsedValue.version !== CONSENT_VERSION ||
       !parsedValue.categories ||
-      typeof parsedValue.categories.analytics !== "boolean" ||
-      typeof parsedValue.categories.personalization !== "boolean" ||
-      typeof parsedValue.categories.advertising !== "boolean"
+      typeof parsedValue.categories.analytics !== "boolean"
     ) {
       return null;
     }
@@ -59,8 +53,6 @@ export function getStoredTrackingConsent(): TrackingConsentState | null {
       categories: {
         necessary: true,
         analytics: parsedValue.categories.analytics,
-        personalization: parsedValue.categories.personalization,
-        advertising: parsedValue.categories.advertising,
       },
     };
   } catch {
@@ -79,8 +71,6 @@ export function saveTrackingConsent(
     categories: {
       necessary: true,
       analytics: categories.analytics,
-      personalization: categories.personalization,
-      advertising: categories.advertising,
     },
   };
 

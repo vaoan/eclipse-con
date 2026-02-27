@@ -55,18 +55,6 @@ function PreferenceToggles({ categories, onChange }: PreferenceTogglesProps) {
       title: t("convention.consent.categories.analytics.title"),
       description: t("convention.consent.categories.analytics.description"),
     },
-    {
-      id: "personalization",
-      title: t("convention.consent.categories.personalization.title"),
-      description: t(
-        "convention.consent.categories.personalization.description"
-      ),
-    },
-    {
-      id: "advertising",
-      title: t("convention.consent.categories.advertising.title"),
-      description: t("convention.consent.categories.advertising.description"),
-    },
   ];
 
   return (
@@ -178,8 +166,6 @@ function useConsentState(blockingEnabled: boolean) {
     trackConsentPreference({
       source: savedValue.source,
       analytics: savedValue.categories.analytics,
-      personalization: savedValue.categories.personalization,
-      advertising: savedValue.categories.advertising,
       updatedAt: savedValue.updatedAt,
     });
     setSavedConsent(savedValue);
@@ -191,8 +177,6 @@ function useConsentState(blockingEnabled: boolean) {
     persist(
       {
         analytics: true,
-        personalization: true,
-        advertising: true,
       },
       "accept_all"
     );
@@ -202,8 +186,6 @@ function useConsentState(blockingEnabled: boolean) {
     persist(
       {
         analytics: false,
-        personalization: false,
-        advertising: false,
       },
       "reject_optional"
     );
@@ -213,8 +195,6 @@ function useConsentState(blockingEnabled: boolean) {
     persist(
       {
         analytics: draftCategories.analytics,
-        personalization: draftCategories.personalization,
-        advertising: draftCategories.advertising,
       },
       "customize"
     );
