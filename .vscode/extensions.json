@@ -1,0 +1,46 @@
+{
+  "recommendations": [
+    // Copilot
+    "GitHub.copilot",
+    // GitLens
+    "eamodio.gitlens",
+    // Git Graph
+    "mhutchie.git-graph",
+    // VS Code Icons
+    "vscode-icons-team.vscode-icons",
+
+    // CSS Modules
+    "clinyong.vscode-css-modules",
+    // SASS/SCSS file support
+    "Syler.sass-indented",
+    // Styled Components
+    "styled-components.vscode-styled-components",
+
+    // Stylelint Code Style Enforcer
+    "stylelint.vscode-stylelint",
+    // ESLint Code Style Checker
+    "dbaeumer.vscode-eslint",
+    // Prettier Code Formatter
+    "esbenp.prettier-vscode",
+    // TypeScript Error Formatter
+    "yoavbls.pretty-ts-errors",
+
+    // Fold Plus
+    "dakara.dakara-foldplus",
+    // Region Viewer
+    "santacodes.santacodes-region-viewer",
+    // Error Lens
+    "usernamehw.errorlens",
+    // Import Cost
+    "wix.vscode-import-cost",
+    // TODO Highlighter
+    "jgclark.vscode-todo-highlight",
+
+    // .env file support
+    "mikestead.dotenv",
+    // Docker/DockerFile support
+    "ms-azuretools.vscode-docker",
+    // JenkinsFile support
+    "ivory-lab.jenkinsfile-support"
+  ]
+}
