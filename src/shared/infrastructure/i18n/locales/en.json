@@ -457,6 +457,34 @@
         "answer": "Email info@moonfest.com.co."
       }
     },
+    "consent": {
+      "title": "Consent Center",
+      "headline": "Choose your tracking level",
+      "description": "We always use necessary telemetry for security and reliability. Optional categories unlock deeper analytics and campaign measurement.",
+      "notice": "Necessary tracking remains enabled to keep the service running.",
+      "acceptAll": "Accept all",
+      "saveSelection": "Save selection",
+      "rejectOptional": "Reject optional",
+      "manage": "Manage consent",
+      "categories": {
+        "necessary": {
+          "title": "Strictly necessary (always on)",
+          "description": "Security events, reliability monitoring, and essential service diagnostics."
+        },
+        "analytics": {
+          "title": "Analytics",
+          "description": "Behavior metrics such as clicks, scroll depth, and form interaction counts."
+        },
+        "personalization": {
+          "title": "Personalization",
+          "description": "Audience grouping and content preference signals."
+        },
+        "advertising": {
+          "title": "Advertising",
+          "description": "Campaign measurement and conversion attribution."
+        }
+      }
+    },
     "footer": {
       "tagline": "Colombia’s biggest furry convention",
       "social": "Follow us",
