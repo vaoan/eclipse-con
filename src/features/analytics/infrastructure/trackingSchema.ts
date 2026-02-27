@@ -87,6 +87,14 @@ export interface ExperimentExposurePayload {
   variantId: string;
 }
 
+export interface ConsentPreferencePayload {
+  source: "accept_all" | "reject_optional" | "customize";
+  analytics: boolean;
+  personalization: boolean;
+  advertising: boolean;
+  updatedAt: string;
+}
+
 export type TrackedEventName =
   | "session_start"
   | "session_end"
@@ -130,7 +138,8 @@ export type TrackedEventName =
   | "news_engagement"
   | "content_interaction"
   | "funnel_step"
-  | "experiment_exposure";
+  | "experiment_exposure"
+  | "consent_preference_updated";
 
 export const EVENT_DATA_ALLOWLIST: Record<TrackedEventName, readonly string[]> =
   {
@@ -209,6 +218,13 @@ export const EVENT_DATA_ALLOWLIST: Record<TrackedEventName, readonly string[]> =
     content_interaction: ["sectionId", "contentId", "interactionType"],
     funnel_step: ["step", "ctaId", "ctaVariant"],
     experiment_exposure: ["experimentId", "variantId"],
+    consent_preference_updated: [
+      "source",
+      "analytics",
+      "personalization",
+      "advertising",
+      "updatedAt",
+    ],
   };
 
 function isIsoCountryCode(value: string): boolean {
@@ -341,6 +357,41 @@ export function isExperimentExposurePayload(
     return false;
   }
   if (!payload.variantId || !isSafeId(payload.variantId)) {
+    return false;
+  }
+
+  return true;
+}
+
+export function isConsentPreferencePayload(
+  value: unknown
+): value is ConsentPreferencePayload {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const payload = value as Partial<ConsentPreferencePayload>;
+  const sourceAllowed = new Set<ConsentPreferencePayload["source"]>([
+    "accept_all",
+    "reject_optional",
+    "customize",
+  ]);
+  if (!payload.source || !sourceAllowed.has(payload.source)) {
+    return false;
+  }
+  if (typeof payload.analytics !== "boolean") {
+    return false;
+  }
+  if (typeof payload.personalization !== "boolean") {
+    return false;
+  }
+  if (typeof payload.advertising !== "boolean") {
+    return false;
+  }
+  if (
+    typeof payload.updatedAt !== "string" ||
+    Number.isNaN(Date.parse(payload.updatedAt))
+  ) {
     return false;
   }
 

@@ -11,7 +11,10 @@ import {
   type ConsentCategories,
   type TrackingConsentState,
 } from "@/features/analytics/domain/consent";
-import { setAnalyticsConsentGranted } from "@/features/analytics/infrastructure/extremeTracking";
+import {
+  setAnalyticsConsentGranted,
+  trackConsentPreference,
+} from "@/features/analytics/infrastructure/extremeTracking";
 
 interface PreferenceTogglesProps {
   readonly categories: ConsentCategories;
@@ -190,6 +193,13 @@ function useConsentState() {
     source: TrackingConsentState["source"]
   ) => {
     const savedValue = saveTrackingConsent(categories, source);
+    trackConsentPreference({
+      source: savedValue.source,
+      analytics: savedValue.categories.analytics,
+      personalization: savedValue.categories.personalization,
+      advertising: savedValue.categories.advertising,
+      updatedAt: savedValue.updatedAt,
+    });
     setSavedConsent(savedValue);
     setDraftCategories(savedValue.categories);
     setCustomizeOpen(false);

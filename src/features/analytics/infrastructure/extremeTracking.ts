@@ -799,6 +799,15 @@ function attachListeners(context: TrackContext): void {
         variantId: payload.variantId,
       });
     },
+    onConsentPreference: (payload) => {
+      track(context, "consent_preference_updated", {
+        source: payload.source,
+        analytics: payload.analytics,
+        personalization: payload.personalization,
+        advertising: payload.advertising,
+        updatedAt: payload.updatedAt,
+      });
+    },
   });
   window.addEventListener("popstate", trackNavigationIfPathChanged);
   window.addEventListener("scroll", createOnScroll(context), { passive: true });
@@ -941,6 +950,7 @@ export function initExtremeTracking(options: TrackingOptions): void {
 }
 
 export {
+  trackConsentPreference,
   trackContentInteraction,
   trackDemographics,
   trackExperimentExposure,

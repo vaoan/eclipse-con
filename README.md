@@ -34,8 +34,9 @@
   - `performance_snapshot`, `device_performance_class`, `accessibility_usage`
   - Why: monitor Core Web Vitals buckets and accessibility context to keep the site usable.
 - Locale and channel context:
-  - `locale_switch`, `referral_campaign_bucket`
+  - `locale_switch`, `referral_campaign_bucket`, `consent_preference_updated`
   - Why: understand language demand and acquisition channel mix at aggregate level.
+  - `consent_preference_updated` includes selected consent categories and `updatedAt` so consent decisions are auditable in analytics exports.
 
 #### Optional (requires Analytics consent)
 
