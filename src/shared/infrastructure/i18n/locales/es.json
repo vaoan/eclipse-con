@@ -524,7 +524,7 @@
       "supportPoint2": "Priorizar mejoras en reservas, boletas y flujo de registro.",
       "supportPoint3": "Medir qué campañas sí traen asistentes reales.",
       "notice": "El seguimiento necesario permanece activo para mantener el servicio funcionando.",
-      "scopeNote": "Implementación actual: el seguimiento opcional de comportamiento se aplica solo con el consentimiento de Analítica. Los eventos necesarios siguen activos para operación/confiabilidad. Las preferencias de Personalización y Publicidad se guardan para uso futuro y no activan etiquetas publicitarias de terceros hoy.",
+      "scopeNote": "Implementación actual: el consentimiento de Analítica activa todo el seguimiento opcional de comportamiento. Las preferencias de Personalización y Crecimiento de la convención se guardan e informan la planificación de futuras ediciones; ningún rastreador de terceros se activa con esas opciones hoy.",
       "acceptAll": "Aceptar todo",
       "saveSelection": "Guardar selección",
       "rejectOptional": "Rechazar opcionales",
@@ -532,19 +532,19 @@
       "categories": {
         "necessary": {
           "title": "Estrictamente necesario (siempre activo)",
-          "description": "Eventos de seguridad, monitoreo de confiabilidad y diagnósticos esenciales del servicio."
+          "description": "Operaciones esenciales del servicio: monitoreo de errores, confiabilidad de sesión y registro de consentimiento. Nunca se usa para perfilamiento."
         },
         "analytics": {
           "title": "Analítica",
-          "description": "Métricas opcionales de comportamiento (clics, profundidad de scroll, interacción con formularios y rendimiento de CTA/funnel) usando solo datos saneados."
+          "description": "Datos anónimos de comportamiento (clics, profundidad de scroll, interacción con secciones, pasos del funnel) para entender qué funciona y planificar un mejor Moonfest cada año."
         },
         "personalization": {
           "title": "Personalización",
-          "description": "Preferencia reservada para funciones futuras de personalización de contenido. Aún no hay rastreadores separados activos."
+          "description": "Función futura para adaptar horarios, recomendaciones y comunicaciones a cada asistente. Aún no hay rastreadores separados activos."
         },
         "advertising": {
-          "title": "Publicidad",
-          "description": "Preferencia reservada para herramientas futuras de campaña. Actualmente no se habilitan píxeles publicitarios de terceros."
+          "title": "Crecimiento de la convención",
+          "description": "Nos ayuda a entender cómo los asistentes descubren Moonfest y cómo hacer crecer la comunidad en futuras ediciones. No se usan plataformas publicitarias ni píxeles de terceros."
         }
       }
     },

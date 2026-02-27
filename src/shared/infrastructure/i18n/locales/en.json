@@ -524,7 +524,7 @@
       "supportPoint2": "Prioritize improvements in reservations, tickets, and registration flow.",
       "supportPoint3": "Measure which campaigns actually bring attendees.",
       "notice": "Necessary tracking remains enabled to keep the service running.",
-      "scopeNote": "Current implementation: optional behavior tracking is enforced only by Analytics consent. Necessary events remain active for operations/reliability. Personalization and Advertising preferences are saved for future use and do not currently enable third-party ad tags.",
+      "scopeNote": "Current implementation: Analytics consent gates all optional behavioral tracking. Personalization and Convention Growth preferences are saved and inform future convention planning; no third-party trackers are activated by those toggles today.",
       "acceptAll": "Accept all",
       "saveSelection": "Save selection",
       "rejectOptional": "Reject optional",
@@ -532,19 +532,19 @@
       "categories": {
         "necessary": {
           "title": "Strictly necessary (always on)",
-          "description": "Security events, reliability monitoring, and essential service diagnostics."
+          "description": "Core service operations — error monitoring, session reliability, and consent audit trail. Never used for profiling."
         },
         "analytics": {
           "title": "Analytics",
-          "description": "Optional behavior metrics (clicks, scroll depth, form interaction counts, funnel and CTA performance) using sanitized data only."
+          "description": "Anonymous behavior data (clicks, scroll depth, section engagement, funnel steps) to understand what resonates — used to plan a better Moonfest every year."
         },
         "personalization": {
           "title": "Personalization",
-          "description": "Preference reserved for future content tailoring features. No separate personalization trackers are active yet."
+          "description": "Future feature for tailoring schedules, recommendations, and communications to each attendee. No separate trackers are active yet."
         },
         "advertising": {
-          "title": "Advertising",
-          "description": "Preference reserved for future campaign tooling. No third-party advertising pixels are currently enabled."
+          "title": "Convention growth",
+          "description": "Helps us understand how attendees discover Moonfest and how to grow the community for future editions. No advertising platforms or third-party pixels are enabled."
         }
       }
     },

@@ -278,11 +278,11 @@ These events fire only after the user grants Analytics consent. They enable UX i
 ┌─────────────────────────────────────────────────────────────────┐
 │  Consent Gate (shown on first visit, re-openable any time)      │
 ├──────────────┬──────────────┬─────────────────┬─────────────────┤
-│  Necessary   │  Analytics   │ Personalization │   Advertising   │
+│  Necessary   │  Analytics   │ Personalization │ Conv. Growth    │
 │  Always ON   │  Opt-in      │  Opt-in         │   Opt-in        │
 │              │              │  (stored,       │   (stored,      │
-│  ~15 events  │  ~40 events  │  no active      │   no active     │
-│              │              │  trackers yet)  │   pixels yet)   │
+│  ~15 events  │  ~40 events  │  future attend. │   future reach  │
+│              │              │  tailoring)     │   insights)     │
 └──────────────┴──────────────┴─────────────────┴─────────────────┘
 ```
 
@@ -358,10 +358,10 @@ Safe defaults live in `.env.development` (committed). Secrets go in `.env.local`
 
 ### Consent model (current implementation)
 
-- `Necessary` is always enabled.
-- `Analytics` gates all optional behavioral and funnel tracking.
-- `Personalization` and `Advertising` preferences are stored for future use, but no separate trackers are currently activated by those toggles.
-- There are no active third-party advertising pixels/tags in the current implementation.
+- `Necessary` is always enabled — operations, reliability, and consent auditing.
+- `Analytics` gates all optional behavioral and funnel tracking — the primary source for planning future editions.
+- `Personalization` preference is stored for a future feature that will tailor schedules and communications per attendee; no separate trackers active yet.
+- `Convention Growth` (internally `advertising` field) preference is stored to inform outreach and community growth decisions for future Moonfest editions; no third-party ad pixels or platforms are active.
 
 ### What we track and why
 
@@ -384,7 +384,7 @@ Safe defaults live in `.env.development` (committed). Secrets go in `.env.local`
   - Why: understand language demand, acquisition channel mix, and keep consent decisions auditable.
   - `session_start` and `page_view` include coarse `browserLanguage` (`en`/`es`) as a proxy for preferred device language.
 
-#### Optional (requires Analytics consent): UX quality and conversion optimization
+#### Optional (requires Analytics consent): planning a better Moonfest
 
 - Interaction quality:
   - `click`, `rage_click`, `scroll_depth`, `time_to_first_interaction`, `navigation_menu_usage`.
