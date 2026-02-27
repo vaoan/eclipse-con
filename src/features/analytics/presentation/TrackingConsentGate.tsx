@@ -102,7 +102,7 @@ function ConsentModalHeader() {
     <div className="relative border-b border-accent/25 bg-gradient-to-r from-primary/30 via-surface-elevated to-accent/20 px-5 py-5 sm:px-6 sm:py-6">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(201,168,76,0.26),transparent_48%),radial-gradient(circle_at_88%_0%,rgba(255,255,255,0.08),transparent_42%)]" />
       <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div className="min-w-0">
+        <div className="order-2 sm:order-1 min-w-0">
           <div className="inline-flex items-center gap-3 rounded-full border border-accent/35 bg-black/20 px-3 py-1.5">
             <img
               src={moonfestLogo}
@@ -121,7 +121,7 @@ function ConsentModalHeader() {
             {t("convention.consent.description")}
           </p>
         </div>
-        <div className="shrink-0 sm:pt-1">
+        <div className="order-1 sm:order-2 shrink-0 sm:pt-1">
           <LanguageToggle />
         </div>
       </div>
