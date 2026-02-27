@@ -24,6 +24,7 @@ export function FaqAccordionItem({ item }: Readonly<FaqAccordionItemProps>) {
       <AccordionTrigger
         className="py-5 text-left text-base font-semibold text-foreground"
         data-faq-id={item.id}
+        data-faq-theme={item.theme}
         data-content-section="faq"
         data-content-id={item.id}
         data-content-interaction="expand"

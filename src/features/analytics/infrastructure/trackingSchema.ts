@@ -143,7 +143,12 @@ export type TrackedEventName =
   | "content_interaction"
   | "funnel_step"
   | "experiment_exposure"
-  | "consent_preference_updated";
+  | "consent_preference_updated"
+  | "registration_tutorial_step_selected"
+  | "registration_tutorial_step_toggled"
+  | "registration_tutorial_progress_bucket"
+  | "faq_blocker_theme"
+  | "reserve_ticket_handoff";
 
 export const EVENT_DATA_ALLOWLIST: Record<TrackedEventName, readonly string[]> =
   {
@@ -231,6 +236,11 @@ export const EVENT_DATA_ALLOWLIST: Record<TrackedEventName, readonly string[]> =
       "advertising",
       "updatedAt",
     ],
+    registration_tutorial_step_selected: ["stepNumber", "origin"],
+    registration_tutorial_step_toggled: ["stepNumber", "nextState"],
+    registration_tutorial_progress_bucket: ["bucket", "activeStep"],
+    faq_blocker_theme: ["faqId", "theme"],
+    reserve_ticket_handoff: ["sourceSurface", "targetAction"],
   };
 
 function isIsoCountryCode(value: string): boolean {

@@ -192,6 +192,33 @@ export function getNewsActionFromTarget(target: EventTarget | null): {
   };
 }
 
+export function getFaqBlockerThemeFromTarget(target: EventTarget | null): {
+  faqId: string;
+  theme: string;
+} | null {
+  if (!(target instanceof Element)) {
+    return null;
+  }
+
+  const trigger = target.closest<HTMLElement>("[data-faq-id]");
+  if (!trigger?.dataset.faqTheme) {
+    return null;
+  }
+
+  const faqId = trigger.dataset.faqId;
+  if (!faqId) {
+    return null;
+  }
+
+  // Only fire on open (when aria-expanded is currently false → clicking to open)
+  const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+  if (isExpanded) {
+    return null;
+  }
+
+  return { faqId, theme: trigger.dataset.faqTheme };
+}
+
 export function getFormErrorType(target: EventTarget | null): {
   errorType: string;
   fieldType: string;

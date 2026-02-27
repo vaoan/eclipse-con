@@ -26,4 +26,5 @@ export interface FaqItem {
   readonly id: string;
   readonly questionKey: string;
   readonly answerKey: string;
+  readonly theme?: string;
 }

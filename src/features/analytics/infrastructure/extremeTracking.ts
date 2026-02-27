@@ -29,6 +29,7 @@ import {
   getDurationBucketFromMs,
   getFormErrorType,
   getFaqActionFromTarget,
+  getFaqBlockerThemeFromTarget,
   getFirstInteractionBucket,
   getMenuActionFromTarget,
   getNewsActionFromTarget,
@@ -378,6 +379,13 @@ function createOnClick(context: TrackContext): (event: MouseEvent) => void {
         faqId: faqAction.faqId,
         action: faqAction.action,
       });
+      const faqBlockerTheme = getFaqBlockerThemeFromTarget(event.target);
+      if (faqBlockerTheme) {
+        track(context, "faq_blocker_theme", {
+          faqId: faqBlockerTheme.faqId,
+          theme: faqBlockerTheme.theme,
+        });
+      }
     }
     if (newsAction) {
       track(context, "news_engagement", {
@@ -403,6 +411,23 @@ function createOnClick(context: TrackContext): (event: MouseEvent) => void {
       ) {
         track(context, "reservation_lead_time_bucket", {
           bucket: getReservationLeadTimeBucket(getDaysUntilReservationEvent()),
+        });
+      }
+      if (
+        datasetSignals.funnelStep === "click_reserve" ||
+        datasetSignals.funnelStep === "start_checkout"
+      ) {
+        const targetAction =
+          datasetSignals.funnelStep === "click_reserve" ? "reserve" : "ticket";
+        const sourceSurface =
+          sectionId ??
+          (typeof datasetSignals.ctaId === "string" &&
+          datasetSignals.ctaId.startsWith("desktop_nav")
+            ? "nav"
+            : "unknown");
+        track(context, "reserve_ticket_handoff", {
+          sourceSurface,
+          targetAction,
         });
       }
       if (
@@ -810,6 +835,17 @@ function attachListeners(context: TrackContext): void {
         });
       }
       if (
+        payload.step === "click_reserve" ||
+        payload.step === "start_checkout"
+      ) {
+        const targetAction =
+          payload.step === "click_reserve" ? "reserve" : "ticket";
+        track(context, "reserve_ticket_handoff", {
+          sourceSurface: "registration_tutorial",
+          targetAction,
+        });
+      }
+      if (
         context.state.hadRuntimeError &&
         !context.state.errorRecovered &&
         payload.step === "complete_checkout"
@@ -831,6 +867,24 @@ function attachListeners(context: TrackContext): void {
         personalization: payload.personalization,
         advertising: payload.advertising,
         updatedAt: payload.updatedAt,
+      });
+    },
+    onTutorialStepSelected: (payload) => {
+      track(context, "registration_tutorial_step_selected", {
+        stepNumber: payload.stepNumber,
+        origin: payload.origin,
+      });
+    },
+    onTutorialStepToggled: (payload) => {
+      track(context, "registration_tutorial_step_toggled", {
+        stepNumber: payload.stepNumber,
+        nextState: payload.nextState,
+      });
+    },
+    onTutorialProgressBucket: (payload) => {
+      track(context, "registration_tutorial_progress_bucket", {
+        bucket: payload.bucket,
+        activeStep: payload.activeStep,
       });
     },
   });
@@ -980,4 +1034,7 @@ export {
   trackDemographics,
   trackExperimentExposure,
   trackFunnelStep,
+  trackTutorialStepSelected,
+  trackTutorialStepToggled,
+  trackTutorialProgressBucket,
 } from "@/features/analytics/infrastructure/trackingCustomEvents";

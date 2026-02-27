@@ -411,17 +411,7 @@ Safe defaults live in `.env.development` (committed). Secrets go in `.env.local`
 - `data-content-section` + `data-content-id` (+ optional `data-content-interaction`) -> `content_interaction`
 - `data-experiment-id` + `data-variant-id` -> `experiment_exposure`
 
-### Tracking opportunities from UX/copy context (proposed, not implemented)
-
-| event_name                              | trigger_source                                            | safe_payload_keys               | business_reason                                                                       | expected_owner |
-| --------------------------------------- | --------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------- | -------------- |
-| `registration_tutorial_step_selected`   | User clicks a tutorial step card in registration tutorial | `stepNumber`, `origin`          | Detect which step attracts most attention/confusion in the two-payment journey        | Product        |
-| `registration_tutorial_step_toggled`    | User marks a tutorial step done/pending                   | `stepNumber`, `nextState`       | Identify checklist friction and verify whether tutorial structure reduces uncertainty | Product        |
-| `registration_tutorial_progress_bucket` | Tutorial progress crosses 33/66/100%                      | `bucket`, `activeStep`          | Measure tutorial completion quality before checkout intent                            | Growth         |
-| `faq_blocker_theme`                     | FAQ item opens on reservation/ticket blockers             | `faqId`, `theme`                | Convert raw FAQ usage into actionable blocker categories                              | Ops            |
-| `reserve_ticket_handoff`                | User clicks reserve/ticket links during the same session  | `sourceSurface`, `targetAction` | Measure handoff quality between hotel reservation and ticket steps                    | Growth         |
-
-### Consent classification matrix (current + proposed)
+### Consent classification matrix
 
 | event_name                              | current_or_proposed | consent_flag | justification                                   | sensitivity_level |
 | --------------------------------------- | ------------------- | ------------ | ----------------------------------------------- | ----------------- |
@@ -469,11 +459,11 @@ Safe defaults live in `.env.development` (committed). Secrets go in `.env.local`
 | `funnel_step`                           | `current`           | `analytics`  | Optional conversion-step tracking               | `low`             |
 | `experiment_exposure`                   | `current`           | `analytics`  | Optional experiment readouts                    | `low`             |
 | `consent_preference_updated`            | `current`           | `necessary`  | Consent decision audit trail                    | `medium`          |
-| `registration_tutorial_step_selected`   | `proposed`          | `analytics`  | Optional tutorial navigation analysis           | `low`             |
-| `registration_tutorial_step_toggled`    | `proposed`          | `analytics`  | Optional checklist completion analysis          | `low`             |
-| `registration_tutorial_progress_bucket` | `proposed`          | `analytics`  | Optional tutorial completion benchmarking       | `low`             |
-| `faq_blocker_theme`                     | `proposed`          | `analytics`  | Optional blocker taxonomy for FAQ               | `low`             |
-| `reserve_ticket_handoff`                | `proposed`          | `analytics`  | Optional two-step conversion handoff analysis   | `low`             |
+| `registration_tutorial_step_selected`   | `current`           | `analytics`  | Optional tutorial navigation analysis           | `low`             |
+| `registration_tutorial_step_toggled`    | `current`           | `analytics`  | Optional checklist completion analysis          | `low`             |
+| `registration_tutorial_progress_bucket` | `current`           | `analytics`  | Optional tutorial completion benchmarking       | `low`             |
+| `faq_blocker_theme`                     | `current`           | `analytics`  | Optional blocker taxonomy for FAQ               | `low`             |
+| `reserve_ticket_handoff`                | `current`           | `analytics`  | Optional two-step conversion handoff analysis   | `low`             |
 
 ### In-app consent UX
 

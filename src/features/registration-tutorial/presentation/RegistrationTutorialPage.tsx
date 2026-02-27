@@ -1,5 +1,5 @@
 import type { TFunction } from "i18next";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
@@ -12,6 +12,11 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { tid } from "@/shared/application/utils/tid";
+import {
+  trackTutorialStepSelected,
+  trackTutorialStepToggled,
+  trackTutorialProgressBucket,
+} from "@/features/analytics/infrastructure/extremeTracking";
 
 const STEPS = [
   { number: 1, Icon: Hotel },
@@ -90,7 +95,29 @@ const useTutorialStepState = () => {
     return Math.round((completed / total) * 100);
   }, [completedSteps]);
 
+  const firedBuckets = useRef(new Set<string>());
+
+  useEffect(() => {
+    const completedCount = STEPS.filter(
+      (step) => completedSteps[step.number]
+    ).length;
+    let bucket: "33" | "66" | "100" | null = null;
+    if (completedCount === 1) {
+      bucket = "33";
+    } else if (completedCount === 2) {
+      bucket = "66";
+    } else if (completedCount === 3) {
+      bucket = "100";
+    }
+    if (bucket && !firedBuckets.current.has(bucket)) {
+      firedBuckets.current.add(bucket);
+      trackTutorialProgressBucket({ bucket, activeStep });
+    }
+  }, [completedSteps, activeStep]);
+
   const toggleStepDone = (step: StepNumber) => {
+    const nextState = completedSteps[step] ? "pending" : "done";
+    trackTutorialStepToggled({ stepNumber: step, nextState });
     setCompletedSteps((previous) => ({ ...previous, [step]: !previous[step] }));
   };
 
@@ -161,6 +188,10 @@ const TutorialSteps = ({
           key={number}
           type="button"
           onClick={() => {
+            trackTutorialStepSelected({
+              stepNumber: number,
+              origin: "step_card",
+            });
             onSelectStep(number);
           }}
           className={`rounded-2xl border p-4 text-left transition ${isActive ? "border-accent/70 bg-surface/55" : "border-white/10 bg-surface/25 hover:border-accent/35"}`}
