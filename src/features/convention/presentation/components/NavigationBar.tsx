@@ -318,6 +318,22 @@ function DesktopNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
         )
       )}
       <LanguageToggle />
+      <Button
+        asChild
+        variant="default"
+        className="ml-1 rounded-full bg-accent px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground shadow-[0_0_18px_-4px_rgba(201,168,76,0.7)] transition hover:brightness-110"
+      >
+        <Link
+          to={getSectionHref(SECTION_IDS.REGISTRATION)}
+          data-funnel-step="view_pricing"
+          data-cta-id="desktop_nav_reserve"
+          data-cta-variant="desktop_nav"
+          data-content-section="navigation"
+          data-content-id="desktop_nav_reserve"
+        >
+          {t("convention.nav.reserve")}
+        </Link>
+      </Button>
     </div>
   );
 }
