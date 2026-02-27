@@ -192,10 +192,10 @@ export function TrackingConsentGate({
             <ConsentInfo />
           </div>
         </div>
-        <div className="border-t border-white/10 bg-surface/90 px-5 py-3 sm:px-6 sm:py-4">
-          <div className="grid gap-2 sm:grid-cols-2">
+        <div className="border-t border-white/10 bg-surface/90 px-5 py-4 sm:px-6 sm:py-5">
+          <div className="flex flex-col items-center gap-3">
             <Button
-              className="w-full border border-primary/95 bg-[linear-gradient(135deg,hsl(var(--primary)),hsl(var(--accent)))] py-6 text-base font-black uppercase tracking-[0.18em] text-primary-foreground shadow-[0_16px_40px_-20px_hsl(var(--accent))] hover:scale-[1.01] hover:brightness-110 focus-visible:ring-primary/90"
+              className="relative w-full overflow-hidden border border-accent/60 bg-[linear-gradient(110deg,hsl(var(--accent))_0%,hsl(var(--accent-glow))_50%,hsl(var(--accent))_100%)] bg-[length:200%_100%] py-7 text-lg font-black uppercase tracking-[0.22em] text-accent-foreground transition-all duration-300 before:absolute before:inset-0 before:-translate-x-full before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)] before:transition-transform before:duration-700 hover:scale-[1.015] hover:brightness-110 hover:before:translate-x-full focus-visible:ring-accent/90"
               onClick={acceptAll}
               type="button"
               data-cta-id="consent_accept_all"
@@ -204,17 +204,16 @@ export function TrackingConsentGate({
             >
               {t("convention.consent.acceptAll")}
             </Button>
-            <Button
-              className="w-full border-white/10 bg-transparent text-sm font-medium text-foreground/60 hover:bg-white/5 hover:text-foreground/75 focus-visible:ring-white/50"
+            <button
+              className="cursor-pointer bg-transparent text-[0.72rem] font-normal text-foreground/30 underline-offset-2 transition-colors duration-200 hover:text-foreground/50 focus-visible:outline-none focus-visible:text-foreground/50"
               onClick={rejectOptional}
               type="button"
-              variant="outline"
               data-cta-id="consent_reject"
               data-content-id="consent_reject"
               data-content-section="consent"
             >
               {t("convention.consent.rejectOptional")}
-            </Button>
+            </button>
           </div>
         </div>
       </section>
