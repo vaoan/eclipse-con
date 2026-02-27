@@ -16,18 +16,88 @@ Triggered by: `/lighthouse`, "run a11y audit", "check performance", "WCAG scan",
 
 ### 1 — Determine target
 
+**Ask the user** which version to audit:
+
+> "Which version do you want to audit?"
+>
+> - **Dev server** — starts `pnpm dev` (or reuses it if already running); runs Lighthouse + axe-core over HTTP.
+> - **Static build** — uses the `dist-static/` single-file build; runs axe-core only (Lighthouse requires HTTP).
+
+Use `ask_user` with choices `["Dev server (Lighthouse + axe-core)", "Static build (axe-core only)"]`.
+
+---
+
+#### If the user chooses **Dev server**
+
 Check whether `pnpm dev` is already serving on port 5173:
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" http://localhost:5173 2>/dev/null || echo "offline"
 ```
 
-- **If 200** → `TARGET_URL=http://localhost:5173` — run both Lighthouse + axe-core.
-- **If offline** → check if `dist-static/index.html` exists:
-  - If yes → `TARGET_URL=file:///$(pwd)/dist-static/index.html` — run axe-core only (Lighthouse requires HTTP).
-  - If no → tell the user to run `pnpm dev` or `pnpm build:static` first and stop.
+- **If 200** → server is already up, proceed.
+- **If offline** → start the dev server as a background process and wait up to 30 s for it to become ready:
+
+  ```bash
+  pnpm dev &
+  DEV_PID=$!
+  for i in $(seq 1 30); do
+    STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5173 2>/dev/null)
+    [ "$STATUS" = "200" ] && break
+    sleep 1
+  done
+  echo "server_status:$STATUS"
+  ```
+
+  If it never responds with 200 after 30 s, report the error and stop.
+
+Set `TARGET_URL=http://localhost:5173`.
 
 Ask the user if they want `desktop` (default) or `mobile` form factor for Lighthouse.
+
+---
+
+#### If the user chooses **Static build**
+
+Check whether the build is **fresh**: `dist-static/index.html` must exist **and** be newer than the most recently modified file under `src/` (any file: `.ts`, `.tsx`, `.css`, `.json`, etc.).
+
+On Unix/macOS:
+
+```bash
+STATIC="dist-static/index.html"
+if [ ! -f "$STATIC" ]; then
+  echo "STALE: missing"
+else
+  NEWEST_SRC=$(find src -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.css" -o -name "*.json" \) -newer "$STATIC" | head -1)
+  if [ -n "$NEWEST_SRC" ]; then echo "STALE: $NEWEST_SRC"; else echo "FRESH"; fi
+fi
+```
+
+On Windows (PowerShell):
+
+```powershell
+$static = "dist-static\index.html"
+if (-not (Test-Path $static)) { "STALE: missing" }
+else {
+  $buildTime = (Get-Item $static).LastWriteTime
+  $newer = Get-ChildItem src -Recurse -Include *.ts,*.tsx,*.css,*.json |
+           Where-Object { $_.LastWriteTime -gt $buildTime } | Select-Object -First 1
+  if ($newer) { "STALE: $($newer.FullName)" } else { "FRESH" }
+}
+```
+
+- **If FRESH** → proceed with the existing build.
+- **If STALE** → inform the user which file triggered the rebuild, then run:
+
+  ```bash
+  pnpm build:static
+  ```
+
+  Wait for it to complete (allow up to 120 s). If it fails, report the error and stop.
+
+Set `TARGET_URL=file:///$(pwd)/dist-static/index.html` (on Windows use the full absolute path with forward slashes: `file:///Z:/Github/eclipse-con/dist-static/index.html`).
+
+> ⚠️ Lighthouse is **skipped** for static builds — note this clearly in the report.
 
 ### 2 — Run scans (parallel)
 
@@ -90,6 +160,10 @@ console.log(JSON.stringify(out));
 ### 4 — Render report
 
 Output a structured markdown report. Keep it concise — show scores, call out critical/serious issues, and group fixes by category.
+
+### 5 — Save report
+
+After rendering the report in the conversation, write the exact same markdown content to `.audit/report.md` using the `create` or `edit` tool (overwrite if it already exists). Confirm to the user where the file was saved.
 
 ---
 

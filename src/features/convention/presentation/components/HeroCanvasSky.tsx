@@ -1,5 +1,5 @@
 /* eslint-disable max-lines, max-lines-per-function, sonarjs/cognitive-complexity, sonarjs/pseudo-random */
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
 import { usePrefersReducedMotion } from "@/shared/application/hooks/usePrefersReducedMotion";
@@ -43,7 +43,7 @@ export function HeroCanvasSky({
   const isMobileViewport = useIsMobileViewport();
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) {
       return;

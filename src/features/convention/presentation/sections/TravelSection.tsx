@@ -45,7 +45,7 @@ export function TravelSection() {
               href={t(`convention.travel.items.${key}.sourceUrl`)}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-flex text-xs uppercase tracking-[0.18em] text-foreground/45 underline decoration-dashed underline-offset-4 transition hover:text-foreground"
+              className="mt-3 inline-flex text-xs uppercase tracking-[0.18em] text-muted-foreground underline decoration-dashed underline-offset-4 transition hover:text-foreground"
             >
               {t(`convention.travel.items.${key}.sourceLabel`)}
             </a>

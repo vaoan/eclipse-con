@@ -93,7 +93,7 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
                 </span>
               </div>
               <p className="text-sm text-foreground/70">{item.description}</p>
-              <div className="text-xs uppercase tracking-[0.18em] text-foreground/45">
+              <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 {t("convention.amenities.priceLabel")}
               </div>
               <p className="text-sm font-semibold text-foreground/80">

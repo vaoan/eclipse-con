@@ -425,6 +425,12 @@ async function inlineExternalStylesheets(html: string) {
         continue;
       }
       let css = await response.text();
+      // Strip Adobe Typekit analytics @import (p.typekit.net) — avoids a
+      // console error when the tracking request is blocked (ERR_NAME_NOT_RESOLVED).
+      css = css.replace(
+        /@import\s+url\(['"]?https?:\/\/p\.typekit\.net[^)'"]*['"]?\)[^;]*;?\n?/gi,
+        ""
+      );
       css = await inlineCssUrlReferences(
         css,
         `Inline CSS url(...) for ${href}`,
