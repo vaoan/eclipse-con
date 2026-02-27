@@ -101,29 +101,6 @@ function PreferenceToggles({ categories, onChange }: PreferenceTogglesProps) {
   );
 }
 
-function ConsentSupportPanel() {
-  const { t } = useTranslation();
-
-  return (
-    <aside className="rounded-2xl border border-accent/35 bg-gradient-to-br from-accent/20 via-accent/10 to-transparent p-4 sm:p-5">
-      <p className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-accent">
-        {t("convention.consent.supportTag")}
-      </p>
-      <h3 className="mt-2 text-lg font-black text-foreground">
-        {t("convention.consent.supportTitle")}
-      </h3>
-      <p className="mt-2 text-sm text-foreground/85">
-        {t("convention.consent.description")}
-      </p>
-      <ul className="mt-4 space-y-2 text-xs text-foreground/80 sm:text-sm">
-        <li>- {t("convention.consent.supportPoint1")}</li>
-        <li>- {t("convention.consent.supportPoint2")}</li>
-        <li>- {t("convention.consent.supportPoint3")}</li>
-      </ul>
-    </aside>
-  );
-}
-
 function ConsentModalHeader() {
   const { t } = useTranslation();
 
@@ -151,7 +128,7 @@ function ConsentModalHeader() {
           </p>
         </div>
         <div className="shrink-0 sm:pt-1">
-          <LanguageToggle compact />
+          <LanguageToggle />
         </div>
       </div>
     </div>
@@ -291,8 +268,7 @@ export function TrackingConsentGate({
       <section className="relative z-10 flex max-h-[min(94vh,820px)] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-accent/35 bg-surface/95 shadow-[0_0_40px_rgba(201,168,76,0.25)]">
         <ConsentModalHeader />
 
-        <div className="grid flex-1 gap-4 overflow-y-auto px-5 py-4 sm:px-6 sm:py-5 lg:grid-cols-[0.95fr_1.05fr]">
-          <ConsentSupportPanel />
+        <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-6 sm:py-5">
           <div>
             <PreferenceToggles
               categories={draftCategories}

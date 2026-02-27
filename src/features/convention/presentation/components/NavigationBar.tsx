@@ -317,11 +317,11 @@ function DesktopNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
           })()
         )
       )}
-      <LanguageToggle compact />
+      <LanguageToggle />
       <Button
         asChild
-        variant="default"
-        className="ml-1 rounded-full bg-accent px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground shadow-[0_0_18px_-4px_rgba(201,168,76,0.7)] transition hover:brightness-110"
+        variant="ghost"
+        className="ml-1 rounded-full bg-accent px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground shadow-[0_0_18px_-4px_rgba(201,168,76,0.55)] transition-all duration-200 hover:bg-[#d4b85c] hover:shadow-[0_0_26px_-2px_rgba(201,168,76,0.85)] hover:scale-[1.02]"
       >
         <Link
           to={getSectionHref(SECTION_IDS.REGISTRATION)}
@@ -343,7 +343,7 @@ function MobileNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
 
   return (
     <div className="flex items-center gap-3 md:hidden">
-      <LanguageToggle compact />
+      <LanguageToggle />
       <Sheet>
         <SheetTrigger asChild>
           <Button
@@ -391,8 +391,8 @@ function MobileNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
               <SheetClose asChild>
                 <Button
                   asChild
-                  variant="default"
-                  className="mt-5 w-full rounded-full bg-accent text-xs font-semibold uppercase tracking-[0.28em] text-accent-foreground shadow-[0_16px_30px_-22px_rgba(201,168,76,0.7)]"
+                  variant="ghost"
+                  className="mt-5 w-full rounded-full bg-accent text-xs font-semibold uppercase tracking-[0.28em] text-accent-foreground shadow-[0_16px_30px_-22px_rgba(201,168,76,0.7)] transition-all duration-200 hover:bg-[#d4b85c] hover:shadow-[0_16px_36px_-18px_rgba(201,168,76,0.9)]"
                 >
                   <Link
                     to={getSectionHref(SECTION_IDS.REGISTRATION)}
