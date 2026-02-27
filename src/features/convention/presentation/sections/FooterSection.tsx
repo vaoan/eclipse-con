@@ -112,7 +112,13 @@ export function FooterSection() {
                   aria-label={label}
                   title={label}
                 >
-                  <a href={href} target="_blank" rel="noreferrer">
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-content-section="footer"
+                    data-content-id={label.toLowerCase().replace(/\s+/g, "_")}
+                  >
                     {icon.type === "brand" ? (
                       <img
                         src={iconUrl ?? ""}

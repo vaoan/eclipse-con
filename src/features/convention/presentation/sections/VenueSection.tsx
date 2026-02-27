@@ -157,6 +157,8 @@ export function VenueSection() {
                     type="button"
                     variant="ghost"
                     className="group flex w-full items-center justify-between px-0 text-left text-sm font-semibold text-foreground/90 transition hover:bg-transparent hover:text-rose-300"
+                    data-content-section="venue"
+                    data-content-id="venue_details"
                   >
                     <span className="inline-flex items-center gap-2">
                       <span className="text-foreground/70 transition group-hover:text-rose-300">

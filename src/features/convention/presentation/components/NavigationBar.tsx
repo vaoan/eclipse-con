@@ -149,7 +149,13 @@ function useCanHover() {
 function NavLinkButton({ label, to }: Readonly<{ label: string; to: string }>) {
   return (
     <Button asChild variant="ghost" className={NAV_BUTTON_CLASS}>
-      <Link to={to} className="hover:cursor-pointer">
+      <Link
+        to={to}
+        className="hover:cursor-pointer"
+        data-content-section="navigation"
+        data-content-id={to.split("#").pop() ?? to}
+        data-cta-id={`nav_${to.split("#").pop() ?? to}`}
+      >
         <span className="relative">
           {label}
           <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-transparent via-accent/80 to-transparent transition-transform duration-300 group-hover:scale-x-100" />
@@ -187,6 +193,9 @@ function NavDropdownItem({
       <Link
         to={to}
         className="flex items-center justify-between text-[0.86rem] font-medium text-foreground/75 transition-all duration-200 hover:cursor-pointer"
+        data-content-section="navigation"
+        data-content-id={to.split("#").pop() ?? to}
+        data-cta-id={`nav_dropdown_${to.split("#").pop() ?? to}`}
       >
         <span>{label}</span>
         {showMarker ? (
@@ -481,6 +490,9 @@ export function NavigationBar() {
         <Link
           to={getSectionHref(SECTION_IDS.HERO)}
           className="flex items-center hover:cursor-pointer"
+          data-cta-id="nav_logo"
+          data-content-id="logo"
+          data-content-section="navigation"
           onClick={() => {
             document
               .getElementById(SECTION_IDS.HERO)

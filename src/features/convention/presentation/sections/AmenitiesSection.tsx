@@ -107,6 +107,8 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-rose-200 underline decoration-dashed underline-offset-4 transition hover:text-rose-100"
+                data-content-section="amenities"
+                data-content-id={item.key}
               >
                 {item.linkLabel}
               </a>
@@ -168,6 +170,8 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-rose-200 underline decoration-dashed underline-offset-4 transition hover:text-rose-100"
+                data-content-section="amenities"
+                data-content-id={`restaurant_${restaurant.key}`}
               >
                 {restaurant.linkLabel}
               </a>

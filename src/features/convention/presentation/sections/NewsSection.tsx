@@ -663,6 +663,8 @@ export function NewsSection() {
                 role="button"
                 tabIndex={0}
                 aria-pressed={isActive}
+                data-news-action="focus_toggle"
+                data-news-item-id={String(message.id)}
                 onClick={() => {
                   setActiveFocusId(isActive ? null : message.id);
                 }}
@@ -699,6 +701,8 @@ export function NewsSection() {
                     type="button"
                     variant="outline"
                     size="sm"
+                    data-news-action="drawer_toggle"
+                    data-news-item-id={String(message.id)}
                     onClick={() => {
                       setActiveDrawerId(isOpen ? null : message.id);
                     }}
@@ -729,6 +733,8 @@ export function NewsSection() {
                 <Button
                   type="button"
                   variant="ghost"
+                  data-news-action="accordion_toggle"
+                  data-news-item-id={String(message.id)}
                   onClick={() => {
                     setActiveAccordionId(isOpen ? null : message.id);
                   }}
@@ -764,6 +770,8 @@ export function NewsSection() {
               aria-haspopup="dialog"
               aria-label={t("convention.news.actions.openItem")}
               className="cursor-zoom-in rounded-2xl border border-white/10 bg-surface/60 p-5 shadow-md transition hover:border-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60"
+              data-news-action="zoom_open"
+              data-news-item-id={String(message.id)}
               onClick={() => {
                 setActiveZoomId(message.id);
               }}
@@ -844,6 +852,7 @@ export function NewsSection() {
                       type="button"
                       variant="outline"
                       size="sm"
+                      data-news-action="carousel_prev"
                       onClick={() => {
                         setCarouselIndex((previous) =>
                           previous === 0
@@ -860,6 +869,7 @@ export function NewsSection() {
                       type="button"
                       variant="outline"
                       size="sm"
+                      data-news-action="carousel_next"
                       onClick={() => {
                         setCarouselIndex((previous) =>
                           previous === visibleMessages.length - 1
@@ -882,6 +892,8 @@ export function NewsSection() {
                       <button
                         key={message.id}
                         type="button"
+                        data-news-action="carousel_select"
+                        data-news-item-id={String(message.id)}
                         onClick={() => {
                           setCarouselIndex(index);
                         }}
@@ -948,6 +960,7 @@ export function NewsSection() {
                 type="button"
                 variant="outline"
                 size="sm"
+                data-news-action="rail_prev"
                 onClick={() => {
                   railBottomRef.current?.scrollBy({
                     left: -420,
@@ -963,6 +976,7 @@ export function NewsSection() {
                 type="button"
                 variant="outline"
                 size="sm"
+                data-news-action="rail_next"
                 onClick={() => {
                   railBottomRef.current?.scrollBy({
                     left: 420,
@@ -1249,6 +1263,8 @@ export function NewsSection() {
                 aria-label={
                   isGallery ? t("convention.news.actions.openItem") : undefined
                 }
+                data-news-action={isGallery ? "gallery_open" : undefined}
+                data-news-item-id={isGallery ? String(message.id) : undefined}
                 onClick={() => {
                   if (isGallery) {
                     setActiveGalleryId(message.id);
