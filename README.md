@@ -37,11 +37,12 @@
   - `locale_switch`, `referral_campaign_bucket`, `consent_preference_updated`
   - Why: understand language demand and acquisition channel mix at aggregate level.
   - `consent_preference_updated` includes selected consent categories and `updatedAt` so consent decisions are auditable in analytics exports.
+  - `session_start` and `page_view` include coarse `browserLanguage` (primary browser language tag like `en`/`es`) as a proxy for preferred device language.
 
 #### Optional (requires Analytics consent)
 
 - Interaction quality:
-  - `click`, `rage_click`, `scroll_depth`, `time_to_first_interaction`
+  - `click`, `rage_click`, `scroll_depth`, `time_to_first_interaction`, `navigation_menu_usage`
   - Why: identify friction and confusing UI zones.
 - Form and search quality:
   - `field_change`, `form_submit`, `form_error_type`, `search_interaction`, `copy_interaction`

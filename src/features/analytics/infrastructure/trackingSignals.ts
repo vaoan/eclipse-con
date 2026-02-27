@@ -139,6 +139,33 @@ export function getReferralCampaignBucket(): string {
   return "none";
 }
 
+function getPrimaryLanguageTag(locale: string): string | null {
+  const normalized = locale.trim().toLowerCase().replace("_", "-");
+  if (!normalized) {
+    return null;
+  }
+
+  const primaryTag = normalized.split("-")[0];
+  if (!primaryTag || !/^[a-z]{2,3}$/.test(primaryTag)) {
+    return null;
+  }
+
+  return primaryTag;
+}
+
+export function getBrowserLanguagePreference(): string {
+  const languageCandidates = [...navigator.languages, navigator.language];
+
+  for (const candidate of languageCandidates) {
+    const primaryTag = getPrimaryLanguageTag(candidate);
+    if (primaryTag) {
+      return primaryTag;
+    }
+  }
+
+  return "unknown";
+}
+
 export function getContextSignals(): Record<string, Primitive> {
   return {
     deviceBucket: getDeviceBucket(),
@@ -146,6 +173,7 @@ export function getContextSignals(): Record<string, Primitive> {
     browserFamily: getBrowserFamily(),
     referrerBucket: getReferrerBucket(),
     connectionType: getConnectionType(),
+    browserLanguage: getBrowserLanguagePreference(),
   };
 }
 

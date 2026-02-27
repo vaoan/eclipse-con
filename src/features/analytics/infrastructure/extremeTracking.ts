@@ -57,6 +57,8 @@ const ANALYTICS_ONLY_EVENTS = new Set<TrackedEventName>([
   "engagement_score_bucket",
   "error_recovery",
   "reservation_lead_time_bucket",
+  "time_to_first_interaction",
+  "navigation_menu_usage",
   "scroll_depth",
   "click",
   "rage_click",
@@ -213,24 +215,70 @@ function track(
 }
 
 function flush(context: TrackContext, useBeacon: boolean): void {
-  if (!context.options.endpoint || context.state.queue.length === 0) {
+  if (context.state.queue.length === 0) {
     return;
   }
 
+  const events = context.state.queue.splice(0, context.state.queue.length);
   const body = JSON.stringify({
     sentAt: Date.now(),
-    events: context.state.queue.splice(0, context.state.queue.length),
+    events,
+  });
+
+  if (
+    context.options.endpoint &&
+    useBeacon &&
+    typeof navigator.sendBeacon === "function"
+  ) {
+    const blob = new Blob([body], { type: "application/json" });
+    navigator.sendBeacon(context.options.endpoint, blob);
+  } else if (context.options.endpoint) {
+    void fetch(context.options.endpoint, {
+      method: "POST",
+      body,
+      keepalive: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  if (!context.options.posthogApiKey) {
+    return;
+  }
+
+  let normalizedHost = context.options.posthogHost;
+  while (normalizedHost.endsWith("/")) {
+    normalizedHost = normalizedHost.slice(0, -1);
+  }
+  const posthogBody = JSON.stringify({
+    api_key: context.options.posthogApiKey,
+    batch: events.map((event) => ({
+      event: event.name,
+      distinct_id:
+        typeof event.data?.anonymousId === "string"
+          ? event.data.anonymousId
+          : "anonymous",
+      timestamp: new Date(event.timestamp).toISOString(),
+      properties: {
+        ...event.data,
+        path: event.path,
+        queryKeys: event.queryKeys,
+        locale: event.locale,
+        viewport: event.viewport,
+      },
+    })),
   });
 
   if (useBeacon && typeof navigator.sendBeacon === "function") {
-    const blob = new Blob([body], { type: "application/json" });
-    navigator.sendBeacon(context.options.endpoint, blob);
+    const blob = new Blob([posthogBody], { type: "application/json" });
+    navigator.sendBeacon(`${normalizedHost}/batch/`, blob);
     return;
   }
 
-  void fetch(context.options.endpoint, {
+  void fetch(`${normalizedHost}/batch/`, {
     method: "POST",
-    body,
+    body: posthogBody,
     keepalive: true,
     headers: {
       "Content-Type": "application/json",

@@ -23,6 +23,8 @@ initExtremeTracking({
   endpoint: environment.analyticsEndpoint,
   enabled: environment.analyticsEnabled,
   debug: environment.debug,
+  posthogApiKey: environment.posthogApiKey,
+  posthogHost: environment.posthogHost,
 });
 
 createRoot(root).render(

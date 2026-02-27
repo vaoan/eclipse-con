@@ -12,8 +12,11 @@ interface AppProvidersProps {
 
 export function AppProviders({ children }: AppProvidersProps) {
   const { i18n } = useTranslation();
+  const hasPosthog =
+    environment.posthogApiKey.length > 0 && environment.posthogHost.length > 0;
   const isAnalyticsConfigured =
-    environment.analyticsEnabled && environment.analyticsEndpoint.length > 0;
+    environment.analyticsEnabled &&
+    (environment.analyticsEndpoint.length > 0 || hasPosthog);
 
   useEffect(() => {
     const language = i18n.language || "es";

@@ -2,6 +2,8 @@ export interface TrackingOptions {
   endpoint: string;
   enabled: boolean;
   debug: boolean;
+  posthogApiKey: string;
+  posthogHost: string;
 }
 
 export type Primitive = string | number | boolean | null;
@@ -149,6 +151,7 @@ export const EVENT_DATA_ALLOWLIST: Record<TrackedEventName, readonly string[]> =
       "browserFamily",
       "referrerBucket",
       "connectionType",
+      "browserLanguage",
     ],
     session_end: [
       "durationBucket",
@@ -163,6 +166,7 @@ export const EVENT_DATA_ALLOWLIST: Record<TrackedEventName, readonly string[]> =
       "browserFamily",
       "referrerBucket",
       "connectionType",
+      "browserLanguage",
     ],
     section_impression: ["sectionId"],
     outbound_link_click: ["domainBucket"],
