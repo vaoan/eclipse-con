@@ -1,11 +1,9 @@
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
-import {
-  RESERVATION_URL,
-  SECTION_IDS,
-} from "@/features/convention/domain/constants";
+import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { TICKET_TIERS } from "@/features/convention/application/data/ticketTiers";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
@@ -45,17 +43,32 @@ function RegistrationCta({ t }: Readonly<{ t: TFunction }>) {
       <div className="flex flex-wrap items-center justify-center gap-4">
         <Button
           asChild
-          className="bg-accent text-accent-foreground hover:bg-accent-glow"
+          variant="secondary"
+          className="border border-accent/60 bg-accent/15 text-foreground shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:-translate-y-0.5 hover:bg-accent/25 hover:shadow-[0_10px_30px_-16px_hsl(var(--accent))] focus-visible:ring-accent/60"
         >
-          <a href={RESERVATION_URL} target="_blank" rel="noreferrer">
-            {t("convention.registration.reserveLink")}
-          </a>
+          <Link
+            to="/registration-tutorial"
+            data-funnel-step="registration_tutorial"
+            data-cta-id="registration_tutorial_open"
+            data-cta-variant="section_guide"
+            data-content-section="registration"
+            data-content-id="registration_tutorial_link"
+            data-content-interaction="open"
+          >
+            {t("convention.registration.tutorialLink")}
+          </Link>
         </Button>
         <Button asChild variant="outline" className="border-white/10">
           <a
             href="https://moonfest-b63fa.web.app/page/moonfest/soon.html"
             target="_blank"
             rel="noreferrer"
+            data-funnel-step="start_checkout"
+            data-cta-id="registration_ticket_soon"
+            data-cta-variant="section_secondary"
+            data-content-section="registration"
+            data-content-id="ticket_soon_link"
+            data-content-interaction="open"
           >
             {t("convention.registration.ticketLink")}
           </a>

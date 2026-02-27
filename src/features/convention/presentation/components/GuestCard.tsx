@@ -36,9 +36,7 @@ export function GuestCard({ guest }: Readonly<GuestCardProps>) {
         <CardTitle className="font-display text-xl font-semibold text-foreground">
           {t(guest.nameKey)}
         </CardTitle>
-        <p className="text-sm font-medium text-emerald-300">
-          {t(guest.roleKey)}
-        </p>
+        <p className="text-sm font-medium text-amber-300">{t(guest.roleKey)}</p>
       </CardHeader>
       <CardContent className="relative pb-6 pt-4">
         <p className="text-sm leading-relaxed text-muted-foreground">

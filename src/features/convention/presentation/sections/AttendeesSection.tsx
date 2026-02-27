@@ -56,7 +56,7 @@ export function AttendeesSection() {
         <SectionHeader
           title={t("convention.attendees.title")}
           align="left"
-          accent="green"
+          accent="gold"
         />
         <p className="max-w-md text-sm text-muted-foreground sm:text-base">
           {t("convention.attendees.subtitle")}

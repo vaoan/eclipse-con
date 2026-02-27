@@ -15,7 +15,7 @@ export function GuestsSection() {
         <SectionHeader
           title={t("convention.guests.title")}
           align="left"
-          accent="green"
+          accent="gold"
         />
         <p className="max-w-md text-sm text-muted-foreground sm:text-base">
           {t("convention.guests.subtitle")}

@@ -21,7 +21,13 @@ export function FaqAccordionItem({ item }: Readonly<FaqAccordionItemProps>) {
       className="border-b border-white/5"
       {...tid(`faq-item-${item.id}`)}
     >
-      <AccordionTrigger className="py-5 text-left text-base font-semibold text-foreground">
+      <AccordionTrigger
+        className="py-5 text-left text-base font-semibold text-foreground"
+        data-faq-id={item.id}
+        data-content-section="faq"
+        data-content-id={item.id}
+        data-content-interaction="expand"
+      >
         {t(item.questionKey)}
       </AccordionTrigger>
       <AccordionContent className="pb-5 text-sm leading-relaxed text-muted-foreground">

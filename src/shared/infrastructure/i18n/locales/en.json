@@ -27,7 +27,7 @@
       "place": "Place",
       "placeHotel": "Hotel",
       "placeTravel": "Travel tips",
-      "placeFind": "What’s at the hotel",
+      "placeFind": "Additional services",
       "placePricing": "Packages & pricing",
       "event": "Event",
       "eventOverview": "What’s included",
@@ -354,11 +354,61 @@
       },
       "cta": "Reserve",
       "reserveLink": "Reserve hotel",
+      "tutorialLink": "Open registration tutorial",
       "ticketLink": "Buy ticket (coming soon)",
       "devNote": "Shared rooms are priced per person. The room for 1 or 2 people has a fixed total price.",
       "noteServices": "Additional hotel services (spa, thermal pools, bar, etc.) are not included in the package.",
       "note": "Questions: info@moonfest.com.co",
       "highlight": "Want to attend? Reserve today and secure your place at this unforgettable event."
+    },
+    "registrationTutorial": {
+      "badge": "Registration guide",
+      "back": "Back to landing",
+      "title": "How registration works: complete both payments",
+      "subtitle": "Moonfest access requires a two-step process. First reserve your room for the event dates, then pay the event ticket using your reservation code.",
+      "warning": "You must complete two separate payments: hotel reservation and event ticket. Completing only one is not enough.",
+      "steps": {
+        "label": "Step {{number}}",
+        "step1": {
+          "title": "Reserve your hotel room",
+          "description": "Start with the official Estelar booking flow for July 10-13, 2026.",
+          "point1": "Complete the room payment directly with the hotel.",
+          "point2": "Save the reservation confirmation and your code."
+        },
+        "step2": {
+          "title": "Buy your Moonfest ticket",
+          "description": "After hotel payment, continue with the event ticket process.",
+          "point1": "Use your reservation code in the ticket checkout.",
+          "point2": "Pay your event ticket in the official Moonfest flow."
+        },
+        "step3": {
+          "title": "Keep both confirmations",
+          "description": "Your access depends on both completed records.",
+          "point1": "Have both payment proofs available before the event.",
+          "point2": "If anything is missing, contact info@moonfest.com.co."
+        }
+      },
+      "checklist": {
+        "title": "Quick checklist",
+        "item1": "Hotel room reserved for the event dates",
+        "item2": "Reservation code received and saved",
+        "item3": "Event ticket paid with that code"
+      },
+      "interactive": {
+        "title": "Interactive tutorial",
+        "progress": "Progress",
+        "markDone": "Mark this step complete",
+        "markPending": "Mark this step as pending",
+        "previous": "Previous step",
+        "next": "Next step",
+        "done": "Completed",
+        "pending": "Pending"
+      },
+      "actions": {
+        "reserve": "Step 1: Reserve hotel room",
+        "ticket": "Step 2: Buy event ticket",
+        "note": "Ticket checkout remains separate from the hotel reservation."
+      }
     },
     "news": {
       "title": "News",

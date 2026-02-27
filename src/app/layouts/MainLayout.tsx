@@ -8,10 +8,13 @@ import {
 import { useTranslation } from "react-i18next";
 
 const getSectionFromLocation = (location: Location) => {
-  const params = new URLSearchParams(location.search);
-  const querySection = params.get("section");
   const hashSection = location.hash ? location.hash.slice(1) : null;
-  return querySection ?? hashSection ?? "";
+  return hashSection ?? "";
+};
+
+const isSectionSyncNavigation = (location: Location) => {
+  const state = location.state as { __sectionSync?: boolean } | null;
+  return !!state?.__sectionSync;
 };
 
 const shouldSkipAutoScroll = (lastClickAt: number | null) => {
@@ -24,23 +27,15 @@ const scheduleScrollToSection = (
 ) => {
   let attempts = 0;
   const maxAttempts = 12;
-  const postAdjustments = [400, 900, 1500];
 
   const applyScroll = () => {
     scrollToSection(section, "auto");
-  };
-
-  const scheduleAdjustments = () => {
-    postAdjustments.forEach((delay) => {
-      window.setTimeout(applyScroll, delay);
-    });
   };
 
   const tryScroll = () => {
     const target = document.getElementById(section);
     if (target) {
       applyScroll();
-      scheduleAdjustments();
       return;
     }
     attempts += 1;
@@ -121,7 +116,11 @@ const useHashNavigation = (
 ) => {
   useEffect(() => {
     const section = getSectionFromLocation(location);
-    if (!section || shouldSkipAutoScroll(getLastClick())) {
+    if (
+      !section ||
+      shouldSkipAutoScroll(getLastClick()) ||
+      isSectionSyncNavigation(location)
+    ) {
       return;
     }
 

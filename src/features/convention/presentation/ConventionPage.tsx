@@ -1,6 +1,7 @@
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { NavigationBar } from "./components/NavigationBar";
 import { SakuraParticles } from "./components/SakuraParticles";
@@ -35,55 +36,198 @@ const GuestsSection = lazy(async () => ({
   default: (await import("./sections/GuestsSection")).GuestsSection,
 }));
 
-function useSectionHashSync() {
+const SCROLL_INTENT_KEYS = new Set([
+  "ArrowDown",
+  "ArrowUp",
+  "PageDown",
+  "PageUp",
+  "Home",
+  "End",
+  " ",
+]);
+
+const getRenderableSections = (sectionIds: string[]) =>
+  sectionIds
+    .map((id) => document.getElementById(id))
+    .filter((section): section is HTMLElement => section !== null);
+
+const getSectionIdFromUrl = (
+  locationSearch: string,
+  sectionIdSet: Set<string>
+) => {
+  const querySources: string[] = [locationSearch, window.location.search];
+  const hash = window.location.hash;
+  const hashQueryIndex = hash.indexOf("?");
+  if (hashQueryIndex >= 0) {
+    querySources.push(hash.slice(hashQueryIndex));
+  }
+
+  for (const source of querySources) {
+    if (!source) {
+      continue;
+    }
+    const sectionFromQuery = new URLSearchParams(source).get("section");
+    if (sectionFromQuery && sectionIdSet.has(sectionFromQuery)) {
+      return sectionFromQuery;
+    }
+  }
+
+  const sectionRegex = /[?&]section=([^&#]+)/i;
+  const hrefMatch = sectionRegex.exec(window.location.href);
+  if (hrefMatch?.[1]) {
+    const sectionFromHref = decodeURIComponent(hrefMatch[1]);
+    if (sectionIdSet.has(sectionFromHref)) {
+      return sectionFromHref;
+    }
+  }
+  return null;
+};
+
+const scrollToSection = (sectionId: string) => {
+  const section = document.getElementById(sectionId);
+  if (!section) {
+    return false;
+  }
+  section.scrollIntoView();
+  return true;
+};
+
+const scrollToSectionWhenReady = (sectionId: string, retries = 90) => {
+  if (scrollToSection(sectionId) || retries <= 0) {
+    return;
+  }
+  window.requestAnimationFrame(() => {
+    scrollToSectionWhenReady(sectionId, retries - 1);
+  });
+};
+
+const getActiveSectionId = (sectionIds: string[]) => {
+  const sections = getRenderableSections(sectionIds).sort(
+    (left, right) => left.offsetTop - right.offsetTop
+  );
+  if (sections.length === 0) {
+    return null;
+  }
+  const anchorY = 140;
+  const reachedSections = sections.filter(
+    (section) => section.getBoundingClientRect().top <= anchorY
+  );
+  if (reachedSections.length > 0) {
+    const lastReached = reachedSections[reachedSections.length - 1];
+    return lastReached?.id ?? null;
+  }
+  return sections[0]?.id ?? null;
+};
+
+const applyInitialSectionScroll = ({
+  initialSectionId,
+  isSectionSyncNavigation,
+  lastAutoScrolledSectionRef,
+  setActiveSectionId,
+  setAutoScrollTargetId,
+}: {
+  initialSectionId: string | null;
+  isSectionSyncNavigation: boolean;
+  lastAutoScrolledSectionRef: { current: string | null };
+  setActiveSectionId: (sectionId: string) => void;
+  setAutoScrollTargetId: (sectionId: string) => void;
+}) => {
+  if (
+    !initialSectionId ||
+    isSectionSyncNavigation ||
+    lastAutoScrolledSectionRef.current === initialSectionId
+  ) {
+    return;
+  }
+  lastAutoScrolledSectionRef.current = initialSectionId;
+  setActiveSectionId(initialSectionId);
+  setAutoScrollTargetId(initialSectionId);
+  scrollToSectionWhenReady(initialSectionId);
+};
+
+const registerSectionSyncListeners = ({
+  scheduleUpdate,
+  onManualScrollIntent,
+  onKeyDown,
+}: {
+  scheduleUpdate: () => void;
+  onManualScrollIntent: () => void;
+  onKeyDown: (event: KeyboardEvent) => void;
+}) => {
+  window.addEventListener("scroll", scheduleUpdate, { passive: true });
+  window.addEventListener("resize", scheduleUpdate);
+  window.addEventListener("wheel", onManualScrollIntent, { passive: true });
+  window.addEventListener("touchmove", onManualScrollIntent, { passive: true });
+  window.addEventListener("keydown", onKeyDown);
+  return () => {
+    window.removeEventListener("scroll", scheduleUpdate);
+    window.removeEventListener("resize", scheduleUpdate);
+    window.removeEventListener("wheel", onManualScrollIntent);
+    window.removeEventListener("touchmove", onManualScrollIntent);
+    window.removeEventListener("keydown", onKeyDown);
+  };
+};
+
+function useSectionUrlSync() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const lastAutoScrolledSectionRef = useRef<string | null>(null);
+
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
     }
-
     const sectionIds = Object.values(SECTION_IDS);
-
-    const getSections = () =>
-      sectionIds
-        .map((id) => document.getElementById(id))
-        .filter((section): section is HTMLElement => section !== null);
+    const sectionIdSet = new Set<string>(sectionIds);
+    const sectionSyncState = location.state as {
+      __sectionSync?: boolean;
+    } | null;
+    const isSectionSyncNavigation = !!sectionSyncState?.__sectionSync;
     let activeSectionId: string | null = null;
     let frame = 0;
+    let autoScrollTargetId: string | null = null;
+    const startedWithSectionQuery = /[?&]section=/.test(window.location.href);
+    let hasManualScrollIntent = false;
 
-    const syncHash = (nextSectionId: string) => {
-      if (activeSectionId === nextSectionId) {
+    const syncSectionUrl = (nextSectionId: string) => {
+      if (
+        (startedWithSectionQuery && !hasManualScrollIntent) ||
+        autoScrollTargetId ||
+        activeSectionId === nextSectionId
+      ) {
         return;
       }
       activeSectionId = nextSectionId;
-      if (window.location.hash === `#${nextSectionId}`) {
+      const params = new URLSearchParams(window.location.search);
+      const currentQuerySection = getSectionIdFromUrl(
+        location.search,
+        sectionIdSet
+      );
+      if (currentQuerySection === nextSectionId) {
         return;
       }
-      const url = `${window.location.pathname}${window.location.search}#${nextSectionId}`;
-      window.history.replaceState(window.history.state, "", url);
-    };
-
-    const getActiveSectionId = () => {
-      const sections = getSections();
-      if (sections.length === 0) {
-        return null;
-      }
-      const anchorY = 140;
-      const reachedSections = sections.filter(
-        (section) => section.getBoundingClientRect().top <= anchorY
+      params.set("section", nextSectionId);
+      const query = params.toString();
+      void navigate(
+        {
+          pathname: location.pathname,
+          search: query ? `?${query}` : "",
+        },
+        { replace: true, state: { __sectionSync: true } }
       );
-      if (reachedSections.length > 0) {
-        const lastReached = reachedSections[reachedSections.length - 1];
-        return lastReached.id;
-      }
-
-      return sections[0].id;
     };
 
     const update = () => {
       frame = 0;
-      const nextSectionId = getActiveSectionId();
+      const nextSectionId = getActiveSectionId(sectionIds);
       if (nextSectionId) {
-        syncHash(nextSectionId);
+        if (autoScrollTargetId) {
+          if (nextSectionId !== autoScrollTargetId) {
+            return;
+          }
+          autoScrollTargetId = null;
+        }
+        syncSectionUrl(nextSectionId);
       }
     };
 
@@ -94,23 +238,47 @@ function useSectionHashSync() {
       frame = window.requestAnimationFrame(update);
     };
 
-    scheduleUpdate();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
+    const onManualScrollIntent = () => {
+      hasManualScrollIntent = true;
+    };
 
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (SCROLL_INTENT_KEYS.has(event.key)) {
+        hasManualScrollIntent = true;
+      }
+    };
+
+    const initialSectionId = getSectionIdFromUrl(location.search, sectionIdSet);
+    applyInitialSectionScroll({
+      initialSectionId,
+      isSectionSyncNavigation,
+      lastAutoScrolledSectionRef,
+      setActiveSectionId: (sectionId) => {
+        activeSectionId = sectionId;
+      },
+      setAutoScrollTargetId: (sectionId) => {
+        autoScrollTargetId = sectionId;
+      },
+    });
+
+    scheduleUpdate();
+    const removeListeners = registerSectionSyncListeners({
+      scheduleUpdate,
+      onManualScrollIntent,
+      onKeyDown,
+    });
     return () => {
       if (frame) {
         window.cancelAnimationFrame(frame);
       }
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
+      removeListeners();
     };
-  }, []);
+  }, [location.pathname, location.search, location.state, navigate]);
 }
 
 export function Component() {
   const [effectsReady, setEffectsReady] = useState(false);
-  useSectionHashSync();
+  useSectionUrlSync();
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -158,7 +326,7 @@ export function Component() {
             titleKey="convention.groups.community.title"
             subtitleKey="convention.groups.community.subtitle"
             descriptionKey="convention.groups.community.description"
-            accent="green"
+            accent="gold"
           />
           <AttendeesSection />
           <NewsSection />

@@ -5,7 +5,9 @@ export const environment = {
     import.meta.env.VITE_SUPPORTED_LOCALES ?? "en,es"
   ).split(","),
   debug: import.meta.env.VITE_DEBUG === "true",
-  analyticsEndpoint: String(import.meta.env.VITE_ANALYTICS_ENDPOINT ?? "").trim(),
+  analyticsEndpoint: String(
+    import.meta.env.VITE_ANALYTICS_ENDPOINT ?? ""
+  ).trim(),
   analyticsEnabled: import.meta.env.VITE_ANALYTICS_ENABLED !== "false",
   isDev: import.meta.env.DEV,
   isProd: import.meta.env.PROD,

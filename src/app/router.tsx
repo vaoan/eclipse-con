@@ -1,14 +1,19 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 
 import { MainLayout } from "@/app/layouts/MainLayout";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     element: <MainLayout />,
     children: [
       {
         path: "/",
         lazy: () => import("@/features/convention/presentation/ConventionPage"),
+      },
+      {
+        path: "/registration-tutorial",
+        lazy: () =>
+          import("@/features/registration-tutorial/presentation/RegistrationTutorialPage"),
       },
     ],
   },

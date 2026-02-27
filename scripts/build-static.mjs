@@ -211,8 +211,7 @@ const main = async () => {
   };
 
   const resolveBin = (command) => {
-    const binName =
-      process.platform === "win32" ? `${command}.cmd` : command;
+    const binName = process.platform === "win32" ? `${command}.cmd` : command;
     return path.join(root, "node_modules", ".bin", binName);
   };
 

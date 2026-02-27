@@ -65,10 +65,20 @@ export function TicketCard({ tier }: Readonly<TicketCardProps>) {
             "w-full",
             tier.highlighted
               ? "bg-accent text-accent-foreground hover:bg-accent-glow"
-              : "bg-emerald-600 text-white hover:bg-emerald-500"
+              : "bg-accent/90 text-accent-foreground hover:bg-accent"
           )}
         >
-          <a href={RESERVATION_URL} target="_blank" rel="noreferrer">
+          <a
+            href={RESERVATION_URL}
+            target="_blank"
+            rel="noreferrer"
+            data-funnel-step="click_reserve"
+            data-cta-id={`ticket_${tier.id}_reserve`}
+            data-cta-variant={tier.id}
+            data-content-section="registration"
+            data-content-id={`ticket_${tier.id}`}
+            data-content-interaction="open"
+          >
             {t("convention.registration.cta")}
           </a>
         </Button>

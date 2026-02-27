@@ -21,7 +21,7 @@ const ACCENT_STYLES = {
     bar: "bg-rose-400",
   },
   green: {
-    bar: "bg-emerald-400",
+    bar: "bg-amber-400",
   },
 } as const;
 

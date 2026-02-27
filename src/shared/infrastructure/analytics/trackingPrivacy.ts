@@ -1,4 +1,7 @@
-import type { Primitive, TrackedEventName } from "@/shared/infrastructure/analytics/trackingSchema";
+import type {
+  Primitive,
+  TrackedEventName,
+} from "@/shared/infrastructure/analytics/trackingSchema";
 import { EVENT_DATA_ALLOWLIST } from "@/shared/infrastructure/analytics/trackingSchema";
 
 const MAX_STRING_VALUE_LENGTH = 64;
@@ -92,8 +95,15 @@ export function sanitizePath(pathname: string): string {
 }
 
 function sanitizeKey(key: string): string | null {
-  const normalized = key.trim().replace(/[^a-z0-9_-]/gi, "_").toLowerCase();
-  if (!normalized || normalized.length > 48 || !SAFE_QUERY_KEY_PATTERN.test(normalized)) {
+  const normalized = key
+    .trim()
+    .replace(/[^a-z0-9_-]/gi, "_")
+    .toLowerCase();
+  if (
+    !normalized ||
+    normalized.length > 48 ||
+    !SAFE_QUERY_KEY_PATTERN.test(normalized)
+  ) {
     return null;
   }
 
@@ -133,7 +143,10 @@ interface SanitizedPrimitiveResult {
   value: Primitive;
 }
 
-function sanitizePrimitiveValue(key: string, value: Primitive): SanitizedPrimitiveResult {
+function sanitizePrimitiveValue(
+  key: string,
+  value: Primitive
+): SanitizedPrimitiveResult {
   if (value === null || typeof value === "boolean") {
     return { accepted: true, value };
   }
@@ -190,5 +203,7 @@ export function getSanitizedQueryKeys(url: URL): string[] {
     keys.add(sanitizedKey);
   }
 
-  return [...keys].sort((left, right) => left.localeCompare(right)).slice(0, 32);
+  return [...keys]
+    .sort((left, right) => left.localeCompare(right))
+    .slice(0, 32);
 }

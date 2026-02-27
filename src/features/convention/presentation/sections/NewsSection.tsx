@@ -301,7 +301,7 @@ export function NewsSection() {
         <SectionHeader
           title={t("convention.news.title")}
           align="left"
-          accent="green"
+          accent="gold"
         />
         <div className="flex flex-col items-start gap-4 md:items-end">
           <p className="max-w-md text-sm text-muted-foreground sm:text-base">
@@ -320,6 +320,7 @@ export function NewsSection() {
                 size="icon"
                 variant="outline"
                 aria-label={t("convention.news.actions.previous")}
+                data-news-action="layout_previous"
                 className="h-9 w-9 border-white/10 bg-surface/60 text-foreground/70 hover:border-white/30 hover:text-foreground"
                 onClick={() => {
                   const currentIndex = NEWS_LAYOUT_MODES.findIndex(
@@ -346,6 +347,7 @@ export function NewsSection() {
                 <SelectTrigger
                   className="w-[220px] border-white/10 bg-surface/60 text-xs uppercase tracking-[0.2em]"
                   aria-label={t("convention.news.modeLabel")}
+                  data-news-action="layout_change"
                 >
                   <SelectValue
                     placeholder={t("convention.news.modePlaceholder")}
@@ -368,6 +370,7 @@ export function NewsSection() {
                 size="icon"
                 variant="outline"
                 aria-label={t("convention.news.actions.next")}
+                data-news-action="layout_next"
                 className="h-9 w-9 border-white/10 bg-surface/60 text-foreground/70 hover:border-white/30 hover:text-foreground"
                 onClick={() => {
                   const currentIndex = NEWS_LAYOUT_MODES.findIndex(
@@ -1412,6 +1415,7 @@ export function NewsSection() {
           <Button
             type="button"
             variant="outline"
+            data-news-action="load_more"
             onClick={() => {
               setVisibleCount((count) => count + PAGE_SIZE);
             }}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { ShieldCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -42,7 +43,9 @@ function PreferenceToggles({ categories, onChange }: PreferenceTogglesProps) {
     {
       id: "personalization",
       title: t("convention.consent.categories.personalization.title"),
-      description: t("convention.consent.categories.personalization.description"),
+      description: t(
+        "convention.consent.categories.personalization.description"
+      ),
     },
     {
       id: "advertising",
@@ -67,8 +70,12 @@ function PreferenceToggles({ categories, onChange }: PreferenceTogglesProps) {
           className="group flex cursor-pointer items-start justify-between gap-4 rounded-xl border border-white/10 bg-surface/75 px-4 py-3 transition hover:border-accent/45 hover:bg-surface-elevated/90"
         >
           <span className="min-w-0">
-            <span className="text-sm font-semibold text-foreground">{row.title}</span>
-            <span className="mt-1 block text-xs text-muted-foreground">{row.description}</span>
+            <span className="text-sm font-semibold text-foreground">
+              {row.title}
+            </span>
+            <span className="mt-1 block text-xs text-muted-foreground">
+              {row.description}
+            </span>
           </span>
           <span className="relative mt-0.5 h-6 w-11 shrink-0 rounded-full bg-muted ring-1 ring-white/15 transition group-has-[:checked]:bg-accent">
             <input
@@ -187,13 +194,14 @@ export function TrackingConsentGate() {
     return (
       <div className="pointer-events-none fixed right-3 bottom-3 z-40">
         <Button
-          className="pointer-events-auto border border-accent/40 bg-surface/90 text-xs uppercase tracking-[0.2em] text-accent hover:bg-accent hover:text-accent-foreground"
+          aria-label={t("convention.consent.manage")}
+          className="pointer-events-auto size-11 border border-accent/40 bg-surface/90 text-accent shadow-[0_0_16px_rgba(201,168,76,0.35)] hover:bg-accent hover:text-accent-foreground"
           onClick={openCustomization}
-          size="sm"
+          size="icon"
           type="button"
           variant="outline"
         >
-          {t("convention.consent.manage")}
+          <ShieldCheck className="size-5" />
         </Button>
       </div>
     );

@@ -33,9 +33,9 @@ const ACCENT_STYLES = {
     highlight: "bg-rose-500/15 text-rose-200",
   },
   green: {
-    ring: "from-emerald-400/30 via-emerald-300/10 to-transparent",
-    text: "text-emerald-300",
-    highlight: "bg-emerald-400/15 text-emerald-200",
+    ring: "from-amber-400/30 via-amber-300/10 to-transparent",
+    text: "text-amber-300",
+    highlight: "bg-amber-400/15 text-amber-200",
   },
 } as const;
 

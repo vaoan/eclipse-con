@@ -27,7 +27,7 @@
       "place": "Lugar",
       "placeHotel": "Hotel",
       "placeTravel": "Tips de viaje",
-      "placeFind": "Qué hay en el hotel",
+      "placeFind": "Servicios adicionales",
       "placePricing": "Paquetes y precios",
       "event": "Evento",
       "eventOverview": "Qué incluye el evento",
@@ -354,11 +354,61 @@
       },
       "cta": "Reservar",
       "reserveLink": "Reservar hotel",
+      "tutorialLink": "Abrir tutorial de registro",
       "ticketLink": "Comprar boleta (próximamente)",
       "devNote": "Los precios de habitación compartida son por persona. La habitación para 1 o 2 personas tiene precio total fijo.",
       "noteServices": "Los servicios adicionales del hotel (spa, termales, bar, etc.) no están incluidos en el paquete.",
       "note": "Dudas: info@moonfest.com.co",
       "highlight": "¿Quieres asistir? Reserva hoy y asegura tu lugar en este evento inolvidable."
+    },
+    "registrationTutorial": {
+      "badge": "Guía de registro",
+      "back": "Volver al landing",
+      "title": "Cómo funciona el registro: completa ambos pagos",
+      "subtitle": "El acceso a Moonfest requiere dos pasos. Primero reservas la habitación para las fechas del evento y luego pagas la boleta usando tu código de reserva.",
+      "warning": "Debes completar dos pagos separados: reserva del hotel y boleta del evento. Hacer solo uno no es suficiente.",
+      "steps": {
+        "label": "Paso {{number}}",
+        "step1": {
+          "title": "Reserva tu habitación de hotel",
+          "description": "Empieza en la reserva oficial de Estelar para el 10-13 de julio de 2026.",
+          "point1": "Completa el pago de la habitación directamente con el hotel.",
+          "point2": "Guarda la confirmación de reserva y tu código."
+        },
+        "step2": {
+          "title": "Compra tu boleta de Moonfest",
+          "description": "Después del pago del hotel, continúa con la compra de boleta del evento.",
+          "point1": "Usa tu código de reserva en el checkout de boleta.",
+          "point2": "Paga tu boleta en el flujo oficial de Moonfest."
+        },
+        "step3": {
+          "title": "Conserva ambas confirmaciones",
+          "description": "Tu acceso depende de tener ambos registros completos.",
+          "point1": "Ten disponibles los dos comprobantes antes del evento.",
+          "point2": "Si te falta algo, escribe a info@moonfest.com.co."
+        }
+      },
+      "checklist": {
+        "title": "Checklist rápido",
+        "item1": "Habitación reservada para las fechas del evento",
+        "item2": "Código de reserva recibido y guardado",
+        "item3": "Boleta del evento pagada con ese código"
+      },
+      "interactive": {
+        "title": "Tutorial interactivo",
+        "progress": "Progreso",
+        "markDone": "Marcar este paso como completo",
+        "markPending": "Marcar este paso como pendiente",
+        "previous": "Paso anterior",
+        "next": "Siguiente paso",
+        "done": "Completado",
+        "pending": "Pendiente"
+      },
+      "actions": {
+        "reserve": "Paso 1: Reservar habitación",
+        "ticket": "Paso 2: Comprar boleta",
+        "note": "La compra de boleta sigue siendo separada de la reserva del hotel."
+      }
     },
     "news": {
       "title": "News",
