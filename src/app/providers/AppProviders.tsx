@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { TrackingConsentGate } from "@/app/providers/TrackingConsentGate";
 
 interface AppProvidersProps {
   readonly children: ReactNode;
@@ -16,5 +17,10 @@ export function AppProviders({ children }: AppProvidersProps) {
     document.documentElement.lang = language.startsWith("en") ? "en" : "es";
   }, [i18n.language]);
 
-  return <TooltipProvider>{children}</TooltipProvider>;
+  return (
+    <TooltipProvider>
+      {children}
+      <TrackingConsentGate />
+    </TooltipProvider>
+  );
 }

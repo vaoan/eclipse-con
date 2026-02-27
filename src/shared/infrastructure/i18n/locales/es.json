@@ -457,6 +457,34 @@
         "answer": "Escribe a info@moonfest.com.co."
       }
     },
+    "consent": {
+      "title": "Centro de consentimiento",
+      "headline": "Elige tu nivel de seguimiento",
+      "description": "Siempre usamos telemetría necesaria para seguridad y confiabilidad. Las categorías opcionales habilitan analítica más profunda y medición de campañas.",
+      "notice": "El seguimiento necesario permanece activo para mantener el servicio funcionando.",
+      "acceptAll": "Aceptar todo",
+      "saveSelection": "Guardar selección",
+      "rejectOptional": "Rechazar opcionales",
+      "manage": "Gestionar consentimiento",
+      "categories": {
+        "necessary": {
+          "title": "Estrictamente necesario (siempre activo)",
+          "description": "Eventos de seguridad, monitoreo de confiabilidad y diagnósticos esenciales del servicio."
+        },
+        "analytics": {
+          "title": "Analítica",
+          "description": "Métricas de comportamiento como clics, profundidad de scroll y conteos de interacción con formularios."
+        },
+        "personalization": {
+          "title": "Personalización",
+          "description": "Agrupación de audiencias y señales de preferencia de contenido."
+        },
+        "advertising": {
+          "title": "Publicidad",
+          "description": "Medición de campañas y atribución de conversiones."
+        }
+      }
+    },
     "footer": {
       "tagline": "La convención furry más grande de Colombia",
       "social": "Síguenos",
