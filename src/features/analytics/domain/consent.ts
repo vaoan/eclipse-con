@@ -6,7 +6,7 @@ export interface ConsentCategories {
 export interface TrackingConsentState {
   version: number;
   updatedAt: string;
-  source: "accept_all" | "reject_optional" | "customize";
+  source: "accept_all" | "reject_optional";
   categories: ConsentCategories;
 }
 
@@ -46,10 +46,9 @@ export function getStoredTrackingConsent(): TrackingConsentState | null {
           : new Date().toISOString(),
       source:
         parsedValue.source === "accept_all" ||
-        parsedValue.source === "reject_optional" ||
-        parsedValue.source === "customize"
+        parsedValue.source === "reject_optional"
           ? parsedValue.source
-          : "customize",
+          : "reject_optional",
       categories: {
         necessary: true,
         analytics: parsedValue.categories.analytics,
