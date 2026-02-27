@@ -527,7 +527,7 @@
       "scopeNote": "",
       "acceptAll": "Accept all",
       "saveSelection": "Save selection",
-      "rejectOptional": "Reject optional",
+      "rejectOptional": "Only necessary",
       "manage": "Manage consent",
       "categories": {
         "necessary": {

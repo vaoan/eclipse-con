@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import type { ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { ShieldCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
-  DEFAULT_CONSENT_CATEGORIES,
   getStoredTrackingConsent,
   saveTrackingConsent,
   type ConsentCategories,
@@ -15,7 +13,6 @@ import {
   setAnalyticsConsentGranted,
   trackConsentPreference,
 } from "@/features/analytics/infrastructure/extremeTracking";
-import { trackContentInteraction } from "@/features/analytics/infrastructure/trackingCustomEvents";
 import { LanguageToggle } from "@/features/convention/presentation/components/LanguageToggle";
 import moonfestLogo from "@/shared/presentation/assets/moonfest-logo.svg";
 
@@ -23,39 +20,8 @@ interface TrackingConsentGateProps {
   readonly blockingEnabled?: boolean;
 }
 
-interface PreferenceTogglesProps {
-  readonly categories: ConsentCategories;
-  readonly onChange: (nextCategories: ConsentCategories) => void;
-}
-
-function PreferenceToggles({ categories, onChange }: PreferenceTogglesProps) {
+function ConsentInfo() {
   const { t } = useTranslation();
-
-  const setCategory =
-    (key: keyof Omit<ConsentCategories, "necessary">) =>
-    (event: ChangeEvent<HTMLInputElement>) => {
-      onChange({
-        ...categories,
-        [key]: event.target.checked,
-      });
-      trackContentInteraction({
-        sectionId: "consent",
-        contentId: `consent_${key}`,
-        interactionType: event.target.checked ? "enable" : "disable",
-      });
-    };
-
-  const rows: {
-    id: keyof Omit<ConsentCategories, "necessary">;
-    title: string;
-    description: string;
-  }[] = [
-    {
-      id: "analytics",
-      title: t("convention.consent.categories.analytics.title"),
-      description: t("convention.consent.categories.analytics.description"),
-    },
-  ];
 
   return (
     <div className="space-y-3">
@@ -67,30 +33,14 @@ function PreferenceToggles({ categories, onChange }: PreferenceTogglesProps) {
           {t("convention.consent.categories.necessary.description")}
         </p>
       </div>
-      {rows.map((row) => (
-        <label
-          key={row.id}
-          className="group flex cursor-pointer items-start justify-between gap-4 rounded-xl border border-white/10 bg-surface/75 px-4 py-3 transition hover:border-accent/45 hover:bg-surface-elevated/90"
-        >
-          <span className="min-w-0">
-            <span className="text-sm font-semibold text-foreground">
-              {row.title}
-            </span>
-            <span className="mt-1 block text-xs text-muted-foreground">
-              {row.description}
-            </span>
-          </span>
-          <span className="relative mt-0.5 h-6 w-11 shrink-0 rounded-full bg-muted ring-1 ring-white/15 transition group-has-[:checked]:bg-accent">
-            <input
-              checked={categories[row.id]}
-              className="peer sr-only"
-              onChange={setCategory(row.id)}
-              type="checkbox"
-            />
-            <span className="absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-background shadow transition peer-checked:translate-x-5" />
-          </span>
-        </label>
-      ))}
+      <div className="rounded-xl border border-white/10 bg-surface/75 px-4 py-3">
+        <p className="text-sm font-semibold text-foreground">
+          {t("convention.consent.categories.analytics.title")}
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {t("convention.consent.categories.analytics.description")}
+        </p>
+      </div>
     </div>
   );
 }
@@ -142,9 +92,6 @@ function useConsentState(blockingEnabled: boolean) {
   const [isCustomizeOpen, setCustomizeOpen] = useState<boolean>(
     blockingEnabled && !initialValue
   );
-  const [draftCategories, setDraftCategories] = useState<ConsentCategories>(
-    initialValue?.categories ?? DEFAULT_CONSENT_CATEGORIES
-  );
 
   useEffect(() => {
     setAnalyticsConsentGranted(Boolean(savedConsent?.categories.analytics));
@@ -174,7 +121,6 @@ function useConsentState(blockingEnabled: boolean) {
       updatedAt: savedValue.updatedAt,
     });
     setSavedConsent(savedValue);
-    setDraftCategories(savedValue.categories);
     setCustomizeOpen(false);
   };
 
@@ -196,29 +142,16 @@ function useConsentState(blockingEnabled: boolean) {
     );
   };
 
-  const saveCustom = () => {
-    persist(
-      {
-        analytics: draftCategories.analytics,
-      },
-      "customize"
-    );
-  };
-
   const openCustomization = () => {
-    setDraftCategories(savedConsent?.categories ?? DEFAULT_CONSENT_CATEGORIES);
     setCustomizeOpen(true);
   };
 
   return {
     acceptAll,
-    draftCategories,
     isCustomizeOpen,
     openCustomization,
     rejectOptional,
-    saveCustom,
     savedConsent,
-    setDraftCategories,
   };
 }
 
@@ -226,15 +159,8 @@ export function TrackingConsentGate({
   blockingEnabled = true,
 }: TrackingConsentGateProps) {
   const { t } = useTranslation();
-  const {
-    acceptAll,
-    draftCategories,
-    isCustomizeOpen,
-    openCustomization,
-    rejectOptional,
-    saveCustom,
-    setDraftCategories,
-  } = useConsentState(blockingEnabled);
+  const { acceptAll, isCustomizeOpen, openCustomization, rejectOptional } =
+    useConsentState(blockingEnabled);
 
   if (!isCustomizeOpen) {
     return (
@@ -264,16 +190,13 @@ export function TrackingConsentGate({
 
         <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-6 sm:py-5">
           <div>
-            <PreferenceToggles
-              categories={draftCategories}
-              onChange={setDraftCategories}
-            />
+            <ConsentInfo />
           </div>
         </div>
         <div className="border-t border-white/10 bg-surface/90 px-5 py-3 sm:px-6 sm:py-4">
           <div className="grid gap-2 sm:grid-cols-2">
             <Button
-              className="w-full border border-primary/95 bg-[linear-gradient(135deg,hsl(var(--primary)),hsl(var(--accent)))] py-6 text-base font-black uppercase tracking-[0.18em] text-primary-foreground shadow-[0_16px_40px_-20px_hsl(var(--accent))] hover:scale-[1.01] hover:brightness-110 focus-visible:ring-primary/90 sm:col-span-2"
+              className="w-full border border-primary/95 bg-[linear-gradient(135deg,hsl(var(--primary)),hsl(var(--accent)))] py-6 text-base font-black uppercase tracking-[0.18em] text-primary-foreground shadow-[0_16px_40px_-20px_hsl(var(--accent))] hover:scale-[1.01] hover:brightness-110 focus-visible:ring-primary/90"
               onClick={acceptAll}
               type="button"
               data-cta-id="consent_accept_all"
@@ -281,17 +204,6 @@ export function TrackingConsentGate({
               data-content-section="consent"
             >
               {t("convention.consent.acceptAll")}
-            </Button>
-            <Button
-              className="w-full border-white/15 bg-white/5 text-sm font-medium text-foreground/75 hover:bg-white/10 hover:text-foreground/85 focus-visible:ring-white/60"
-              onClick={saveCustom}
-              type="button"
-              variant="outline"
-              data-cta-id="consent_save"
-              data-content-id="consent_save"
-              data-content-section="consent"
-            >
-              {t("convention.consent.saveSelection")}
             </Button>
             <Button
               className="w-full border-white/10 bg-transparent text-sm font-medium text-foreground/60 hover:bg-white/5 hover:text-foreground/75 focus-visible:ring-white/50"
