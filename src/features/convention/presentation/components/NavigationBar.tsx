@@ -352,7 +352,6 @@ function MobileNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
 
   return (
     <div className="flex items-center gap-3 md:hidden">
-      <LanguageToggle />
       <Sheet>
         <SheetTrigger asChild>
           <Button
@@ -493,37 +492,42 @@ export function NavigationBar() {
   const { t } = useTranslation();
 
   return (
-    <nav
-      data-anchor-nav="true"
-      className={cn(
-        "fixed top-0 right-0 left-0 z-50",
-        "border-b border-white/10 bg-gradient-to-r from-background/95 via-background/85 to-background/95 backdrop-blur-xl"
-      )}
-      {...tid("navigation-bar")}
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link
-          to={getSectionHref(SECTION_IDS.HERO)}
-          className="flex items-center hover:cursor-pointer"
-          data-cta-id="nav_logo"
-          data-content-id="logo"
-          data-content-section="navigation"
-          onClick={() => {
-            document
-              .getElementById(SECTION_IDS.HERO)
-              ?.scrollIntoView({ behavior: "smooth" });
-          }}
-        >
-          <img
-            src={moonfestLogo}
-            alt={t("convention.hero.logoAlt")}
-            className="h-8 w-auto sm:h-9"
-            loading="lazy"
-          />
-        </Link>
-        <DesktopNav groups={NAV_GROUPS} />
-        <MobileNav groups={NAV_GROUPS} />
+    <>
+      <div className="fixed top-2 right-4 z-[55] md:hidden">
+        <LanguageToggle />
       </div>
-    </nav>
+      <nav
+        data-anchor-nav="true"
+        className={cn(
+          "fixed top-0 right-0 left-0 z-50",
+          "border-b border-white/10 bg-gradient-to-r from-background/95 via-background/85 to-background/95 backdrop-blur-xl"
+        )}
+        {...tid("navigation-bar")}
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+          <Link
+            to={getSectionHref(SECTION_IDS.HERO)}
+            className="flex items-center hover:cursor-pointer"
+            data-cta-id="nav_logo"
+            data-content-id="logo"
+            data-content-section="navigation"
+            onClick={() => {
+              document
+                .getElementById(SECTION_IDS.HERO)
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <img
+              src={moonfestLogo}
+              alt={t("convention.hero.logoAlt")}
+              className="h-8 w-auto sm:h-9"
+              loading="lazy"
+            />
+          </Link>
+          <DesktopNav groups={NAV_GROUPS} />
+          <MobileNav groups={NAV_GROUPS} />
+        </div>
+      </nav>
+    </>
   );
 }
