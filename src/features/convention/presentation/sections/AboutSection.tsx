@@ -17,6 +17,9 @@ export function AboutSection() {
         <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
           {t("convention.about.paragraph2")}
         </p>
+        <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+          {t("convention.about.paragraph3")}
+        </p>
       </div>
     </SectionWrapper>
   );
