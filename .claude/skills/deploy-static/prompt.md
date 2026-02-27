@@ -1,37 +1,12 @@
 # deploy-static skill
 
-Build the static single-file HTML artifact and optionally deploy it to the local network share.
+Fully unattended: always does a static build, fixes all issues, commits, pushes, and copies to the network share if available. Never asks the user anything.
 
 ## Steps
 
-### 1. Ask the user which version to serve
+### 1. Freshness check
 
-Ask the user:
-
-> "Would you like to test against the **dev server** or the **static build**?"
->
-> - **Dev server** — Vite serves the app live at `http://localhost:5173`.
-> - **Static build** — uses `pnpm build:static` to produce `dist-static/index.html` (a single self-contained file). The build will be skipped if the artifact is already up-to-date.
-
-Choices: `["Dev server", "Static build (auto-detect freshness)"]`
-
----
-
-### 2a. Dev server path
-
-Start the Vite dev server:
-
-```powershell
-pnpm dev
-```
-
-Wait until the server is ready (`Local: http://localhost:5173`), then continue with the audit / performance check against `http://localhost:5173`.
-
----
-
-### 2b. Static build path
-
-**Freshness check** — the static build is considered _stale_ when any source file is newer than `dist-static/index.html`.
+The static build is considered _stale_ when any source file is newer than `dist-static/index.html`.
 
 ```powershell
 $artifact = "dist-static\index.html"
@@ -47,7 +22,9 @@ if (-not (Test-Path $artifact)) {
 Write-Host ($stale ? "STALE - rebuild required" : "FRESH - skipping build")
 ```
 
-If stale, run:
+### 2. Build (if stale)
+
+Run the static build. If it fails, diagnose and fix the issue automatically, then retry — never skip or ask:
 
 ```powershell
 pnpm build:static
@@ -55,7 +32,23 @@ pnpm build:static
 
 This produces `dist-static/index.html`.
 
-**Deploy to network share** — if the `P:` drive is mounted, copy the artifact there:
+### 3. Commit & push
+
+Stage all modified tracked files and commit. Use a conventional commit message that reflects what changed (e.g. includes the app version if it was bumped). Always include the Co-authored-by trailer. Then push:
+
+```powershell
+git add -u
+git commit -m "chore: build static artifact
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+git push
+```
+
+> Note: `dist-static/` is gitignored — do NOT try to stage the artifact itself.
+
+### 4. Deploy to network share
+
+If the `P:` drive is mounted, copy the artifact there automatically:
 
 ```powershell
 if (Test-Path "P:\") {
@@ -66,20 +59,6 @@ if (Test-Path "P:\") {
 }
 ```
 
----
+### 5. Verify
 
-### 3. Commit & push (if requested)
-
-After building, stage any changed files and commit with a conventional message:
-
-```
-chore: build static artifact
-```
-
-Then push.
-
----
-
-### 4. Verify
-
-Confirm the deployed file path and size to the user. If a dev server was started, confirm the URL.
+Report the artifact path, file size in MB, and whether the network copy was made.
