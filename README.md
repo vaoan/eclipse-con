@@ -174,7 +174,7 @@ These run regardless of consent choice because they serve operational reliabilit
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `locale_switch`              | Fires when the user changes language (EN↔ES). Measures genuine language preference vs. browser default. Informs content prioritization (Spanish-first vs. bilingual parity). |
 | `referral_campaign_bucket`   | Classifies the referrer into coarse buckets (social, search, direct, partner). No UTM values or full URLs are stored — just the channel bucket.                              |
-| `consent_preference_updated` | Auditable record of every consent decision: category, new state, method (accept_all / customize / reject). Required for GDPR/CCPA compliance audit trails.                   |
+| `consent_preference_updated` | Auditable record of every consent decision: category, new state, method (accept_all / reject_optional). Required for GDPR/CCPA compliance audit trails.                      |
 
 </details>
 
@@ -262,28 +262,25 @@ These events fire only after the user grants Analytics consent. They enable UX i
 
 ### Proposed events — not yet implemented
 
-| Event                                   | Trigger                                            | Business reason                                                                           |
-| --------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `registration_tutorial_step_selected`   | User clicks a tutorial step card                   | Detect which step attracts most attention/confusion in the two-payment journey            |
-| `registration_tutorial_step_toggled`    | User marks a step done/pending                     | Identify checklist friction and verify whether the tutorial structure reduces uncertainty |
-| `registration_tutorial_progress_bucket` | Tutorial progress crosses 33/66/100%               | Measure tutorial completion quality before checkout intent                                |
-| `faq_blocker_theme`                     | FAQ item opens on a reservation/ticket blocker     | Convert raw FAQ usage into actionable blocker categories                                  |
-| `reserve_ticket_handoff`                | User clicks reserve + ticket links in same session | Measure handoff quality between hotel reservation and ticket steps                        |
+| Event                    | Trigger                                            | Business reason                                                    |
+| ------------------------ | -------------------------------------------------- | ------------------------------------------------------------------ |
+| `faq_blocker_theme`      | FAQ item opens on a reservation/ticket blocker     | Convert raw FAQ usage into actionable blocker categories           |
+| `reserve_ticket_handoff` | User clicks reserve + ticket links in same session | Measure handoff quality between hotel reservation and ticket steps |
 
 ---
 
 ### Consent model
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  Consent Gate (shown on first visit, re-openable any time)      │
-├──────────────┬──────────────┬─────────────────┬─────────────────┤
-│  Necessary   │  Analytics   │ Personalization │ Conv. Growth    │
-│  Always ON   │  Opt-in      │  Opt-in         │   Opt-in        │
-│              │              │  (stored,       │   (stored,      │
-│  ~15 events  │  ~40 events  │  future attend. │   future reach  │
-│              │              │  tailoring)     │   insights)     │
-└──────────────┴──────────────┴─────────────────┴─────────────────┘
+┌─────────────────────────────────────────────┐
+│  Consent Gate (shown on first visit,        │
+│  re-openable any time)                      │
+├─────────────────────┬───────────────────────┤
+│  Necessary          │  Analytics            │
+│  Always ON          │  Opt-in               │
+│                     │                       │
+│  ~15 events         │  ~35 events           │
+└─────────────────────┴───────────────────────┘
 ```
 
 Consent is stored in `localStorage` under key `tracking_consent_v1`. Users can **Accept all** or **Only necessary** at any time. No dark patterns — both options have equal visual weight.
@@ -360,8 +357,6 @@ Safe defaults live in `.env.development` (committed). Secrets go in `.env.local`
 
 - `Necessary` is always enabled — operations, reliability, and consent auditing.
 - `Analytics` gates all optional behavioral and funnel tracking — the primary source for planning future editions.
-- `Personalization` preference is stored for a future feature that will tailor schedules and communications per attendee; no separate trackers active yet.
-- `Convention Growth` (internally `advertising` field) preference is stored to inform outreach and community growth decisions for future Moonfest editions; no third-party ad pixels or platforms are active.
 
 ### What we track and why
 
@@ -462,8 +457,8 @@ Safe defaults live in `.env.development` (committed). Secrets go in `.env.local`
 | `registration_tutorial_step_selected`   | `current`           | `analytics`  | Optional tutorial navigation analysis           | `low`             |
 | `registration_tutorial_step_toggled`    | `current`           | `analytics`  | Optional checklist completion analysis          | `low`             |
 | `registration_tutorial_progress_bucket` | `current`           | `analytics`  | Optional tutorial completion benchmarking       | `low`             |
-| `faq_blocker_theme`                     | `current`           | `analytics`  | Optional blocker taxonomy for FAQ               | `low`             |
-| `reserve_ticket_handoff`                | `current`           | `analytics`  | Optional two-step conversion handoff analysis   | `low`             |
+| `faq_blocker_theme`                     | `proposed`          | `analytics`  | Optional blocker taxonomy for FAQ               | `low`             |
+| `reserve_ticket_handoff`                | `proposed`          | `analytics`  | Optional two-step conversion handoff analysis   | `low`             |
 
 ### In-app consent UX
 
