@@ -195,7 +195,8 @@ export function TrackingConsentGate({
         <div className="border-t border-white/10 bg-surface/90 px-5 py-4 sm:px-6 sm:py-5">
           <div className="flex flex-col items-center gap-3">
             <Button
-              className="relative w-full overflow-hidden border border-accent/60 bg-[linear-gradient(110deg,hsl(var(--accent))_0%,hsl(var(--accent-glow))_50%,hsl(var(--accent))_100%)] bg-[length:200%_100%] py-7 text-lg font-black uppercase tracking-[0.22em] text-accent-foreground transition-all duration-300 before:absolute before:inset-0 before:-translate-x-full before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)] before:transition-transform before:duration-700 hover:scale-[1.015] hover:brightness-110 hover:before:translate-x-full focus-visible:ring-accent/90"
+              variant="ghost"
+              className="relative w-full overflow-hidden bg-accent py-7 text-lg font-black uppercase tracking-[0.22em] text-accent-foreground transition-all duration-300 before:absolute before:inset-0 before:-translate-x-full before:bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent)] before:transition-transform before:duration-700 hover:scale-[1.015] hover:bg-accent hover:brightness-110 hover:text-accent-foreground hover:before:translate-x-full focus-visible:ring-accent/90"
               onClick={acceptAll}
               type="button"
               data-cta-id="consent_accept_all"
