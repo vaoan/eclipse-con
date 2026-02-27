@@ -516,35 +516,35 @@
     "consent": {
       "title": "Centro de consentimiento",
       "headline": "Ayúdanos a organizar mejor Moonfest",
-      "description": "Tu elección de datos nos ayuda a entender qué funciona, mejorar la logística y comunicar mejor el evento. Elige cómo quieres apoyar.",
+      "description": "Tus preferencias nos ayudan a entender qué funciona, mejorar el evento y planificar las próximas ediciones. Elige cómo quieres participar.",
       "supportTag": "Impacto en la convención",
       "supportTitle": "Así ayudas a que Moonfest funcione mejor",
       "supportDescription": "Con tus preferencias podemos tomar mejores decisiones para horarios, experiencias y comunicación con asistentes.",
       "supportPoint1": "Detectar qué secciones generan más dudas antes del evento.",
       "supportPoint2": "Priorizar mejoras en reservas, boletas y flujo de registro.",
       "supportPoint3": "Medir qué campañas sí traen asistentes reales.",
-      "notice": "El seguimiento necesario permanece activo para mantener el servicio funcionando.",
-      "scopeNote": "Implementación actual: el consentimiento de Analítica activa todo el seguimiento opcional de comportamiento. Las preferencias de Personalización y Crecimiento de la convención se guardan e informan la planificación de futuras ediciones; ningún rastreador de terceros se activa con esas opciones hoy.",
+      "notice": "El seguimiento necesario siempre está activo para que el sitio funcione correctamente.",
+      "scopeNote": "Hoy, solo Analítica activa el seguimiento opcional de comportamiento. Las preferencias de Personalización y Crecimiento de la convención se guardan y nos ayudan a planificar futuras ediciones; ningún servicio externo se activa con esas opciones.",
       "acceptAll": "Aceptar todo",
-      "saveSelection": "Guardar selección",
-      "rejectOptional": "Rechazar opcionales",
-      "manage": "Gestionar consentimiento",
+      "saveSelection": "Guardar preferencias",
+      "rejectOptional": "Solo lo necesario",
+      "manage": "Privacidad",
       "categories": {
         "necessary": {
-          "title": "Estrictamente necesario (siempre activo)",
-          "description": "Operaciones esenciales del servicio: monitoreo de errores, confiabilidad de sesión y registro de consentimiento. Nunca se usa para perfilamiento."
+          "title": "Necesario (siempre activo)",
+          "description": "Operaciones esenciales: detección de errores, estabilidad de sesión y registro de consentimiento. Nunca se usa para crear perfiles de usuario."
         },
         "analytics": {
           "title": "Analítica",
-          "description": "Datos anónimos de comportamiento (clics, profundidad de scroll, interacción con secciones, pasos del funnel) para entender qué funciona y planificar un mejor Moonfest cada año."
+          "description": "Datos anónimos sobre cómo interactúas con el sitio (clics, secciones visitadas, pasos hacia el registro) para entender qué funciona y mejorar el próximo Moonfest."
         },
         "personalization": {
           "title": "Personalización",
-          "description": "Función futura para adaptar horarios, recomendaciones y comunicaciones a cada asistente. Aún no hay rastreadores separados activos."
+          "description": "Próximamente, para adaptar la programación, recomendaciones y mensajes a tus intereses. Por ahora no hay seguimiento activo para esto."
         },
         "advertising": {
           "title": "Crecimiento de la convención",
-          "description": "Nos ayuda a entender cómo los asistentes descubren Moonfest y cómo hacer crecer la comunidad en futuras ediciones. No se usan plataformas publicitarias ni píxeles de terceros."
+          "description": "Datos para entender cómo la gente descubre Moonfest y hacer crecer la comunidad furry en futuras ediciones. Sin plataformas publicitarias ni herramientas de terceros."
         }
       }
     },
