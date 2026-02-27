@@ -465,6 +465,11 @@ export function NavigationBar() {
         <Link
           to={getSectionHref(SECTION_IDS.HERO)}
           className="flex items-center hover:cursor-pointer"
+          onClick={() => {
+            document
+              .getElementById(SECTION_IDS.HERO)
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
         >
           <img
             src={moonfestLogo}
