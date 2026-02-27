@@ -84,6 +84,10 @@ const getSectionIdFromUrl = (
 };
 
 const scrollToSection = (sectionId: string) => {
+  if (sectionId === SECTION_IDS.HERO) {
+    window.scrollTo({ top: 0 });
+    return true;
+  }
   const section = document.getElementById(sectionId);
   if (!section) {
     return false;
