@@ -4,8 +4,8 @@ import {
   type Primitive,
   type TrackedEventName,
   type TrackingOptions,
-} from "@/shared/infrastructure/analytics/trackingSchema";
-import { sanitizeEventData } from "@/shared/infrastructure/analytics/trackingPrivacy";
+} from "@/features/analytics/infrastructure/trackingSchema";
+import { sanitizeEventData } from "@/features/analytics/infrastructure/trackingPrivacy";
 import {
   getDatasetSignals,
   getLanguage,
@@ -13,8 +13,8 @@ import {
   getQueryKeys,
   getSafeElementData,
   getViewportBucket,
-} from "@/shared/infrastructure/analytics/trackingBrowserContext";
-import { registerCustomTrackingListeners } from "@/shared/infrastructure/analytics/trackingCustomEvents";
+} from "@/features/analytics/infrastructure/trackingBrowserContext";
+import { registerCustomTrackingListeners } from "@/features/analytics/infrastructure/trackingCustomEvents";
 import {
   getConnectionType,
   getContextSignals,
@@ -23,7 +23,7 @@ import {
   getPagesPerSessionBucket,
   getReferralCampaignBucket,
   getWebVitalBuckets,
-} from "@/shared/infrastructure/analytics/trackingSignals";
+} from "@/features/analytics/infrastructure/trackingSignals";
 import {
   getCtaPositionBucket,
   getDurationBucketFromMs,
@@ -37,7 +37,7 @@ import {
   getReservationLeadTimeBucket,
   getResultCountBucket,
   getSectionIdFromTarget,
-} from "@/shared/infrastructure/analytics/trackingInteractionSignals";
+} from "@/features/analytics/infrastructure/trackingInteractionSignals";
 
 const EVENT_QUEUE_LIMIT = 200;
 const FLUSH_INTERVAL_MS = 5000;
@@ -945,4 +945,4 @@ export {
   trackDemographics,
   trackExperimentExposure,
   trackFunnelStep,
-} from "@/shared/infrastructure/analytics/trackingCustomEvents";
+} from "@/features/analytics/infrastructure/trackingCustomEvents";

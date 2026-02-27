@@ -2,94 +2,69 @@
 
 ## Tracking and Consent
 
-The app uses a two-tier tracking model:
+### Data minimization and safety controls
 
-- `Always on (no optional consent required)`:
-  - `session_start`
-    - Includes: `deviceBucket`, `osFamily`, `browserFamily`, `referrerBucket`, `connectionType`
-  - `session_end`
-    - Includes: `durationBucket`, `pagesPerSessionBucket`, `activeTimeBucket`
-  - `page_view`
-    - Includes: `trigger`, `path`, `deviceBucket`, `osFamily`, `browserFamily`, `referrerBucket`, `connectionType`
-  - `section_impression`
-    - Includes: `sectionId`
-  - `outbound_link_click`
-    - Includes: `domainBucket`
-  - `page_load_failure`
-    - Includes: `resourceType`
-  - `media_load_health`
-    - Includes: `mediaType`, `status`
-  - `device_performance_class`
-    - Includes: `performanceClass`
-  - `referral_campaign_bucket`
-    - Includes: `bucket` (`utm_present`, `ad_click_id`, `none`)
-  - `accessibility_usage`
-    - Includes: `mode` (for example `keyboard_navigation`, `reduced_motion`)
-  - `locale_switch`
-    - Includes: `toLocale`
-  - `navigation_menu_usage`
-    - Includes: `action`
-  - `time_to_first_interaction`
-    - Includes: `bucket`
-  - `visibility_change`
-  - `js_error`
-  - `unhandled_rejection`
-  - `network_change`
-    - Includes: `online`, `connectionType`
-  - `performance_snapshot`
-    - Includes: `domComplete`, `loadEventEnd`, `firstPaint`, `firstContentfulPaint`, `largestContentfulPaintBucket`, `cumulativeLayoutShiftBucket`, `interactionToNextPaintBucket`
+- All events are sanitized through an allowlist (`EVENT_DATA_ALLOWLIST`).
+- Only approved keys per event are kept.
+- Paths are sanitized (`/users/123` -> `/users/:id` style normalization).
+- Query values are never sent, only sanitized query key names.
+- Suspicious PII-like keys/values (email/phone-like patterns, sensitive tokens) are dropped.
+- Base IDs are pseudonymous: `sessionId` (session storage) and `anonymousId` (local storage).
 
-- `Requires Analytics consent`:
-  - `click`
-  - `rage_click`
-  - `scroll_depth`
-  - `form_submit`
-  - `field_change`
-  - `demographics_submitted`
-    - Optional safe fields: `ageRange`, `gender`, `country` (ISO 3166-1 alpha-2 code, e.g. `CO`, `US`)
-  - `navigation_transition`
-    - Includes: `fromPath`, `toPath` (sanitized path only)
-  - `cta_interaction`
-    - Includes: `ctaId`, `ctaVariant`, `ctaPosition`, `sectionId`
-  - `faq_interaction`
-    - Includes: `faqId`, `action`
-  - `news_engagement`
-    - Includes: `action`, `layoutMode`, `itemId`
-  - `copy_interaction`
-    - Includes: `sourceId`
-  - `search_interaction`
-    - Includes: `queryLengthBucket`, `resultCountBucket`, `sourceId`
-  - `dwell_time_per_section`
-    - Includes: `sectionId`, `durationBucket`
-  - `return_intent`
-    - Includes: `action`
-  - `cta_visibility`
-    - Includes: `ctaId`, `ctaVariant`, `sectionId`
-  - `nav_path_cluster`
-    - Includes: `cluster`
-  - `form_error_type`
-    - Includes: `errorType`, `fieldType`
-  - `media_watch_progress`
-    - Includes: `mediaType`, `progress`
-  - `network_quality_impact`
-    - Includes: `step`, `connectionType`
-  - `engagement_score_bucket`
-    - Includes: `bucket`
-  - `error_recovery`
-    - Includes: `status`
-  - `reservation_lead_time_bucket`
-    - Includes: `bucket`
-  - `content_interaction`
-    - Includes: `sectionId`, `contentId`, `interactionType`
-  - `funnel_step`
-    - Includes: `step`, `ctaId`, `ctaVariant`
-  - `experiment_exposure`
-    - Includes: `experimentId`, `variantId`
+### Consent model (current implementation)
 
-Automatic attribute-based capture (analytics consent required):
+- `Necessary` is always enabled.
+- `Analytics` gates all optional behavioral and funnel tracking.
+- `Personalization` and `Advertising` preferences are stored, but no separate trackers are currently activated by those toggles.
 
-- Add `data-funnel-step`, optional `data-cta-id`, `data-cta-variant` to clickable elements for `funnel_step`.
-- Add `data-content-section`, `data-content-id`, optional `data-content-interaction` for `content_interaction`.
-- Add `data-experiment-id` and `data-variant-id` for `experiment_exposure`.
+### What we track and why
 
-Consent categories are managed in the in-app consent gate. Users can accept all, reject optional tracking, or save a custom selection, and can reopen settings via **Manage consent**.
+#### Necessary (always on)
+
+- Session + reliability:
+  - `session_start`, `session_end`, `network_change`, `visibility_change`
+  - Why: service health, session quality, and reliability diagnostics.
+- Core navigation and availability:
+  - `page_view`, `section_impression`, `outbound_link_click`
+  - Why: validate navigation flow and detect broken/abandoned paths.
+- Runtime and loading health:
+  - `page_load_failure`, `media_load_health`, `js_error`, `unhandled_rejection`
+  - Why: detect production failures fast and recover user experience.
+- Performance + compatibility:
+  - `performance_snapshot`, `device_performance_class`, `accessibility_usage`
+  - Why: monitor Core Web Vitals buckets and accessibility context to keep the site usable.
+- Locale and channel context:
+  - `locale_switch`, `referral_campaign_bucket`
+  - Why: understand language demand and acquisition channel mix at aggregate level.
+
+#### Optional (requires Analytics consent)
+
+- Interaction quality:
+  - `click`, `rage_click`, `scroll_depth`, `time_to_first_interaction`
+  - Why: identify friction and confusing UI zones.
+- Form and search quality:
+  - `field_change`, `form_submit`, `form_error_type`, `search_interaction`, `copy_interaction`
+  - Why: improve completion rates and reduce errors in key journeys.
+- Content and section engagement:
+  - `dwell_time_per_section`, `news_engagement`, `faq_interaction`, `content_interaction`
+  - Why: prioritize content that helps attendees complete reservation + ticket steps.
+- CTA/funnel conversion:
+  - `cta_visibility`, `cta_interaction`, `funnel_step`, `reservation_lead_time_bucket`, `network_quality_impact`
+  - Why: measure conversion bottlenecks and optimize high-impact CTAs.
+- Journey and experimentation:
+  - `navigation_transition`, `nav_path_cluster`, `return_intent`, `experiment_exposure`, `engagement_score_bucket`, `error_recovery`
+  - Why: improve pathing and validate changes safely with controlled experiments.
+- Optional demographics (when explicitly submitted):
+  - `demographics_submitted` with allowlisted options only (`gender`, `ageRange`, optional `attendeeType`, `regionBucket`, `country` ISO-2).
+  - Why: understand audience composition at aggregate level without storing direct identifiers.
+
+### Attribute-based auto-capture (Analytics consent required)
+
+- `data-funnel-step` (+ optional `data-cta-id`, `data-cta-variant`) -> `funnel_step`
+- `data-content-section` + `data-content-id` (+ optional `data-content-interaction`) -> `content_interaction`
+- `data-experiment-id` + `data-variant-id` -> `experiment_exposure`
+
+### In-app consent UX
+
+- Users can `Accept all`, `Save selection`, or `Reject optional`.
+- Settings can be reopened from the floating **Manage consent** button.

@@ -1,8 +1,8 @@
 import type {
   Primitive,
   TrackedEventName,
-} from "@/shared/infrastructure/analytics/trackingSchema";
-import { EVENT_DATA_ALLOWLIST } from "@/shared/infrastructure/analytics/trackingSchema";
+} from "@/features/analytics/infrastructure/trackingSchema";
+import { EVENT_DATA_ALLOWLIST } from "@/features/analytics/infrastructure/trackingSchema";
 
 const MAX_STRING_VALUE_LENGTH = 64;
 const SAFE_TOKEN_PATTERN = /^[a-z0-9_.:/-]+$/i;

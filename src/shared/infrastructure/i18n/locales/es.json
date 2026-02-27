@@ -474,6 +474,11 @@
     },
     "faq": {
       "title": "Preguntas frecuentes",
+      "tutorialCallout": {
+        "badge": "Importante: completa ambos pagos",
+        "description": "¿Quieres una guía rápida? Sigue el tutorial de registro para reservar primero la habitación y luego comprar la boleta con el código de reserva.",
+        "cta": "Abrir tutorial de registro"
+      },
       "q1": {
         "question": "¿Puedo reservar solo una noche?",
         "answer": "No, Moonfest solo ofrece paquetes de 4 días y 3 noches."
@@ -509,9 +514,16 @@
     },
     "consent": {
       "title": "Centro de consentimiento",
-      "headline": "Elige tu nivel de seguimiento",
-      "description": "Siempre usamos telemetría necesaria para seguridad y confiabilidad. Las categorías opcionales habilitan analítica más profunda y medición de campañas.",
+      "headline": "Ayúdanos a organizar mejor Moonfest",
+      "description": "Tu elección de datos nos ayuda a entender qué funciona, mejorar la logística y comunicar mejor el evento. Elige cómo quieres apoyar.",
+      "supportTag": "Impacto en la convención",
+      "supportTitle": "Así ayudas a que Moonfest funcione mejor",
+      "supportDescription": "Con tus preferencias podemos tomar mejores decisiones para horarios, experiencias y comunicación con asistentes.",
+      "supportPoint1": "Detectar qué secciones generan más dudas antes del evento.",
+      "supportPoint2": "Priorizar mejoras en reservas, boletas y flujo de registro.",
+      "supportPoint3": "Medir qué campañas sí traen asistentes reales.",
       "notice": "El seguimiento necesario permanece activo para mantener el servicio funcionando.",
+      "scopeNote": "Implementación actual: el seguimiento opcional se controla con el consentimiento de Analítica. Las preferencias de Personalización y Publicidad se guardan para uso futuro y no activan etiquetas publicitarias de terceros hoy.",
       "acceptAll": "Aceptar todo",
       "saveSelection": "Guardar selección",
       "rejectOptional": "Rechazar opcionales",
@@ -523,15 +535,15 @@
         },
         "analytics": {
           "title": "Analítica",
-          "description": "Métricas de comportamiento como clics, profundidad de scroll y conteos de interacción con formularios."
+          "description": "Métricas opcionales de comportamiento (clics, profundidad de scroll, interacción con formularios y rendimiento de CTA/funnel) usando solo datos saneados."
         },
         "personalization": {
           "title": "Personalización",
-          "description": "Agrupación de audiencias y señales de preferencia de contenido."
+          "description": "Preferencia reservada para funciones futuras de personalización de contenido. Aún no hay rastreadores separados activos."
         },
         "advertising": {
           "title": "Publicidad",
-          "description": "Medición de campañas y atribución de conversiones."
+          "description": "Preferencia reservada para herramientas futuras de campaña. Actualmente no se habilitan píxeles publicitarios de terceros."
         }
       }
     },

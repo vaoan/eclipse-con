@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tracking Compliance Audit"
+  short_description: "Audit analytics events, consent gating, and disclosure accuracy."
+  default_prompt: "Audit tracking implementation, consent copy, and README for compliance accuracy and data minimization."

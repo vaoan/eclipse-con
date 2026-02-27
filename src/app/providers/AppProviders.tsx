@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { TrackingConsentGate } from "@/app/providers/TrackingConsentGate";
+import { TrackingConsentGate } from "@/features/analytics/presentation/TrackingConsentGate";
 
 interface AppProvidersProps {
   readonly children: ReactNode;

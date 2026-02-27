@@ -1,4 +1,4 @@
-import type { Primitive } from "@/shared/infrastructure/analytics/trackingSchema";
+import type { Primitive } from "@/features/analytics/infrastructure/trackingSchema";
 
 interface NavigatorWithConnection extends Navigator {
   connection?: {

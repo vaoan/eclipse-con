@@ -10,8 +10,8 @@ import {
   saveTrackingConsent,
   type ConsentCategories,
   type TrackingConsentState,
-} from "@/shared/infrastructure/analytics/consent";
-import { setAnalyticsConsentGranted } from "@/shared/infrastructure/analytics/extremeTracking";
+} from "@/features/analytics/domain/consent";
+import { setAnalyticsConsentGranted } from "@/features/analytics/infrastructure/extremeTracking";
 
 interface PreferenceTogglesProps {
   readonly categories: ConsentCategories;
@@ -89,6 +89,74 @@ function PreferenceToggles({ categories, onChange }: PreferenceTogglesProps) {
         </label>
       ))}
     </div>
+  );
+}
+
+function ConsentSupportPanel() {
+  const { t } = useTranslation();
+
+  return (
+    <aside className="rounded-2xl border border-accent/35 bg-gradient-to-br from-accent/20 via-accent/10 to-transparent p-4 sm:p-5">
+      <p className="text-[0.65rem] font-bold uppercase tracking-[0.3em] text-accent">
+        {t("convention.consent.supportTag")}
+      </p>
+      <h3 className="mt-2 text-lg font-black text-foreground">
+        {t("convention.consent.supportTitle")}
+      </h3>
+      <p className="mt-2 text-sm text-foreground/85">
+        {t("convention.consent.description")}
+      </p>
+      <ul className="mt-4 space-y-2 text-xs text-foreground/80 sm:text-sm">
+        <li>- {t("convention.consent.supportPoint1")}</li>
+        <li>- {t("convention.consent.supportPoint2")}</li>
+        <li>- {t("convention.consent.supportPoint3")}</li>
+      </ul>
+    </aside>
+  );
+}
+
+function ConsentLanguageSwitcher() {
+  const { i18n, t } = useTranslation();
+  const isEnglish = i18n.resolvedLanguage?.startsWith("en") ?? true;
+  const activeLanguageLabel = isEnglish ? "English" : "Español";
+  const currentLanguageId = "consent-language-toggle-current";
+
+  return (
+    <Button
+      type="button"
+      variant="ghost"
+      onClick={() => {
+        void i18n.changeLanguage(isEnglish ? "es" : "en");
+      }}
+      className="group relative inline-flex h-9 min-w-[118px] items-center overflow-hidden rounded-full border border-accent/45 p-1 bg-background/60 hover:border-accent/70 focus-visible:ring-accent/70"
+      role="switch"
+      aria-checked={isEnglish}
+      aria-describedby={currentLanguageId}
+      aria-label={t("convention.language.toggleAria", {
+        language: activeLanguageLabel,
+      })}
+    >
+      <span className="pointer-events-none absolute inset-y-1 left-1 right-1 z-0">
+        <span
+          className={`block h-full w-1/2 rounded-full border border-accent/30 bg-accent shadow-[0_0_10px_rgba(201,168,76,0.3)] transition-transform duration-300 ${isEnglish ? "translate-x-0" : "translate-x-full"}`}
+        />
+      </span>
+      <span className="relative z-10 grid w-full grid-cols-2 text-[11px] font-semibold">
+        <span
+          className={`flex h-7 items-center justify-center transition-colors ${isEnglish ? "text-accent-foreground" : "text-foreground/65"}`}
+        >
+          EN
+        </span>
+        <span
+          className={`flex h-7 items-center justify-center transition-colors ${!isEnglish ? "text-accent-foreground" : "text-foreground/65"}`}
+        >
+          ES
+        </span>
+      </span>
+      <span id={currentLanguageId} className="sr-only">
+        {t("convention.language.current", { language: activeLanguageLabel })}
+      </span>
+    </Button>
   );
 }
 
@@ -195,7 +263,7 @@ export function TrackingConsentGate() {
       <div className="pointer-events-none fixed right-3 bottom-3 z-40">
         <Button
           aria-label={t("convention.consent.manage")}
-          className="pointer-events-auto size-11 border border-accent/40 bg-surface/90 text-accent shadow-[0_0_16px_rgba(201,168,76,0.35)] hover:bg-accent hover:text-accent-foreground"
+          className="pointer-events-auto size-11 border border-accent/60 bg-surface text-accent shadow-[0_0_16px_rgba(201,168,76,0.35)] hover:bg-accent hover:text-accent-foreground focus-visible:ring-accent/70"
           onClick={openCustomization}
           size="icon"
           type="button"
@@ -210,37 +278,45 @@ export function TrackingConsentGate() {
   return (
     <div className="fixed inset-0 z-[210] flex items-end justify-center bg-black/80 p-3 backdrop-blur-sm sm:items-center sm:p-6">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,168,76,0.2),transparent_45%),linear-gradient(180deg,rgba(10,11,26,0.75),rgba(10,11,26,0.95))]" />
-      <section className="relative z-10 w-full max-w-3xl overflow-hidden rounded-2xl border border-accent/35 bg-surface/95 shadow-[0_0_40px_rgba(201,168,76,0.25)]">
+      <section className="relative z-10 flex max-h-[min(94vh,820px)] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-accent/35 bg-surface/95 shadow-[0_0_40px_rgba(201,168,76,0.25)]">
         <div className="border-b border-accent/25 bg-gradient-to-r from-primary/35 via-surface-elevated to-accent/25 px-5 py-4">
-          <p className="text-[0.65rem] font-bold uppercase tracking-[0.35em] text-accent">
-            {t("convention.consent.title")}
-          </p>
+          <div className="flex items-start justify-between gap-3">
+            <p className="pt-1 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-accent">
+              {t("convention.consent.title")}
+            </p>
+            <ConsentLanguageSwitcher />
+          </div>
           <h2 className="mt-2 text-xl font-black text-foreground sm:text-2xl">
             {t("convention.consent.headline")}
           </h2>
-          <p className="mt-2 text-sm text-foreground/85">
-            {t("convention.consent.description")}
-          </p>
         </div>
 
-        <div className="px-5 py-4 sm:px-6 sm:py-5">
-          <PreferenceToggles
-            categories={draftCategories}
-            onChange={setDraftCategories}
-          />
-          <p className="mt-4 text-xs uppercase tracking-[0.16em] text-muted-foreground">
-            {t("convention.consent.notice")}
-          </p>
-          <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+        <div className="grid flex-1 gap-4 overflow-y-auto px-5 py-4 sm:px-6 sm:py-5 lg:grid-cols-[0.95fr_1.05fr]">
+          <ConsentSupportPanel />
+          <div>
+            <PreferenceToggles
+              categories={draftCategories}
+              onChange={setDraftCategories}
+            />
+            <p className="mt-4 text-xs uppercase tracking-[0.16em] text-muted-foreground">
+              {t("convention.consent.notice")}
+            </p>
+            <p className="mt-2 text-xs text-foreground/70">
+              {t("convention.consent.scopeNote")}
+            </p>
+          </div>
+        </div>
+        <div className="border-t border-white/10 bg-surface/90 px-5 py-3 sm:px-6 sm:py-4">
+          <div className="grid gap-2 sm:grid-cols-2">
             <Button
-              className="w-full bg-primary font-black uppercase tracking-[0.2em] text-primary-foreground hover:bg-primary/90"
+              className="w-full border border-primary/95 bg-[linear-gradient(135deg,hsl(var(--primary)),hsl(var(--accent)))] py-6 text-base font-black uppercase tracking-[0.18em] text-primary-foreground shadow-[0_16px_40px_-20px_hsl(var(--accent))] hover:scale-[1.01] hover:brightness-110 focus-visible:ring-primary/90 sm:col-span-2"
               onClick={acceptAll}
               type="button"
             >
               {t("convention.consent.acceptAll")}
             </Button>
             <Button
-              className="w-full border-accent/35 bg-surface-elevated text-foreground hover:bg-surface"
+              className="w-full border-white/15 bg-white/5 text-sm font-medium text-foreground/75 hover:bg-white/10 hover:text-foreground/85 focus-visible:ring-white/60"
               onClick={saveCustom}
               type="button"
               variant="outline"
@@ -248,7 +324,7 @@ export function TrackingConsentGate() {
               {t("convention.consent.saveSelection")}
             </Button>
             <Button
-              className="w-full border-white/15 bg-transparent text-muted-foreground hover:bg-surface"
+              className="w-full border-white/10 bg-transparent text-sm font-medium text-foreground/60 hover:bg-white/5 hover:text-foreground/75 focus-visible:ring-white/50"
               onClick={rejectOptional}
               type="button"
               variant="outline"

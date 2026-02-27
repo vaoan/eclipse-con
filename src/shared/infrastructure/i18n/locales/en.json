@@ -474,6 +474,11 @@
     },
     "faq": {
       "title": "Frequently asked questions",
+      "tutorialCallout": {
+        "badge": "Important: complete both payments",
+        "description": "Need a quick walkthrough? Follow the registration tutorial so you reserve your room first and then buy your event ticket with the reservation code.",
+        "cta": "Open registration tutorial"
+      },
       "q1": {
         "question": "Can I book just one night?",
         "answer": "No, Moonfest only offers 4-day, 3-night packages."
@@ -509,9 +514,16 @@
     },
     "consent": {
       "title": "Consent Center",
-      "headline": "Choose your tracking level",
-      "description": "We always use necessary telemetry for security and reliability. Optional categories unlock deeper analytics and campaign measurement.",
+      "headline": "Help us run Moonfest better",
+      "description": "Your data choices help us understand what works, improve logistics, and communicate the event more clearly. Choose how you want to help.",
+      "supportTag": "Convention impact",
+      "supportTitle": "How your choice helps Moonfest",
+      "supportDescription": "These preferences help us make better decisions for schedules, attendee experience, and event communication.",
+      "supportPoint1": "Spot which pages create the most confusion before the event.",
+      "supportPoint2": "Prioritize improvements in reservations, tickets, and registration flow.",
+      "supportPoint3": "Measure which campaigns actually bring attendees.",
       "notice": "Necessary tracking remains enabled to keep the service running.",
+      "scopeNote": "Current implementation: optional tracking is controlled by Analytics consent. Personalization and Advertising preferences are saved for future use and do not currently enable third-party ad tags.",
       "acceptAll": "Accept all",
       "saveSelection": "Save selection",
       "rejectOptional": "Reject optional",
@@ -523,15 +535,15 @@
         },
         "analytics": {
           "title": "Analytics",
-          "description": "Behavior metrics such as clicks, scroll depth, and form interaction counts."
+          "description": "Optional behavior metrics (clicks, scroll depth, form interaction counts, funnel and CTA performance) using sanitized data only."
         },
         "personalization": {
           "title": "Personalization",
-          "description": "Audience grouping and content preference signals."
+          "description": "Preference reserved for future content tailoring features. No separate personalization trackers are active yet."
         },
         "advertising": {
           "title": "Advertising",
-          "description": "Campaign measurement and conversion attribution."
+          "description": "Preference reserved for future campaign tooling. No third-party advertising pixels are currently enabled."
         }
       }
     },

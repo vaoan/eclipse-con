@@ -7,7 +7,7 @@ import {
   type DemographicsPayload,
   type ExperimentExposurePayload,
   type FunnelStepPayload,
-} from "@/shared/infrastructure/analytics/trackingSchema";
+} from "@/features/analytics/infrastructure/trackingSchema";
 
 const EVENT_DEMOGRAPHICS = "analytics:demographics";
 const EVENT_CONTENT_INTERACTION = "analytics:content_interaction";

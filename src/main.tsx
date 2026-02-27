@@ -5,11 +5,11 @@ import { App } from "@/app/App";
 import "@/shared/infrastructure/i18n/i18n";
 import "@/index.css";
 import { environment } from "@/shared/infrastructure/config/environment";
-import { getStoredTrackingConsent } from "@/shared/infrastructure/analytics/consent";
+import { getStoredTrackingConsent } from "@/features/analytics/domain/consent";
 import {
   initExtremeTracking,
   setAnalyticsConsentGranted,
-} from "@/shared/infrastructure/analytics/extremeTracking";
+} from "@/features/analytics/infrastructure/extremeTracking";
 
 const root = document.querySelector("#root");
 if (!root) {

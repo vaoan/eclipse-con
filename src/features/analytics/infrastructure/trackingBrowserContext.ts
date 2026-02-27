@@ -1,8 +1,8 @@
 import {
   getSanitizedQueryKeys,
   sanitizePath,
-} from "@/shared/infrastructure/analytics/trackingPrivacy";
-import type { Primitive } from "@/shared/infrastructure/analytics/trackingSchema";
+} from "@/features/analytics/infrastructure/trackingPrivacy";
+import type { Primitive } from "@/features/analytics/infrastructure/trackingSchema";
 
 const TRACKABLE_SELECTOR =
   "[data-track],button,a,input,select,textarea,[role],[aria-label]";
