@@ -92,7 +92,6 @@ export function HeroSection() {
 
   return (
     <section
-      id={SECTION_IDS.HERO}
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
       {...tid("section-hero")}
     >

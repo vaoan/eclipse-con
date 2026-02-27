@@ -84,10 +84,6 @@ const getSectionIdFromUrl = (
 };
 
 const scrollToSection = (sectionId: string) => {
-  if (sectionId === SECTION_IDS.HERO) {
-    window.scrollTo({ top: 0 });
-    return true;
-  }
   const section = document.getElementById(sectionId);
   if (!section) {
     return false;
@@ -297,6 +293,7 @@ export function Component() {
       <div className="relative z-10">
         <NavigationBar />
         {effectsReady && <SakuraParticles />}
+        <div id={SECTION_IDS.HERO} aria-hidden="true" />
         <div className="hero-sticky">
           <HeroSection />
         </div>

@@ -466,7 +466,9 @@ export function NavigationBar() {
           to={getSectionHref(SECTION_IDS.HERO)}
           className="flex items-center hover:cursor-pointer"
           onClick={() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            document
+              .getElementById(SECTION_IDS.HERO)
+              ?.scrollIntoView({ behavior: "smooth" });
           }}
         >
           <img
