@@ -19,7 +19,7 @@
 
 import { execFileSync } from "node:child_process";
 import { resolve, join } from "node:path";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const __dir = fileURLToPath(new URL(".", import.meta.url));
@@ -28,6 +28,10 @@ const projectRoot = resolve(__dir, "../../../..");
 
 const url = process.argv[2] ?? "http://localhost:5173";
 const formFactor = process.argv[3] === "mobile" ? "mobile" : "desktop";
+const force = process.argv.includes("--force");
+
+const LH_RESULT_PATH = ".audit/lh-result.json";
+const LH_STATUS_PATH = ".audit/lh-status.json";
 
 if (url.startsWith("file://")) {
   process.stderr.write(
@@ -35,6 +39,35 @@ if (url.startsWith("file://")) {
   );
   process.exit(1);
 }
+
+// Resume: if a valid cached result exists (and --force not passed), output it and skip re-running
+if (!force && existsSync(LH_RESULT_PATH)) {
+  try {
+    const cached = readFileSync(LH_RESULT_PATH, "utf8");
+    JSON.parse(cached); // validate — throws if malformed
+    process.stderr.write(
+      "[lh-scan] Using cached result. Pass --force to re-run Lighthouse.\n"
+    );
+    process.stdout.write(cached);
+    process.exit(0);
+  } catch {
+    // malformed cache — fall through to fresh run
+  }
+}
+
+// Write a status marker before starting so failures are detectable
+writeFileSync(
+  LH_STATUS_PATH,
+  JSON.stringify({
+    status: "running",
+    startedAt: new Date().toISOString(),
+    url,
+    formFactor,
+  })
+);
+process.stderr.write(
+  `[lh-scan] Starting Lighthouse (${formFactor}) → ${url}\n`
+);
 
 // Resolve lighthouse CLI — prefer .CMD on Windows (shell scripts are not directly executable)
 const candidates =
@@ -128,6 +161,74 @@ const opportunities = Object.values(lhr.audits)
     savingsMs: Math.round(a.details.overallSavingsMs),
     displayValue: a.displayValue ?? null,
   }));
+
+// --- Findings document (no slice limits, full details for downstream agents) ---
+const allIssues = Object.values(lhr.audits)
+  .filter(
+    (a) =>
+      a.score !== null && a.score < 1 && !SKIP_MODES.has(a.scoreDisplayMode)
+  )
+  .sort((a, b) => (a.score ?? 0) - (b.score ?? 0))
+  .map((a) => ({
+    id: a.id,
+    category: auditToCategory[a.id] ?? "other",
+    title: a.title,
+    score: Math.round((a.score ?? 0) * 100),
+    displayValue: a.displayValue ?? null,
+    description: a.description?.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") ?? null,
+    details: a.details ?? null,
+  }));
+
+const allOpportunities = Object.values(lhr.audits)
+  .filter(
+    (a) => a.details?.type === "opportunity" && a.details.overallSavingsMs > 0
+  )
+  .sort((a, b) => b.details.overallSavingsMs - a.details.overallSavingsMs)
+  .map((a) => ({
+    id: a.id,
+    title: a.title,
+    savingsMs: Math.round(a.details.overallSavingsMs),
+    displayValue: a.displayValue ?? null,
+    details: a.details,
+  }));
+
+const passingAudits = Object.values(lhr.audits)
+  .filter((a) => a.score === 1)
+  .map((a) => ({
+    id: a.id,
+    category: auditToCategory[a.id] ?? "other",
+    title: a.title,
+  }));
+
+writeFileSync(
+  ".audit/lh-findings.json",
+  JSON.stringify(
+    {
+      completedAt: new Date().toISOString(),
+      url,
+      formFactor,
+      fetchTime: lhr.fetchTime,
+      scores,
+      allIssues,
+      allOpportunities,
+      passingAudits,
+    },
+    null,
+    2
+  )
+);
+writeFileSync(
+  LH_STATUS_PATH,
+  JSON.stringify({
+    status: "done",
+    completedAt: new Date().toISOString(),
+    url,
+    formFactor,
+  })
+);
+process.stderr.write(
+  `[lh-scan] Findings written to .audit/lh-findings.json (${allIssues.length} issues, ${allOpportunities.length} opportunities)\n`
+);
 
 process.stdout.write(
   JSON.stringify(

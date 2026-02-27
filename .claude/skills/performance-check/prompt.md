@@ -37,6 +37,8 @@ Create the temp output directory (gitignored), then launch both scripts simultan
 mkdir -p .audit
 ```
 
+> **Resuming after a partial run:** if `.audit/axe-checkpoint.json` exists, `axe-scan.mjs` will automatically skip already-completed routes and continue from where it left off. If `.audit/lh-result.json` already contains a valid result, `lh-scan.mjs` will output it immediately without re-running Lighthouse. Pass `--force` to `lh-scan.mjs` to discard the cache and run fresh.
+
 **For HTTP targets — both scans in parallel:**
 
 ```bash
@@ -151,3 +153,46 @@ Score status emoji thresholds: 🟢 ≥ 90 · 🟡 50–89 · 🔴 < 50.
 - If the dev server is offline, do not attempt to start it automatically — ask the user.
 - Consent is pre-set in axe-scan.mjs so the tracking popup doesn't block the scan.
 - Both scans run in parallel for HTTP targets to keep total time under 90 seconds.
+
+---
+
+## Resuming after failure
+
+Both scripts write progress to disk immediately so a crashed or interrupted run can resume.
+
+### Checkpoint files
+
+| File                         | Created by     | Meaning                                                                                                                                                   |
+| ---------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.audit/axe-checkpoint.json` | `axe-scan.mjs` | Per-route progress. Updated after every route. Deleted once findings are written.                                                                         |
+| `.audit/axe-findings.json`   | `axe-scan.mjs` | **Full findings document** — all violations with uncapped node selectors, route breakdown, summary. Written on successful completion.                     |
+| `.audit/lh-findings.json`    | `lh-scan.mjs`  | **Full findings document** — all failing audits (no slice limit), all opportunities with raw `details`, passing audits. Written on successful completion. |
+| `.audit/lh-status.json`      | `lh-scan.mjs`  | Written before Lighthouse starts (`status: "running"`); updated to `status: "done"` on completion.                                                        |
+| `.audit/lh-result.json`      | shell redirect | Summarised Lighthouse output (top 20 issues, top 8 opportunities). If present and valid, `lh-scan.mjs` reuses it automatically.                           |
+| `.audit/axe-result.json`     | shell redirect | Summarised axe output. If present it means axe completed successfully.                                                                                    |
+
+> **Findings vs result files:** `*-findings.json` files contain full, uncapped data intended for downstream agents and skills. `*-result.json` files are the summarised versions used by Claude to generate the report (kept small to avoid flooding the context window).
+
+### How to resume
+
+**axe-scan crashed mid-way:**
+
+```bash
+# Just re-run the same command — the checkpoint is picked up automatically
+node .claude/skills/performance-check/scripts/axe-scan.mjs "$TARGET_URL" --routes root,/registration-tutorial \
+  > .audit/axe-result.json 2>.audit/axe-err.txt
+```
+
+**Lighthouse crashed or result is stale:**
+
+```bash
+# Pass --force to discard the cached result and re-run Lighthouse
+node .claude/skills/performance-check/scripts/lh-scan.mjs "$TARGET_URL" "desktop" --force \
+  > .audit/lh-result.json 2>.audit/lh-err.txt
+```
+
+**Start completely fresh (wipe all intermediate state):**
+
+```bash
+rm -rf .audit && mkdir .audit
+```
