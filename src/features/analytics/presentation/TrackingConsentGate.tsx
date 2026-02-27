@@ -15,6 +15,7 @@ import {
   setAnalyticsConsentGranted,
   trackConsentPreference,
 } from "@/features/analytics/infrastructure/extremeTracking";
+import { LanguageToggle } from "@/features/convention/presentation/components/LanguageToggle";
 import moonfestLogo from "@/shared/presentation/assets/moonfest-logo.svg";
 
 interface TrackingConsentGateProps {
@@ -123,51 +124,6 @@ function ConsentSupportPanel() {
   );
 }
 
-function ConsentLanguageSwitcher() {
-  const { i18n, t } = useTranslation();
-  const isEnglish = i18n.resolvedLanguage?.startsWith("en") ?? true;
-  const activeLanguageLabel = isEnglish ? "English" : "Español";
-  const currentLanguageId = "consent-language-toggle-current";
-
-  return (
-    <Button
-      type="button"
-      variant="ghost"
-      onClick={() => {
-        void i18n.changeLanguage(isEnglish ? "es" : "en");
-      }}
-      className="group relative inline-flex h-9 min-w-[118px] items-center overflow-hidden rounded-full border border-accent/45 p-1 bg-background/60 hover:border-accent/70 focus-visible:ring-accent/70"
-      role="switch"
-      aria-checked={isEnglish}
-      aria-describedby={currentLanguageId}
-      aria-label={t("convention.language.toggleAria", {
-        language: activeLanguageLabel,
-      })}
-    >
-      <span className="pointer-events-none absolute inset-y-1 left-1 right-1 z-0">
-        <span
-          className={`block h-full w-1/2 rounded-full border border-accent/30 bg-accent shadow-[0_0_10px_rgba(201,168,76,0.3)] transition-transform duration-300 ${isEnglish ? "translate-x-0" : "translate-x-full"}`}
-        />
-      </span>
-      <span className="relative z-10 grid w-full grid-cols-2 text-[11px] font-semibold">
-        <span
-          className={`flex h-7 items-center justify-center transition-colors ${isEnglish ? "text-accent-foreground" : "text-foreground/65"}`}
-        >
-          EN
-        </span>
-        <span
-          className={`flex h-7 items-center justify-center transition-colors ${!isEnglish ? "text-accent-foreground" : "text-foreground/65"}`}
-        >
-          ES
-        </span>
-      </span>
-      <span id={currentLanguageId} className="sr-only">
-        {t("convention.language.current", { language: activeLanguageLabel })}
-      </span>
-    </Button>
-  );
-}
-
 function ConsentModalHeader() {
   const { t } = useTranslation();
 
@@ -195,7 +151,7 @@ function ConsentModalHeader() {
           </p>
         </div>
         <div className="shrink-0 sm:pt-1">
-          <ConsentLanguageSwitcher />
+          <LanguageToggle compact />
         </div>
       </div>
     </div>

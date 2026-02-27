@@ -4,7 +4,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 
-export function LanguageToggle() {
+interface LanguageToggleProps {
+  readonly compact?: boolean;
+}
+
+export function LanguageToggle({ compact = false }: LanguageToggleProps) {
   const { i18n, t } = useTranslation();
   const isEnglish = i18n.resolvedLanguage?.startsWith("en") ?? true;
   const activeLanguageLabel = isEnglish ? "English" : "Español";
@@ -20,14 +24,18 @@ export function LanguageToggle() {
       variant="ghost"
       onClick={toggleLanguage}
       className={cn(
-        "group relative inline-flex h-9 min-w-[170px] items-center overflow-hidden rounded-full border border-accent/40 p-1",
+        "group relative inline-flex h-9 items-center overflow-hidden rounded-full border border-accent/40 p-1",
         "bg-[linear-gradient(120deg,rgba(201,168,76,0.14),rgba(18,19,42,0.92),rgba(201,168,76,0.1))]",
         "transition-colors hover:border-accent/65",
-        "focus-visible:ring-accent/50 focus-visible:ring-2 focus-visible:outline-none"
+        "focus-visible:ring-accent/50 focus-visible:ring-2 focus-visible:outline-none",
+        compact ? "min-w-[80px]" : "min-w-[170px]"
       )}
       role="switch"
       aria-checked={isEnglish}
       aria-describedby={currentLanguageId}
+      aria-label={t("convention.language.toggleAria", {
+        language: activeLanguageLabel,
+      })}
       {...tid("language-toggle")}
     >
       <span className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-accent/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -46,7 +54,7 @@ export function LanguageToggle() {
             isEnglish ? "text-accent-foreground" : "text-foreground/60"
           )}
         >
-          English
+          {compact ? "EN" : "English"}
         </span>
         <span
           className={cn(
@@ -54,7 +62,7 @@ export function LanguageToggle() {
             !isEnglish ? "text-accent-foreground" : "text-foreground/60"
           )}
         >
-          Español
+          {compact ? "ES" : "Español"}
         </span>
       </span>
       <span id={currentLanguageId} className="sr-only">

@@ -317,7 +317,7 @@ function DesktopNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
           })()
         )
       )}
-      <LanguageToggle />
+      <LanguageToggle compact />
       <Button
         asChild
         variant="default"
@@ -343,7 +343,7 @@ function MobileNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
 
   return (
     <div className="flex items-center gap-3 md:hidden">
-      <LanguageToggle />
+      <LanguageToggle compact />
       <Sheet>
         <SheetTrigger asChild>
           <Button
