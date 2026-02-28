@@ -121,7 +121,7 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
 );
 
 const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
-  <div className="mt-12 rounded-3xl border border-white/10 bg-surface/60 p-6">
+  <div className="mt-12 rounded-3xl border border-white/10 bg-surface p-6">
     <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-rose-300">
@@ -141,7 +141,7 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
         return (
           <article
             key={restaurant.key}
-            className="group overflow-hidden rounded-2xl border border-white/10 bg-surface/80"
+            className="group overflow-hidden rounded-2xl border border-white/10 bg-surface"
           >
             <div className="relative h-40 w-full overflow-hidden">
               <img
