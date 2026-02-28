@@ -125,14 +125,21 @@ const useTutorialStepState = () => {
     if (activeStep === 1) {
       return;
     }
-    setActiveStep((activeStep - 1) as StepNumber);
+    const previousStep = (activeStep - 1) as StepNumber;
+    trackTutorialStepSelected({
+      stepNumber: previousStep,
+      origin: "prev_button",
+    });
+    setActiveStep(previousStep);
   };
 
   const goToNextStep = () => {
     if (activeStep === 3) {
       return;
     }
-    setActiveStep((activeStep + 1) as StepNumber);
+    const nextStep = (activeStep + 1) as StepNumber;
+    trackTutorialStepSelected({ stepNumber: nextStep, origin: "next_button" });
+    setActiveStep(nextStep);
   };
 
   useEffect(() => {
@@ -377,7 +384,12 @@ export function Component() {
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 py-12 md:py-16">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <Button asChild variant="outline" className="border-white/15">
-            <Link to="/?section=registration">
+            <Link
+              to="/?section=registration"
+              data-content-section="registration_tutorial"
+              data-content-id="back_to_registration"
+              data-content-interaction="open"
+            >
               <ArrowLeft className="mr-2 h-4 w-4" />
               {t("convention.registrationTutorial.back")}
             </Link>
