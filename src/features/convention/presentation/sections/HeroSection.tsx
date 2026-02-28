@@ -111,7 +111,7 @@ export function HeroSection() {
           aria-hidden="true"
           className="absolute inset-0 z-0 opacity-10"
           style={{
-            backgroundImage: `url(${heroPattern})`,
+            backgroundImage: `url("${heroPattern}")`,
             backgroundRepeat: "repeat",
             backgroundSize: "320px auto",
           }}

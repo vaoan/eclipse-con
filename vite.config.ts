@@ -564,6 +564,49 @@ function deduplicateDataUrisInJs(js: string): string {
   return `${declarations.join("")}${out}`;
 }
 
+function deduplicateDataUrisInCss(css: string): string {
+  // Matches quoted data URIs inside url("...") or url('...') that are ≥512 chars
+  const dataUriRegex = /url\("(data:[^"]{512,})"\)|url\('(data:[^']{512,})'\)/g;
+  const counts = new Map<string, number>();
+  let m: RegExpExecArray | null;
+  while ((m = dataUriRegex.exec(css)) !== null) {
+    const uri = m[1] ?? m[2];
+    if (uri) {
+      counts.set(uri, (counts.get(uri) ?? 0) + 1);
+    }
+  }
+  dataUriRegex.lastIndex = 0;
+
+  const duplicates = Array.from(counts.entries())
+    .filter(([, n]) => n > 1)
+    .sort(([a], [b]) => b.length - a.length);
+
+  if (duplicates.length === 0) {
+    console.log("[static] Dedup CSS: no duplicate data URIs in CSS bundle");
+    return css;
+  }
+
+  // Hoist duplicates into CSS custom properties on :root so each is stored once.
+  const variableDeclarations = duplicates
+    .map(([uri], index) => `--inlined-asset-${index}:url("${uri}")`)
+    .join(";");
+  const rootBlock = `:root{${variableDeclarations}}`;
+
+  let out = css;
+  let totalSaved = 0;
+  duplicates.forEach(([uri, count], index) => {
+    out = out
+      .replaceAll(`url("${uri}")`, `var(--inlined-asset-${index})`)
+      .replaceAll(`url('${uri}')`, `var(--inlined-asset-${index})`);
+    totalSaved += (count - 1) * uri.length;
+  });
+
+  console.log(
+    `[static] Dedup CSS: extracted ${duplicates.length} duplicate data URI(s), saved ~${(totalSaved / 1024).toFixed(1)} KB`
+  );
+  return rootBlock + out;
+}
+
 function staticBuildPlugin(): Plugin {
   return {
     name: "static-build",
@@ -617,6 +660,8 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
         ),
         outDirectory
       );
+      console.log("[static] Deduplicating data URIs in CSS bundle");
+      const cssDeduped = deduplicateDataUrisInCss(cssInlined);
       console.log("[static] Inlining JS bundle URLs");
       const jsInlined = await inlineLocalUrls(
         await inlineExternalUrls(
@@ -643,7 +688,7 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
           await inlineLocalUrls(protectedHtml, outDirectory),
           replacements
         ),
-        cssInlined,
+        cssDeduped,
         jsDeduped,
         bodyInlined
       );
