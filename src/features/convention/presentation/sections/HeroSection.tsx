@@ -190,7 +190,7 @@ export function HeroSection() {
         <h1 className="hero-title gold-shimmer-text text-6xl font-extrabold leading-tight md:text-8xl lg:text-9xl">
           {t("convention.hero.title")}
         </h1>
-        <p className="mx-auto mt-6 max-w-lg text-lg text-foreground/70 md:text-xl">
+        <p className="mx-auto mt-6 max-w-lg text-lg text-white md:text-xl">
           {t("convention.hero.tagline")}
         </p>
         <Button

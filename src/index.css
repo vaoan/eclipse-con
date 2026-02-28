@@ -199,7 +199,10 @@ body {
 .hero-title {
   font-family: var(--font-hero);
   letter-spacing: -0.02em;
-  text-shadow: none;
+  text-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.9),
+    0 4px 24px rgba(0, 0, 0, 0.7),
+    2px 2px 0px rgba(0, 0, 0, 0.8);
 }
 
 .font-display.text-2xl {
