@@ -15,7 +15,7 @@ export function GuestCard({ guest }: Readonly<GuestCardProps>) {
   return (
     <Card
       className={cn(
-        "group relative overflow-hidden border-white/10 bg-surface/80 pb-6 py-0 text-left shadow-[0_18px_45px_-30px_rgba(15,23,42,0.9)] transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:bg-surface-elevated"
+        "group relative overflow-hidden border-white/10 bg-surface pb-6 py-0 text-left shadow-[0_18px_45px_-30px_rgba(15,23,42,0.9)] transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:bg-surface-elevated"
       )}
       {...tid(`guest-card-${guest.id}`)}
     >
