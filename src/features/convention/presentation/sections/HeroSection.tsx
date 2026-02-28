@@ -128,7 +128,7 @@ export function HeroSection() {
           style={{
             backgroundImage: `url("${heroBanner}"), url("${heroPattern}")`,
             backgroundRepeat: "no-repeat, repeat",
-            backgroundSize: "100% auto, 320px auto",
+            backgroundSize: "auto 100%, 320px auto",
             backgroundPosition: "center center, 0 0",
           }}
         />
