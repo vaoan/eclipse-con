@@ -278,7 +278,7 @@ function useSectionUrlSync() {
 }
 
 const HERO_EXPERIMENT_ID = "hero-bath-layout";
-const HERO_VARIANTS = ["control", "treatment"] as const;
+const HERO_VARIANTS = ["control", "treatment", "pattern"] as const;
 
 export function Component() {
   const [effectsReady, setEffectsReady] = useState(false);
@@ -298,7 +298,7 @@ export function Component() {
 
   return (
     <div className="relative isolate" {...tid("convention-page")}>
-      {effectsReady && heroVariant === "control" && (
+      {effectsReady && heroVariant !== "pattern" && (
         <HeroCanvasSky fixed className="z-0" />
       )}
       <div className="relative z-10">

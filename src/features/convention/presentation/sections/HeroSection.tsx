@@ -11,7 +11,7 @@ const heroBathSingle = "/hero-bath-preview.webp";
 const heroPattern = "/patron-nuevo.webp";
 
 const EXPERIMENT_ID = "hero-bath-layout";
-const VARIANTS = ["control", "treatment"] as const;
+const VARIANTS = ["control", "treatment", "pattern"] as const;
 type HeroVariant = (typeof VARIANTS)[number];
 
 function HeroBathPicture({ className = "" }: { readonly className?: string }) {
@@ -105,8 +105,8 @@ export function HeroSection() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
       {...tid("section-hero")}
     >
-      {/* Treatment: repeating decorative pattern */}
-      {variant === "treatment" && (
+      {/* Treatment / Pattern: repeating decorative pattern */}
+      {(variant === "treatment" || variant === "pattern") && (
         <div
           aria-hidden="true"
           className="absolute inset-0 z-0 brightness-80"

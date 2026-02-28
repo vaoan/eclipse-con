@@ -9,13 +9,16 @@ import { tid } from "@/shared/application/utils/tid";
 import { WavePattern } from "../components/WavePattern";
 
 const EXPERIMENT_KEY = "experiment:hero-bath-layout";
-const VARIANTS = ["control", "treatment"] as const;
+const VARIANTS = ["control", "treatment", "pattern"] as const;
 type HeroVariant = (typeof VARIANTS)[number];
 
 function ExperimentToggle() {
   const [variant, setVariant] = useState<HeroVariant>(() => {
     const stored = localStorage.getItem(EXPERIMENT_KEY);
-    return stored === "treatment" ? "treatment" : "control";
+    if (stored === "treatment" || stored === "pattern") {
+      return stored;
+    }
+    return "control";
   });
 
   const toggle = (next: HeroVariant) => {
