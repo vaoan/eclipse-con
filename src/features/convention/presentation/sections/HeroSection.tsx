@@ -109,7 +109,7 @@ const useHeroClipOverlap = (
   }, [bathLayerRef, textLayerRef, patternLayerRef]);
 };
 
-/** Renders the full-screen Hero section with a title, tagline, CTA, and an A/B/C tested hero image layout. */
+/** Renders the full-screen Hero section with a title, tagline, CTA, and an A/B/C tested hero image layout. The treatment variant applies a CSS mask-image gradient to fade the sides of the bath picture to transparent. */
 export function HeroSection() {
   const { t } = useTranslation();
   const isMobileViewport = useIsMobileViewport();
@@ -153,6 +153,16 @@ export function HeroSection() {
       <div
         ref={bathLayerRef}
         className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden"
+        style={
+          variant === "treatment"
+            ? {
+                maskImage:
+                  "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+              }
+            : undefined
+        }
       >
         <div className="relative z-0 mx-auto flex h-[390px] items-center justify-center gap-0 sm:h-[460px] md:h-[560px] lg:h-[680px]">
           {variant === "control" && !isMobileViewport && (
