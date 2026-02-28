@@ -6,9 +6,13 @@ import { Button } from "@/components/ui/button";
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
-import { ParallaxLayer } from "../components/ParallaxLayer";
-import { ToriiGateSilhouette } from "../components/ToriiGateSilhouette";
+import { useExperiment } from "@/shared/application/hooks/useExperiment";
 const heroBathSingle = "/hero-bath-preview.webp";
+const heroPattern = "/patron-nuevo.webp";
+
+const EXPERIMENT_ID = "hero-bath-layout";
+const VARIANTS = ["control", "treatment"] as const;
+type HeroVariant = (typeof VARIANTS)[number];
 
 function HeroBathPicture({ className = "" }: { readonly className?: string }) {
   const baseClasses = "h-full w-auto select-none object-cover brightness-80";
@@ -88,6 +92,7 @@ export function HeroSection() {
   const isMobileViewport = useIsMobileViewport();
   const bathLayerRef = useRef<HTMLDivElement | null>(null);
   const textLayerRef = useRef<HTMLDivElement | null>(null);
+  const variant = useExperiment(EXPERIMENT_ID, VARIANTS) as HeroVariant;
   useHeroClipOverlap(bathLayerRef, textLayerRef);
 
   return (
@@ -95,24 +100,31 @@ export function HeroSection() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
       {...tid("section-hero")}
     >
-      {/* Parallax torii gates */}
-      <ParallaxLayer speed={0.4} className="absolute inset-0">
-        <div className="absolute bottom-20 left-[5%] opacity-[0.18]">
-          <ToriiGateSilhouette className="w-32 text-primary md:w-48" />
-        </div>
-        <div className="absolute bottom-10 right-[8%] opacity-[0.14]">
-          <ToriiGateSilhouette className="w-24 text-accent md:w-36" />
-        </div>
-      </ParallaxLayer>
+      {/* Treatment: repeating decorative pattern */}
+      {variant === "treatment" && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 z-0 opacity-10"
+          style={{
+            backgroundImage: `url(${heroPattern})`,
+            backgroundRepeat: "repeat",
+            backgroundSize: "320px auto",
+          }}
+        />
+      )}
 
       <div
         ref={bathLayerRef}
         className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden"
       >
         <div className="relative z-0 mx-auto flex h-[390px] items-center justify-center gap-0 sm:h-[460px] md:h-[560px] lg:h-[680px]">
-          {!isMobileViewport && <HeroBathPicture className="scale-x-[-1]" />}
+          {variant === "control" && !isMobileViewport && (
+            <HeroBathPicture className="scale-x-[-1]" />
+          )}
           <HeroBathPicture />
-          {!isMobileViewport && <HeroBathPicture className="scale-x-[-1]" />}
+          {variant === "control" && !isMobileViewport && (
+            <HeroBathPicture className="scale-x-[-1]" />
+          )}
         </div>
       </div>
 

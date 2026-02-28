@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LucideIcon } from "lucide-react";
 import { Globe } from "lucide-react";
@@ -6,6 +7,50 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { WavePattern } from "../components/WavePattern";
+
+const EXPERIMENT_KEY = "experiment:hero-bath-layout";
+const VARIANTS = ["control", "treatment"] as const;
+type HeroVariant = (typeof VARIANTS)[number];
+
+function ExperimentToggle() {
+  const [variant, setVariant] = useState<HeroVariant>(() => {
+    const stored = localStorage.getItem(EXPERIMENT_KEY);
+    return stored === "treatment" ? "treatment" : "control";
+  });
+
+  const toggle = (next: HeroVariant) => {
+    localStorage.setItem(EXPERIMENT_KEY, next);
+    setVariant(next);
+    window.scrollTo({ top: 0 });
+    window.location.reload();
+  };
+
+  return (
+    <div className="mt-6 flex flex-col items-center gap-1.5">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/50">
+        Hero A/B
+      </p>
+      <div className="flex overflow-hidden rounded-full border border-white/10 bg-black/30 p-0.5">
+        {VARIANTS.map((v) => (
+          <button
+            key={v}
+            onClick={() => {
+              toggle(v);
+            }}
+            className={cn(
+              "rounded-full px-3 py-1 text-[11px] font-medium capitalize transition-all duration-200",
+              variant === v
+                ? "bg-accent/80 text-white"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {v}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 type LinkIcon =
   | { type: "brand"; slug: string }
@@ -145,6 +190,8 @@ export function FooterSection() {
                 {t("convention.footer.version", { version: appVersion })}
               </p>
             </div>
+
+            <ExperimentToggle />
           </div>
         </div>
       </div>
