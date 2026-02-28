@@ -109,7 +109,7 @@ export function HeroSection() {
       {variant === "treatment" && (
         <div
           aria-hidden="true"
-          className="absolute inset-0 z-0 brightness-80 opacity-10"
+          className="absolute inset-0 z-0 brightness-80"
           style={{
             backgroundImage: `url("${heroPattern}")`,
             backgroundRepeat: "repeat",

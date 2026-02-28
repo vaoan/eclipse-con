@@ -1,5 +1,6 @@
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
+import { useExperiment } from "@/shared/application/hooks/useExperiment";
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -276,8 +277,16 @@ function useSectionUrlSync() {
   }, [location.pathname, location.search, location.state, navigate]);
 }
 
+const HERO_EXPERIMENT_ID = "hero-bath-layout";
+const HERO_VARIANTS = ["control", "treatment"] as const;
+
 export function Component() {
   const [effectsReady, setEffectsReady] = useState(false);
+  const heroVariant = useExperiment(
+    HERO_EXPERIMENT_ID,
+    HERO_VARIANTS,
+    "treatment"
+  );
   useSectionUrlSync();
 
   useEffect(() => {
@@ -289,7 +298,9 @@ export function Component() {
 
   return (
     <div className="relative isolate" {...tid("convention-page")}>
-      {effectsReady && <HeroCanvasSky fixed className="z-0" />}
+      {effectsReady && heroVariant === "control" && (
+        <HeroCanvasSky fixed className="z-0" />
+      )}
       <div className="relative z-10">
         <NavigationBar />
         {effectsReady && <SakuraParticles />}
