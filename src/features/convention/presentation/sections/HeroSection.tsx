@@ -15,6 +15,11 @@ const EXPERIMENT_ID = "hero-bath-layout";
 const VARIANTS = ["control", "treatment", "pattern"] as const;
 type HeroVariant = (typeof VARIANTS)[number];
 
+const heroTextShadow = {
+  filter:
+    "drop-shadow(0 2px 4px rgba(0,0,0,0.95)) drop-shadow(0 4px 16px rgba(0,0,0,0.75))",
+} satisfies React.CSSProperties;
+
 function HeroBathPicture({
   className = "",
   style,
@@ -184,7 +189,10 @@ export function HeroSection() {
       </div>
 
       <div ref={textLayerRef} className="relative z-30 px-4 text-center">
-        <p className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-accent/80">
+        <p
+          className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-accent/80"
+          style={heroTextShadow}
+        >
           {t("convention.hero.date")}
         </p>
         <h1 className="hero-title gold-shimmer-text text-6xl font-extrabold leading-tight md:text-8xl lg:text-9xl">
