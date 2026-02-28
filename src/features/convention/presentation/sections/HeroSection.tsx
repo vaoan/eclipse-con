@@ -23,7 +23,8 @@ function HeroBathPicture({ className = "" }: { readonly className?: string }) {
       alt=""
       aria-hidden="true"
       className={`${baseClasses} ${className}`}
-      loading="lazy"
+      loading="eager"
+      fetchPriority="high"
       decoding="async"
       draggable={false}
     />
@@ -92,7 +93,11 @@ export function HeroSection() {
   const isMobileViewport = useIsMobileViewport();
   const bathLayerRef = useRef<HTMLDivElement | null>(null);
   const textLayerRef = useRef<HTMLDivElement | null>(null);
-  const variant = useExperiment(EXPERIMENT_ID, VARIANTS) as HeroVariant;
+  const variant = useExperiment(
+    EXPERIMENT_ID,
+    VARIANTS,
+    "treatment"
+  ) as HeroVariant;
   useHeroClipOverlap(bathLayerRef, textLayerRef);
 
   return (

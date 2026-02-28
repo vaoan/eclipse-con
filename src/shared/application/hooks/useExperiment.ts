@@ -11,10 +11,12 @@ function pickVariant(variants: readonly [string, ...string[]]): string {
 /**
  * Assigns a sticky variant for an experiment, persisted in localStorage.
  * Fires `trackExperimentExposure` once on mount.
+ * @param defaultVariant - variant assigned to new visitors (defaults to random if omitted)
  */
 export function useExperiment(
   experimentId: string,
-  variants: readonly [string, ...string[]]
+  variants: readonly [string, ...string[]],
+  defaultVariant?: string
 ): string {
   const storageKey = `experiment:${experimentId}`;
 
@@ -27,7 +29,10 @@ export function useExperiment(
     } catch {
       // ignore storage errors
     }
-    const assigned = pickVariant(variants);
+    const assigned =
+      defaultVariant && variants.includes(defaultVariant)
+        ? defaultVariant
+        : pickVariant(variants);
     try {
       localStorage.setItem(storageKey, assigned);
     } catch {
