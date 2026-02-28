@@ -27,7 +27,7 @@ export function EventOverviewSection() {
         ].map((item) => (
           <div
             key={item}
-            className="rounded-2xl border border-white/10 bg-surface/70 p-5 text-sm text-foreground/80 shadow-sm"
+            className="rounded-2xl border border-white/10 bg-surface p-5 text-sm text-foreground/80 shadow-sm"
           >
             {item}
           </div>
