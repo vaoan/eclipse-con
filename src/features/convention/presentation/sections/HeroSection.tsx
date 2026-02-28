@@ -120,16 +120,16 @@ export function HeroSection() {
         />
       )}
 
-      {/* Pattern: full-bleed banner image */}
+      {/* Pattern: banner centered at full width, patron tile fills the gaps */}
       {variant === "pattern" && (
         <div
           aria-hidden="true"
           className="absolute inset-0 z-0 brightness-80"
           style={{
-            backgroundImage: `url("${heroBanner}")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundImage: `url("${heroBanner}"), url("${heroPattern}")`,
+            backgroundRepeat: "no-repeat, repeat",
+            backgroundSize: "100% auto, 320px auto",
+            backgroundPosition: "center center, 0 0",
           }}
         />
       )}
