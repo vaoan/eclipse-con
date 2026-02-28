@@ -32,6 +32,24 @@ function HeroBathPicture({ className = "" }: { readonly className?: string }) {
   );
 }
 
+function HeroTileBackground({
+  opacity20 = false,
+}: {
+  readonly opacity20?: boolean;
+}) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`absolute inset-0 z-0 brightness-80${opacity20 ? " opacity-20" : ""}`}
+      style={{
+        backgroundImage: `url("${heroPattern}")`,
+        backgroundRepeat: "repeat",
+        backgroundSize: "320px auto",
+      }}
+    />
+  );
+}
+
 const useHeroClipOverlap = (
   bathLayerRef: React.RefObject<HTMLDivElement | null>,
   textLayerRef: React.RefObject<HTMLDivElement | null>,
@@ -110,30 +128,23 @@ export function HeroSection() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
       {...tid("section-hero")}
     >
-      {/* Treatment: repeating decorative tile pattern */}
-      {variant === "treatment" && (
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 z-0 opacity-20 brightness-80"
-          style={{
-            backgroundImage: `url("${heroPattern}")`,
-            backgroundRepeat: "repeat",
-            backgroundSize: "320px auto",
-          }}
-        />
-      )}
+      {/* Treatment: repeating decorative tile pattern (no clip — stays) */}
+      {variant === "treatment" && <HeroTileBackground opacity20 />}
 
-      {/* Pattern: banner centered at full width, patron tile fills the gaps */}
+      {/* Pattern: tile stays behind everything (no clip) */}
+      {variant === "pattern" && <HeroTileBackground />}
+
+      {/* Pattern: banner image clips away on scroll (like bath picture in treatment) */}
       {variant === "pattern" && (
         <div
           ref={patternLayerRef}
           aria-hidden="true"
-          className="absolute inset-0 z-0 brightness-80"
+          className="absolute inset-0 z-10 brightness-80"
           style={{
-            backgroundImage: `url("${heroBanner}"), url("${heroPattern}")`,
-            backgroundRepeat: "no-repeat, repeat",
-            backgroundSize: "auto 100%, 320px auto",
-            backgroundPosition: "center center, 0 0",
+            backgroundImage: `url("${heroBanner}")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "auto 100%",
+            backgroundPosition: "center center",
           }}
         />
       )}
