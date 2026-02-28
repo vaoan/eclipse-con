@@ -71,7 +71,7 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
       return (
         <article
           key={item.key}
-          className="group relative overflow-hidden rounded-3xl border border-white/10 bg-surface/80 p-5 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.9)]"
+          className="group relative overflow-hidden rounded-3xl border border-white/10 bg-surface p-5 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.9)]"
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(244,63,94,0.12),_transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           <div className="relative grid gap-4 md:grid-cols-[180px_1fr] md:items-center">
