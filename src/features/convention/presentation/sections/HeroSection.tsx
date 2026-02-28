@@ -34,7 +34,8 @@ function HeroBathPicture({ className = "" }: { readonly className?: string }) {
 
 const useHeroClipOverlap = (
   bathLayerRef: React.RefObject<HTMLDivElement | null>,
-  textLayerRef: React.RefObject<HTMLDivElement | null>
+  textLayerRef: React.RefObject<HTMLDivElement | null>,
+  patternLayerRef?: React.RefObject<HTMLDivElement | null>
 ) => {
   useEffect(() => {
     let frame = 0;
@@ -65,6 +66,7 @@ const useHeroClipOverlap = (
       const nextTop = nextSection.getBoundingClientRect().top;
       applyClipFromOverlap(bathLayerRef.current, nextTop);
       applyClipFromOverlap(textLayerRef.current, nextTop);
+      applyClipFromOverlap(patternLayerRef?.current ?? null, nextTop);
     };
 
     const onScrollOrResize = () => {
@@ -86,7 +88,7 @@ const useHeroClipOverlap = (
       window.removeEventListener("resize", onScrollOrResize);
       window.removeEventListener("orientationchange", onScrollOrResize);
     };
-  }, [bathLayerRef, textLayerRef]);
+  }, [bathLayerRef, textLayerRef, patternLayerRef]);
 };
 
 export function HeroSection() {
@@ -94,12 +96,13 @@ export function HeroSection() {
   const isMobileViewport = useIsMobileViewport();
   const bathLayerRef = useRef<HTMLDivElement | null>(null);
   const textLayerRef = useRef<HTMLDivElement | null>(null);
+  const patternLayerRef = useRef<HTMLDivElement | null>(null);
   const variant = useExperiment(
     EXPERIMENT_ID,
     VARIANTS,
     "pattern"
   ) as HeroVariant;
-  useHeroClipOverlap(bathLayerRef, textLayerRef);
+  useHeroClipOverlap(bathLayerRef, textLayerRef, patternLayerRef);
 
   return (
     <section
@@ -123,6 +126,7 @@ export function HeroSection() {
       {/* Pattern: banner centered at full width, patron tile fills the gaps */}
       {variant === "pattern" && (
         <div
+          ref={patternLayerRef}
           aria-hidden="true"
           className="absolute inset-0 z-0 brightness-80"
           style={{
