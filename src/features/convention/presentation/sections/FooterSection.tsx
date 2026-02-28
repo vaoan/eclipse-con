@@ -24,14 +24,13 @@ function ExperimentToggle() {
   const toggle = (next: HeroVariant) => {
     localStorage.setItem(EXPERIMENT_KEY, next);
     setVariant(next);
-    window.scrollTo({ top: 0 });
-    window.location.reload();
+    window.location.href = "?section=hero";
   };
 
   return (
     <div className="mt-6 flex flex-col items-center gap-1.5">
       <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/50">
-        Hero A/B
+        Hero A/B/C
       </p>
       <div className="flex overflow-hidden rounded-full border border-white/10 bg-black/30 p-0.5">
         {VARIANTS.map((v) => (
