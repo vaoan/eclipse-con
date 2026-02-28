@@ -101,7 +101,7 @@ test.describe("static build (file:// protocol)", () => {
     expect(rootLength).toBeGreaterThan(100);
 
     // Hero visible immediately
-    const hero = page.locator("#hero");
+    const hero = page.locator("#section-hero");
     await expect(hero).toBeVisible({ timeout: 10000 });
 
     // Scroll through all sections
