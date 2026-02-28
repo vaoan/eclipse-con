@@ -9,6 +9,7 @@ import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewp
 import { useExperiment } from "@/shared/application/hooks/useExperiment";
 const heroBathSingle = "/hero-bath-preview.webp";
 const heroPattern = "/patron-nuevo.webp";
+const heroBanner = "/BANNER_WEB.webp";
 
 const EXPERIMENT_ID = "hero-bath-layout";
 const VARIANTS = ["control", "treatment", "pattern"] as const;
@@ -106,15 +107,29 @@ export function HeroSection() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
       {...tid("section-hero")}
     >
-      {/* Treatment / Pattern: repeating decorative pattern */}
-      {(variant === "treatment" || variant === "pattern") && (
+      {/* Treatment: repeating decorative tile pattern */}
+      {variant === "treatment" && (
         <div
           aria-hidden="true"
-          className={`absolute inset-0 z-0 brightness-80${variant === "treatment" ? " opacity-20" : ""}`}
+          className="absolute inset-0 z-0 opacity-20 brightness-80"
           style={{
             backgroundImage: `url("${heroPattern}")`,
             backgroundRepeat: "repeat",
             backgroundSize: "320px auto",
+          }}
+        />
+      )}
+
+      {/* Pattern: full-bleed banner image */}
+      {variant === "pattern" && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 z-0 brightness-80"
+          style={{
+            backgroundImage: `url("${heroBanner}")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         />
       )}
