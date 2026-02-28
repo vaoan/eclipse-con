@@ -64,12 +64,12 @@ export function HeroCanvasSky({
     const midStars: Star[] = [];
     const brightStars: Star[] = [];
     const shootingStars: ShootingStar[] = [];
-    const farStarCount = isMobileViewport ? 1100 : 3200;
-    const midStarCount = isMobileViewport ? 480 : 1300;
-    const brightStarCount = isMobileViewport ? 180 : 520;
-    const quickFarStarCount = isMobileViewport ? 220 : 520;
-    const quickMidStarCount = isMobileViewport ? 120 : 260;
-    const quickBrightStarCount = isMobileViewport ? 60 : 120;
+    const farStarCount = isMobileViewport ? 1500 : 4500;
+    const midStarCount = isMobileViewport ? 650 : 1800;
+    const brightStarCount = isMobileViewport ? 250 : 720;
+    const quickFarStarCount = isMobileViewport ? 300 : 700;
+    const quickMidStarCount = isMobileViewport ? 160 : 360;
+    const quickBrightStarCount = isMobileViewport ? 80 : 160;
     const maxShootingStars = isMobileViewport ? 3 : 5;
     const minShootDelayMs = isMobileViewport ? 1200 : 900;
     const maxShootDelayMs = isMobileViewport ? 2800 : 2200;
@@ -132,13 +132,13 @@ export function HeroCanvasSky({
       brightStars.length = 0;
 
       for (let index = 0; index < farCount; index += 1) {
-        farStars.push(buildStar(0.94, 3.45, 0.3, 0.9, 0.08, 0.24, 0.35, 1.2));
+        farStars.push(buildStar(0.94, 5.0, 0.3, 0.9, 0.08, 0.24, 0.35, 1.2));
       }
       for (let index = 0; index < midCount; index += 1) {
-        midStars.push(buildStar(0.86, 3.05, 0.6, 1.2, 0.16, 0.42, 0.6, 1.4));
+        midStars.push(buildStar(0.86, 4.4, 0.6, 1.2, 0.16, 0.42, 0.6, 1.4));
       }
       for (let index = 0; index < brightCount; index += 1) {
-        brightStars.push(buildStar(0.78, 2.55, 0.9, 1.8, 0.28, 0.54, 0.95, 2));
+        brightStars.push(buildStar(0.78, 3.8, 0.9, 1.8, 0.28, 0.54, 0.95, 2));
       }
     };
 
