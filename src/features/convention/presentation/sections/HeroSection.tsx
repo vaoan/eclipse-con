@@ -15,7 +15,13 @@ const EXPERIMENT_ID = "hero-bath-layout";
 const VARIANTS = ["control", "treatment", "pattern"] as const;
 type HeroVariant = (typeof VARIANTS)[number];
 
-function HeroBathPicture({ className = "" }: { readonly className?: string }) {
+function HeroBathPicture({
+  className = "",
+  style,
+}: {
+  readonly className?: string;
+  readonly style?: React.CSSProperties;
+}) {
   const baseClasses = "h-full w-auto select-none object-cover brightness-80";
 
   return (
@@ -24,6 +30,7 @@ function HeroBathPicture({ className = "" }: { readonly className?: string }) {
       alt=""
       aria-hidden="true"
       className={`${baseClasses} ${className}`}
+      style={style}
       loading="eager"
       fetchPriority="high"
       decoding="async"
@@ -153,22 +160,23 @@ export function HeroSection() {
       <div
         ref={bathLayerRef}
         className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden"
-        style={
-          variant === "treatment"
-            ? {
-                maskImage:
-                  "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
-              }
-            : undefined
-        }
       >
         <div className="relative z-0 mx-auto flex h-[390px] items-center justify-center gap-0 sm:h-[460px] md:h-[560px] lg:h-[680px]">
           {variant === "control" && !isMobileViewport && (
             <HeroBathPicture className="scale-x-[-1]" />
           )}
-          {variant !== "pattern" && <HeroBathPicture />}
+          {variant !== "pattern" && (
+            <HeroBathPicture
+              {...(variant === "treatment" && {
+                style: {
+                  maskImage:
+                    "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
+                },
+              })}
+            />
+          )}
           {variant === "control" && !isMobileViewport && (
             <HeroBathPicture className="scale-x-[-1]" />
           )}
