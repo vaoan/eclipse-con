@@ -142,7 +142,7 @@ export function HeroSection() {
           {variant === "control" && !isMobileViewport && (
             <HeroBathPicture className="scale-x-[-1]" />
           )}
-          <HeroBathPicture />
+          {variant !== "pattern" && <HeroBathPicture />}
           {variant === "control" && !isMobileViewport && (
             <HeroBathPicture className="scale-x-[-1]" />
           )}
