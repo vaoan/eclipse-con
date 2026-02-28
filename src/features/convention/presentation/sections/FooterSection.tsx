@@ -2,17 +2,21 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LucideIcon } from "lucide-react";
 import { Globe } from "lucide-react";
+import { useNavigate } from "react-router";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { WavePattern } from "../components/WavePattern";
+import { SECTION_IDS } from "@/features/convention/domain/constants";
 
-const EXPERIMENT_KEY = "experiment:hero-bath-layout";
+const EXPERIMENT_ID = "hero-bath-layout";
+const EXPERIMENT_KEY = `experiment:${EXPERIMENT_ID}`;
 const VARIANTS = ["control", "treatment", "pattern"] as const;
 type HeroVariant = (typeof VARIANTS)[number];
 
 function ExperimentToggle() {
+  const navigate = useNavigate();
   const [variant, setVariant] = useState<HeroVariant>(() => {
     const stored = localStorage.getItem(EXPERIMENT_KEY);
     if (stored === "treatment" || stored === "pattern") {
@@ -24,7 +28,15 @@ function ExperimentToggle() {
   const toggle = (next: HeroVariant) => {
     localStorage.setItem(EXPERIMENT_KEY, next);
     setVariant(next);
-    window.location.href = "?section=hero";
+    window.dispatchEvent(
+      new CustomEvent("experiment:change", {
+        detail: { experimentId: EXPERIMENT_ID, variant: next },
+      })
+    );
+    void navigate(`?section=${SECTION_IDS.HERO}`);
+    document
+      .getElementById(SECTION_IDS.HERO)
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (

@@ -20,7 +20,7 @@ export function useExperiment(
 ): string {
   const storageKey = `experiment:${experimentId}`;
 
-  const [variant] = useState<string>(() => {
+  const [variant, setVariant] = useState<string>(() => {
     try {
       const stored = localStorage.getItem(storageKey);
       if (stored && variants.includes(stored)) {
@@ -40,6 +40,25 @@ export function useExperiment(
     }
     return assigned;
   });
+
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const { detail } = event as CustomEvent<{
+        experimentId: string;
+        variant: string;
+      }>;
+      if (
+        detail.experimentId === experimentId &&
+        variants.includes(detail.variant)
+      ) {
+        setVariant(detail.variant);
+      }
+    };
+    window.addEventListener("experiment:change", handler);
+    return () => {
+      window.removeEventListener("experiment:change", handler);
+    };
+  }, [experimentId, variants]);
 
   useEffect(() => {
     trackExperimentExposure({ experimentId, variantId: variant });
