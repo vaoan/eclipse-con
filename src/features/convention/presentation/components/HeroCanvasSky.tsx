@@ -203,14 +203,7 @@ export function HeroCanvasSky({
     };
 
     const drawBackground = () => {
-      const gradient = context.createLinearGradient(0, 0, 0, height);
-      gradient.addColorStop(0, "#01020a");
-      gradient.addColorStop(0.18, "#040824");
-      gradient.addColorStop(0.44, "#09133a");
-      gradient.addColorStop(0.72, "#060c26");
-      gradient.addColorStop(1, "#02040d");
-      context.fillStyle = gradient;
-      context.fillRect(0, 0, width, height);
+      context.clearRect(0, 0, width, height);
     };
 
     const starColor = (tint: Star["tint"], alpha: number) => {
@@ -747,7 +740,7 @@ export function HeroCanvasSky({
         height: "100%",
         display: "block",
         background:
-          "linear-gradient(to bottom, #050714 0%, #0a1030 50%, #03050f 100%)",
+          "linear-gradient(to bottom, #01020a 0%, #040824 18%, #09133a 44%, #060c26 72%, #02040d 100%)",
       }}
       aria-hidden="true"
     />
