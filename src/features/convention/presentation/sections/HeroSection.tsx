@@ -96,7 +96,7 @@ export function HeroSection() {
   const variant = useExperiment(
     EXPERIMENT_ID,
     VARIANTS,
-    "treatment"
+    "pattern"
   ) as HeroVariant;
   useHeroClipOverlap(bathLayerRef, textLayerRef);
 

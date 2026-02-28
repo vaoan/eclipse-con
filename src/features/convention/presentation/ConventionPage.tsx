@@ -285,7 +285,7 @@ export function Component() {
   const heroVariant = useExperiment(
     HERO_EXPERIMENT_ID,
     HERO_VARIANTS,
-    "treatment"
+    "pattern"
   );
   useSectionUrlSync();
 
