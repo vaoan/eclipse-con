@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ShieldCheck } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/presentation/ui/button";
 import {
   getStoredTrackingConsent,
   saveTrackingConsent,

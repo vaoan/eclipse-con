@@ -13,14 +13,14 @@ import {
   Globe,
 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/shared/presentation/ui/badge";
+import { Button } from "@/shared/presentation/ui/button";
+import { Card, CardContent } from "@/shared/presentation/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+} from "@/shared/presentation/ui/collapsible";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";

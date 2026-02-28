@@ -2,27 +2,27 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/shared/presentation/ui/badge";
+import { Button } from "@/shared/presentation/ui/button";
+import { Card, CardContent } from "@/shared/presentation/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+} from "@/shared/presentation/ui/collapsible";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/shared/presentation/ui/dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/shared/presentation/ui/select";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { cn } from "@/shared/application/utils/cn";
 import { SectionHeader } from "../components/SectionHeader";

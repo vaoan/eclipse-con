@@ -1,4 +1,4 @@
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/shared/presentation/ui/separator";
 import { cn } from "@/shared/application/utils/cn";
 
 interface SectionHeaderProps {

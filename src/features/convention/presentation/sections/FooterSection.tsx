@@ -4,7 +4,7 @@ import type { LucideIcon } from "lucide-react";
 import { Globe } from "lucide-react";
 import { useNavigate } from "react-router";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/presentation/ui/button";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { WavePattern } from "../components/WavePattern";

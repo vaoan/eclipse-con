@@ -4,7 +4,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/shared/presentation/ui/accordion";
 import { tid } from "@/shared/application/utils/tid";
 import type { FaqItem } from "@/features/convention/domain/types";
 

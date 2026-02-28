@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/shared/presentation/ui/tooltip";
 import { TrackingConsentGate } from "@/features/analytics/presentation/TrackingConsentGate";
 import { environment } from "@/shared/infrastructure/config/environment";
 

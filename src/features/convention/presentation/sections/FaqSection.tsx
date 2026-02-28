@@ -2,8 +2,8 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { CircleAlert } from "lucide-react";
 
-import { Accordion } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+import { Accordion } from "@/shared/presentation/ui/accordion";
+import { Button } from "@/shared/presentation/ui/button";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { FAQ_ITEMS } from "@/features/convention/application/data/faqItems";
 import { FaqAccordionItem } from "../components/FaqAccordionItem";

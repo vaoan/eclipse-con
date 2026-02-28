@@ -201,7 +201,11 @@ export default tseslint.config(
   // JSDoc — require documentation on all exported symbols
   {
     files: ["src/**/*.{ts,tsx}"],
-    ignores: ["src/components/ui/**", "src/vite-env.d.ts", "src/test/**"],
+    ignores: [
+      "src/shared/presentation/ui/**",
+      "src/vite-env.d.ts",
+      "src/test/**",
+    ],
     plugins: { jsdoc },
     rules: {
       "jsdoc/require-jsdoc": [

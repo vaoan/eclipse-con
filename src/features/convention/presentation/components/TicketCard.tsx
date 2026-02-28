@@ -1,15 +1,15 @@
 import { useTranslation } from "react-i18next";
 import { Check } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/shared/presentation/ui/badge";
+import { Button } from "@/shared/presentation/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/shared/presentation/ui/card";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { RESERVATION_URL } from "@/features/convention/domain/constants";

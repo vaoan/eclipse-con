@@ -9,7 +9,7 @@ All exported symbols **must** have up-to-date JSDoc documentation. This is enfor
 - Every exported `function`, `const` (arrow/function expression), `type`, and `interface`
 - Shared hooks (`use*`), utilities, domain types, and constants are highest priority
 - React components: describe what the component renders, not its internals
-- `src/components/ui/` (shadcn auto-generated) and `src/test/` are exempt
+- `src/shared/presentation/ui/` (shadcn auto-generated) and `src/test/` are exempt
 
 ## Format
 

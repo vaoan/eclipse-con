@@ -2,7 +2,7 @@ import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/presentation/ui/button";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { TICKET_TIERS } from "@/features/convention/application/data/ticketTiers";
 import { SectionHeader } from "../components/SectionHeader";
