@@ -489,6 +489,7 @@ function MobileNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
   );
 }
 
+/** Sticky top navigation bar with desktop dropdown menus, mobile slide-out sheet, and a language toggle. */
 export function NavigationBar() {
   const { t } = useTranslation();
 

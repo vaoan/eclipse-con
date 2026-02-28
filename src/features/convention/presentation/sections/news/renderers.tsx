@@ -3,6 +3,11 @@ import { useTranslation } from "react-i18next";
 import type { TelegramMessage } from "./types";
 import { buildMediaSource, isImage, isVideo } from "./utilities";
 
+/**
+ * Returns render helpers for Telegram archive message cards.
+ * Provides `renderMedia`, `renderText`, and `renderPreview` functions
+ * that translate and format a `TelegramMessage` into JSX nodes.
+ */
 export function useNewsRenderers() {
   const { t } = useTranslation();
 

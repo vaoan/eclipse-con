@@ -109,6 +109,7 @@ const useHeroClipOverlap = (
   }, [bathLayerRef, textLayerRef, patternLayerRef]);
 };
 
+/** Renders the full-screen Hero section with a title, tagline, CTA, and an A/B/C tested hero image layout. */
 export function HeroSection() {
   const { t } = useTranslation();
   const isMobileViewport = useIsMobileViewport();

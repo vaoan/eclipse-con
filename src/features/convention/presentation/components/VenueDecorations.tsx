@@ -4,6 +4,7 @@ import { MountainSilhouette } from "./MountainSilhouette";
 import { SectionParallaxLayer } from "./SectionParallaxLayer";
 import { SteamWisp } from "./SteamWisp";
 
+/** Renders layered parallax decorative elements (mountains, clouds, cranes, steam wisps) for the Venue section background. */
 export function VenueDecorations() {
   return (
     <>

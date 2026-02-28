@@ -39,6 +39,7 @@ const ACCENT_STYLES = {
   },
 } as const;
 
+/** Renders an intro card for a group of related sections, with an accent-colored header and optional note badge. */
 export function SectionGroupIntro({
   id,
   titleKey,

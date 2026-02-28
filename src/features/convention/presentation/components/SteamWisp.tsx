@@ -4,6 +4,7 @@ interface SteamWispProps {
   readonly className?: string;
 }
 
+/** Decorative SVG of a thin rising steam wisp line for atmospheric hot-spring decoration. */
 export function SteamWisp({ className }: Readonly<SteamWispProps>) {
   return (
     <svg

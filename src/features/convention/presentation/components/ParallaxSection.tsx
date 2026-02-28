@@ -8,6 +8,7 @@ interface ParallaxSectionProps {
   readonly className?: string;
 }
 
+/** Wraps children in a `div` that applies a `translate3d` Y-offset driven by global scroll, enabling GPU-composited parallax. */
 export function ParallaxSection({
   speed,
   children,

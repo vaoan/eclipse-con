@@ -65,6 +65,10 @@ function hasPhoneShape(value: string): boolean {
   return false;
 }
 
+/**
+ * Strips dynamic ID segments from a URL pathname to produce a stable, anonymized path string.
+ * UUID segments and long alphanumeric tokens are replaced with `:id`.
+ */
 export function sanitizePath(pathname: string): string {
   const normalized = pathname.trim().replace(/\/{2,}/g, "/");
   if (!normalized) {
@@ -170,6 +174,11 @@ function sanitizePrimitiveValue(
   return { accepted: true, value: sanitizedValue };
 }
 
+/**
+ * Filters and sanitizes event data against a per-event allowlist.
+ * Drops unknown keys, PII-suspicious keys, strings that look like emails or phone numbers,
+ * and numbers outside a safe range.
+ */
 export function sanitizeEventData(
   name: TrackedEventName,
   data: Record<string, Primitive>,
@@ -192,6 +201,7 @@ export function sanitizeEventData(
   return sanitized;
 }
 
+/** Returns a sorted, deduplicated array of safe URL query parameter key names from the given URL. */
 export function getSanitizedQueryKeys(url: URL): string[] {
   const keys = new Set<string>();
   for (const key of url.searchParams.keys()) {

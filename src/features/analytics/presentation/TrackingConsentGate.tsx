@@ -154,6 +154,10 @@ function useConsentState(blockingEnabled: boolean) {
   };
 }
 
+/**
+ * Consent gate modal that blocks the UI until the user accepts or rejects optional tracking.
+ * When `blockingEnabled` is `false`, it renders only a small manage-consent icon button.
+ */
 export function TrackingConsentGate({
   blockingEnabled = true,
 }: TrackingConsentGateProps) {

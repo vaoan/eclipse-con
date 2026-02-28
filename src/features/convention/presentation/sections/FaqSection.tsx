@@ -10,6 +10,7 @@ import { FaqAccordionItem } from "../components/FaqAccordionItem";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
+/** Renders the FAQ section with a collapsible accordion of questions and a tutorial callout. */
 export function FaqSection() {
   const { t } = useTranslation();
 

@@ -9,6 +9,7 @@ interface SectionWrapperProps {
   readonly surfaceTone?: "deep" | "elevated";
 }
 
+/** Full-width `<section>` container with consistent padding, overflow handling, and an optional decorations slot. */
 export function SectionWrapper({
   id,
   children,

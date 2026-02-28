@@ -7,6 +7,12 @@ function getMatches(query: string) {
   return window.matchMedia(query).matches;
 }
 
+/**
+ * Subscribes to a CSS media query and returns whether it currently matches.
+ * Re-renders when the match state changes.
+ * @param query - A valid CSS media query string.
+ * @returns `true` while the media query matches, `false` otherwise.
+ */
 export function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(() => getMatches(query));
 

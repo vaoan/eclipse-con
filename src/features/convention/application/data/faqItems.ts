@@ -1,5 +1,6 @@
 import type { FaqItem } from "@/features/convention/domain/types";
 
+/** Static list of frequently asked questions displayed in the FAQ section. */
 export const FAQ_ITEMS: readonly FaqItem[] = [
   {
     id: "q1",

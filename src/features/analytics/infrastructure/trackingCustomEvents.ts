@@ -20,16 +20,19 @@ const EVENT_TUTORIAL_STEP_SELECTED = "analytics:tutorial_step_selected";
 const EVENT_TUTORIAL_STEP_TOGGLED = "analytics:tutorial_step_toggled";
 const EVENT_TUTORIAL_PROGRESS_BUCKET = "analytics:tutorial_progress_bucket";
 
+/** Payload shape for a tutorial step selected event, including which step and the interaction origin. */
 export interface RegistrationTutorialStepSelectedPayload {
   stepNumber: number;
   origin: string;
 }
 
+/** Payload shape for a tutorial step toggled event, indicating the step and its next completion state. */
 export interface RegistrationTutorialStepToggledPayload {
   stepNumber: number;
   nextState: "done" | "pending";
 }
 
+/** Payload shape for a tutorial step progress bucket event. */
 export interface RegistrationTutorialProgressBucketPayload {
   bucket: "33" | "66" | "100";
   activeStep: number;
@@ -64,50 +67,59 @@ function dispatchTrackingEvent(eventName: string, payload: unknown): void {
   );
 }
 
+/** Dispatches a demographics data event via the custom events bus. */
 export function trackDemographics(payload: DemographicsPayload): void {
   dispatchTrackingEvent(EVENT_DEMOGRAPHICS, payload);
 }
 
+/** Dispatches a content interaction event via the custom events bus. */
 export function trackContentInteraction(
   payload: ContentInteractionPayload
 ): void {
   dispatchTrackingEvent(EVENT_CONTENT_INTERACTION, payload);
 }
 
+/** Dispatches a funnel step event via the custom events bus. */
 export function trackFunnelStep(payload: FunnelStepPayload): void {
   dispatchTrackingEvent(EVENT_FUNNEL_STEP, payload);
 }
 
+/** Dispatches an experiment exposure event via the custom events bus. */
 export function trackExperimentExposure(
   payload: ExperimentExposurePayload
 ): void {
   dispatchTrackingEvent(EVENT_EXPERIMENT_EXPOSURE, payload);
 }
 
+/** Dispatches a consent preference updated event via the custom events bus. */
 export function trackConsentPreference(
   payload: ConsentPreferencePayload
 ): void {
   dispatchTrackingEvent(EVENT_CONSENT_PREFERENCE, payload);
 }
 
+/** Dispatches a tutorial step selected event via the custom events bus. */
 export function trackTutorialStepSelected(
   payload: RegistrationTutorialStepSelectedPayload
 ): void {
   dispatchTrackingEvent(EVENT_TUTORIAL_STEP_SELECTED, payload);
 }
 
+/** Dispatches a tutorial step toggled event via the custom events bus. */
 export function trackTutorialStepToggled(
   payload: RegistrationTutorialStepToggledPayload
 ): void {
   dispatchTrackingEvent(EVENT_TUTORIAL_STEP_TOGGLED, payload);
 }
 
+/** Dispatches a tutorial progress bucket event via the custom events bus. */
 export function trackTutorialProgressBucket(
   payload: RegistrationTutorialProgressBucketPayload
 ): void {
   dispatchTrackingEvent(EVENT_TUTORIAL_PROGRESS_BUCKET, payload);
 }
 
+/** Attaches window event listeners for all custom analytics events and routes them to the provided handlers. */
 export function registerCustomTrackingListeners(
   handlers: CustomTrackingHandlers
 ): void {

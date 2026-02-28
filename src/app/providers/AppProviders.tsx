@@ -10,6 +10,7 @@ interface AppProvidersProps {
   readonly children: ReactNode;
 }
 
+/** Wraps the application with global UI providers: `TooltipProvider`, `TrackingConsentGate`, and the i18n language sync effect. */
 export function AppProviders({ children }: AppProvidersProps) {
   const { i18n } = useTranslation();
   const hasPosthog =

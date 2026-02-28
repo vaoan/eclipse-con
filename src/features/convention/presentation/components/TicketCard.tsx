@@ -19,6 +19,7 @@ interface TicketCardProps {
   readonly tier: TicketTier;
 }
 
+/** Renders a registration ticket card with pricing, feature list, and a reservation CTA link. */
 export function TicketCard({ tier }: Readonly<TicketCardProps>) {
   const { t } = useTranslation();
 

@@ -4,6 +4,7 @@ import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
+/** Renders the Event Overview section with key convention highlights in a three-column grid. */
 export function EventOverviewSection() {
   const { t } = useTranslation();
 

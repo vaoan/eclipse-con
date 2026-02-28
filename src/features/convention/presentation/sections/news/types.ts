@@ -1,3 +1,4 @@
+/** Represents a single media attachment on a Telegram message (photo, video, or file). */
 export interface TelegramMediaItem {
   type: string;
   path: string;
@@ -6,6 +7,7 @@ export interface TelegramMediaItem {
   size?: number;
 }
 
+/** Represents a single message exported from a Telegram channel. */
 export interface TelegramMessage {
   id: number;
   date: string;
@@ -13,6 +15,7 @@ export interface TelegramMessage {
   media?: TelegramMediaItem[];
 }
 
+/** Represents a full archive exported from a Telegram channel, including metadata and messages. */
 export interface TelegramArchive {
   source: string;
   fetchedAt: string;
@@ -20,6 +23,7 @@ export interface TelegramArchive {
   messages: TelegramMessage[];
 }
 
+/** Union of all available display mode identifiers for the News section. */
 export type NewsLayoutMode =
   | "focus"
   | "drawer"
@@ -48,8 +52,10 @@ export type NewsLayoutMode =
   | "polaroidReadmore"
   | "readmore";
 
+/** The default layout mode shown when the user has not selected one. */
 export const DEFAULT_NEWS_LAYOUT: NewsLayoutMode = "rail";
 
+/** All available News section layout modes with their i18n label keys. */
 export const NEWS_LAYOUT_MODES: { id: NewsLayoutMode; labelKey: string }[] = [
   { id: "focus", labelKey: "convention.news.modes.focus" },
   { id: "drawer", labelKey: "convention.news.modes.drawer" },

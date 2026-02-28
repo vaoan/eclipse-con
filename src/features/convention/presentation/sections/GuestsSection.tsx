@@ -6,6 +6,7 @@ import { GuestCard } from "../components/GuestCard";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
+/** Renders the Guests section displaying a grid of featured guest speaker/organizer cards. */
 export function GuestsSection() {
   const { t } = useTranslation();
 

@@ -6,6 +6,7 @@ import { EventCard } from "../components/EventCard";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
+/** Renders the Events section displaying all scheduled convention activities as a card grid. */
 export function EventsSection() {
   const { t } = useTranslation();
 

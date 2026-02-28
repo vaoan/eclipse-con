@@ -4,6 +4,7 @@ interface KodamaSilhouetteProps {
   readonly className?: string;
 }
 
+/** Decorative SVG silhouette of a kodama (forest spirit) with round head and tiny arms. */
 export function KodamaSilhouette({
   className,
 }: Readonly<KodamaSilhouetteProps>) {

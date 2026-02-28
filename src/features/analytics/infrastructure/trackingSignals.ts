@@ -10,6 +10,7 @@ function getUserAgent(): string {
   return navigator.userAgent.toLowerCase();
 }
 
+/** Buckets the viewport width into `"mobile"`, `"tablet"`, or `"desktop"`. */
 export function getDeviceBucket(): string {
   const width = window.innerWidth;
   if (width < 768) {
@@ -21,6 +22,7 @@ export function getDeviceBucket(): string {
   return "desktop";
 }
 
+/** Returns a coarse OS family string (`"windows"`, `"macos"`, `"android"`, `"ios"`, `"linux"`, or `"other"`). */
 export function getOsFamily(): string {
   const ua = getUserAgent();
   if (ua.includes("windows")) {
@@ -41,6 +43,7 @@ export function getOsFamily(): string {
   return "other";
 }
 
+/** Returns a coarse browser family string (`"edge"`, `"firefox"`, `"safari"`, `"chrome"`, or `"other"`). */
 export function getBrowserFamily(): string {
   const ua = getUserAgent();
   if (ua.includes("edg/")) {
@@ -58,6 +61,7 @@ export function getBrowserFamily(): string {
   return "other";
 }
 
+/** Classifies the document referrer as `"direct"`, `"internal"`, `"search"`, `"social"`, or `"campaign"`. */
 export function getReferrerBucket(): string {
   const referrer = document.referrer;
   if (!referrer) {
@@ -90,6 +94,7 @@ export function getReferrerBucket(): string {
   }
 }
 
+/** Returns the effective connection type as `"2g"`, `"3g"`, `"4g"`, or `"unknown"` via the Network Information API. */
 export function getConnectionType(): string {
   const typedNavigator = navigator as NavigatorWithConnection;
   const connectionType = typedNavigator.connection?.effectiveType;
@@ -108,6 +113,7 @@ export function getConnectionType(): string {
   return "unknown";
 }
 
+/** Classifies the device as `"low"`, `"medium"`, or `"high"` performance based on memory and CPU cores. */
 export function getDevicePerformanceClass(): string {
   const typedNavigator = navigator as Navigator & {
     deviceMemory?: number;
@@ -124,6 +130,7 @@ export function getDevicePerformanceClass(): string {
   return "medium";
 }
 
+/** Checks the current URL for UTM or ad click ID parameters and returns `"utm_present"`, `"ad_click_id"`, or `"none"`. */
 export function getReferralCampaignBucket(): string {
   const params = new URL(window.location.href).searchParams;
   const hasUtm =
@@ -153,6 +160,7 @@ function getPrimaryLanguageTag(locale: string): string | null {
   return primaryTag;
 }
 
+/** Returns the primary BCP 47 language tag from the browser's language preferences, or `"unknown"`. */
 export function getBrowserLanguagePreference(): string {
   const languageCandidates = [...navigator.languages, navigator.language];
 
@@ -166,6 +174,7 @@ export function getBrowserLanguagePreference(): string {
   return "unknown";
 }
 
+/** Collects all browser context signals (device, OS, browser, referrer, connection, language) into a single record. */
 export function getContextSignals(): Record<string, Primitive> {
   return {
     deviceBucket: getDeviceBucket(),
@@ -177,6 +186,7 @@ export function getContextSignals(): Record<string, Primitive> {
   };
 }
 
+/** Buckets a session duration in milliseconds into `"lt_30s"`, `"30s_120s"`, `"2m_10m"`, or `"10m_plus"`. */
 export function getDurationBucket(milliseconds: number): string {
   if (milliseconds < 30_000) {
     return "lt_30s";
@@ -190,6 +200,7 @@ export function getDurationBucket(milliseconds: number): string {
   return "10m_plus";
 }
 
+/** Buckets a page-views-per-session count into `"1"`, `"2_3"`, `"4_5"`, or `"6_plus"`. */
 export function getPagesPerSessionBucket(pages: number): string {
   if (pages <= 1) {
     return "1";
@@ -280,6 +291,7 @@ function getInpBucket(value: number | null): string | null {
   return "poor";
 }
 
+/** Collects Web Vitals (LCP, CLS, INP, FP, FCP) from the Performance API and returns them as bucketed values. */
 export function getWebVitalBuckets(): Record<string, Primitive> {
   const entries = performance.getEntriesByType("navigation");
   const navigation = entries[0] as PerformanceNavigationTiming | undefined;

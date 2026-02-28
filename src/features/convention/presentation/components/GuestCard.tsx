@@ -9,6 +9,7 @@ interface GuestCardProps {
   readonly guest: Guest;
 }
 
+/** Renders a card for a featured guest, including their photo, name, role, and bio. */
 export function GuestCard({ guest }: Readonly<GuestCardProps>) {
   const { t } = useTranslation();
 

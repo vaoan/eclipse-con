@@ -1,5 +1,6 @@
 import type { Guest } from "@/features/convention/domain/types";
 
+/** Static list of featured guests displayed in the Guests section. */
 export const GUESTS: readonly Guest[] = [
   {
     id: "guest1",

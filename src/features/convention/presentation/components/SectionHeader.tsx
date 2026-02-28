@@ -25,6 +25,7 @@ const ACCENT_STYLES = {
   },
 } as const;
 
+/** Renders a section heading with a title, decorative accent bar, and optional subtitle. */
 export function SectionHeader({
   title,
   subtitle,

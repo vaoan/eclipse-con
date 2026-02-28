@@ -13,6 +13,7 @@ import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import type { ConventionEvent } from "@/features/convention/domain/types";
 
+/** Maps icon name strings to Lucide React icon components for dynamic rendering. */
 const ICON_MAP: Record<string, React.ElementType> = {
   MessageSquare,
   Paintbrush,
@@ -26,6 +27,7 @@ interface EventCardProps {
   readonly event: ConventionEvent;
 }
 
+/** Renders a card for a single convention event with a title, icon, and description. */
 export function EventCard({ event }: Readonly<EventCardProps>) {
   const { t } = useTranslation();
   const Icon = ICON_MAP[event.icon] ?? Star;

@@ -1,3 +1,7 @@
+/**
+ * Buckets a time-to-first-interaction duration into a coarse label.
+ * @returns A string like `"lt_1s"`, `"1s_3s"`, `"3s_10s"`, or `"10s_plus"`.
+ */
 export function getFirstInteractionBucket(milliseconds: number): string {
   if (milliseconds < 1000) {
     return "lt_1s";
@@ -11,6 +15,7 @@ export function getFirstInteractionBucket(milliseconds: number): string {
   return "10s_plus";
 }
 
+/** Buckets a search query character length into a coarse label (`"0"`, `"1_3"`, `"4_8"`, `"9_plus"`). */
 export function getQueryLengthBucket(length: number): string {
   if (length <= 0) {
     return "0";
@@ -24,6 +29,7 @@ export function getQueryLengthBucket(length: number): string {
   return "9_plus";
 }
 
+/** Buckets a search result count into a coarse label, or returns `null` for invalid input. */
 export function getResultCountBucket(count: number | null): string | null {
   if (count === null || Number.isNaN(count)) {
     return null;
@@ -40,6 +46,7 @@ export function getResultCountBucket(count: number | null): string | null {
   return "11_plus";
 }
 
+/** Buckets a millisecond duration into a coarse label for dwell-time events. */
 export function getDurationBucketFromMs(milliseconds: number): string {
   if (milliseconds < 5_000) {
     return "lt_5s";
@@ -56,6 +63,7 @@ export function getDurationBucketFromMs(milliseconds: number): string {
   return "10m_plus";
 }
 
+/** Buckets the number of days until the event into a lead-time label (e.g., `"0_7_days"`). */
 export function getReservationLeadTimeBucket(daysUntilEvent: number): string {
   if (daysUntilEvent < 0) {
     return "past";
@@ -72,6 +80,7 @@ export function getReservationLeadTimeBucket(daysUntilEvent: number): string {
   return "90_plus_days";
 }
 
+/** Traverses ancestors of the event target to find the closest `<section id>` and returns its ID. */
 export function getSectionIdFromTarget(
   target: EventTarget | null
 ): string | null {
@@ -87,6 +96,7 @@ export function getSectionIdFromTarget(
   return section.id || null;
 }
 
+/** Classifies the vertical position of a CTA element within the viewport as `"top"`, `"middle"`, or `"bottom"`. */
 export function getCtaPositionBucket(
   target: EventTarget | null
 ): string | null {
@@ -111,6 +121,7 @@ export function getCtaPositionBucket(
   return "bottom";
 }
 
+/** Returns the eTLD+1 domain of an outbound anchor's `href`, or `null` for internal or invalid links. */
 export function getOutboundDomainBucket(
   target: EventTarget | null
 ): string | null {
@@ -138,6 +149,7 @@ export function getOutboundDomainBucket(
   }
 }
 
+/** Reads the `data-nav-menu-action` attribute from the closest annotated ancestor, returning the action string or `null`. */
 export function getMenuActionFromTarget(
   target: EventTarget | null
 ): string | null {
@@ -149,6 +161,7 @@ export function getMenuActionFromTarget(
   return actionElement?.dataset.navMenuAction ?? null;
 }
 
+/** Returns the FAQ item ID and whether the click will open or close it, or `null` if no FAQ trigger is found. */
 export function getFaqActionFromTarget(target: EventTarget | null): {
   faqId: string;
   action: "open" | "close";
@@ -173,6 +186,7 @@ export function getFaqActionFromTarget(target: EventTarget | null): {
   };
 }
 
+/** Returns the news interaction action and item ID from `data-news-action` attributes, or `null` if not found. */
 export function getNewsActionFromTarget(target: EventTarget | null): {
   action: string;
   itemId: string | null;
@@ -192,6 +206,7 @@ export function getNewsActionFromTarget(target: EventTarget | null): {
   };
 }
 
+/** Returns the FAQ ID and its theme tag when a FAQ item is being opened; returns `null` otherwise. */
 export function getFaqBlockerThemeFromTarget(target: EventTarget | null): {
   faqId: string;
   theme: string;
@@ -219,6 +234,7 @@ export function getFaqBlockerThemeFromTarget(target: EventTarget | null): {
   return { faqId, theme: trigger.dataset.faqTheme };
 }
 
+/** Reads native HTML5 validity state from a form field target and returns a coarse error type and field tag. */
 export function getFormErrorType(target: EventTarget | null): {
   errorType: string;
   fieldType: string;

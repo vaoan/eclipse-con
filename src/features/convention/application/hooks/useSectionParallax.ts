@@ -1,5 +1,13 @@
 import { type RefObject, useEffect, useState } from "react";
 
+/**
+ * Computes a parallax offset relative to a specific section element's position in the viewport.
+ * Tracks how far the section's center deviates from the viewport center to calculate depth.
+ * @param ref - Ref to the section container element.
+ * @param speed - Depth multiplier; higher values increase movement range.
+ * @param enabled - When `false`, offset is reset to zero and scroll listener is removed.
+ * @returns The pixel offset to apply via CSS transform.
+ */
 export function useSectionParallax(
   ref: RefObject<HTMLElement | null>,
   speed = 0.3,

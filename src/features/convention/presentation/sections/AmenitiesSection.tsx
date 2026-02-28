@@ -183,6 +183,7 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
   </div>
 );
 
+/** Renders the Amenities section with hotel activity cards and restaurant listings. */
 export function AmenitiesSection() {
   const { t } = useTranslation();
 

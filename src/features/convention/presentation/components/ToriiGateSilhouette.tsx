@@ -4,6 +4,7 @@ interface ToriiGateSilhouetteProps {
   readonly className?: string;
 }
 
+/** Decorative SVG silhouette of a torii gate (Japanese shrine gate). */
 export function ToriiGateSilhouette({
   className,
 }: Readonly<ToriiGateSilhouetteProps>) {

@@ -4,6 +4,7 @@ interface CloudSilhouetteProps {
   readonly className?: string;
 }
 
+/** Decorative SVG silhouette of a cloud shape for atmospheric decoration. */
 export function CloudSilhouette({ className }: Readonly<CloudSilhouetteProps>) {
   return (
     <svg

@@ -4,6 +4,7 @@ import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
+/** Renders the About section with a three-paragraph description of the convention. */
 export function AboutSection() {
   const { t } = useTranslation();
 

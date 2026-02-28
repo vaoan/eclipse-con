@@ -350,6 +350,10 @@ const TutorialChecklist = ({ t }: Readonly<{ t: TFunction }>) => (
   </section>
 );
 
+/**
+ * Three-step registration tutorial page that guides users through the hotel booking and ticketing process.
+ * Exported as `Component` for React Router's `lazy` route loader.
+ */
 export function Component() {
   const { t } = useTranslation();
 

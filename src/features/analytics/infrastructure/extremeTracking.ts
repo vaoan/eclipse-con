@@ -85,6 +85,7 @@ interface TrackContext {
 
 let analyticsConsentGranted = false;
 
+/** Updates the module-level consent flag that gates event delivery to remote endpoints. */
 export function setAnalyticsConsentGranted(granted: boolean): void {
   analyticsConsentGranted = granted;
 }
@@ -965,6 +966,7 @@ function attachListeners(context: TrackContext): void {
   }, FLUSH_INTERVAL_MS);
 }
 
+/** Initializes the full analytics tracking system, attaching all DOM listeners, observers, and flush intervals. */
 export function initExtremeTracking(options: TrackingOptions): void {
   if (typeof window === "undefined" || typeof document === "undefined") {
     return;

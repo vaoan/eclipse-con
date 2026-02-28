@@ -5,6 +5,7 @@ import { SectionHeader } from "../components/SectionHeader";
 import { GuestCard } from "../components/GuestCard";
 import { SectionWrapper } from "../components/SectionWrapper";
 
+/** Renders the Attendees section, showcasing a grid of special attendee profile cards. */
 export function AttendeesSection() {
   const { t } = useTranslation();
   const guests = [

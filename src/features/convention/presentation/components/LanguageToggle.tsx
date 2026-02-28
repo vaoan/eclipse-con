@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 
+/** Toggle button that switches the active locale between English and Spanish. */
 export function LanguageToggle() {
   const { i18n, t } = useTranslation();
   const isEnglish = i18n.resolvedLanguage?.startsWith("en") ?? true;

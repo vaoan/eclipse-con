@@ -1,5 +1,6 @@
 import type { TicketTier } from "@/features/convention/domain/types";
 
+/** Static list of available registration packages shown in the Registration section. */
 export const TICKET_TIERS: readonly TicketTier[] = [
   {
     id: "quad",

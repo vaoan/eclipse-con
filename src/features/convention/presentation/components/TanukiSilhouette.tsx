@@ -6,6 +6,7 @@ interface TanukiSilhouetteProps {
 
 const SVG_MARKUP = `<g id="g18726" transform="matrix(1.3333333,0,0,-1.3333333,0,800)"> <g id="g18728"> <g id="g18730"></g> </g> </g>`;
 
+/** Decorative SVG silhouette of a tanuki (raccoon dog) for atmospheric decoration. */
 export function TanukiSilhouette({
   className,
 }: Readonly<TanukiSilhouetteProps>) {

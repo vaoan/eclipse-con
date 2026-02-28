@@ -125,6 +125,7 @@ const COMMUNITY_LINKS: {
   },
 ] as const;
 
+/** Renders the page footer with branding, community social links, credits, and a debug experiment toggle. */
 export function FooterSection() {
   const { t } = useTranslation();
   const appVersion =

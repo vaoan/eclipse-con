@@ -12,6 +12,7 @@ interface FaqAccordionItemProps {
   readonly item: FaqItem;
 }
 
+/** Renders a collapsible accordion item for a single FAQ question and answer. */
 export function FaqAccordionItem({ item }: Readonly<FaqAccordionItemProps>) {
   const { t } = useTranslation();
 

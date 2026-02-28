@@ -4,6 +4,7 @@ interface EclipseMoonProps {
   readonly className?: string;
 }
 
+/** Renders an SVG eclipse moon graphic with concentric glow rings and a crescent shadow overlay. */
 export function EclipseMoon({ className }: Readonly<EclipseMoonProps>) {
   return (
     <svg

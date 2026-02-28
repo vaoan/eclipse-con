@@ -53,6 +53,7 @@ const CLIMATE_URL =
 const CERTIFICATIONS_URL =
   "https://es.travel2latam.com/news-62140-hoteles-estelar-obtiene-sellos-safe-guard-y-check-in-certificado";
 
+/** Renders the Venue section with hotel details, feature list, badge links, and photos. */
 // eslint-disable-next-line max-lines-per-function
 export function VenueSection() {
   const { t, i18n } = useTranslation();

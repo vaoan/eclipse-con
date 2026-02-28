@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
 import { usePrefersReducedMotion } from "@/shared/application/hooks/usePrefersReducedMotion";
 
+/**
+ * Computes a vertical scroll offset that creates a global parallax effect.
+ * Disabled automatically on mobile viewports and when reduced motion is preferred.
+ * @param speed - Multiplier applied to `window.scrollY`; higher values move faster.
+ * @returns The pixel offset to apply via CSS `translateY`.
+ */
 export function useParallax(speed = 0.3) {
   const [offset, setOffset] = useState(0);
   const prefersReducedMotion = usePrefersReducedMotion();

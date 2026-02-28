@@ -1,3 +1,4 @@
+/** Configuration options for initializing the extreme tracking system. */
 export interface TrackingOptions {
   endpoint: string;
   enabled: boolean;
@@ -6,8 +7,10 @@ export interface TrackingOptions {
   posthogHost: string;
 }
 
+/** Scalar value type used throughout the analytics event payload maps. */
 export type Primitive = string | number | boolean | null;
 
+/** Represents a single analytics event ready to be sent to the backend. */
 export interface AnalyticsEvent {
   name: TrackedEventName;
   timestamp: number;
@@ -18,6 +21,7 @@ export interface AnalyticsEvent {
   data?: Record<string, Primitive>;
 }
 
+/** Allowed gender identity options for the demographics survey. */
 export const GENDER_OPTIONS = [
   "woman",
   "man",
@@ -25,6 +29,7 @@ export const GENDER_OPTIONS = [
   "prefer_not_to_say",
   "self_describe",
 ] as const;
+/** Allowed age range options for the demographics survey. */
 export const AGE_RANGE_OPTIONS = [
   "13_17",
   "18_24",
@@ -35,7 +40,9 @@ export const AGE_RANGE_OPTIONS = [
   "65_plus",
   "prefer_not_to_say",
 ] as const;
+/** Whether the respondent is a new or returning attendee. */
 export const ATTENDEE_TYPE_OPTIONS = ["new", "returning"] as const;
+/** Broad geographic region options for the demographics survey. */
 export const REGION_BUCKET_OPTIONS = [
   "north_america",
   "south_america",
@@ -52,6 +59,7 @@ export type AgeRangeOption = (typeof AGE_RANGE_OPTIONS)[number];
 export type AttendeeTypeOption = (typeof ATTENDEE_TYPE_OPTIONS)[number];
 export type RegionBucketOption = (typeof REGION_BUCKET_OPTIONS)[number];
 
+/** Payload for the demographics survey submission event. */
 export interface DemographicsPayload {
   gender: GenderOption;
   ageRange: AgeRangeOption;
@@ -60,6 +68,7 @@ export interface DemographicsPayload {
   country?: string;
 }
 
+/** Payload for a user interaction with a specific piece of content in a section. */
 export interface ContentInteractionPayload {
   sectionId: string;
   contentId: string;
@@ -76,6 +85,7 @@ export interface ContentInteractionPayload {
     | "disable";
 }
 
+/** Payload for a registration conversion funnel step event. */
 export interface FunnelStepPayload {
   step:
     | "view_pricing"
@@ -86,17 +96,20 @@ export interface FunnelStepPayload {
   ctaVariant?: string;
 }
 
+/** Payload for recording that a user was exposed to an A/B experiment variant. */
 export interface ExperimentExposurePayload {
   experimentId: string;
   variantId: string;
 }
 
+/** Payload for recording the user's tracking consent decision. */
 export interface ConsentPreferencePayload {
   source: "accept_all" | "reject_optional";
   analytics: boolean;
   updatedAt: string;
 }
 
+/** Union of all valid analytics event name strings. */
 export type TrackedEventName =
   | "session_start"
   | "session_end"
@@ -148,6 +161,7 @@ export type TrackedEventName =
   | "faq_blocker_theme"
   | "reserve_ticket_handoff";
 
+/** Per-event allowlist of data property keys that may be included in analytics payloads. */
 export const EVENT_DATA_ALLOWLIST: Record<TrackedEventName, readonly string[]> =
   {
     session_start: [
@@ -246,6 +260,7 @@ function isAllowedOption<T extends string>(
   return options.includes(value as T);
 }
 
+/** Type guard that validates an unknown value as a `DemographicsPayload`. */
 export function isDemographicsPayload(
   value: unknown
 ): value is DemographicsPayload {
@@ -290,6 +305,7 @@ function isSafeId(value: string): boolean {
   return /^[a-z0-9._:-]{1,64}$/i.test(value);
 }
 
+/** Type guard that validates an unknown value as a `ContentInteractionPayload`. */
 export function isContentInteractionPayload(
   value: unknown
 ): value is ContentInteractionPayload {
@@ -328,6 +344,7 @@ export function isContentInteractionPayload(
   return true;
 }
 
+/** Type guard that validates an unknown value as a `FunnelStepPayload`. */
 export function isFunnelStepPayload(
   value: unknown
 ): value is FunnelStepPayload {
@@ -355,6 +372,7 @@ export function isFunnelStepPayload(
   return true;
 }
 
+/** Type guard that validates an unknown value as an `ExperimentExposurePayload`. */
 export function isExperimentExposurePayload(
   value: unknown
 ): value is ExperimentExposurePayload {
@@ -373,6 +391,7 @@ export function isExperimentExposurePayload(
   return true;
 }
 
+/** Type guard that validates an unknown value as a `ConsentPreferencePayload`. */
 export function isConsentPreferencePayload(
   value: unknown
 ): value is ConsentPreferencePayload {

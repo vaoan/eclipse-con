@@ -4,6 +4,7 @@ interface LanternSilhouetteProps {
   readonly className?: string;
 }
 
+/** Decorative SVG silhouette of a traditional hanging paper lantern. */
 export function LanternSilhouette({
   className,
 }: Readonly<LanternSilhouetteProps>) {

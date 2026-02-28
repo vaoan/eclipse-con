@@ -1,5 +1,6 @@
 import type { ConventionEvent } from "@/features/convention/domain/types";
 
+/** Static list of convention activities and events shown in the Events section. */
 export const EVENTS: readonly ConventionEvent[] = [
   {
     id: "community",

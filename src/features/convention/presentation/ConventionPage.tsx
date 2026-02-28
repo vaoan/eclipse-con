@@ -280,6 +280,11 @@ function useSectionUrlSync() {
 const HERO_EXPERIMENT_ID = "hero-bath-layout";
 const HERO_VARIANTS = ["control", "treatment", "pattern"] as const;
 
+/**
+ * Root page component for the convention. Composes all sections in order,
+ * manages section-based URL sync, and lazily loads heavy sections.
+ * Exported as `Component` for React Router's `lazy` route loader.
+ */
 export function Component() {
   const [effectsReady, setEffectsReady] = useState(false);
   const heroVariant = useExperiment(

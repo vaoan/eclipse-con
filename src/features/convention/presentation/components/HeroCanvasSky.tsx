@@ -9,6 +9,7 @@ interface HeroCanvasSkyProps {
   readonly fixed?: boolean;
 }
 
+/** Describes the properties of a single star in the canvas sky. */
 interface Star {
   readonly x: number;
   readonly y: number;
@@ -21,6 +22,7 @@ interface Star {
   readonly shimmerPhase: number;
 }
 
+/** Describes the live state of a shooting star trail. */
 interface ShootingStar {
   x: number;
   y: number;
@@ -35,6 +37,10 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
+/**
+ * Renders an animated canvas night sky with stars, a parallax moon, and shooting stars.
+ * Disables animations when the user prefers reduced motion or is on a mobile viewport.
+ */
 export function HeroCanvasSky({
   className = "",
   fixed = false,

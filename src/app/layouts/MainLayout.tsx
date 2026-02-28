@@ -138,6 +138,7 @@ const SkipToContentLink = ({ label }: { readonly label: string }) => (
   </a>
 );
 
+/** Shared page shell that provides a skip-to-content link, scroll-restoration hooks, and the `<Outlet>` for child routes. */
 export function MainLayout() {
   const navigate = useNavigate();
   const location = useLocation();

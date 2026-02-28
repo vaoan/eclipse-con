@@ -1,8 +1,10 @@
+/** Represents the user's per-category tracking consent choices. */
 export interface ConsentCategories {
   necessary: true;
   analytics: boolean;
 }
 
+/** Persisted consent record including the version, source action, and category choices. */
 export interface TrackingConsentState {
   version: number;
   updatedAt: string;
@@ -13,11 +15,16 @@ export interface TrackingConsentState {
 const CONSENT_KEY = "tracking_consent_v1";
 const CONSENT_VERSION = 2;
 
+/** Default consent categories applied before the user makes an explicit choice. */
 export const DEFAULT_CONSENT_CATEGORIES: ConsentCategories = {
   necessary: true,
   analytics: false,
 };
 
+/**
+ * Reads and validates the stored tracking consent state from `localStorage`.
+ * @returns The parsed `TrackingConsentState` if valid, or `null` if absent or outdated.
+ */
 export function getStoredTrackingConsent(): TrackingConsentState | null {
   if (typeof window === "undefined") {
     return null;
@@ -59,6 +66,12 @@ export function getStoredTrackingConsent(): TrackingConsentState | null {
   }
 }
 
+/**
+ * Persists the user's consent decision to `localStorage` and returns the saved state.
+ * @param categories - The optional consent categories chosen by the user.
+ * @param source - Whether the user clicked "accept all" or "reject optional".
+ * @returns The newly saved `TrackingConsentState`.
+ */
 export function saveTrackingConsent(
   categories: Omit<ConsentCategories, "necessary">,
   source: TrackingConsentState["source"]

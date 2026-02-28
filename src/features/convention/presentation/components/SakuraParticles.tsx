@@ -15,6 +15,7 @@ function seededValue(index: number, offset: number) {
   return seed - Math.floor(seed);
 }
 
+/** Renders a fixed overlay of animated sakura petal particles. Returns `null` when reduced motion is preferred. */
 export function SakuraParticles() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const particleCount = useMemo(() => {

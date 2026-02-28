@@ -9,6 +9,7 @@ import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 import { TicketCard } from "../components/TicketCard";
 
+/** Renders the Registration section with ticket tier cards and CTA links to the reservation flow. */
 export function RegistrationSection() {
   const { t } = useTranslation();
 

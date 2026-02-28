@@ -4,6 +4,7 @@ import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
+/** Renders the Travel section with climate and local area tips in a two-column card grid. */
 export function TravelSection() {
   const { t } = useTranslation();
   const tipKeys = [

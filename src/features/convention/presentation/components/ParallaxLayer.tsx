@@ -6,6 +6,7 @@ interface ParallaxLayerProps {
   readonly className?: string;
 }
 
+/** Wraps children in a `div` that translates vertically based on global scroll position for a parallax effect. */
 export function ParallaxLayer({
   speed,
   children,

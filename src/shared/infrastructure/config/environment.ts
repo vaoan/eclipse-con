@@ -1,3 +1,4 @@
+/** Centralized runtime configuration derived from Vite environment variables. */
 export const environment = {
   appName: String(import.meta.env.VITE_APP_NAME ?? "Moonfest 2026"),
   defaultLocale: String(import.meta.env.VITE_DEFAULT_LOCALE ?? "en"),

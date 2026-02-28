@@ -4,6 +4,7 @@ interface WavePatternProps {
   readonly className?: string;
 }
 
+/** Renders three stacked SVG sine-wave paths as a decorative horizontal divider. */
 export function WavePattern({ className }: Readonly<WavePatternProps>) {
   return (
     <div className={cn("w-full overflow-hidden", className)} aria-hidden="true">
