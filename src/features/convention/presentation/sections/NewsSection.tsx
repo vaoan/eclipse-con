@@ -162,6 +162,7 @@ const renderIndexMedia = (message: TelegramMessage, fallbackLabel: string) => {
   );
 };
 
+/** Displays the latest Telegram news archive with expandable post cards and media support. */
 export function NewsSection() {
   const { t, i18n } = useTranslation();
   const { renderMedia, renderText, renderPreview } = useNewsRenderers();

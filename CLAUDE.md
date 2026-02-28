@@ -91,6 +91,13 @@ src/
 - Locales: `en`, `es` in `src/shared/infrastructure/i18n/locales/`
 - Always update both locale files when adding keys
 
+### JSDoc
+
+- Every exported `function`, `const` (arrow/function expression), `type`, and `interface` **must** have a `/** ... */` block
+- **Keep docs current**: whenever you touch a file, update the JSDoc of every symbol you modified or that is affected by your change
+- Enforced by `eslint-plugin-jsdoc` — treat JSDoc warnings as errors and fix before committing
+- See `.claude/rules/jsdoc.md` for full format guide
+
 ## Design Principles
 
 - **DRY**: Extract shared logic after 3 occurrences

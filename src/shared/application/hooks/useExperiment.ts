@@ -11,7 +11,9 @@ function pickVariant(variants: readonly [string, ...string[]]): string {
 /**
  * Assigns a sticky variant for an experiment, persisted in localStorage.
  * Fires `trackExperimentExposure` once on mount.
- * @param defaultVariant - variant assigned to new visitors (defaults to random if omitted)
+ * @param experimentId - Unique identifier for the experiment.
+ * @param variants - Ordered list of variant names; first element is the fallback.
+ * @param defaultVariant - Variant assigned to new visitors (defaults to random if omitted).
  */
 export function useExperiment(
   experimentId: string,

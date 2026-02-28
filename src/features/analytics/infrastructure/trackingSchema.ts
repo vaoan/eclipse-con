@@ -54,9 +54,13 @@ export const REGION_BUCKET_OPTIONS = [
   "prefer_not_to_say",
 ] as const;
 
+/** One of the available gender options from the survey. */
 export type GenderOption = (typeof GENDER_OPTIONS)[number];
+/** One of the available age range options from the survey. */
 export type AgeRangeOption = (typeof AGE_RANGE_OPTIONS)[number];
+/** One of the available attendee type options from the survey. */
 export type AttendeeTypeOption = (typeof ATTENDEE_TYPE_OPTIONS)[number];
+/** One of the available region bucket options from the survey. */
 export type RegionBucketOption = (typeof REGION_BUCKET_OPTIONS)[number];
 
 /** Payload for the demographics survey submission event. */

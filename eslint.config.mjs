@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import jsdoc from "eslint-plugin-jsdoc";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import sonarjs from "eslint-plugin-sonarjs";
@@ -194,6 +195,41 @@ export default tseslint.config(
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-unsafe-call": "off",
       "@typescript-eslint/no-unsafe-argument": "off",
+    },
+  },
+
+  // JSDoc — require documentation on all exported symbols
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ignores: ["src/components/ui/**", "src/vite-env.d.ts", "src/test/**"],
+    plugins: { jsdoc },
+    rules: {
+      "jsdoc/require-jsdoc": [
+        "warn",
+        {
+          publicOnly: true,
+          require: {
+            FunctionDeclaration: true,
+            MethodDefinition: false,
+            ClassDeclaration: false,
+            ArrowFunctionExpression: false,
+            FunctionExpression: false,
+          },
+          contexts: [
+            "ExportNamedDeclaration > VariableDeclaration > VariableDeclarator > ArrowFunctionExpression",
+            "ExportNamedDeclaration > VariableDeclaration > VariableDeclarator > FunctionExpression",
+            "ExportNamedDeclaration > TSTypeAliasDeclaration",
+            "ExportNamedDeclaration > TSInterfaceDeclaration",
+          ],
+          checkConstructors: false,
+        },
+      ],
+      "jsdoc/require-description": ["warn", { contexts: ["any"] }],
+      "jsdoc/check-param-names": "warn",
+      "jsdoc/check-tag-names": ["warn", { typed: true }],
+      "jsdoc/check-types": "warn",
+      "jsdoc/no-undefined-types": "off",
+      "jsdoc/valid-types": "off",
     },
   }
 );
