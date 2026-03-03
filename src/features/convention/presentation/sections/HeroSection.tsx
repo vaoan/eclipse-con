@@ -7,9 +7,8 @@ import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
 import { useExperiment } from "@/shared/application/hooks/useExperiment";
+
 const heroBathSingle = "/hero-bath-preview.webp";
-const heroPattern = "/patron-nuevo.webp";
-const heroBanner = "/BANNER_WEB.webp";
 
 const EXPERIMENT_ID = "hero-bath-layout";
 const VARIANTS = ["control", "treatment", "pattern"] as const;
@@ -20,22 +19,13 @@ const heroTextShadow = {
     "drop-shadow(0 2px 4px rgba(0,0,0,0.95)) drop-shadow(0 4px 16px rgba(0,0,0,0.75))",
 } satisfies React.CSSProperties;
 
-function HeroBathPicture({
-  className = "",
-  style,
-}: {
-  readonly className?: string;
-  readonly style?: React.CSSProperties;
-}) {
-  const baseClasses = "h-full w-auto select-none object-cover brightness-80";
-
+function HeroBathPicture({ className = "" }: { readonly className?: string }) {
   return (
     <img
       src={heroBathSingle}
       alt=""
       aria-hidden="true"
-      className={`${baseClasses} ${className}`}
-      style={style}
+      className={`h-full w-auto select-none object-cover brightness-80 ${className}`}
       loading="eager"
       fetchPriority="high"
       decoding="async"
@@ -44,28 +34,10 @@ function HeroBathPicture({
   );
 }
 
-function HeroTileBackground({
-  opacity20 = false,
-}: {
-  readonly opacity20?: boolean;
-}) {
-  return (
-    <div
-      aria-hidden="true"
-      className={`absolute inset-0 z-0 brightness-80${opacity20 ? " opacity-20" : ""}`}
-      style={{
-        backgroundImage: `url("${heroPattern}")`,
-        backgroundRepeat: "repeat",
-        backgroundSize: "320px auto",
-      }}
-    />
-  );
-}
-
 const useHeroClipOverlap = (
   bathLayerRef: React.RefObject<HTMLDivElement | null>,
   textLayerRef: React.RefObject<HTMLDivElement | null>,
-  patternLayerRef?: React.RefObject<HTMLDivElement | null>
+  decorLayerRef: React.RefObject<HTMLDivElement | null>
 ) => {
   useEffect(() => {
     let frame = 0;
@@ -96,7 +68,7 @@ const useHeroClipOverlap = (
       const nextTop = nextSection.getBoundingClientRect().top;
       applyClipFromOverlap(bathLayerRef.current, nextTop);
       applyClipFromOverlap(textLayerRef.current, nextTop);
-      applyClipFromOverlap(patternLayerRef?.current ?? null, nextTop);
+      applyClipFromOverlap(decorLayerRef.current, nextTop);
     };
 
     const onScrollOrResize = () => {
@@ -118,22 +90,144 @@ const useHeroClipOverlap = (
       window.removeEventListener("resize", onScrollOrResize);
       window.removeEventListener("orientationchange", onScrollOrResize);
     };
-  }, [bathLayerRef, textLayerRef, patternLayerRef]);
+  }, [bathLayerRef, textLayerRef, decorLayerRef]);
 };
 
-/** Renders the full-screen Hero section with a title, tagline, CTA, and an A/B/C tested hero image layout. The treatment variant applies a CSS mask-image gradient to fade the sides of the bath picture to transparent. */
-export function HeroSection() {
+function HeroCrescentLayer({
+  layerRef,
+}: {
+  readonly layerRef: React.RefObject<HTMLDivElement | null>;
+}) {
+  return (
+    <div
+      ref={layerRef}
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
+    >
+      <svg
+        viewBox="0 0 500 500"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{
+          width: "min(820px, 92vw, 88vh)",
+          height: "min(820px, 92vw, 88vh)",
+        }}
+      >
+        <defs>
+          <mask id="hero-crescent-mask">
+            <circle cx="250" cy="250" r="220" fill="white" />
+            <circle cx="345" cy="215" r="170" fill="black" />
+          </mask>
+        </defs>
+        <circle
+          cx="250"
+          cy="250"
+          r="220"
+          fill="rgba(155,180,240,0.28)"
+          mask="url(#hero-crescent-mask)"
+        />
+      </svg>
+    </div>
+  );
+}
+
+function HeroTextContent({
+  layerRef,
+}: {
+  readonly layerRef: React.RefObject<HTMLDivElement | null>;
+}) {
   const { t } = useTranslation();
+  return (
+    <div ref={layerRef} className="relative z-30 px-4 text-center">
+      <p
+        className="mb-1 text-sm font-bold italic uppercase tracking-[0.35em] text-white/90 md:text-base"
+        style={heroTextShadow}
+      >
+        {t("convention.hero.eyebrow")}
+      </p>
+      <div className="relative inline-block">
+        <h1
+          className="hero-title text-[4.5rem] font-bold leading-none text-white md:text-[7rem] lg:text-[9rem] xl:text-[10rem] 2xl:text-[12rem]"
+          style={heroTextShadow}
+        >
+          {t("convention.hero.title")}
+        </h1>
+        {/* Sparkle decorations */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-2 top-0 text-white/80 md:-right-4 lg:-right-6"
+          style={{
+            fontSize: "clamp(1rem, 2.5vw, 2rem)",
+            filter: "drop-shadow(0 0 6px rgba(255,255,255,0.6))",
+          }}
+        >
+          ✦
+        </span>
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-5 bottom-2 text-white/50 md:-right-8 lg:-right-10"
+          style={{
+            fontSize: "clamp(0.6rem, 1.2vw, 1rem)",
+            filter: "drop-shadow(0 0 4px rgba(255,255,255,0.4))",
+          }}
+        >
+          ✦
+        </span>
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute right-4 -top-2 text-white/30 md:right-6 lg:right-8"
+          style={{
+            fontSize: "clamp(0.4rem, 0.8vw, 0.7rem)",
+            filter: "drop-shadow(0 0 3px rgba(255,255,255,0.3))",
+          }}
+        >
+          ✦
+        </span>
+      </div>
+      <p
+        className="mt-5 text-sm font-semibold uppercase tracking-[0.35em] text-white/90 md:text-base"
+        style={heroTextShadow}
+      >
+        {t("convention.hero.date")}
+      </p>
+      <Button
+        asChild
+        size="lg"
+        className="group relative mt-8 h-auto rounded-full bg-gradient-to-r from-[#f07c3a] to-[#d9531a] px-10 py-3.5 text-base font-bold text-white shadow-[0_8px_28px_-8px_rgba(240,100,40,0.7)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_36px_-6px_rgba(240,100,40,0.9)]"
+      >
+        <Link
+          to={`?section=${encodeURIComponent(SECTION_IDS.REGISTRATION)}`}
+          data-funnel-step="view_pricing"
+          data-cta-id="hero_primary_cta"
+          data-cta-variant="hero_primary"
+          data-content-section="hero"
+          data-content-id="hero_primary_cta"
+          data-content-interaction="open"
+        >
+          <span className="pointer-events-none absolute -inset-2 -z-10 rounded-full bg-[radial-gradient(circle,rgba(240,100,40,0.45),transparent_60%)] opacity-70 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
+          <span className="relative">{t("convention.hero.cta")}</span>
+        </Link>
+      </Button>
+    </div>
+  );
+}
+
+/** Renders the full-screen Hero section with title, tagline, CTA, animated starry-sky background,
+ * and mirrored bath illustration. The pattern variant adds a crescent moon decoration above the
+ * bath layer. Every visual layer clips away cleanly as the next section scrolls into view.
+ */
+export function HeroSection() {
   const isMobileViewport = useIsMobileViewport();
   const bathLayerRef = useRef<HTMLDivElement | null>(null);
   const textLayerRef = useRef<HTMLDivElement | null>(null);
-  const patternLayerRef = useRef<HTMLDivElement | null>(null);
+  /** Crescent moon decoration; clips away on scroll independently of the text layer. */
+  const decorLayerRef = useRef<HTMLDivElement | null>(null);
   const variant = useExperiment(
     EXPERIMENT_ID,
     VARIANTS,
     "pattern"
   ) as HeroVariant;
-  useHeroClipOverlap(bathLayerRef, textLayerRef, patternLayerRef);
+  useHeroClipOverlap(bathLayerRef, textLayerRef, decorLayerRef);
 
   return (
     <section
@@ -141,89 +235,22 @@ export function HeroSection() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden"
       {...tid("section-hero")}
     >
-      {/* Treatment: repeating decorative tile pattern (no clip — stays) */}
-      {variant === "treatment" && <HeroTileBackground opacity20 />}
+      {/* Crescent moon — own layer so clip-path doesn't cut it at text-div bounds */}
+      {variant !== "control" && <HeroCrescentLayer layerRef={decorLayerRef} />}
 
-      {/* Pattern: tile stays behind everything (no clip) */}
-      {variant === "pattern" && <HeroTileBackground />}
-
-      {/* Pattern: banner image clips away on scroll (like bath picture in treatment) */}
-      {variant === "pattern" && (
-        <div
-          ref={patternLayerRef}
-          aria-hidden="true"
-          className="absolute inset-0 z-10 brightness-80"
-          style={{
-            backgroundImage: `url("${heroBanner}")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "auto 100%",
-            backgroundPosition: "center center",
-          }}
-        />
-      )}
-
+      {/* Bath illustration anchored to the bottom — clips away on scroll */}
       <div
         ref={bathLayerRef}
         className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden"
       >
         <div className="relative z-0 mx-auto flex h-[390px] items-center justify-center gap-0 sm:h-[460px] md:h-[560px] lg:h-[680px]">
-          {variant === "control" && !isMobileViewport && (
-            <HeroBathPicture className="scale-x-[-1]" />
-          )}
-          {variant !== "pattern" && (
-            <HeroBathPicture
-              {...(variant === "treatment" && {
-                style: {
-                  maskImage:
-                    "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
-                  WebkitMaskImage:
-                    "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
-                },
-              })}
-            />
-          )}
-          {variant === "control" && !isMobileViewport && (
-            <HeroBathPicture className="scale-x-[-1]" />
-          )}
+          {!isMobileViewport && <HeroBathPicture className="scale-x-[-1]" />}
+          <HeroBathPicture />
+          {!isMobileViewport && <HeroBathPicture className="scale-x-[-1]" />}
         </div>
       </div>
 
-      <div ref={textLayerRef} className="relative z-30 px-4 text-center">
-        <p
-          className="mb-4 text-sm font-medium uppercase tracking-[0.3em] text-accent/80"
-          style={heroTextShadow}
-        >
-          {t("convention.hero.date")}
-        </p>
-        <h1 className="hero-title gold-shimmer-text text-6xl font-extrabold leading-tight md:text-8xl lg:text-9xl">
-          {t("convention.hero.title")}
-        </h1>
-        <p className="mx-auto mt-6 max-w-lg text-lg text-white md:text-xl">
-          {t("convention.hero.tagline")}
-        </p>
-        <Button
-          asChild
-          size="lg"
-          className="group relative mt-10 h-auto rounded-full bg-gradient-to-r from-accent via-primary to-primary px-10 py-3.5 text-base font-bold text-white ring-1 ring-white/25 transition-all duration-300 hover:-translate-y-1"
-        >
-          <Link
-            to={`?section=${encodeURIComponent(SECTION_IDS.REGISTRATION)}`}
-            data-funnel-step="view_pricing"
-            data-cta-id="hero_primary_cta"
-            data-cta-variant="hero_primary"
-            data-content-section="hero"
-            data-content-id="hero_primary_cta"
-            data-content-interaction="open"
-          >
-            <span className="pointer-events-none absolute -inset-2 -z-10 rounded-full bg-[radial-gradient(circle,rgba(255,198,100,0.45),transparent_60%)] opacity-70 blur-xl transition-opacity duration-300 group-hover:opacity-100" />
-            <span className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.35),transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <span className="relative">{t("convention.hero.cta")}</span>
-            <span className="relative text-base text-white/70 transition-transform duration-300 group-hover:translate-x-1">
-              -&gt;
-            </span>
-          </Link>
-        </Button>
-      </div>
+      <HeroTextContent layerRef={textLayerRef} />
     </section>
   );
 }

@@ -1,6 +1,5 @@
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
-import { useExperiment } from "@/shared/application/hooks/useExperiment";
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -9,10 +8,8 @@ import { SakuraParticles } from "./components/SakuraParticles";
 import { HeroCanvasSky } from "./components/HeroCanvasSky";
 import { HeroSection } from "./sections/HeroSection";
 import { FooterSection } from "./sections/FooterSection";
-import { EventOverviewSection } from "./sections/EventOverviewSection";
 import { AmenitiesSection } from "./sections/AmenitiesSection";
 import { TravelSection } from "./sections/TravelSection";
-import { AttendeesSection } from "./sections/AttendeesSection";
 import { SectionGroupIntro } from "./sections/SectionGroupIntro";
 
 const AboutSection = lazy(async () => ({
@@ -26,6 +23,9 @@ const VenueSection = lazy(async () => ({
 }));
 const RegistrationSection = lazy(async () => ({
   default: (await import("./sections/RegistrationSection")).RegistrationSection,
+}));
+const TicketingSection = lazy(async () => ({
+  default: (await import("./sections/TicketingSection")).TicketingSection,
 }));
 const FaqSection = lazy(async () => ({
   default: (await import("./sections/FaqSection")).FaqSection,
@@ -277,9 +277,6 @@ function useSectionUrlSync() {
   }, [location.pathname, location.search, location.state, navigate]);
 }
 
-const HERO_EXPERIMENT_ID = "hero-bath-layout";
-const HERO_VARIANTS = ["control", "treatment", "pattern"] as const;
-
 /**
  * Root page component for the convention. Composes all sections in order,
  * manages section-based URL sync, and lazily loads heavy sections.
@@ -287,11 +284,6 @@ const HERO_VARIANTS = ["control", "treatment", "pattern"] as const;
  */
 export function Component() {
   const [effectsReady, setEffectsReady] = useState(false);
-  const heroVariant = useExperiment(
-    HERO_EXPERIMENT_ID,
-    HERO_VARIANTS,
-    "pattern"
-  );
   useSectionUrlSync();
 
   useEffect(() => {
@@ -303,9 +295,7 @@ export function Component() {
 
   return (
     <div className="relative isolate" {...tid("convention-page")}>
-      {effectsReady && heroVariant !== "pattern" && (
-        <HeroCanvasSky fixed className="z-0" />
-      )}
+      {effectsReady && <HeroCanvasSky fixed className="z-0" />}
       <div className="relative z-10">
         <NavigationBar />
         {effectsReady && <SakuraParticles />}
@@ -317,16 +307,9 @@ export function Component() {
           fallback={<div className="px-4 py-20 md:py-28" aria-busy="true" />}
         >
           <AboutSection />
-          <SectionGroupIntro
-            id={SECTION_IDS.EVENT_GROUP}
-            titleKey="convention.groups.event.title"
-            subtitleKey="convention.groups.event.subtitle"
-            descriptionKey="convention.groups.event.description"
-            accent="gold"
-          />
-          <EventOverviewSection />
           <EventsSection />
           <RegistrationSection />
+          <TicketingSection />
           <VenueSection />
           <SectionGroupIntro
             id={SECTION_IDS.PLACE_GROUP}
@@ -338,14 +321,6 @@ export function Component() {
           />
           <AmenitiesSection />
           <TravelSection />
-          <SectionGroupIntro
-            id={SECTION_IDS.COMMUNITY_GROUP}
-            titleKey="convention.groups.community.title"
-            subtitleKey="convention.groups.community.subtitle"
-            descriptionKey="convention.groups.community.description"
-            accent="gold"
-          />
-          <AttendeesSection />
           <NewsSection />
           <GuestsSection />
           <FaqSection />

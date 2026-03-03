@@ -32,11 +32,11 @@ const NAV_GROUPS = [
   },
   {
     key: "convention.nav.event",
-    anchorId: SECTION_IDS.EVENT_GROUP,
+    anchorId: SECTION_IDS.EVENTS,
     items: [
-      { id: SECTION_IDS.EVENT_OVERVIEW, key: "convention.nav.eventOverview" },
       { id: SECTION_IDS.EVENTS, key: "convention.nav.eventActivities" },
       { id: SECTION_IDS.REGISTRATION, key: "convention.nav.placePricing" },
+      { id: SECTION_IDS.TICKETING, key: "convention.nav.ticketing" },
     ],
   },
   {
@@ -49,12 +49,8 @@ const NAV_GROUPS = [
     ],
   },
   {
-    key: "convention.nav.community",
-    anchorId: SECTION_IDS.COMMUNITY_GROUP,
-    items: [
-      { id: SECTION_IDS.ATTENDEES, key: "convention.nav.communityAttendees" },
-      { id: SECTION_IDS.GUESTS, key: "convention.nav.communityOrganizers" },
-    ],
+    key: "convention.nav.guests",
+    items: [{ id: SECTION_IDS.GUESTS, key: "convention.nav.guests" }],
   },
   {
     key: "convention.nav.news",

@@ -36,11 +36,18 @@
       "communityAttendees": "Special guests",
       "communityOrganizers": "Organizers",
       "mobileToggle": "Toggle navigation menu",
-      "reserve": "Reserve now"
+      "reserve": "Reserve now",
+      "ticketing": "Ticketing"
+    },
+    "ticketing": {
+      "title": "Ticketing",
+      "description": "Includes merchandise, transport, and event entry.",
+      "cta": "Coming soon"
     },
     "hero": {
-      "title": "Moonfest 2026",
-      "date": "July 10-13, 2026",
+      "eyebrow": "Furry",
+      "title": "moonfest",
+      "date": "July 10 – 13, 2026",
       "tagline": "Colombia’s biggest furry convention. Community, art, and a full experience.",
       "cta": "Reserve now",
       "logoAlt": "Moonfest logo"
@@ -60,11 +67,11 @@
       },
       "games": {
         "title": "Games & activities",
-        "description": "Join games, activities, and challenges for every level."
+        "description": "Join games and activities designed for our guests."
       },
       "hotSprings": {
-        "title": "Thermal pools",
-        "description": "Thermal pools inside the hotel to recharge between events."
+        "title": "Relaxation in thermal waters",
+        "description": "Jacuzzi inside the hotel to recharge between events."
       },
       "nature": {
         "title": "Nature connection",
@@ -79,8 +86,8 @@
         "description": "Buy and sell art, products, and community merch."
       },
       "mainEvent": {
-        "title": "Main event night",
-        "description": "A special night with contests, shows, and standout performances."
+        "title": "Main event",
+        "description": "Enjoy a Latin party and a rave."
       }
     },
     "eventOverview": {
@@ -332,16 +339,18 @@
     },
     "registration": {
       "title": "Reservations",
-      "subtitle": "Official event package: 4 days and 3 nights. Includes entry, Bogotá‑convention bus, and room. Hotel extras are paid separately.",
+      "subtitle": "",
       "popular": "Popular",
       "package": {
+        "title": "Event package",
         "feature1": "Full package: 4 days and 3 nights",
         "feature2": "Round-trip bus transport: Bogotá -> hotel -> Bogotá",
-        "feature3": "Shared room",
+        "feature3": "Room",
         "feature4": "Find your group for the best price",
         "feature4SoloDuo": "Enjoy full privacy for you and/or one companion",
-        "feature5": "Includes breakfast ONLY"
+        "feature5": "Includes breakfast"
       },
+      "priceNote": "(Price depends on the number of people staying in the room)",
       "trio": {
         "name": "Room for 3 people",
         "price": "$1,700,000 COP each"
@@ -360,7 +369,7 @@
       "ticketLink": "Buy ticket (coming soon)",
       "devNote": "Shared rooms are priced per person. The room for 1 or 2 people has a fixed total price.",
       "noteServices": "Additional hotel services (spa, thermal pools, bar, etc.) are not included in the package.",
-      "note": "Questions: info@moonfest.com.co",
+      "note": "Questions: furrycolombia@gmail.com",
       "highlight": "Want to attend? Reserve today and secure your place at this unforgettable event."
     },
     "registrationTutorial": {
@@ -387,7 +396,7 @@
           "title": "Keep both confirmations",
           "description": "Your access depends on both completed records.",
           "point1": "Have both payment proofs available before the event.",
-          "point2": "If anything is missing, contact info@moonfest.com.co."
+          "point2": "If anything is missing, contact furrycolombia@gmail.com."
         }
       },
       "checklist": {
@@ -486,7 +495,7 @@
         "answer": "No, Moonfest only offers 4-day, 3-night packages."
       },
       "q2": {
-        "question": "What does the package include?",
+        "question": "What does the entry include?",
         "answer": "Includes event entry, bus transport from Bogotá, room, and breakfast."
       },
       "q3": {
@@ -495,7 +504,7 @@
       },
       "q4": {
         "question": "What happens if I don’t pay on time?",
-        "answer": "Your reservation is canceled automatically."
+        "answer": "Hotel cancellations will only be allowed up to 48 hours before the event."
       },
       "q5": {
         "question": "Can I attend without staying at the hotel?",
@@ -511,7 +520,11 @@
       },
       "q8": {
         "question": "What if I have questions?",
-        "answer": "Email info@moonfest.com.co."
+        "answer": "Email furrycolombia@gmail.com."
+      },
+      "q9": {
+        "question": "Are there refunds for ticketing?",
+        "answer": "No, because this revenue is used for merchandise production and transport booking, there are no refunds. However, tickets are transferable."
       }
     },
     "consent": {

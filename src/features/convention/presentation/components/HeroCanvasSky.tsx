@@ -38,7 +38,7 @@ function clamp(value: number, min: number, max: number) {
 }
 
 /**
- * Renders an animated canvas night sky with stars, a parallax moon, and shooting stars.
+ * Renders an animated canvas night sky with twinkling stars and shooting stars.
  * Disables animations when the user prefers reduced motion or is on a mobile viewport.
  */
 export function HeroCanvasSky({
@@ -82,14 +82,8 @@ export function HeroCanvasSky({
     let nextShotAt = 0;
     let hasValidSize = false;
     let resizeObserver: ResizeObserver | null = null;
-    let moonYOffset = 0;
     let hasFullStars = false;
     let fullStarTimer = 0;
-
-    const readScrollProgress = () => {
-      const heroScrollRange = Math.max(window.innerHeight * 1.2, 1);
-      return clamp(window.scrollY / heroScrollRange, 0, 1);
-    };
 
     const buildStars = (
       farCount: number,
@@ -489,119 +483,6 @@ export function HeroCanvasSky({
       context.fillRect(0, height * 0.62, width, height * 0.38);
     };
 
-    const drawMoon = (timeSeconds: number, visibility: number) => {
-      if (visibility <= 0.02) {
-        return;
-      }
-
-      const moonX = width * 0.5;
-      const moonY = height * 0.36 + moonYOffset;
-      const moonRadius = clamp(Math.min(width, height) * 0.086, 18, 118);
-      const pulse = prefersReducedMotion
-        ? 0.88
-        : 0.78 + 0.22 * Math.sin(timeSeconds * 0.9);
-      const breathe = prefersReducedMotion
-        ? 1
-        : 0.94 +
-          0.06 * Math.sin(timeSeconds * 0.52 + 0.8) +
-          0.03 * Math.sin(timeSeconds * 1.18 + 2.1);
-      const moonAlpha = clamp(visibility, 0, 1);
-
-      const nearAura = context.createRadialGradient(
-        moonX,
-        moonY,
-        moonRadius * 0.55,
-        moonX,
-        moonY,
-        moonRadius * (1.72 * breathe)
-      );
-      nearAura.addColorStop(
-        0,
-        `rgba(255, 235, 178, ${(0.34 * pulse * moonAlpha).toFixed(3)})`
-      );
-      nearAura.addColorStop(
-        0.45,
-        `rgba(255, 205, 126, ${(0.18 * pulse * moonAlpha).toFixed(3)})`
-      );
-      nearAura.addColorStop(1, "rgba(255, 194, 112, 0)");
-      context.fillStyle = nearAura;
-      context.beginPath();
-      context.arc(moonX, moonY, moonRadius * (1.76 * breathe), 0, Math.PI * 2);
-      context.fill();
-
-      const midAura = context.createRadialGradient(
-        moonX,
-        moonY,
-        moonRadius * 0.95,
-        moonX,
-        moonY,
-        moonRadius * (3.05 * breathe)
-      );
-      midAura.addColorStop(
-        0,
-        `rgba(255, 219, 149, ${(0.22 * moonAlpha).toFixed(3)})`
-      );
-      midAura.addColorStop(
-        0.5,
-        `rgba(232, 190, 124, ${(0.1 * moonAlpha).toFixed(3)})`
-      );
-      midAura.addColorStop(1, "rgba(232, 190, 124, 0)");
-      context.fillStyle = midAura;
-      context.beginPath();
-      context.arc(moonX, moonY, moonRadius * (3.12 * breathe), 0, Math.PI * 2);
-      context.fill();
-
-      const farAura = context.createRadialGradient(
-        moonX,
-        moonY,
-        moonRadius * 1.6,
-        moonX,
-        moonY,
-        moonRadius * (4.9 * breathe)
-      );
-      farAura.addColorStop(
-        0,
-        `rgba(170, 180, 255, ${(0.09 * moonAlpha).toFixed(3)})`
-      );
-      farAura.addColorStop(
-        0.48,
-        `rgba(128, 148, 242, ${(0.06 * moonAlpha).toFixed(3)})`
-      );
-      farAura.addColorStop(1, "rgba(112, 132, 220, 0)");
-      context.fillStyle = farAura;
-      context.beginPath();
-      context.arc(moonX, moonY, moonRadius * (4.92 * breathe), 0, Math.PI * 2);
-      context.fill();
-
-      const moonGradient = context.createRadialGradient(
-        moonX - moonRadius * 0.22,
-        moonY - moonRadius * 0.25,
-        moonRadius * 0.3,
-        moonX,
-        moonY,
-        moonRadius
-      );
-      moonGradient.addColorStop(0, "#e8d1ab");
-      moonGradient.addColorStop(1, "#8e7756");
-      context.fillStyle = moonGradient;
-      context.globalAlpha = moonAlpha * 0.5;
-      context.beginPath();
-      context.arc(moonX, moonY, moonRadius, 0, Math.PI * 2);
-      context.fill();
-
-      context.fillStyle = "rgba(9, 11, 28, 0.86)";
-      context.beginPath();
-      context.arc(
-        moonX + moonRadius * 0.28,
-        moonY - moonRadius * 0.02,
-        moonRadius * 0.92,
-        0,
-        Math.PI * 2
-      );
-      context.fill();
-      context.globalAlpha = 1;
-    };
-
     const drawShootingStars = (deltaSeconds: number) => {
       for (let index = shootingStars.length - 1; index >= 0; index -= 1) {
         const star = shootingStars[index];
@@ -666,12 +547,6 @@ export function HeroCanvasSky({
         return;
       }
 
-      const scrollProgress = readScrollProgress();
-      const maxMoonDrop = isMobileViewport ? height * 0.2 : height * 0.26;
-      const targetMoonYOffset = scrollProgress * maxMoonDrop;
-      moonYOffset += (targetMoonYOffset - moonYOffset) * 0.09;
-      const moonVisibility = clamp(1 - scrollProgress * 1.2, 0, 1);
-
       const timeSeconds = now / 1000;
 
       drawBackground();
@@ -679,7 +554,6 @@ export function HeroCanvasSky({
       drawStarField(farStars, timeSeconds, 0.74);
       drawStarField(midStars, timeSeconds, 0.96);
       drawStarField(brightStars, timeSeconds, 1.14);
-      drawMoon(timeSeconds, moonVisibility);
       drawCinematicVignette();
 
       if (!prefersReducedMotion) {
@@ -704,7 +578,6 @@ export function HeroCanvasSky({
       drawStarField(farStars, immediateTime, 0.74);
       drawStarField(midStars, immediateTime, 0.96);
       drawStarField(brightStars, immediateTime, 1.14);
-      drawMoon(immediateTime, 1);
       drawCinematicVignette();
     }
     nextShotAt =
