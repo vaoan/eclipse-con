@@ -39,10 +39,9 @@
   --radius-lg: 0.85rem;
 
   /* Fonts */
-  --font-display:
-    "itc-avant-garde-gothic-pro", "Avenir", "Segoe UI", sans-serif;
-  --font-body: "itc-avant-garde-gothic-pro", "Avenir", "Segoe UI", sans-serif;
-  --font-hero: "Unbounded", sans-serif;
+  --font-display: "ofelia-display", sans-serif;
+  --font-body: "ofelia-text", sans-serif;
+  --font-hero: "ofelia-display", sans-serif;
 }
 
 .section-surface {
@@ -198,6 +197,8 @@ body {
 
 .hero-title {
   font-family: var(--font-hero);
+  font-style: italic;
+  font-weight: 700;
   letter-spacing: -0.02em;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95))
     drop-shadow(0 4px 16px rgba(0, 0, 0, 0.75));

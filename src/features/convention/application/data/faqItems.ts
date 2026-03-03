@@ -48,4 +48,10 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
     questionKey: "convention.faq.q8.question",
     answerKey: "convention.faq.q8.answer",
   },
+  {
+    id: "q9",
+    questionKey: "convention.faq.q9.question",
+    answerKey: "convention.faq.q9.answer",
+    theme: "ticket_refund",
+  },
 ];

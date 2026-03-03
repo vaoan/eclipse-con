@@ -15,7 +15,6 @@ export function TravelSection() {
     "pantano",
     "salitre",
     "food",
-    "events",
   ] as const;
 
   return (
