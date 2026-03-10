@@ -1,7 +1,7 @@
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { NavigationBar } from "./components/NavigationBar";
 import { SakuraParticles } from "./components/SakuraParticles";
@@ -170,7 +170,6 @@ const isFullPageLoad = () =>
 
 function useSectionUrlSync() {
   const location = useLocation();
-  const navigate = useNavigate();
   const lastAutoScrolledSectionRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -179,14 +178,14 @@ function useSectionUrlSync() {
     }
     const sectionIds = Object.values(SECTION_IDS);
     const sectionIdSet = new Set<string>(sectionIds);
-    const sectionSyncState = location.state as {
+    const historyState = window.history.state as {
       __sectionSync?: boolean;
     } | null;
-    /* __sectionSync is set by in-app URL updates (navigate with replace).
+    /* __sectionSync is set by scroll-based URL updates (replaceState).
        On a full page load/reload, history.state may still carry this flag
        from the previous session — ignore it so the initial scroll works. */
     const isSectionSyncNavigation =
-      !isFullPageLoad() && !!sectionSyncState?.__sectionSync;
+      !isFullPageLoad() && !!historyState?.__sectionSync;
     let activeSectionId: string | null = null;
     let frame = 0;
     let autoScrollTargetId: string | null = null;
@@ -204,7 +203,7 @@ function useSectionUrlSync() {
       activeSectionId = nextSectionId;
       const params = new URLSearchParams(window.location.search);
       const currentQuerySection = getSectionIdFromUrl(
-        location.search,
+        window.location.search,
         sectionIdSet
       );
       if (currentQuerySection === nextSectionId) {
@@ -212,12 +211,13 @@ function useSectionUrlSync() {
       }
       params.set("section", nextSectionId);
       const query = params.toString();
-      void navigate(
-        {
-          pathname: location.pathname,
-          search: query ? `?${query}` : "",
-        },
-        { replace: true, state: { __sectionSync: true } }
+      /* Use replaceState directly to avoid React Router re-renders.
+         navigate() would change location.search → trigger effect cleanup
+         → re-register listeners → reset state, causing scroll jank. */
+      window.history.replaceState(
+        { __sectionSync: true },
+        "",
+        `${location.pathname}${query ? "?" + query : ""}`
       );
     };
 
@@ -277,7 +277,7 @@ function useSectionUrlSync() {
       }
       removeListeners();
     };
-  }, [location.pathname, location.search, location.state, navigate]);
+  }, [location.pathname, location.search]);
 }
 
 /**

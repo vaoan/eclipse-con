@@ -3,8 +3,7 @@ import { useTranslation } from "react-i18next";
 import { HeroCanvasSky } from "./HeroCanvasSky";
 
 const textShadow = {
-  filter:
-    "drop-shadow(0 2px 4px rgba(0,0,0,0.95)) drop-shadow(0 4px 16px rgba(0,0,0,0.75))",
+  textShadow: "0 2px 4px rgba(0,0,0,0.95), 0 4px 16px rgba(0,0,0,0.75)",
 } satisfies React.CSSProperties;
 
 /** Sticky ambient background layer that sits between the hero and content sections.

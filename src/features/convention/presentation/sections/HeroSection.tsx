@@ -15,8 +15,7 @@ const VARIANTS = ["control", "treatment", "pattern"] as const;
 type HeroVariant = (typeof VARIANTS)[number];
 
 const heroTextShadow = {
-  filter:
-    "drop-shadow(0 2px 4px rgba(0,0,0,0.95)) drop-shadow(0 4px 16px rgba(0,0,0,0.75))",
+  textShadow: "0 2px 4px rgba(0,0,0,0.95), 0 4px 16px rgba(0,0,0,0.75)",
 } satisfies React.CSSProperties;
 
 function HeroBathPicture({ className = "" }: { readonly className?: string }) {
@@ -29,7 +28,6 @@ function HeroBathPicture({ className = "" }: { readonly className?: string }) {
       height={922}
       className={`h-full w-auto select-none object-cover brightness-80 ${className}`}
       loading="eager"
-      fetchPriority="high"
       decoding="async"
       draggable={false}
     />
@@ -71,6 +69,73 @@ function HeroCrescent() {
   );
 }
 
+/** SVG path for a 4-pointed star sparkle centred in a 24×24 viewBox. */
+const SPARKLE_PATH =
+  "M12 0Q13.2 10.8 24 12Q13.2 13.2 12 24Q10.8 13.2 0 12Q10.8 10.8 12 0Z";
+
+function Sparkle({
+  size,
+  className,
+  style,
+}: Readonly<{
+  size: number;
+  className?: string;
+  style?: React.CSSProperties;
+}>) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      className={className}
+      style={style}
+    >
+      <path d={SPARKLE_PATH} />
+    </svg>
+  );
+}
+
+function HeroSparkles() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute z-[1]"
+      style={{
+        right: "clamp(-1rem, -1.8vw, -0.5rem)",
+        top: "clamp(0.5rem, 1vw, 1rem)",
+      }}
+    >
+      {/* Large sparkle — sits just above-right of the "t" crossbar */}
+      <Sparkle
+        size={0}
+        className="absolute text-white/90"
+        style={{
+          width: "clamp(1.1rem, 2.6vw, 2.2rem)",
+          height: "clamp(1.1rem, 2.6vw, 2.2rem)",
+          right: 0,
+          top: 0,
+          filter: "drop-shadow(0 0 6px rgba(255,255,255,0.6))",
+        }}
+      />
+      {/* Small sparkle — further up and to the right */}
+      <Sparkle
+        size={0}
+        className="absolute text-white/60"
+        style={{
+          width: "clamp(0.55rem, 1.1vw, 0.95rem)",
+          height: "clamp(0.55rem, 1.1vw, 0.95rem)",
+          right: "clamp(-0.9rem, -1.6vw, -0.4rem)",
+          top: "clamp(1.2rem, 2.8vw, 2.4rem)",
+          filter: "drop-shadow(0 0 4px rgba(255,255,255,0.4))",
+        }}
+      />
+    </div>
+  );
+}
+
 function HeroTextContent({ showCrescent }: { readonly showCrescent: boolean }) {
   const { t } = useTranslation();
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -92,27 +157,8 @@ function HeroTextContent({ showCrescent }: { readonly showCrescent: boolean }) {
           >
             {t("convention.hero.title")}
           </h1>
-          {/* Sparkle decorations — two stars at upper-right */}
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-3 -top-1 z-[1] text-white/90 md:-right-5 lg:-right-7"
-            style={{
-              fontSize: "clamp(1.2rem, 2.8vw, 2.4rem)",
-              filter: "drop-shadow(0 0 6px rgba(255,255,255,0.6))",
-            }}
-          >
-            ✦
-          </span>
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-6 -top-6 z-[1] text-white/60 md:-right-10 lg:-right-14"
-            style={{
-              fontSize: "clamp(0.6rem, 1.2vw, 1rem)",
-              filter: "drop-shadow(0 0 4px rgba(255,255,255,0.4))",
-            }}
-          >
-            ✦
-          </span>
+          {/* Sparkle decorations — two 4-pointed stars near the "t" */}
+          <HeroSparkles />
         </div>
         <p
           className="mt-24 text-sm font-semibold uppercase tracking-[0.35em] text-white/90 md:mt-32 md:text-base lg:mt-40"
