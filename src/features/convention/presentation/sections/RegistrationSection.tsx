@@ -68,13 +68,13 @@ export function RegistrationSection() {
                   key={key}
                   className="flex items-center gap-2 text-sm text-muted-foreground"
                 >
-                  <Check size={16} className="shrink-0 text-emerald-400" />
+                  <Check size={16} className="shrink-0 text-accent" />
                   <span>{t(key)}</span>
                 </li>
               ))}
             </ul>
-            <div className="rounded-xl border border-white/10 bg-surface/60 p-4">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="rounded-xl border border-[#c9a84c]/30 bg-[#c9a84c]/5 p-4 shadow-[inset_0_1px_0_0_rgba(201,168,76,0.1)]">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#d4b85c]">
                 {t("convention.registration.popular")}
               </p>
               <div className="space-y-3">
@@ -83,16 +83,16 @@ export function RegistrationSection() {
                     key={nameKey}
                     className="flex items-center justify-between gap-4"
                   >
-                    <span className="text-sm text-foreground/80">
+                    <span className="text-sm text-foreground/90">
                       {t(nameKey)}
                     </span>
-                    <span className="font-display text-base font-bold text-accent">
+                    <span className="font-display text-base font-bold text-[#d4b85c] drop-shadow-[0_0_6px_rgba(212,184,92,0.3)]">
                       {t(priceKey)}
                     </span>
                   </div>
                 ))}
               </div>
-              <p className="mt-4 text-xs text-muted-foreground">
+              <p className="mt-4 text-xs text-[#d4b85c]/60">
                 {t("convention.registration.priceNote")}
               </p>
             </div>

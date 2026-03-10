@@ -25,7 +25,7 @@ export function GuestCard({ guest }: Readonly<GuestCardProps>) {
       )}
       {...tid(`guest-card-${guest.id}`)}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.12),_transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(224,117,58,0.12),_transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-60" />
       <div className="relative">
         <div className="relative h-60 w-full overflow-hidden rounded-t-3xl bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_55%),linear-gradient(135deg,rgba(59,130,246,0.22),rgba(15,23,42,0.94))]">
@@ -42,7 +42,7 @@ export function GuestCard({ guest }: Readonly<GuestCardProps>) {
         <CardTitle className="font-display text-xl font-semibold text-foreground">
           {t(guest.nameKey)}
         </CardTitle>
-        <p className="text-sm font-medium text-amber-300">{t(guest.roleKey)}</p>
+        <p className="text-sm font-medium text-accent">{t(guest.roleKey)}</p>
       </CardHeader>
       <CardContent className="relative pb-6 pt-4">
         <p className="text-sm leading-relaxed text-muted-foreground">

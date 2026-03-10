@@ -73,7 +73,7 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
           key={item.key}
           className="group relative overflow-hidden rounded-3xl border border-white/10 bg-surface p-5 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.9)]"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(244,63,94,0.12),_transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(224,117,58,0.12),_transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           <div className="relative grid gap-4 md:grid-cols-[180px_1fr] md:items-center">
             <div className="relative h-32 w-full overflow-hidden rounded-2xl border border-white/10 bg-black/20 md:h-28">
               <img
@@ -88,7 +88,7 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
                 <h3 className="font-display text-xl font-semibold text-foreground">
                   {item.title}
                 </h3>
-                <span className="rounded-full border border-rose-400/30 bg-rose-500/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-rose-200">
+                <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
                   {item.price}
                 </span>
               </div>
@@ -106,7 +106,7 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
                 href={item.linkUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-rose-200 underline decoration-dashed underline-offset-4 transition hover:text-rose-100"
+                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent underline decoration-dashed underline-offset-4 transition hover:text-accent-glow"
                 data-content-section="amenities"
                 data-content-id={item.key}
               >
@@ -124,7 +124,7 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
   <div className="mt-12 rounded-3xl border border-white/10 bg-surface p-6">
     <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-rose-300">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent">
           {t("convention.amenities.restaurants.eyebrow")}
         </p>
         <h3 className="mt-2 font-display text-2xl font-semibold text-foreground">
@@ -161,7 +161,7 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
                     {restaurant.description}
                   </p>
                 </div>
-                <span className="rounded-full border border-rose-400/30 bg-rose-500/10 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-rose-200">
+                <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-accent">
                   {restaurant.price}
                 </span>
               </div>
@@ -169,7 +169,7 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
                 href={restaurant.linkUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-rose-200 underline decoration-dashed underline-offset-4 transition hover:text-rose-100"
+                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent underline decoration-dashed underline-offset-4 transition hover:text-accent-glow"
                 data-content-section="amenities"
                 data-content-id={`restaurant_${restaurant.key}`}
               >

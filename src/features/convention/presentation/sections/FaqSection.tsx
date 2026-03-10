@@ -15,7 +15,21 @@ export function FaqSection() {
   const { t } = useTranslation();
 
   return (
-    <SectionWrapper id={SECTION_IDS.FAQ} surfaceTone="deep">
+    <SectionWrapper
+      id={SECTION_IDS.FAQ}
+      surfaceTone="deep"
+      decorations={
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "url('/Patron_nuevo.webp')",
+            backgroundSize: "600px",
+            backgroundRepeat: "repeat",
+          }}
+          aria-hidden="true"
+        />
+      }
+    >
       <div className="mx-auto max-w-4xl">
         <SectionHeader
           title={t("convention.faq.title")}

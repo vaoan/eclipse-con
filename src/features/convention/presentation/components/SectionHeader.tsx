@@ -15,13 +15,13 @@ const ACCENT_STYLES = {
     bar: "bg-accent",
   },
   gold: {
-    bar: "bg-amber-400",
+    bar: "bg-accent",
   },
   red: {
-    bar: "bg-rose-400",
+    bar: "bg-accent/80",
   },
   green: {
-    bar: "bg-amber-400",
+    bar: "bg-accent",
   },
 } as const;
 

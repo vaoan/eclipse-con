@@ -93,11 +93,11 @@ export function VenueSection() {
             align="left"
             accent="red"
           />
-          <h3 className="font-display mt-6 text-2xl font-bold text-rose-300">
+          <h3 className="font-display mt-6 text-2xl font-bold text-accent">
             {t("convention.venue.name")}
           </h3>
           <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
-            <MapPin size={14} className="text-rose-300" />
+            <MapPin size={14} className="text-accent" />
             {t("convention.venue.location")}
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-foreground/80">
@@ -135,7 +135,7 @@ export function VenueSection() {
           <ul className="mt-6 grid gap-3 text-sm text-foreground/85 sm:grid-cols-2">
             {primaryFeatures.map(({ key, icon: Icon }) => (
               <li key={key} className="flex items-start gap-2">
-                <Icon size={16} className="mt-0.5 text-rose-300" />
+                <Icon size={16} className="mt-0.5 text-accent" />
                 <span>{t(key)}</span>
               </li>
             ))}
@@ -163,7 +163,7 @@ export function VenueSection() {
                   <Button
                     type="button"
                     variant="ghost"
-                    className="group flex w-full items-center justify-between px-0 text-left text-sm font-semibold text-foreground/90 transition hover:bg-transparent hover:text-rose-300"
+                    className="group flex w-full items-center justify-between px-0 text-left text-sm font-semibold text-foreground/90 transition hover:bg-transparent hover:text-accent"
                     data-content-section="venue"
                     data-content-id="venue_details"
                     data-content-interaction={
@@ -171,7 +171,7 @@ export function VenueSection() {
                     }
                   >
                     <span className="inline-flex items-center gap-2">
-                      <span className="text-foreground/70 transition group-hover:text-rose-300">
+                      <span className="text-foreground/70 transition group-hover:text-accent">
                         +
                       </span>
                       {t("convention.venue.detailsLabel")}
@@ -190,7 +190,7 @@ export function VenueSection() {
                   <ul className="grid gap-3 text-foreground/85 sm:grid-cols-2">
                     {extraFeatures.map(({ key, icon: Icon }) => (
                       <li key={key} className="flex items-start gap-2">
-                        <Icon size={16} className="mt-0.5 text-rose-300" />
+                        <Icon size={16} className="mt-0.5 text-accent" />
                         <span>{t(key)}</span>
                       </li>
                     ))}

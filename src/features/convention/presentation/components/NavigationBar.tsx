@@ -91,15 +91,15 @@ const DEFAULT_DESKTOP_GROUP_ACCENT: DesktopGroupAccent = {
 
 const DESKTOP_GROUP_ACCENTS: Partial<Record<string, DesktopGroupAccent>> = {
   "convention.nav.place": {
-    triggerGlow: "hover:bg-rose-500/12 focus-visible:bg-rose-500/12",
-    triggerUnderline: "via-rose-300",
-    triggerHoverText: "hover:text-rose-100",
+    triggerGlow: "hover:bg-accent/12 focus-visible:bg-accent/12",
+    triggerUnderline: "via-accent/80",
+    triggerHoverText: "hover:text-accent-foreground",
     menuSurface:
       "border-white/10 bg-gradient-to-b from-background/95 via-background/90 to-background/95",
     menuHeader: "text-muted-foreground",
     itemHover:
-      "hover:bg-rose-500/18 hover:text-rose-50 focus:bg-rose-500/18 focus:text-rose-50",
-    itemArrow: "text-rose-300/75",
+      "hover:bg-accent/18 hover:text-accent-foreground focus:bg-accent/18 focus:text-accent-foreground",
+    itemArrow: "text-accent/75",
   },
 };
 
@@ -183,7 +183,7 @@ function NavDropdownItem({
         "rounded-lg px-4 py-2.5 transition-colors",
         accentClassName,
         isHighlighted &&
-          "border border-amber-300/35 bg-amber-300/10 text-amber-100 shadow-[0_10px_20px_-16px_rgba(201,168,76,0.9)]"
+          "border border-accent/35 bg-accent/10 text-accent-foreground shadow-[0_10px_20px_-16px_rgba(224,117,58,0.9)]"
       )}
     >
       <Link
@@ -421,7 +421,7 @@ function MobileNav({ groups }: Readonly<{ groups: readonly NavGroup[] }>) {
                               className={cn(
                                 "justify-start rounded-xl border border-white/5 bg-surface/40 px-4 py-3 text-sm text-foreground/70 hover:cursor-pointer hover:bg-surface/70 hover:text-foreground",
                                 item.key === "convention.nav.placePricing" &&
-                                  "border-amber-300/35 bg-amber-300/10 text-amber-100 hover:bg-amber-300/20 hover:text-amber-50"
+                                  "border-accent/35 bg-accent/10 text-accent-foreground hover:bg-accent/20 hover:text-accent-foreground"
                               )}
                             >
                               <Link

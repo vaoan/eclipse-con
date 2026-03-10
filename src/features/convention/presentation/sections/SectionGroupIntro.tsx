@@ -23,19 +23,19 @@ const ACCENT_STYLES = {
     highlight: "bg-accent/15 text-accent",
   },
   gold: {
-    ring: "from-amber-400/30 via-amber-300/10 to-transparent",
-    text: "text-amber-300",
-    highlight: "bg-amber-400/15 text-amber-200",
+    ring: "from-accent/25 via-accent/5 to-transparent",
+    text: "text-accent",
+    highlight: "bg-accent/15 text-accent",
   },
   red: {
-    ring: "from-rose-500/30 via-rose-400/10 to-transparent",
-    text: "text-rose-300",
-    highlight: "bg-rose-500/15 text-rose-200",
+    ring: "from-accent/30 via-accent/10 to-transparent",
+    text: "text-accent",
+    highlight: "bg-accent/15 text-accent",
   },
   green: {
-    ring: "from-amber-400/30 via-amber-300/10 to-transparent",
-    text: "text-amber-300",
-    highlight: "bg-amber-400/15 text-amber-200",
+    ring: "from-accent/25 via-accent/5 to-transparent",
+    text: "text-accent",
+    highlight: "bg-accent/15 text-accent",
   },
 } as const;
 

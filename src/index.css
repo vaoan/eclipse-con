@@ -13,17 +13,17 @@
   --color-muted: #2a2b4a;
   --color-muted-foreground: #b8b3c7;
   --color-border: #2a2b4a;
-  --color-border-accent: #c9a84c;
+  --color-border-accent: #e0753a;
 
   /* Primary — vermillion red */
   --color-primary: #c53030;
   --color-primary-foreground: #fff1f1;
   --color-primary-glow: #e53e3e;
 
-  /* Accent — gold */
-  --color-accent: #c9a84c;
-  --color-accent-foreground: #0a0b1a;
-  --color-accent-glow: #d4b85c;
+  /* Accent — warm orange (matches hero CTA) */
+  --color-accent: #e0753a;
+  --color-accent-foreground: #fff8f4;
+  --color-accent-glow: #e8854a;
 
   /* Sakura pinks */
   --color-sakura: #f0a0b0;
@@ -244,7 +244,7 @@ body {
   background: linear-gradient(
     90deg,
     var(--color-accent) 0%,
-    #ffe5a0 40%,
+    #ffb880 40%,
     var(--color-accent) 80%
   );
   background-size: 200% auto;
@@ -828,7 +828,7 @@ body {
 
 /* --- News rail scrollbar styling --- */
 .news-rail-scroll {
-  scrollbar-color: rgba(201, 168, 76, 0.55) rgba(255, 255, 255, 0.08);
+  scrollbar-color: rgba(224, 117, 58, 0.55) rgba(255, 255, 255, 0.08);
   scrollbar-width: thin;
 }
 
@@ -844,27 +844,27 @@ body {
 .news-rail-scroll::-webkit-scrollbar-thumb {
   background: linear-gradient(
     90deg,
-    rgba(201, 168, 76, 0.35) 0%,
-    rgba(201, 168, 76, 0.85) 55%,
-    rgba(201, 168, 76, 0.4) 100%
+    rgba(224, 117, 58, 0.35) 0%,
+    rgba(224, 117, 58, 0.85) 55%,
+    rgba(224, 117, 58, 0.4) 100%
   );
   border-radius: 999px;
-  border: 1px solid rgba(201, 168, 76, 0.45);
-  box-shadow: 0 0 12px rgba(201, 168, 76, 0.35);
+  border: 1px solid rgba(224, 117, 58, 0.45);
+  box-shadow: 0 0 12px rgba(224, 117, 58, 0.35);
 }
 
 .news-rail-scroll::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(
     90deg,
-    rgba(201, 168, 76, 0.55) 0%,
-    rgba(201, 168, 76, 1) 55%,
-    rgba(201, 168, 76, 0.55) 100%
+    rgba(224, 117, 58, 0.55) 0%,
+    rgba(224, 117, 58, 1) 55%,
+    rgba(224, 117, 58, 0.55) 100%
   );
 }
 
 /* --- News email scroll --- */
 .news-email-scroll {
-  scrollbar-color: rgba(201, 168, 76, 0.45) rgba(255, 255, 255, 0.06);
+  scrollbar-color: rgba(224, 117, 58, 0.45) rgba(255, 255, 255, 0.06);
   scrollbar-width: thin;
 }
 
@@ -880,21 +880,21 @@ body {
 .news-email-scroll::-webkit-scrollbar-thumb {
   background: linear-gradient(
     180deg,
-    rgba(201, 168, 76, 0.35) 0%,
-    rgba(201, 168, 76, 0.85) 55%,
-    rgba(201, 168, 76, 0.4) 100%
+    rgba(224, 117, 58, 0.35) 0%,
+    rgba(224, 117, 58, 0.85) 55%,
+    rgba(224, 117, 58, 0.4) 100%
   );
   border-radius: 999px;
-  border: 1px solid rgba(201, 168, 76, 0.4);
-  box-shadow: 0 0 10px rgba(201, 168, 76, 0.25);
+  border: 1px solid rgba(224, 117, 58, 0.4);
+  box-shadow: 0 0 10px rgba(224, 117, 58, 0.25);
 }
 
 .news-email-scroll::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(
     180deg,
-    rgba(201, 168, 76, 0.55) 0%,
-    rgba(201, 168, 76, 1) 55%,
-    rgba(201, 168, 76, 0.55) 100%
+    rgba(224, 117, 58, 0.55) 0%,
+    rgba(224, 117, 58, 1) 55%,
+    rgba(224, 117, 58, 0.55) 100%
   );
 }
 
@@ -1021,7 +1021,7 @@ body {
     box-shadow:
       0 20px 50px -35px rgba(0, 0, 0, 0.6),
       0 2px 0 rgba(255, 255, 255, 0.55) inset,
-      0 -2px 8px rgba(201, 168, 76, 0.12) inset;
+      0 -2px 8px rgba(224, 117, 58, 0.12) inset;
     background-image:
       linear-gradient(
         180deg,
