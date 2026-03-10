@@ -554,7 +554,7 @@ function deduplicateDataUrisInJs(js: string): string {
     declarations.push(`var ${variableName}=${JSON.stringify(uri)};`);
     out = out
       .replaceAll(`"${uri}"`, variableName)
-      .replaceAll(`'${uri}'`, variableName);
+      .replaceAll(`'${uri}'`, `"+${variableName}+"`);
     totalSaved += (count - 1) * uri.length;
   });
 
