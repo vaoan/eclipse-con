@@ -41,20 +41,20 @@ const NAV_GROUPS = [
   },
   {
     key: "convention.nav.place",
-    anchorId: SECTION_IDS.PLACE_GROUP,
+    anchorId: SECTION_IDS.VENUE,
     items: [
       { id: SECTION_IDS.VENUE, key: "convention.nav.placeHotel" },
-      { id: SECTION_IDS.TRAVEL, key: "convention.nav.placeTravel" },
       { id: SECTION_IDS.AMENITIES, key: "convention.nav.placeFind" },
+      { id: SECTION_IDS.TRAVEL, key: "convention.nav.placeTravel" },
     ],
-  },
-  {
-    key: "convention.nav.community",
-    items: [{ id: SECTION_IDS.GUESTS, key: "convention.nav.community" }],
   },
   {
     key: "convention.nav.news",
     items: [{ id: SECTION_IDS.NEWS, key: "convention.nav.news" }],
+  },
+  {
+    key: "convention.nav.guests",
+    items: [{ id: SECTION_IDS.GUESTS, key: "convention.nav.guests" }],
   },
   {
     key: "convention.nav.faq",

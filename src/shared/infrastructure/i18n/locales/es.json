@@ -143,9 +143,9 @@
         "spa": {
           "title": "Spa & bienestar",
           "description": "Circuito de hidroterapia, masajes, rituales, sauna, baño turco, piscina y jacuzzi de aguas termominerales.",
-          "price": "$39k – $455k",
-          "priceApprox": "Piscina / jacuzzi / sauna: $39.000 · Circuito Arkhé (70 min): $169.000 · Masajes: desde $119.000 · Ritual Fuego (100 min): $270.000",
-          "priceNote": "Piscina, jacuzzi, sauna y gimnasio incluidos para huéspedes. Visitantes: $39.000 por servicio.",
+          "price": "$39k – $455k COP",
+          "priceApprox": "Piscina / jacuzzi / sauna: $39.000 COP · Circuito Arkhé (70 min): $169.000 COP · Masajes: desde $119.000 COP · Ritual Fuego (100 min): $270.000 COP",
+          "priceNote": "Piscina, jacuzzi, sauna y gimnasio incluidos para huéspedes. Visitantes: $39.000 COP por servicio.",
           "linkLabel": "Ver carta de SPA",
           "linkUrl": "/Carta SPA Es Paipa-Impresa.pdf",
           "imageAlt": "Spa del hotel"
@@ -162,8 +162,8 @@
         "nautical": {
           "title": "Náutica y lago",
           "description": "Deportes acuáticos en el lago Sochagota: kayak, lancha, esquí náutico, bicicleta acuática, sofá acuático y crucero con música en vivo.",
-          "price": "$12k – $250k",
-          "priceApprox": "Bici acuática: desde $12.000 · Kayak: desde $18.000 · Crucero diurno: $25.000 · Lancha: desde $95.000 · Esquí: desde $130.000",
+          "price": "$12k – $250k COP",
+          "priceApprox": "Bici acuática: desde $12.000 COP · Kayak: desde $18.000 COP · Crucero diurno: $25.000 COP · Lancha: desde $95.000 COP · Esquí: desde $130.000 COP",
           "priceNote": "Horario: 8:30 a.m. a 4:00 p.m. Chaleco salvavidas obligatorio en embarcaciones menores.",
           "linkLabel": "Ver actividades",
           "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
@@ -172,8 +172,8 @@
         "stables": {
           "title": "Cabalgatas",
           "description": "Paseos a caballo guiados por los alrededores del hotel. Modalidad de guianza con sillas individuales.",
-          "price": "$45k – $65k",
-          "priceApprox": "Cabalgata ecológica (40 min): $65.000 · Cabestro para menores de 10 (15–20 min): $45.000",
+          "price": "$45k – $65k COP",
+          "priceApprox": "Cabalgata ecológica (40 min): $65.000 COP · Cabestro para menores de 10 (15–20 min): $45.000 COP",
           "priceNote": "No disponible los miércoles. Sujeto a disponibilidad y condiciones climáticas.",
           "linkLabel": "Ver actividades",
           "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
@@ -182,8 +182,8 @@
         "farm": {
           "title": "Granja Munay",
           "description": "Experiencia de aprendizaje y conexión con la naturaleza, el campo y los animales. Recorridos guiados en horarios establecidos.",
-          "price": "$30k – $35k",
-          "priceApprox": "Niños: $30.000 · Adultos: $35.000",
+          "price": "$30k – $35k COP",
+          "priceApprox": "Niños: $30.000 COP · Adultos: $35.000 COP",
           "priceNote": "El alimento para los animales no está incluido y se adquiere en la granja.",
           "linkLabel": "Ver actividades",
           "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
@@ -192,8 +192,8 @@
         "family": {
           "title": "Más actividades",
           "description": "Bicicletas, canchas de tenis, casita infantil (uso libre), gimnasio y hotel canino Cani Suite para mascotas.",
-          "price": "$12k – $60k",
-          "priceApprox": "Bicicletas: desde $15.000 · Tenis: $36.000/hora · Gimnasio: $39.000 visitantes · Cani Suite: $36.000/noche",
+          "price": "$12k – $60k COP",
+          "priceApprox": "Bicicletas: desde $15.000 COP · Tenis: $36.000 COP/hora · Gimnasio: $39.000 COP visitantes · Cani Suite: $36.000 COP/noche",
           "priceNote": "Casita infantil de 8:00 a.m. a 5:00 p.m. (uso libre). Gimnasio incluido para huéspedes.",
           "linkLabel": "Ver actividades",
           "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",

@@ -75,11 +75,12 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
       return (
         <article
           key={item.key}
-          className="group relative overflow-hidden rounded-3xl border border-white/10 bg-surface p-5 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.9)]"
+          className="group relative flex overflow-hidden rounded-3xl border border-white/10 bg-surface p-5 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.9)]"
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(224,117,58,0.12),_transparent_55%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          <div className="relative grid gap-4 md:grid-cols-[180px_1fr] md:items-center">
-            <div className="relative h-32 w-full overflow-hidden rounded-2xl border border-white/10 bg-black/20 md:h-28">
+          <div className="relative flex flex-1 flex-col gap-4 md:flex-row md:items-stretch">
+            {/* Image — fixed dimensions, same on all cards */}
+            <div className="relative h-32 w-full shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-black/20 md:h-auto md:w-[180px]">
               <img
                 src={AMENITY_IMAGE_BY_KEY[item.key]}
                 alt={item.imageAlt}
@@ -87,35 +88,39 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
                 loading={index < 2 ? "eager" : "lazy"}
               />
             </div>
-            <div className="flex flex-col gap-3">
+            {/* Content — flex column so the link anchors to the bottom */}
+            <div className="flex min-w-0 flex-1 flex-col gap-2">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h3 className="font-display text-xl font-semibold text-foreground">
                   {item.title}
                 </h3>
-                <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
+                <span className="shrink-0 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-accent">
                   {item.price}
                 </span>
               </div>
               <p className="text-sm text-foreground/70">{item.description}</p>
-              <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                {t("convention.amenities.priceLabel")}
+              {/* Price block */}
+              <div className="mt-auto flex flex-col gap-1.5 pt-2">
+                <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                  {t("convention.amenities.priceLabel")}
+                </div>
+                <p className="text-sm font-semibold text-foreground/80">
+                  {item.priceApprox}
+                </p>
+                {item.priceNote ? (
+                  <p className="text-xs text-foreground/55">{item.priceNote}</p>
+                ) : null}
+                <a
+                  href={item.linkUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent underline decoration-dashed underline-offset-4 transition hover:text-accent-glow"
+                  data-content-section="amenities"
+                  data-content-id={item.key}
+                >
+                  {item.linkLabel}
+                </a>
               </div>
-              <p className="text-sm font-semibold text-foreground/80">
-                {item.priceApprox}
-              </p>
-              {item.priceNote ? (
-                <p className="text-xs text-foreground/55">{item.priceNote}</p>
-              ) : null}
-              <a
-                href={item.linkUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent underline decoration-dashed underline-offset-4 transition hover:text-accent-glow"
-                data-content-section="amenities"
-                data-content-id={item.key}
-              >
-                {item.linkLabel}
-              </a>
             </div>
           </div>
         </article>
@@ -145,9 +150,10 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
         return (
           <article
             key={restaurant.key}
-            className="group overflow-hidden rounded-2xl border border-white/10 bg-surface"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-surface"
           >
-            <div className="relative h-40 w-full overflow-hidden">
+            {/* Image — fixed height across all restaurant cards */}
+            <div className="relative h-40 w-full shrink-0 overflow-hidden">
               <img
                 src={RESTAURANT_IMAGE_BY_KEY[restaurant.key]}
                 alt={restaurant.imageAlt}
@@ -155,9 +161,10 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
                 loading="lazy"
               />
             </div>
-            <div className="flex flex-col gap-3 p-4">
+            {/* Content — flex-1 so cards share the same height, link at bottom */}
+            <div className="flex flex-1 flex-col gap-3 p-4">
               <div className="flex items-start justify-between gap-3">
-                <div>
+                <div className="min-w-0">
                   <h4 className="font-display text-lg font-semibold text-foreground">
                     {restaurant.title}
                   </h4>
@@ -165,7 +172,7 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
                     {restaurant.description}
                   </p>
                 </div>
-                <span className="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-accent">
+                <span className="shrink-0 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-accent">
                   {restaurant.price}
                 </span>
               </div>
@@ -173,7 +180,7 @@ const RestaurantsBlock = ({ t }: Readonly<{ t: TFunction }>) => (
                 href={restaurant.linkUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent underline decoration-dashed underline-offset-4 transition hover:text-accent-glow"
+                className="mt-auto inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent underline decoration-dashed underline-offset-4 transition hover:text-accent-glow"
                 data-content-section="amenities"
                 data-content-id={`restaurant_${restaurant.key}`}
               >

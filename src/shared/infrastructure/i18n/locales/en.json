@@ -143,9 +143,9 @@
         "spa": {
           "title": "Spa & wellness",
           "description": "Hydrotherapy circuit, massages, rituals, sauna, Turkish bath, pool, and thermal mineral-water jacuzzi.",
-          "price": "$39k – $455k",
-          "priceApprox": "Pool / jacuzzi / sauna: $39,000 · Arkhé Circuit (70 min): $169,000 · Massages: from $119,000 · Fire Ritual (100 min): $270,000",
-          "priceNote": "Pool, jacuzzi, sauna & gym included for hotel guests. Visitors: $39,000 per service.",
+          "price": "$39k – $455k COP",
+          "priceApprox": "Pool / jacuzzi / sauna: $39,000 COP · Arkhé Circuit (70 min): $169,000 COP · Massages: from $119,000 COP · Fire Ritual (100 min): $270,000 COP",
+          "priceNote": "Pool, jacuzzi, sauna & gym included for hotel guests. Visitors: $39,000 COP per service.",
           "linkLabel": "View SPA menu",
           "linkUrl": "/Carta SPA Es Paipa-Impresa.pdf",
           "imageAlt": "Hotel spa"
@@ -162,8 +162,8 @@
         "nautical": {
           "title": "Nautical & lake",
           "description": "Water sports on Lake Sochagota: kayak, motorboat, water ski, water bike, water sofa, and a cruise with live music.",
-          "price": "$12k – $250k",
-          "priceApprox": "Water bike: from $12,000 · Kayak: from $18,000 · Day cruise: $25,000 · Motorboat: from $95,000 · Water ski: from $130,000",
+          "price": "$12k – $250k COP",
+          "priceApprox": "Water bike: from $12,000 COP · Kayak: from $18,000 COP · Day cruise: $25,000 COP · Motorboat: from $95,000 COP · Water ski: from $130,000 COP",
           "priceNote": "Hours: 8:30 a.m. – 4:00 p.m. Life jacket mandatory on small vessels.",
           "linkLabel": "View activities",
           "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
@@ -172,8 +172,8 @@
         "stables": {
           "title": "Horseback riding",
           "description": "Guided horseback rides around the hotel grounds. Individual saddles with guide supervision.",
-          "price": "$45k – $65k",
-          "priceApprox": "Ecological ride (40 min): $65,000 · Lead-rein for under-10s (15–20 min): $45,000",
+          "price": "$45k – $65k COP",
+          "priceApprox": "Ecological ride (40 min): $65,000 COP · Lead-rein for under-10s (15–20 min): $45,000 COP",
           "priceNote": "Not available on Wednesdays. Subject to availability and weather.",
           "linkLabel": "View activities",
           "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
@@ -182,8 +182,8 @@
         "farm": {
           "title": "Munay Farm",
           "description": "A guided experience connecting with nature, the countryside, and farm animals.",
-          "price": "$30k – $35k",
-          "priceApprox": "Kids: $30,000 · Adults: $35,000",
+          "price": "$30k – $35k COP",
+          "priceApprox": "Kids: $30,000 COP · Adults: $35,000 COP",
           "priceNote": "Animal feed is not included and can be purchased at the farm.",
           "linkLabel": "View activities",
           "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
@@ -192,8 +192,8 @@
         "family": {
           "title": "More activities",
           "description": "Bikes, tennis courts, kids' playhouse (free), gym, and Cani Suite pet hotel.",
-          "price": "$12k – $60k",
-          "priceApprox": "Bikes: from $15,000 · Tennis: $36,000/hr · Gym: $39,000 visitors · Cani Suite: $36,000/night",
+          "price": "$12k – $60k COP",
+          "priceApprox": "Bikes: from $15,000 COP · Tennis: $36,000 COP/hr · Gym: $39,000 COP visitors · Cani Suite: $36,000 COP/night",
           "priceNote": "Kids' playhouse open 8:00 a.m. – 5:00 p.m. (free). Gym included for hotel guests.",
           "linkLabel": "View activities",
           "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
