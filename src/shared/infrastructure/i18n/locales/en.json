@@ -106,10 +106,10 @@
       "subtitle": "Hotel services and experiences. Several have an extra cost.",
       "priceLabel": "Approx. price",
       "footerNote": "Prices include tax. Services subject to availability; book at the Activities desk. Cancellations at least 4 hours in advance.",
-      "footerLinkLabel": "Activities price list (PDF)",
-      "footerLinkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
-      "footerSpaLabel": "SPA price list (PDF)",
-      "footerSpaUrl": "/Carta SPA Es Paipa-Impresa.pdf",
+      "footerLinkLabel": "View activities card (PDF)",
+      "footerLinkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+      "footerSpaLabel": "View SPA card (PDF)",
+      "footerSpaUrl": "https://www.hotelesestelar.com/wp-content/uploads/2026/03/spa-Paipa-carta-1.pdf",
       "restaurants": {
         "eyebrow": "Dining",
         "title": "Hotel restaurants",
@@ -142,12 +142,12 @@
       "cards": {
         "spa": {
           "title": "Spa & wellness",
-          "description": "Hydrotherapy circuit, massages, rituals, sauna, Turkish bath, pool, and thermal mineral-water jacuzzi.",
-          "price": "$39k – $455k COP",
-          "priceApprox": "Pool / jacuzzi / sauna: $39,000 COP · Arkhé Circuit (70 min): $169,000 COP · Massages: from $119,000 COP · Fire Ritual (100 min): $270,000 COP",
-          "priceNote": "Pool, jacuzzi, sauna & gym included for hotel guests. Visitors: $39,000 COP per service.",
-          "linkLabel": "View SPA menu",
-          "linkUrl": "/Carta SPA Es Paipa-Impresa.pdf",
+          "description": "Hydrotherapy circuits, individual and couples massages, body rituals, beauty salon, and waxing. Prior booking at Activities desk required.",
+          "price": "$25k – $455k COP",
+          "priceApprox": "Arkhé Circuit (70 min): $169,000 COP · Massages (30 min): from $119,000 COP · Armonía Total massage (60 min): $229,000 COP · Fire Ritual (100 min): $270,000 COP · Body rituals (60 min): from $229,000 COP · Eclipse de Amor couples (60 min): $455,000 COP · Dulce Magia Kids (30 min): $119,000 COP · Beauty salon: from $38,000 COP · Waxing: from $25,000 COP",
+          "priceNote": "Max pool depth: 1.60 m. No small children allowed. Cancellations at least 4 hours in advance. Punctuality required; missed time cannot be recovered.",
+          "linkLabel": "View SPA card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2026/03/spa-Paipa-carta-1.pdf",
           "imageAlt": "Hotel spa"
         },
         "dining": {
@@ -161,12 +161,12 @@
         },
         "nautical": {
           "title": "Nautical & lake",
-          "description": "Water sports on Lake Sochagota: kayak, motorboat, water ski, water bike, water sofa, and a cruise with live music.",
+          "description": "Water sports on Lake Sochagota: kayak, motorboat, water ski, water bike, water sofa, and guided cruises.",
           "price": "$12k – $250k COP",
-          "priceApprox": "Water bike: from $12,000 COP · Kayak: from $18,000 COP · Day cruise: $25,000 COP · Motorboat: from $95,000 COP · Water ski: from $130,000 COP",
-          "priceNote": "Hours: 8:30 a.m. – 4:00 p.m. Life jacket mandatory on small vessels.",
-          "linkLabel": "View activities",
-          "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
+          "priceApprox": "Water bike: $12,000–$18,000 COP · Kayak: $18,000–$24,000 COP · Day cruise (15 min): $25,000 COP · Crucero Estelar (1 hour): $45,000 COP · Motorboat: $95,000–$115,000 COP · Water sofa: $95,000–$115,000 COP · Water ski: $150,000–$250,000 COP",
+          "priceNote": "Hours: 8:30 a.m. – 4:00 p.m. Life jacket mandatory on small vessels. Max total weight 30 kg for watercraft.",
+          "linkLabel": "View activities card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
           "imageAlt": "Nautical activities on Lake Sochagota"
         },
         "stables": {
@@ -175,8 +175,8 @@
           "price": "$45k – $65k COP",
           "priceApprox": "Ecological ride (40 min): $65,000 COP · Lead-rein for under-10s (15–20 min): $45,000 COP",
           "priceNote": "Not available on Wednesdays. Subject to availability and weather.",
-          "linkLabel": "View activities",
-          "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
+          "linkLabel": "View activities card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
           "imageAlt": "Hotel horseback riding"
         },
         "farm": {
@@ -185,19 +185,69 @@
           "price": "$30k – $35k COP",
           "priceApprox": "Kids: $30,000 COP · Adults: $35,000 COP",
           "priceNote": "Animal feed is not included and can be purchased at the farm.",
-          "linkLabel": "View activities",
-          "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
+          "linkLabel": "View activities card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
           "imageAlt": "Munay Farm"
         },
-        "family": {
-          "title": "More activities",
-          "description": "Bikes, tennis courts, kids' playhouse (free), gym, and Cani Suite pet hotel.",
-          "price": "$12k – $60k COP",
-          "priceApprox": "Bikes: from $15,000 COP · Tennis: $36,000 COP/hr · Gym: $39,000 COP visitors · Cani Suite: $36,000 COP/night",
-          "priceNote": "Kids' playhouse open 8:00 a.m. – 5:00 p.m. (free). Gym included for hotel guests.",
-          "linkLabel": "View activities",
-          "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
-          "imageAlt": "Outdoor activities"
+        "pool": {
+          "title": "Pool & thermal waters",
+          "description": "Outdoor pool, jacuzzi, and thermal mineral waters. Included for hotel guests; visitors pay admission.",
+          "price": "Included / $39k COP",
+          "priceApprox": "Hotel guests: included · Visitors: $39,000 COP per service",
+          "priceNote": "Pool: 8:00 a.m. – 8:00 p.m. Jacuzzi: 40-min sessions on set schedules (8:30 a.m. – 9:30 p.m.), book at Activities desk. Guests: 40 min/day included. No pets or food allowed.",
+          "linkLabel": "View activities card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Hotel thermal pool"
+        },
+        "bicycles": {
+          "title": "Bicycles",
+          "description": "Bike rentals for rides around the hotel grounds. Options for kids and adults.",
+          "price": "$15k – $30k COP",
+          "priceApprox": "Kids: $15,000 COP (½ hr) / $24,000 COP (1 hr) · Adults: $18,000 COP (½ hr) / $30,000 COP (1 hr)",
+          "priceNote": "Subject to availability. Rides within hotel grounds only. Helmet required. Stay on the right side of the path.",
+          "linkLabel": "View activities card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Bicycles at the hotel"
+        },
+        "tennis": {
+          "title": "Tennis courts",
+          "description": "Brick-dust clay tennis courts available by reservation at the Activities desk.",
+          "price": "$36k – $60k COP",
+          "priceApprox": "1 hour: $36,000 COP per court · 2 hours: $60,000 COP per court",
+          "priceNote": "Hours: 8:00 a.m. – 5:00 p.m. No coaching service. Rackets: contact the Activities desk.",
+          "linkLabel": "View activities card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Hotel tennis courts"
+        },
+        "caniSuite": {
+          "title": "Cani Suite",
+          "description": "Pet hotel for pets up to 15 kg that cannot sleep in the room. Open schedule.",
+          "price": "$18k – $36k COP",
+          "priceApprox": "Full night: $36,000 COP · 2-hour rental: $18,000 COP (visitors only)",
+          "priceNote": "Not a daycare. Owners must bring pet essentials (collar, dishes, food, etc.). Lost locker key/lock: $20,000 COP.",
+          "linkLabel": "View activities card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Cani Suite pet hotel"
+        },
+        "sauna": {
+          "title": "Sauna & Turkish bath",
+          "description": "Sauna and Turkish bath available for guests and visitors. Recommended for ages 12+.",
+          "price": "Included / $39k COP",
+          "priceApprox": "Hotel guests: included · Visitors: $39,000 COP per person",
+          "priceNote": "Mon–Thu: 8:00 a.m. – 9:30 p.m. Fri, Sat, Sun & holidays: 8:00 a.m. – 10:00 p.m.",
+          "linkLabel": "View activities card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Hotel sauna and Turkish bath"
+        },
+        "recreation": {
+          "title": "Kids' playhouse & gym",
+          "description": "Children's play area and fully equipped gym. Both free for hotel guests.",
+          "price": "Included",
+          "priceApprox": "Playhouse & gym: included for guests · Visitors gym: $39,000 COP",
+          "priceNote": "Playhouse: 8:00 a.m. – 5:00 p.m. Gym: 6:30 a.m. – 10:00 p.m. Gym recommended for ages 12+.",
+          "linkLabel": "View activities card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Hotel recreation areas"
         }
       }
     },
@@ -205,6 +255,12 @@
       "title": "Travel tips",
       "subtitle": "Weather, rain, and local plans to make the most of Paipa.",
       "items": {
+        "punctuality": {
+          "title": "Arrive 1 hour before departure",
+          "description": "Show up at least 1 hour before the bus departure time. This allows us to check attendance, organize luggage, and leave on schedule with no delays.",
+          "sourceLabel": "Furry Colombia",
+          "sourceUrl": "mailto:furrycolombia@gmail.com"
+        },
         "weather": {
           "title": "July weather: cool + humid",
           "description": "Average highs around 14.8°C and lows near 7.5°C, with about 29.6 rainy days and humidity near 91%. Pack thermal layers.",
@@ -384,7 +440,7 @@
       },
       "cta": "Reserve",
       "reserveLink": "Reserve hotel",
-      "tutorialLink": "Open registration tutorial",
+      "tutorialLink": "Registration tutorial (coming soon)",
       "ticketLink": "Buy ticket (coming soon)",
       "devNote": "All prices are per person.",
       "noteServices": "Additional hotel services (spa, thermal pools, bar, etc.) are not included in the package.",
@@ -507,7 +563,7 @@
       "tutorialCallout": {
         "badge": "Important: complete both payments",
         "description": "Need a quick walkthrough? Follow the registration tutorial so you reserve your room first and then buy your event ticket with the reservation code.",
-        "cta": "Open registration tutorial"
+        "cta": "Registration tutorial (coming soon)"
       },
       "q1": {
         "question": "Can I book just one night?",

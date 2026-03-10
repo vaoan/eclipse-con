@@ -107,9 +107,9 @@
       "priceLabel": "Precio aprox.",
       "footerNote": "Precios incluyen IVA. Servicios sujetos a disponibilidad y reserva en Caja de actividades. Cancelaciones mínimo 4 horas antes.",
       "footerLinkLabel": "Ver carta de actividades (PDF)",
-      "footerLinkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
-      "footerSpaLabel": "Ver carta de SPA (PDF)",
-      "footerSpaUrl": "/Carta SPA Es Paipa-Impresa.pdf",
+      "footerLinkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+      "footerSpaLabel": "Ver carta del SPA (PDF)",
+      "footerSpaUrl": "https://www.hotelesestelar.com/wp-content/uploads/2026/03/spa-Paipa-carta-1.pdf",
       "restaurants": {
         "eyebrow": "Gastronomía",
         "title": "Restaurantes del hotel",
@@ -142,12 +142,12 @@
       "cards": {
         "spa": {
           "title": "Spa & bienestar",
-          "description": "Circuito de hidroterapia, masajes, rituales, sauna, baño turco, piscina y jacuzzi de aguas termominerales.",
-          "price": "$39k – $455k COP",
-          "priceApprox": "Piscina / jacuzzi / sauna: $39.000 COP · Circuito Arkhé (70 min): $169.000 COP · Masajes: desde $119.000 COP · Ritual Fuego (100 min): $270.000 COP",
-          "priceNote": "Piscina, jacuzzi, sauna y gimnasio incluidos para huéspedes. Visitantes: $39.000 COP por servicio.",
-          "linkLabel": "Ver carta de SPA",
-          "linkUrl": "/Carta SPA Es Paipa-Impresa.pdf",
+          "description": "Circuitos de hidroterapia, masajes individuales y en pareja, rituales corporales, salón de belleza y depilación. Reserva previa en caja de actividades.",
+          "price": "$25k – $455k COP",
+          "priceApprox": "Circuito Arkhé (70 min): $169.000 COP · Masajes (30 min): desde $119.000 COP · Masaje Armonía Total (60 min): $229.000 COP · Ritual Fuego (100 min): $270.000 COP · Rituales corporales (60 min): desde $229.000 COP · Eclipse de Amor parejas (60 min): $455.000 COP · Dulce Magia Kids (30 min): $119.000 COP · Salón de belleza: desde $38.000 COP · Depilación: desde $25.000 COP",
+          "priceNote": "Profundidad máxima de piscina: 1,60 m. No se permite ingreso de niños pequeños. Cancelaciones mínimo 4 horas antes. Puntualidad requerida; el tiempo perdido no se recupera.",
+          "linkLabel": "Ver carta del SPA (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2026/03/spa-Paipa-carta-1.pdf",
           "imageAlt": "Spa del hotel"
         },
         "dining": {
@@ -161,12 +161,12 @@
         },
         "nautical": {
           "title": "Náutica y lago",
-          "description": "Deportes acuáticos en el lago Sochagota: kayak, lancha, esquí náutico, bicicleta acuática, sofá acuático y crucero con música en vivo.",
+          "description": "Deportes acuáticos en el lago Sochagota: kayak, lancha, esquí náutico, bicicleta acuática, sofá acuático y cruceros guiados.",
           "price": "$12k – $250k COP",
-          "priceApprox": "Bici acuática: desde $12.000 COP · Kayak: desde $18.000 COP · Crucero diurno: $25.000 COP · Lancha: desde $95.000 COP · Esquí: desde $130.000 COP",
-          "priceNote": "Horario: 8:30 a.m. a 4:00 p.m. Chaleco salvavidas obligatorio en embarcaciones menores.",
-          "linkLabel": "Ver actividades",
-          "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
+          "priceApprox": "Bici acuática: $12.000–$18.000 COP · Kayak: $18.000–$24.000 COP · Crucero diurno (15 min): $25.000 COP · Crucero Estelar (1 hora): $45.000 COP · Lancha: $95.000–$115.000 COP · Sofá acuático: $95.000–$115.000 COP · Esquí náutico: $150.000–$250.000 COP",
+          "priceNote": "Horario: 8:30 a.m. a 4:00 p.m. Chaleco salvavidas obligatorio en embarcaciones menores. Peso máximo 30 kg en total para náutica.",
+          "linkLabel": "Ver carta de actividades (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
           "imageAlt": "Actividades náuticas en el lago Sochagota"
         },
         "stables": {
@@ -175,8 +175,8 @@
           "price": "$45k – $65k COP",
           "priceApprox": "Cabalgata ecológica (40 min): $65.000 COP · Cabestro para menores de 10 (15–20 min): $45.000 COP",
           "priceNote": "No disponible los miércoles. Sujeto a disponibilidad y condiciones climáticas.",
-          "linkLabel": "Ver actividades",
-          "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
+          "linkLabel": "Ver carta de actividades (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
           "imageAlt": "Cabalgatas del hotel"
         },
         "farm": {
@@ -185,19 +185,69 @@
           "price": "$30k – $35k COP",
           "priceApprox": "Niños: $30.000 COP · Adultos: $35.000 COP",
           "priceNote": "El alimento para los animales no está incluido y se adquiere en la granja.",
-          "linkLabel": "Ver actividades",
-          "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
+          "linkLabel": "Ver carta de actividades (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
           "imageAlt": "Granja Munay del hotel"
         },
-        "family": {
-          "title": "Más actividades",
-          "description": "Bicicletas, canchas de tenis, casita infantil (uso libre), gimnasio y hotel canino Cani Suite para mascotas.",
-          "price": "$12k – $60k COP",
-          "priceApprox": "Bicicletas: desde $15.000 COP · Tenis: $36.000 COP/hora · Gimnasio: $39.000 COP visitantes · Cani Suite: $36.000 COP/noche",
-          "priceNote": "Casita infantil de 8:00 a.m. a 5:00 p.m. (uso libre). Gimnasio incluido para huéspedes.",
-          "linkLabel": "Ver actividades",
-          "linkUrl": "/Carta Actividades-Es Paipa-Impresa.pdf",
-          "imageAlt": "Actividades al aire libre"
+        "pool": {
+          "title": "Piscina y aguas termales",
+          "description": "Piscina, jacuzzi y aguas termominerales al aire libre. Incluido para huéspedes; visitantes pagan entrada.",
+          "price": "Incluido / $39k COP",
+          "priceApprox": "Huéspedes: incluido · Visitantes: $39.000 COP por servicio",
+          "priceNote": "Piscina: 8:00 a.m. a 8:00 p.m. Jacuzzi: turnos de 40 min en horarios preestablecidos (8:30 a.m. a 9:30 p.m.), reserva en caja de actividades. Huéspedes: 40 min/día incluidos. No se permite ingreso de mascotas ni alimentos.",
+          "linkLabel": "Ver carta de actividades (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Piscina termal del hotel"
+        },
+        "bicycles": {
+          "title": "Bicicletas",
+          "description": "Alquiler de bicicletas para recorridos por los alrededores del hotel. Opciones para niños y adultos.",
+          "price": "$15k – $30k COP",
+          "priceApprox": "Niños: $15.000 COP (½ hora) / $24.000 COP (1 hora) · Adultos: $18.000 COP (½ hora) / $30.000 COP (1 hora)",
+          "priceNote": "Cupo sujeto a disponibilidad. Servicio dentro de las instalaciones del hotel. Uso obligatorio de casco. Transitar siempre por el carril derecho.",
+          "linkLabel": "Ver carta de actividades (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Bicicletas en el hotel"
+        },
+        "tennis": {
+          "title": "Canchas de tenis",
+          "description": "Canchas de tenis en polvo de ladrillo disponibles por reserva en la caja de actividades.",
+          "price": "$36k – $60k COP",
+          "priceApprox": "1 hora: $36.000 COP por cancha · 2 horas: $60.000 COP por cancha",
+          "priceNote": "Horario: 8:00 a.m. a 5:00 p.m. No hay servicio de coach. Raquetas: comunicarse con caja de actividades.",
+          "linkLabel": "Ver carta de actividades (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Canchas de tenis del hotel"
+        },
+        "caniSuite": {
+          "title": "Cani Suite",
+          "description": "Hotel canino para mascotas de hasta 15 kg que no puedan dormir en habitación. Horario abierto.",
+          "price": "$18k – $36k COP",
+          "priceApprox": "Noche completa: $36.000 COP · Alquiler por 2 horas: $18.000 COP (aplica solo para visitantes)",
+          "priceNote": "No es una guardería. Los propietarios deben traer los elementos necesarios para la comodidad de la mascota (collares, platos, alimento, etc.). Pérdida de llave o candado del locker: $20.000 COP.",
+          "linkLabel": "Ver carta de actividades (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Cani Suite hotel canino"
+        },
+        "sauna": {
+          "title": "Sauna y turco",
+          "description": "Sauna y baño turco disponibles para huéspedes y visitantes. Recomendado para mayores de 12 años.",
+          "price": "Incluido / $39k COP",
+          "priceApprox": "Huéspedes: incluido en la estadía · Visitantes: $39.000 COP por persona",
+          "priceNote": "Lunes a jueves: 8:00 a.m. a 9:30 p.m. Viernes, sábados, domingos y festivos: 8:00 a.m. a 10:00 p.m.",
+          "linkLabel": "Ver carta de actividades (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Sauna y baño turco del hotel"
+        },
+        "recreation": {
+          "title": "Casita infantil y gimnasio",
+          "description": "Zona de juegos para niños y gimnasio equipado. Ambos de uso libre para huéspedes.",
+          "price": "Incluido",
+          "priceApprox": "Casita infantil y gimnasio: incluidos para huéspedes · Visitantes gimnasio: $39.000 COP",
+          "priceNote": "Casita infantil: 8:00 a.m. a 5:00 p.m. Gimnasio: 6:30 a.m. a 10:00 p.m. Recomendado para mayores de 12 años.",
+          "linkLabel": "Ver carta de actividades (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+          "imageAlt": "Zonas recreativas del hotel"
         }
       }
     },
@@ -205,6 +255,12 @@
       "title": "Tips de viaje",
       "subtitle": "Clima, lluvia y planes locales para aprovechar Paipa.",
       "items": {
+        "punctuality": {
+          "title": "Llega 1 hora antes al punto de salida",
+          "description": "Preséntate mínimo 1 hora antes de la hora de salida del bus. Esto nos permite verificar asistencia, organizar equipaje y salir a tiempo sin retrasos.",
+          "sourceLabel": "Furry Colombia",
+          "sourceUrl": "mailto:furrycolombia@gmail.com"
+        },
         "weather": {
           "title": "Clima de julio: fresco y húmedo",
           "description": "Promedio de 14,8°C máx y 7,5°C mín, con ~29,6 días de lluvia y humedad ~91%. Lleva capas térmicas.",
@@ -384,7 +440,7 @@
       },
       "cta": "Reservar",
       "reserveLink": "Reservar hotel",
-      "tutorialLink": "Abrir tutorial de registro",
+      "tutorialLink": "Tutorial de registro (próximamente)",
       "ticketLink": "Comprar boleta (próximamente)",
       "devNote": "Todos los precios son por persona.",
       "noteServices": "Los servicios adicionales del hotel (spa, termales, bar, etc.) no están incluidos en el paquete.",
@@ -507,7 +563,7 @@
       "tutorialCallout": {
         "badge": "Importante: completa ambos pagos",
         "description": "¿Quieres una guía rápida? Sigue el tutorial de registro para reservar primero la habitación y luego comprar la boleta con el código de reserva.",
-        "cta": "Abrir tutorial de registro"
+        "cta": "Tutorial de registro (próximamente)"
       },
       "q1": {
         "question": "¿Puedo reservar solo una noche?",

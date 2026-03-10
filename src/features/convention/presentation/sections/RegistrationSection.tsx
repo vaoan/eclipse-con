@@ -1,6 +1,6 @@
 import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+
 import { Check } from "lucide-react";
 
 import { Button } from "@/shared/presentation/ui/button";
@@ -131,23 +131,20 @@ function RegistrationCta({ t }: Readonly<{ t: TFunction }>) {
         {t("convention.registration.highlight")}
       </p>
       <div className="flex flex-wrap items-center justify-center gap-4">
-        <Button
-          asChild
-          variant="secondary"
-          className="border border-accent/60 bg-accent/15 text-foreground shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:-translate-y-0.5 hover:bg-accent/25 hover:shadow-[0_10px_30px_-16px_hsl(var(--accent))] focus-visible:ring-accent/60"
+        <span
+          role="button"
+          aria-disabled="true"
+          tabIndex={0}
+          className="inline-flex h-9 cursor-default items-center justify-center rounded-md border border-accent/60 bg-accent/15 px-4 py-2 text-sm font-medium text-foreground/50 opacity-70 shadow-[0_0_0_1px_rgba(255,255,255,0.06)]"
+          data-funnel-step="registration_tutorial"
+          data-cta-id="registration_tutorial_interest"
+          data-cta-variant="coming_soon"
+          data-content-section="registration"
+          data-content-id="registration_tutorial_link"
+          data-content-interaction="interest"
         >
-          <Link
-            to="/registration-tutorial"
-            data-funnel-step="registration_tutorial"
-            data-cta-id="registration_tutorial_open"
-            data-cta-variant="section_guide"
-            data-content-section="registration"
-            data-content-id="registration_tutorial_link"
-            data-content-interaction="open"
-          >
-            {t("convention.registration.tutorialLink")}
-          </Link>
-        </Button>
+          {t("convention.registration.tutorialLink")}
+        </span>
       </div>
       <p className="text-sm text-muted-foreground">
         {t("convention.registration.noteServices")}

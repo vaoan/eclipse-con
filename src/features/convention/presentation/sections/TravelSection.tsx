@@ -8,6 +8,7 @@ import { SectionWrapper } from "../components/SectionWrapper";
 export function TravelSection() {
   const { t } = useTranslation();
   const tipKeys = [
+    "punctuality",
     "weather",
     "rain",
     "thermals",

@@ -6,25 +6,36 @@ import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
 const AMENITY_IMAGE_BY_KEY = {
-  spa: "https://www.estelarpaipa.com/media/uploads/fotoservicio/servicio-spa-paipa.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A1200%2Fh%3A600%2Fg%3Ace%2Ff%3Ajpg",
-  dining:
-    "https://www.estelarpaipa.com/media/uploads/fotoservicio/LR_35_de_85-12_1.jpg?q=pr%3Asharp%2Frs%3Afill%2Fw%3A1200%2Fh%3A600%2Fg%3Ace%2Ff%3Ajpg",
+  spa: "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-masajes.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
   nautical:
-    "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-panoe.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A1200%2Fh%3A600%2Fg%3Ace%2Ff%3Ajpg",
+    "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-lago.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
   stables:
-    "https://www.estelarpaipa.com/media/uploads/fotoservicio/DUF_8717_U_OK.jpg?q=pr%3Asharp%2Frs%3Afill%2Fw%3A1200%2Fh%3A600%2Fg%3Ace%2Ff%3Ajpg",
-  farm: "https://www.estelarpaipa.com/media/uploads/fotoservicio/DUF_9537_U_OK.jpg?q=pr%3Asharp%2Frs%3Afill%2Fw%3A1200%2Fh%3A600%2Fg%3Ace%2Ff%3Ajpg",
-  family:
-    "https://www.estelarpaipa.com/media/uploads/fotoservicio/servicios-familia-paipa.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A1200%2Fh%3A600%2Fg%3Ace%2Ff%3Ajpg",
+    "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-cabal.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
+  farm: "https://www.estelarpaipa.com/media/uploads/fotoservicio/DUF_9537_U_OK.jpg?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
+  pool: "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-piscina.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
+  bicycles:
+    "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-actividadesd.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
+  tennis:
+    "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-tenis.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
+  caniSuite:
+    "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-petfriend.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
+  sauna:
+    "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-sauna.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
+  recreation:
+    "https://www.estelarpaipa.com/media/uploads/galeriahoteles/estelar-paipa-gym.webp?q=pr%3Asharp%2Frs%3Afill%2Fw%3A900%2Fh%3A540%2Ff%3Ajpg",
 } as const;
 
 const AMENITY_CARD_KEYS = [
   "spa",
-  "dining",
   "nautical",
   "stables",
   "farm",
-  "family",
+  "pool",
+  "bicycles",
+  "tennis",
+  "caniSuite",
+  "sauna",
+  "recreation",
 ] as const;
 
 const RESTAURANT_IMAGE_BY_KEY = {

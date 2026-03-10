@@ -1,9 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { CircleAlert } from "lucide-react";
 
 import { Accordion } from "@/shared/presentation/ui/accordion";
-import { Button } from "@/shared/presentation/ui/button";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { FAQ_ITEMS } from "@/features/convention/application/data/faqItems";
 import { FaqAccordionItem } from "../components/FaqAccordionItem";
@@ -49,22 +47,20 @@ export function FaqSection() {
           <p className="mt-3 max-w-2xl text-sm text-foreground/90 sm:text-base">
             {t("convention.faq.tutorialCallout.description")}
           </p>
-          <Button
-            asChild
-            className="mt-4 bg-accent text-accent-foreground hover:bg-accent-glow"
+          <span
+            role="button"
+            aria-disabled="true"
+            tabIndex={0}
+            className="mt-4 inline-flex h-9 cursor-default items-center justify-center rounded-md border border-accent/60 bg-accent/15 px-4 py-2 text-sm font-medium text-foreground/50 opacity-70 shadow-[0_0_0_1px_rgba(255,255,255,0.06)]"
+            data-funnel-step="faq_tutorial_open"
+            data-cta-id="faq_registration_tutorial_interest"
+            data-cta-variant="coming_soon"
+            data-content-section="faq"
+            data-content-id="faq_tutorial_callout"
+            data-content-interaction="interest"
           >
-            <Link
-              to="/registration-tutorial"
-              data-funnel-step="faq_tutorial_open"
-              data-cta-id="faq_registration_tutorial_open"
-              data-cta-variant="faq_highlight"
-              data-content-section="faq"
-              data-content-id="faq_tutorial_callout"
-              data-content-interaction="open"
-            >
-              {t("convention.faq.tutorialCallout.cta")}
-            </Link>
-          </Button>
+            {t("convention.faq.tutorialCallout.cta")}
+          </span>
         </div>
       </div>
     </SectionWrapper>
