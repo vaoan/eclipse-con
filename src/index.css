@@ -786,18 +786,6 @@ body {
   animation: water-shimmer 3s ease-in-out infinite;
 }
 
-.hero-sticky {
-  position: sticky;
-  top: 0;
-  height: 102vh;
-  z-index: 0;
-}
-
-.hero-sticky > section {
-  position: sticky;
-  top: 0;
-}
-
 /* --- Glow button shimmer --- */
 
 .btn-glow::before {
@@ -908,12 +896,6 @@ body {
     rgba(201, 168, 76, 1) 55%,
     rgba(201, 168, 76, 0.55) 100%
   );
-}
-
-@media (max-width: 768px) {
-  .hero-sticky {
-    height: 106vh;
-  }
 }
 
 @media (max-width: 768px) {

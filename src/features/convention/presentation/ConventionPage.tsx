@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { NavigationBar } from "./components/NavigationBar";
 import { SakuraParticles } from "./components/SakuraParticles";
 import { HeroCanvasSky } from "./components/HeroCanvasSky";
+import { PostHeroBackground } from "./components/PostHeroBackground";
 import { HeroSection } from "./sections/HeroSection";
 import { FooterSection } from "./sections/FooterSection";
 import { AmenitiesSection } from "./sections/AmenitiesSection";
@@ -278,33 +279,43 @@ export function Component() {
 
   return (
     <div className="relative isolate" {...tid("convention-page")}>
+      {/* Fixed star canvas — always behind everything */}
       {effectsReady && <HeroCanvasSky fixed className="z-0" />}
+
       <div className="relative z-10">
         <NavigationBar />
         {effectsReady && <SakuraParticles />}
+
+        {/* Layer 1: Hero sticky — bath + title + CTA, sticks at top */}
         <div id={SECTION_IDS.HERO} aria-hidden="true" />
-        <div className="hero-sticky">
-          <HeroSection />
+        <HeroSection />
+
+        {/* Layer 2: Post-hero sticky — covers the hero with opaque bg + logo/text.
+            Visible through semi-transparent "elevated" sections */}
+        <PostHeroBackground />
+
+        {/* Layer 3: Content sections — pull up to overlap the post-hero bg layer */}
+        <div className="relative z-[2] -mt-[100vh]">
+          <AboutSection />
+          <EventsSection />
+          <RegistrationSection />
+          <TicketingSection />
+          <VenueSection />
+          <SectionGroupIntro
+            id={SECTION_IDS.PLACE_GROUP}
+            titleKey="convention.groups.place.title"
+            subtitleKey="convention.groups.place.subtitle"
+            descriptionKey="convention.groups.place.description"
+            noteKey="convention.groups.place.note"
+            accent="red"
+          />
+          <AmenitiesSection />
+          <TravelSection />
+          <NewsSection />
+          <GuestsSection />
+          <FaqSection />
+          <FooterSection />
         </div>
-        <AboutSection />
-        <EventsSection />
-        <RegistrationSection />
-        <TicketingSection />
-        <VenueSection />
-        <SectionGroupIntro
-          id={SECTION_IDS.PLACE_GROUP}
-          titleKey="convention.groups.place.title"
-          subtitleKey="convention.groups.place.subtitle"
-          descriptionKey="convention.groups.place.description"
-          noteKey="convention.groups.place.note"
-          accent="red"
-        />
-        <AmenitiesSection />
-        <TravelSection />
-        <NewsSection />
-        <GuestsSection />
-        <FaqSection />
-        <FooterSection />
       </div>
     </div>
   );

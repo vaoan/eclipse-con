@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -32,91 +32,6 @@ function HeroBathPicture({ className = "" }: { readonly className?: string }) {
       draggable={false}
     />
   );
-}
-
-/**
- * Subscribes to scroll (and optionally resize) events, dispatching an
- * `updater` callback via `requestAnimationFrame` to avoid layout thrashing.
- * Returns a cleanup function that removes all listeners and cancels pending frames.
- */
-function subscribeToScrollUpdates(
-  updater: () => void,
-  options: { resize?: boolean; scrollend?: boolean } = {}
-): () => void {
-  let frame = 0;
-
-  const schedule = () => {
-    if (!frame) {
-      frame = requestAnimationFrame(() => {
-        frame = 0;
-        updater();
-      });
-    }
-  };
-
-  updater();
-  window.addEventListener("scroll", schedule, { passive: true });
-  if (options.resize) {
-    window.addEventListener("resize", schedule);
-  }
-  if (options.scrollend) {
-    window.addEventListener("scrollend", updater);
-  }
-
-  return () => {
-    if (frame) {
-      cancelAnimationFrame(frame);
-    }
-    window.removeEventListener("scroll", schedule);
-    if (options.resize) {
-      window.removeEventListener("resize", schedule);
-    }
-    if (options.scrollend) {
-      window.removeEventListener("scrollend", updater);
-    }
-  };
-}
-
-/**
- * Applies scroll-based fade directly to the hero text and button elements.
- * Bypasses React state to avoid re-render lag on fast scroll-back.
- * Fading begins only after the next section covers the hero.
- */
-function useHeroScrollFade(
-  textRef: React.RefObject<HTMLDivElement | null>,
-  buttonRef: React.RefObject<HTMLButtonElement | null>
-) {
-  useEffect(() => {
-    return subscribeToScrollUpdates(
-      () => {
-        const stickyWrapper =
-          document.querySelector<HTMLElement>(".hero-sticky");
-        const vh = window.innerHeight;
-        const stickyOverflow = stickyWrapper
-          ? stickyWrapper.offsetHeight - vh
-          : 0;
-        const fadeStart = Math.max(0, stickyOverflow) + vh * 0.95;
-        const fadeDistance = vh * 0.25;
-        const scrolled = window.scrollY - fadeStart;
-        const progress = Math.min(1, Math.max(0, scrolled / fadeDistance));
-
-        const textOpacity = Math.max(0.08, 1 - progress * 1.2);
-        const buttonOpacity = Math.max(0, 1 - progress * 2);
-
-        if (textRef.current) {
-          textRef.current.style.opacity = String(textOpacity);
-        }
-        if (buttonRef.current) {
-          buttonRef.current.style.opacity = String(buttonOpacity);
-          buttonRef.current.style.pointerEvents =
-            buttonOpacity <= 0 ? "none" : "";
-          buttonRef.current.style.visibility =
-            buttonOpacity <= 0 ? "hidden" : "";
-        }
-      },
-      { scrollend: true }
-    );
-  }, [textRef, buttonRef]);
 }
 
 function HeroCrescent() {
@@ -156,13 +71,11 @@ function HeroCrescent() {
 
 function HeroTextContent({ showCrescent }: { readonly showCrescent: boolean }) {
   const { t } = useTranslation();
-  const textRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-  useHeroScrollFade(textRef, buttonRef);
 
   return (
     <div className="relative z-30 px-4 text-center">
-      <div ref={textRef}>
+      <div>
         <p
           className="-mb-4 text-xl font-bold italic uppercase tracking-[0.35em] text-white/90 md:-mb-6 md:text-2xl lg:-mb-8 lg:text-3xl"
           style={heroTextShadow}
@@ -229,60 +142,26 @@ function HeroTextContent({ showCrescent }: { readonly showCrescent: boolean }) {
   );
 }
 
-/**
- * Hides the bath illustration once the content box scrolls over it.
- * Compares the content wrapper's top edge against the bath's top edge —
- * as soon as the content covers the bath area, it becomes hidden.
- */
-function useHideBathOnScroll(bathRef: React.RefObject<HTMLDivElement | null>) {
-  useEffect(() => {
-    return subscribeToScrollUpdates(
-      () => {
-        const bath = bathRef.current;
-        if (!bath) {
-          return;
-        }
-        const stickyWrapper =
-          document.querySelector<HTMLElement>(".hero-sticky");
-        const contentBox =
-          stickyWrapper?.nextElementSibling as HTMLElement | null;
-        if (!contentBox) {
-          return;
-        }
-        const bathTop = bath.getBoundingClientRect().top;
-        const contentTop = contentBox.getBoundingClientRect().top;
-        bath.style.visibility = contentTop <= bathTop ? "hidden" : "";
-      },
-      { resize: true }
-    );
-  }, [bathRef]);
-}
-
-/** Renders the full-screen Hero section with title, tagline, CTA, animated starry-sky background,
- * and mirrored bath illustration. The next section naturally scrolls over the bath image, and
- * visibility is toggled off once the hero is fully behind the content.
+/** Renders the full-screen Hero section with title, tagline, CTA, and mirrored bath illustration.
+ * Uses sticky positioning so it stays fixed at the top while content sections scroll over it.
+ * No JS scroll listeners — pure CSS layering handles visibility.
  */
 export function HeroSection() {
   const isMobileViewport = useIsMobileViewport();
-  const bathRef = useRef<HTMLDivElement | null>(null);
   const variant = useExperiment(
     EXPERIMENT_ID,
     VARIANTS,
     "pattern"
   ) as HeroVariant;
-  useHideBathOnScroll(bathRef);
 
   return (
     <section
       id="section-hero"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="sticky top-0 z-0 flex min-h-screen items-center justify-center overflow-hidden"
       {...tid("section-hero")}
     >
-      {/* Bath illustration anchored to the bottom — hidden by next section scrolling over */}
-      <div
-        ref={bathRef}
-        className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden"
-      >
+      {/* Bath illustration anchored to the bottom — covered naturally by content sections */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 overflow-hidden">
         <div className="relative z-0 mx-auto flex h-[390px] items-center justify-center gap-0 sm:h-[460px] md:h-[560px] lg:h-[680px]">
           {!isMobileViewport && <HeroBathPicture className="scale-x-[-1]" />}
           <HeroBathPicture />
