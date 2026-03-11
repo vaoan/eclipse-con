@@ -189,8 +189,8 @@ export function HeroCanvasSky({
       }
 
       const startX = isMobileViewport
-        ? width * (0.62 + Math.random() * 0.2)
-        : width * (0.58 + Math.random() * 0.24);
+        ? width * (0.34 + Math.random() * 0.5)
+        : width * (0.26 + Math.random() * 0.58);
       const startY = isMobileViewport
         ? height * (0.14 + Math.random() * 0.16)
         : height * (0.08 + Math.random() * 0.24);
