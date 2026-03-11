@@ -105,6 +105,115 @@
       "title": "¿Qué hay en el hotel?",
       "subtitle": "Servicios y experiencias del hotel. Varios tienen costo adicional.",
       "priceLabel": "Precio aprox.",
+      "groupExperiences": {
+        "eyebrow": "Experiencias grupales",
+        "title": "Actividades con grupo mínimo",
+        "subtitle": "Estas actividades requieren un número mínimo de personas. Muestra tu interés para que podamos coordinar grupos.",
+        "interestCta": "Me interesa (próximamente)",
+        "cruise": {
+          "title": "Crucero en el lago",
+          "description": "Recorrido guiado por el Lago Sochagota. Crucero diurno de 50 minutos aprox. o Crucero Estelar de 1 hora con música en vivo.",
+          "price": "$25k – $45k COP",
+          "details": "Crucero diurno (50 min aprox.): $25.000 COP por persona · Crucero Estelar con música en vivo (1 hora aprox.): $45.000 COP por persona. Recorrido mínimo con 15 personas. Sujeto a disponibilidad y horario del hotel.",
+          "imageAlt": "Crucero en el Lago Sochagota",
+          "linkLabel": "Ver carta (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf"
+        },
+        "motorboat": {
+          "title": "Paseo en lancha",
+          "description": "Recorrido de 15 minutos en lancha por el lago. Precio por grupo según cantidad de personas.",
+          "price": "$95k – $115k COP",
+          "details": "4 a 5 personas: $115.000 COP por grupo · 1 a 3 personas: $95.000 COP por grupo.",
+          "imageAlt": "Paseo en lancha en el lago",
+          "linkLabel": "Ver carta (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf"
+        },
+        "waterSofa": {
+          "title": "Sofá acuático",
+          "description": "Experiencia de 15 minutos en sofá acuático arrastrado por lancha. Precio por grupo.",
+          "price": "$95k – $115k COP",
+          "details": "4 personas: $115.000 COP por grupo · 1 a 3 personas: $95.000 COP por grupo.",
+          "imageAlt": "Sofá acuático en el lago",
+          "linkLabel": "Ver carta (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf"
+        }
+      },
+      "cruiseSpotlight": {
+        "eyebrow": "Logística del crucero",
+        "title": "Crucero del Lago Sochagota",
+        "description": "Servicio náutico con reserva en caja de actividades. La carta del hotel ofrece un crucero diurno y un Crucero Estelar con música en vivo, ambos sujetos a disponibilidad y horario establecido por el hotel.",
+        "logisticsBanner": "Requiere coordinación de grupo",
+        "logisticsBannerDetail": "Si quieres que este plan salga, entra al Telegram y busca más gente interesada para completar el mínimo de 15 personas antes de intentar reservar.",
+        "telegramLinkLabel": "Buscar grupo",
+        "telegramLinkUrl": "https://t.me/furrycolombia",
+        "optionDurationLabel": "Tiempo aprox.",
+        "imageAlt": "Vista del Lago Sochagota para la experiencia de crucero",
+        "panelEyebrow": "Lo clave",
+        "panelTitle": "Salida grupal, sujeta a disponibilidad del hotel",
+        "panelDescription": "Según la carta de actividades, el crucero opera con recorrido mínimo de 15 personas y con horarios definidos por el hotel. Para horarios especiales, la reserva se gestiona en caja de actividades.",
+        "note": "Precios incluyen IVA. La reserva se realiza en caja de actividades y los recorridos especiales fuera de horario deben coordinarse directamente con el hotel.",
+        "primaryLinkLabel": "Abrir carta de actividades",
+        "primaryLinkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+        "secondaryLinkLabel": "Ver más fotos del barco",
+        "secondaryLinkUrl": "https://www.instagram.com/barcolibertad/",
+        "logistics": {
+          "eyebrow": "Logística",
+          "title": "Condiciones del servicio",
+          "subtitle": "Información operativa indicada en la carta de actividades del hotel.",
+          "items": {
+            "headcount": {
+              "label": "Cupo mínimo",
+              "value": "Se necesita un grupo mínimo de 15 personas para habilitar el recorrido."
+            },
+            "schedule": {
+              "label": "Ventana horaria",
+              "value": "La salida depende del horario definido por el hotel. Si se quiere un horario especial, toca gestionarlo aparte."
+            },
+            "reservation": {
+              "label": "Responsable",
+              "value": "La reserva se canaliza por caja de actividades o el punto de venta de actividades del hotel."
+            },
+            "confirmation": {
+              "label": "Antes de anunciar",
+              "value": "Primero se consolida la lista, luego se valida disponibilidad y solo después se confirma la actividad al grupo."
+            }
+          }
+        },
+        "quickFacts": {
+          "duration": {
+            "label": "Duración",
+            "value": "Diurno: 50 min aprox. · Estelar: 1 hora aprox."
+          },
+          "pricing": {
+            "label": "Tarifas",
+            "value": "$25.000 COP por persona · $45.000 COP por persona"
+          },
+          "minimumGroup": {
+            "label": "Grupo mínimo",
+            "value": "Recorrido mínimo con 15 personas"
+          },
+          "booking": {
+            "label": "Reserva",
+            "value": "Caja de actividades / punto de venta de actividades"
+          }
+        },
+        "options": {
+          "day": {
+            "eyebrow": "Salida diurna",
+            "title": "Crucero diurno",
+            "duration": "50 min aprox.",
+            "description": "Recorrido por el Lago Sochagota en horario diurno.",
+            "price": "$25.000 COP por persona"
+          },
+          "estelar": {
+            "eyebrow": "Versión nocturna",
+            "title": "Crucero Estelar",
+            "duration": "1 hora aprox.",
+            "description": "Recorrido nocturno con música en vivo sobre el Lago Sochagota.",
+            "price": "$45.000 COP por persona"
+          }
+        }
+      },
       "footerNote": "Precios incluyen IVA. Servicios sujetos a disponibilidad y reserva en Caja de actividades. Cancelaciones mínimo 4 horas antes.",
       "footerLinkLabel": "Ver carta de actividades (PDF)",
       "footerLinkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
@@ -161,10 +270,10 @@
         },
         "nautical": {
           "title": "Náutica y lago",
-          "description": "Deportes acuáticos en el lago Sochagota: kayak, lancha, esquí náutico, bicicleta acuática, sofá acuático y cruceros guiados.",
+          "description": "Actividades náuticas en el lago Sochagota: kayak, bicicleta acuática, esquí náutico, paseo en lancha y sofá acuático.",
           "price": "$12k – $250k COP",
-          "priceApprox": "Bici acuática: $12.000–$18.000 COP · Kayak: $18.000–$24.000 COP · Crucero diurno (15 min): $25.000 COP · Crucero Estelar (1 hora): $45.000 COP · Lancha: $95.000–$115.000 COP · Sofá acuático: $95.000–$115.000 COP · Esquí náutico: $150.000–$250.000 COP",
-          "priceNote": "Horario: 8:30 a.m. a 4:00 p.m. Chaleco salvavidas obligatorio en embarcaciones menores. Peso máximo 30 kg en total para náutica.",
+          "priceApprox": "Bici acuática: $12.000–$18.000 COP · Kayak: $18.000–$24.000 COP · Paseo en lancha (15 min): $95.000–$115.000 COP por grupo · Sofá acuático (15 min): $95.000–$115.000 COP por grupo · Esquí náutico: $150.000–$250.000 COP",
+          "priceNote": "Horario: 8:30 a.m. a 4:00 p.m. Chaleco salvavidas obligatorio. Paseo en lancha: 4 a 5 personas $115.000 COP por grupo, 1 a 3 personas $95.000 COP por grupo. Sofá acuático: 4 personas $115.000 COP por grupo, 1 a 3 personas $95.000 COP por grupo. Cruceros tienen su propio bloque por requerir mínimo 15 personas.",
           "linkLabel": "Ver carta de actividades (PDF)",
           "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
           "imageAlt": "Actividades náuticas en el lago Sochagota"

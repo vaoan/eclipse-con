@@ -2,6 +2,7 @@ import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import { SECTION_IDS } from "@/features/convention/domain/constants";
+import { CruiseSpotlightBlock } from "./CruiseSpotlightBlock";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
 
@@ -79,6 +80,30 @@ const buildRestaurantCard = (
   imageAlt: t(`convention.amenities.restaurants.${key}.imageAlt`),
 });
 
+const toBulletItems = (value: string) =>
+  value
+    .split(/·|Â·/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+const BulletList = ({
+  value,
+  className = "text-sm font-semibold text-foreground/80",
+  itemClassName = "",
+}: Readonly<{
+  value: string;
+  className?: string;
+  itemClassName?: string;
+}>) => (
+  <ul className={`list-disc space-y-1 pl-4 ${className}`.trim()}>
+    {toBulletItems(value).map((item) => (
+      <li key={item} className={itemClassName}>
+        {item}
+      </li>
+    ))}
+  </ul>
+);
+
 const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
   <div className="mt-10 grid gap-6 lg:grid-cols-2">
     {AMENITY_CARD_KEYS.map((key, index) => {
@@ -115,9 +140,7 @@ const AmenityCards = ({ t }: Readonly<{ t: TFunction }>) => (
                 <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
                   {t("convention.amenities.priceLabel")}
                 </div>
-                <p className="text-sm font-semibold text-foreground/80">
-                  {item.priceApprox}
-                </p>
+                <BulletList value={item.priceApprox} />
                 {item.priceNote ? (
                   <p className="text-xs text-foreground/55">{item.priceNote}</p>
                 ) : null}
@@ -222,6 +245,7 @@ export function AmenitiesSection() {
         </p>
       </div>
       <AmenityCards t={t} />
+      <CruiseSpotlightBlock t={t} />
       <RestaurantsBlock t={t} />
       <p className="mt-6 text-xs text-muted-foreground">
         {t("convention.amenities.footerNote")}{" "}

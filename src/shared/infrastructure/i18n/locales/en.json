@@ -105,6 +105,115 @@
       "title": "What’s at the hotel",
       "subtitle": "Hotel services and experiences. Several have an extra cost.",
       "priceLabel": "Approx. price",
+      "groupExperiences": {
+        "eyebrow": "Group experiences",
+        "title": "Activities with minimum group",
+        "subtitle": "These activities require a minimum number of people. Show your interest so we can coordinate groups.",
+        "interestCta": "I'm interested (coming soon)",
+        "cruise": {
+          "title": "Lake cruise",
+          "description": "Guided tour on Lake Sochagota. Approx. 50-minute day cruise or 1-hour Crucero Estelar with live music.",
+          "price": "$25k – $45k COP",
+          "details": "Day cruise (approx. 50 min): $25,000 COP per person · Crucero Estelar with live music (approx. 1 hour): $45,000 COP per person. Minimum 15 people. Subject to availability and hotel schedule.",
+          "imageAlt": "Cruise on Lake Sochagota",
+          "linkLabel": "View card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf"
+        },
+        "motorboat": {
+          "title": "Motorboat ride",
+          "description": "15-minute motorboat ride across the lake. Priced per group based on number of people.",
+          "price": "$95k – $115k COP",
+          "details": "4–5 people: $115,000 COP per group · 1–3 people: $95,000 COP per group.",
+          "imageAlt": "Motorboat ride on the lake",
+          "linkLabel": "View card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf"
+        },
+        "waterSofa": {
+          "title": "Water sofa",
+          "description": "15-minute water sofa experience towed by a motorboat. Priced per group.",
+          "price": "$95k – $115k COP",
+          "details": "4 people: $115,000 COP per group · 1–3 people: $95,000 COP per group.",
+          "imageAlt": "Water sofa on the lake",
+          "linkLabel": "View card (PDF)",
+          "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf"
+        }
+      },
+      "cruiseSpotlight": {
+        "eyebrow": "Cruise logistics",
+        "title": "Lake Sochagota Cruise",
+        "description": "Water activity booked through the activities desk. The hotel card offers a daytime cruise and a Crucero Estelar with live music, both subject to availability and the schedule set by the hotel.",
+        "logisticsBanner": "Requires group coordination",
+        "logisticsBannerDetail": "If you want this plan to happen, join Telegram and find more interested people so the group can reach the 15-person minimum before trying to book it.",
+        "telegramLinkLabel": "Find people",
+        "telegramLinkUrl": "https://t.me/furrycolombia",
+        "optionDurationLabel": "Approx. time",
+        "imageAlt": "Lake Sochagota view for the cruise experience",
+        "panelEyebrow": "Key detail",
+        "panelTitle": "Group departure, subject to hotel availability",
+        "panelDescription": "According to the activities card, the cruise runs with a minimum route size of 15 people and on schedules set by the hotel. For special times, reservations are handled at the activities desk.",
+        "note": "Prices include tax. Booking is handled at the activities desk, and special departures outside the regular schedule must be coordinated directly with the hotel.",
+        "primaryLinkLabel": "Open activities card",
+        "primaryLinkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
+        "secondaryLinkLabel": "See more boat photos",
+        "secondaryLinkUrl": "https://www.instagram.com/barcolibertad/",
+        "logistics": {
+          "eyebrow": "Logistics",
+          "title": "Service conditions",
+          "subtitle": "Operational information listed on the hotel's activities card.",
+          "items": {
+            "headcount": {
+              "label": "Minimum group",
+              "value": "A minimum group of 15 people is required to activate the route."
+            },
+            "schedule": {
+              "label": "Time window",
+              "value": "Departure depends on the schedule defined by the hotel. If a special slot is needed, it has to be arranged separately."
+            },
+            "reservation": {
+              "label": "Owner",
+              "value": "Booking is handled through the hotel activities desk or activities sales point."
+            },
+            "confirmation": {
+              "label": "Before announcing",
+              "value": "First consolidate the list, then validate availability, and only after that confirm the activity to the group."
+            }
+          }
+        },
+        "quickFacts": {
+          "duration": {
+            "label": "Duration",
+            "value": "Day: approx. 50 min · Estelar: approx. 1 hour"
+          },
+          "pricing": {
+            "label": "Pricing",
+            "value": "$25,000 COP per person · $45,000 COP per person"
+          },
+          "minimumGroup": {
+            "label": "Minimum group",
+            "value": "Minimum route with 15 people"
+          },
+          "booking": {
+            "label": "Booking",
+            "value": "Activities desk / activities sales point"
+          }
+        },
+        "options": {
+          "day": {
+            "eyebrow": "Day departure",
+            "title": "Day cruise",
+            "duration": "Approx. 50 min",
+            "description": "Cruise route on Lake Sochagota during the day.",
+            "price": "$25,000 COP per person"
+          },
+          "estelar": {
+            "eyebrow": "Night version",
+            "title": "Crucero Estelar",
+            "duration": "Approx. 1 hour",
+            "description": "Night cruise on Lake Sochagota with live music.",
+            "price": "$45,000 COP per person"
+          }
+        }
+      },
       "footerNote": "Prices include tax. Services subject to availability; book at the Activities desk. Cancellations at least 4 hours in advance.",
       "footerLinkLabel": "View activities card (PDF)",
       "footerLinkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
@@ -161,10 +270,10 @@
         },
         "nautical": {
           "title": "Nautical & lake",
-          "description": "Water sports on Lake Sochagota: kayak, motorboat, water ski, water bike, water sofa, and guided cruises.",
+          "description": "Lake activities on Lake Sochagota: kayak, water bike, water ski, motorboat ride, and water sofa.",
           "price": "$12k – $250k COP",
-          "priceApprox": "Water bike: $12,000–$18,000 COP · Kayak: $18,000–$24,000 COP · Day cruise (15 min): $25,000 COP · Crucero Estelar (1 hour): $45,000 COP · Motorboat: $95,000–$115,000 COP · Water sofa: $95,000–$115,000 COP · Water ski: $150,000–$250,000 COP",
-          "priceNote": "Hours: 8:30 a.m. – 4:00 p.m. Life jacket mandatory on small vessels. Max total weight 30 kg for watercraft.",
+          "priceApprox": "Water bike: $12,000–$18,000 COP · Kayak: $18,000–$24,000 COP · Motorboat ride (15 min): $95,000–$115,000 COP per group · Water sofa (15 min): $95,000–$115,000 COP per group · Water ski: $150,000–$250,000 COP",
+          "priceNote": "Hours: 8:30 a.m. – 4:00 p.m. Life jacket mandatory. Motorboat ride: 4–5 people $115,000 COP per group, 1–3 people $95,000 COP per group. Water sofa: 4 people $115,000 COP per group, 1–3 people $95,000 COP per group. Cruises keep their own block because they require a minimum of 15 people.",
           "linkLabel": "View activities card (PDF)",
           "linkUrl": "https://www.hotelesestelar.com/wp-content/uploads/2025/12/Carta-Actividades-Es-Paipa.pdf",
           "imageAlt": "Nautical activities on Lake Sochagota"
