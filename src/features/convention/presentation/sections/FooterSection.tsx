@@ -15,6 +15,41 @@ const EXPERIMENT_KEY = `experiment:${EXPERIMENT_ID}`;
 const VARIANTS = ["control", "treatment", "pattern"] as const;
 type HeroVariant = (typeof VARIANTS)[number];
 
+function FooterCrescent() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 500 500"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="pointer-events-none absolute"
+      style={{
+        height: "220%",
+        aspectRatio: "1",
+        left: "20%",
+        top: "50%",
+        transform: "translateY(-42%)",
+        zIndex: 0,
+      }}
+    >
+      <defs>
+        <mask id="footer-crescent-mask">
+          <circle cx="250" cy="250" r="220" fill="white" />
+          <circle cx="285" cy="238" r="190" fill="black" />
+        </mask>
+      </defs>
+      <circle
+        cx="250"
+        cy="250"
+        r="220"
+        fill="white"
+        opacity="0.45"
+        mask="url(#footer-crescent-mask)"
+      />
+    </svg>
+  );
+}
+
 function ExperimentToggle() {
   const navigate = useNavigate();
   const [variant, setVariant] = useState<HeroVariant>(() => {
@@ -140,9 +175,20 @@ export function FooterSection() {
       <div className="relative border-t border-white/10">
         <div className="mx-auto max-w-5xl px-4 pb-10 pt-12">
           <div className="flex flex-col items-center text-center">
-            <h2 className="gold-shimmer-text font-display text-3xl font-bold sm:text-4xl">
-              Moonfest 2026
-            </h2>
+            <div className="relative">
+              <p className="-mb-3 text-sm font-bold italic uppercase tracking-[0.32em] text-white/85 sm:-mb-4 sm:text-base">
+                {t("convention.hero.eyebrow")}
+              </p>
+              <div className="relative inline-block">
+                <FooterCrescent />
+                <h2 className="hero-title relative z-[1] text-[3.2rem] leading-none text-white sm:text-[4.4rem]">
+                  {t("convention.hero.title")}
+                </h2>
+              </div>
+            </div>
+            <p className="mt-10 text-xs font-semibold uppercase tracking-[0.28em] text-white/78 sm:mt-12 sm:text-sm">
+              {t("convention.hero.date")}
+            </p>
             <p className="mt-2 max-w-2xl text-sm text-muted-foreground sm:text-base">
               {t("convention.footer.tagline")}
             </p>
