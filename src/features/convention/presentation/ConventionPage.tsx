@@ -311,6 +311,7 @@ export function Component() {
 
   return (
     <div className="relative isolate" {...tid("convention-page")}>
+      <div className="fixed inset-0 z-0 bg-[linear-gradient(to_bottom,#01020a_0%,#040824_18%,#09133a_44%,#060c26_72%,#02040d_100%)]" />
       {/* Fixed star canvas — always behind everything */}
       {effectsReady && <HeroCanvasSky fixed className="z-0" />}
 

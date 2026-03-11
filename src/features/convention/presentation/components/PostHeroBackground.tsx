@@ -22,8 +22,9 @@ export function PostHeroBackground() {
       className="pointer-events-none sticky top-0 z-[1] flex h-[100dvh] items-center justify-center will-change-transform"
       aria-hidden="true"
     >
-      <HeroCanvasSky className="z-0" />
-      <div className="relative z-[1] flex flex-col items-center opacity-[0.14]">
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_bottom,#01020a_0%,#040824_18%,#09133a_44%,#060c26_72%,#02040d_100%)]" />
+      <HeroCanvasSky className="z-[1]" />
+      <div className="relative z-[2] flex flex-col items-center opacity-[0.14]">
         <p
           className="-mb-4 text-xl font-bold italic uppercase tracking-[0.35em] text-white/90 md:-mb-6 md:text-2xl lg:-mb-8 lg:text-3xl"
           style={textShadow}
