@@ -511,19 +511,12 @@ export function HeroCanvasSky({
       }
     };
 
-    let isVisible = true;
-
     const animate = (timestamp: number) => {
       const now = timestamp || performance.now();
       const deltaSeconds = lastTimestamp
         ? clamp((now - lastTimestamp) / 1000, 0, 0.05)
         : 0.016;
       lastTimestamp = now;
-
-      if (!isVisible) {
-        animationFrameId = window.requestAnimationFrame(animate);
-        return;
-      }
 
       if (!hasValidSize) {
         resize();
@@ -580,19 +573,11 @@ export function HeroCanvasSky({
     window.addEventListener("resize", resize);
     window.addEventListener("orientationchange", resize);
 
-    /* Pause the canvas draw loop once the user scrolls past 1.5 viewports
-       (the hero + post-hero area). Resume when they scroll back up. */
-    const onScroll = () => {
-      isVisible = window.scrollY < window.innerHeight * 1.5;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-
     return () => {
       window.cancelAnimationFrame(animationFrameId);
       resizeObserver?.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("orientationchange", resize);
-      window.removeEventListener("scroll", onScroll);
       window.clearTimeout(fullStarTimer);
     };
   }, [isMobileViewport, prefersReducedMotion]);
