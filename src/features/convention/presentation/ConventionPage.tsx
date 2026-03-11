@@ -327,7 +327,7 @@ export function Component() {
         <PostHeroBackground />
 
         {/* Layer 3: Content sections — pull up to overlap the post-hero bg layer */}
-        <div className="relative z-[2] -mt-[100vh]">
+        <div className="relative z-[2] -mt-[100dvh]">
           <AboutSection />
           <EventsSection />
           <RegistrationSection />

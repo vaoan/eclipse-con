@@ -185,7 +185,7 @@ export function MainLayout() {
   useHashNavigation(location, getLastClick, scrollToSection);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-[100dvh] bg-background text-foreground">
       <SkipToContentLink label={t("app.skipToContent")} />
       <main id="main-content" tabIndex={-1}>
         <Outlet />

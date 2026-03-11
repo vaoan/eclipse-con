@@ -17,7 +17,7 @@ export function PostHeroBackground() {
 
   return (
     <div
-      className="pointer-events-none sticky top-0 z-[1] flex h-screen items-center justify-center will-change-transform"
+      className="pointer-events-none sticky top-0 z-[1] flex h-[100dvh] items-center justify-center will-change-transform"
       aria-hidden="true"
     >
       <HeroCanvasSky className="z-0" />

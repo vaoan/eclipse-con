@@ -195,7 +195,7 @@ export function HeroSection() {
   return (
     <section
       id="section-hero"
-      className="sticky top-0 z-0 flex min-h-screen items-center justify-center overflow-hidden will-change-transform"
+      className="sticky top-0 z-0 flex min-h-[100dvh] items-center justify-center overflow-hidden will-change-transform"
       {...tid("section-hero")}
     >
       {/* Bath illustration anchored to the bottom — covered naturally by content sections */}

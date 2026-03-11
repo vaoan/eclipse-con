@@ -7,41 +7,6 @@ import { cn } from "@/shared/application/utils/cn";
 import { tid } from "@/shared/application/utils/tid";
 import { WavePattern } from "../components/WavePattern";
 
-function FooterCrescent() {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 500 500"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="pointer-events-none absolute"
-      style={{
-        height: "220%",
-        aspectRatio: "1",
-        left: "20%",
-        top: "50%",
-        transform: "translateY(-42%)",
-        zIndex: 0,
-      }}
-    >
-      <defs>
-        <mask id="footer-crescent-mask">
-          <circle cx="250" cy="250" r="220" fill="white" />
-          <circle cx="285" cy="238" r="190" fill="black" />
-        </mask>
-      </defs>
-      <circle
-        cx="250"
-        cy="250"
-        r="220"
-        fill="white"
-        opacity="0.45"
-        mask="url(#footer-crescent-mask)"
-      />
-    </svg>
-  );
-}
-
 type LinkIcon =
   | { type: "brand"; slug: string }
   | { type: "lucide"; component: LucideIcon };
@@ -120,12 +85,9 @@ export function FooterSection() {
               <p className="-mb-3 text-sm font-bold italic uppercase tracking-[0.32em] text-white/85 sm:-mb-4 sm:text-base">
                 {t("convention.hero.eyebrow")}
               </p>
-              <div className="relative inline-block">
-                <FooterCrescent />
-                <h2 className="hero-title relative z-[1] text-[3.2rem] leading-none text-white sm:text-[4.4rem]">
-                  {t("convention.hero.title")}
-                </h2>
-              </div>
+              <h2 className="hero-title text-[3.2rem] leading-none text-white sm:text-[4.4rem]">
+                {t("convention.hero.title")}
+              </h2>
             </div>
             <p className="mt-10 text-xs font-semibold uppercase tracking-[0.28em] text-white/78 sm:mt-12 sm:text-sm">
               {t("convention.hero.date")}
