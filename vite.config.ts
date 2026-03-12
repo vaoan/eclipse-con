@@ -1,4 +1,4 @@
-/* eslint-disable max-lines, no-console */
+/* eslint-disable max-lines, max-lines-per-function, no-console */
 import {
   readFileSync,
   readdirSync,
@@ -181,7 +181,12 @@ function stripQueryAndHash(url: string) {
 
 function matchLocalAssetUrls(input: string) {
   const localAssetRegex = new RegExp(LOCAL_ASSET_URL_REGEX.source, "gi");
-  return input.match(localAssetRegex) ?? [];
+  const matches: string[] = [];
+  let match: RegExpExecArray | null;
+  while ((match = localAssetRegex.exec(input)) !== null) {
+    matches.push(match[0]);
+  }
+  return matches;
 }
 
 function resolveLocalAssetPath(outDirectory: string, url: string) {
@@ -348,9 +353,6 @@ async function inlineCssUrlReferences(
 
 async function inlineLocalUrls(input: string, outDirectory: string) {
   const matches = matchLocalAssetUrls(input);
-  if (!matches) {
-    return input;
-  }
 
   const uniqueMatches = Array.from(new Set(matches)).filter(
     (url) => !url.startsWith("//")
@@ -708,11 +710,12 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
       const unresolvedRootDirectories = new Set<string>();
       for (const url of unresolvedLocalAssetUrls) {
         const cleanUrl = stripQueryAndHash(url);
-        const normalized = cleanUrl.startsWith("./")
-          ? cleanUrl.slice(2)
-          : cleanUrl.startsWith("/")
-            ? cleanUrl.slice(1)
-            : cleanUrl;
+        let normalized = cleanUrl;
+        if (cleanUrl.startsWith("./")) {
+          normalized = cleanUrl.slice(2);
+        } else if (cleanUrl.startsWith("/")) {
+          normalized = cleanUrl.slice(1);
+        }
         const rootDirectory = normalized.split("/")[0];
         if (rootDirectory) {
           unresolvedRootDirectories.add(rootDirectory);
