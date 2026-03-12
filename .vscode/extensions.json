@@ -3,7 +3,7 @@
     // Agents
     "GitHub.copilot",
     "anthropic.claude-code",
-    "codexbuild.codex-build",
+    "openai.chatgpt",
     // GitLens
     "eamodio.gitlens",
     // Git Graph
