@@ -17,7 +17,7 @@ const ASSET_EXTENSION_REGEX =
   /\.(png|jpe?g|gif|webp|svg|woff2?|ttf|otf|eot|mp4|webm)(\?|#|$)/i;
 const URL_REGEX = /https?:\/\/[^\s"'()<>]+/gi;
 const LOCAL_ASSET_URL_REGEX =
-  /(?:\.\/|\/)[^\s"'()<>]+\.(?:png|jpe?g|gif|webp|svg|woff2?|ttf|otf|eot|mp4|webm)(?:\?[^\s"'()<>]*)?(?:#[^\s"'()<>]*)?/gi;
+  /(?:\.\/|\/)[^\s"'<>]+\.(?:png|jpe?g|gif|webp|svg|woff2?|ttf|otf|eot|mp4|webm)(?:\?[^\s"'<>]*)?(?:#[^\s"'<>]*)?/gi;
 /* eslint-enable sonarjs/slow-regex, sonarjs/regex-complexity */
 const CONTENT_TYPE_BY_EXTENSION: Record<string, string> = {
   svg: "image/svg+xml",
@@ -177,6 +177,11 @@ function toDataUrl(
 
 function stripQueryAndHash(url: string) {
   return url.split("#")[0]?.split("?")[0] ?? url;
+}
+
+function matchLocalAssetUrls(input: string) {
+  const localAssetRegex = new RegExp(LOCAL_ASSET_URL_REGEX.source, "gi");
+  return input.match(localAssetRegex) ?? [];
 }
 
 function resolveLocalAssetPath(outDirectory: string, url: string) {
@@ -342,7 +347,7 @@ async function inlineCssUrlReferences(
 }
 
 async function inlineLocalUrls(input: string, outDirectory: string) {
-  const matches = input.match(LOCAL_ASSET_URL_REGEX);
+  const matches = matchLocalAssetUrls(input);
   if (!matches) {
     return input;
   }
@@ -696,8 +701,36 @@ function inlineAssetsPlugin(outDirectory: string): Plugin {
       writeFileSync(htmlPath, inlinedHtml);
       console.log("[static] Wrote inlined index.html");
 
+      const unresolvedLocalAssetUrls = Array.from(
+        new Set(matchLocalAssetUrls(inlinedHtml))
+      ).filter((url) => !url.includes("og-image.png"));
+
+      const unresolvedRootDirectories = new Set<string>();
+      for (const url of unresolvedLocalAssetUrls) {
+        const cleanUrl = stripQueryAndHash(url);
+        const normalized = cleanUrl.startsWith("./")
+          ? cleanUrl.slice(2)
+          : cleanUrl.startsWith("/")
+            ? cleanUrl.slice(1)
+            : cleanUrl;
+        const rootDirectory = normalized.split("/")[0];
+        if (rootDirectory) {
+          unresolvedRootDirectories.add(rootDirectory);
+        }
+      }
+
       // Keep static output as a single self-contained file plus OG preview image.
       const filesToKeep = new Set(["index.html", "og-image.png"]);
+      if (unresolvedRootDirectories.size > 0) {
+        for (const directory of unresolvedRootDirectories) {
+          filesToKeep.add(directory);
+        }
+        console.warn(
+          `[static] Detected ${unresolvedLocalAssetUrls.length} unresolved local asset URL(s); preserving: ${Array.from(
+            unresolvedRootDirectories
+          ).join(", ")}`
+        );
+      }
       for (const entry of readdirSync(outDirectory)) {
         if (filesToKeep.has(entry)) {
           continue;

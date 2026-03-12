@@ -1,7 +1,9 @@
 {
   "recommendations": [
-    // Copilot
+    // Agents
     "GitHub.copilot",
+    "anthropic.claude-code",
+    "codexbuild.codex-build",
     // GitLens
     "eamodio.gitlens",
     // Git Graph

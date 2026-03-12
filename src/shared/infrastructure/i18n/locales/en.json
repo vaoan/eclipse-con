@@ -451,9 +451,9 @@
       "title": "Meet the organizers",
       "subtitle": "The furry team making Moonfest happen.",
       "guest1": {
-        "name": "Bo Ocelot",
-        "role": "Event director",
-        "bio": "International furry community reference and creative lead for the event."
+        "name": "Jecht Howl (Gau)",
+        "role": "Event host",
+        "bio": "Welcomes attendees and leads key event communications, including reservation updates and community announcements."
       },
       "guest2": {
         "name": "Ash Coyote",
@@ -469,6 +469,21 @@
         "name": "Luna Nova",
         "role": "Art & experience",
         "bio": "Visual curation, ambiance, and detail‑oriented experience design."
+      },
+      "guest5": {
+        "name": "Nacho",
+        "role": "Community host",
+        "bio": "Coordinates social moments and on-site support so attendees feel welcomed throughout the convention."
+      },
+      "guest6": {
+        "name": "Ranita",
+        "role": "Creative producer",
+        "bio": "Shapes visual storytelling and activity flow to keep every organizer experience cohesive and memorable."
+      },
+      "guest7": {
+        "name": "Jecht Howl (Gau)",
+        "role": "Event host",
+        "bio": "Welcomes attendees and leads key event communications, including reservation updates and community announcements."
       }
     },
     "groups": {
