@@ -6,9 +6,9 @@ import { Button } from "@/shared/presentation/ui/button";
 import { tid } from "@/shared/application/utils/tid";
 import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { useIsMobileViewport } from "@/shared/application/hooks/useIsMobileViewport";
+import { CrescentMoon } from "@/features/convention/presentation/components/CrescentMoon";
 
 const heroBathSingle = "/hero-bath-preview.webp";
-const crescentMoonAsset = "/crescent-moon.svg";
 
 const heroTextShadow = {
   textShadow: "0 2px 4px rgba(0,0,0,0.95), 0 4px 16px rgba(0,0,0,0.75)",
@@ -32,11 +32,8 @@ function HeroBathPicture({ className = "" }: { readonly className?: string }) {
 
 function HeroCrescent() {
   return (
-    <img
-      src={crescentMoonAsset}
-      alt=""
-      aria-hidden="true"
-      className="pointer-events-none absolute"
+    <CrescentMoon
+      className="pointer-events-none absolute text-white"
       style={{
         height: "250%",
         aspectRatio: "1",

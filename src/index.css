@@ -83,6 +83,16 @@ body {
   overflow-x: hidden;
 }
 
+.decorative-moon {
+  forced-color-adjust: none;
+}
+
+@media (forced-colors: active) {
+  .decorative-moon {
+    color: CanvasText;
+  }
+}
+
 *,
 *::before,
 *::after {

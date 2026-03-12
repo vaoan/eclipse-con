@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 import { HeroCanvasSky } from "./HeroCanvasSky";
-
-const crescentMoonAsset = "/crescent-moon.svg";
+import { CrescentMoon } from "./CrescentMoon";
 
 const textShadow = {
   textShadow: "0 2px 4px rgba(0,0,0,0.95), 0 4px 16px rgba(0,0,0,0.75)",
@@ -32,11 +31,8 @@ export function PostHeroBackground() {
           {t("convention.hero.eyebrow")}
         </p>
         <div className="relative inline-block">
-          <img
-            src={crescentMoonAsset}
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none absolute"
+          <CrescentMoon
+            className="pointer-events-none absolute text-white"
             style={{
               height: "250%",
               aspectRatio: "1",
