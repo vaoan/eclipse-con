@@ -51,6 +51,24 @@ const STATIC_MEDIA_CONTENT_TYPES: Record<string, string> = {
 let sharpPromise: Promise<unknown> | null = null;
 type SharpFactory = (input: Uint8Array) => Sharp;
 
+function resolveBuildVersion() {
+  const explicitVersion = process.env.VITE_APP_VERSION?.trim();
+  if (explicitVersion) {
+    return explicitVersion;
+  }
+
+  try {
+    const rawEnv = readFileSync(
+      resolve(import.meta.dirname, ".env.example"),
+      "utf8"
+    );
+    const match = /^VITE_APP_VERSION=["']?(\d+)["']?/m.exec(rawEnv);
+    return match?.[1] ?? "dev";
+  } catch {
+    return "dev";
+  }
+}
+
 async function loadSharp(): Promise<SharpFactory | null> {
   sharpPromise ??= import("sharp").catch(() => null);
   const module = await sharpPromise;
@@ -824,6 +842,7 @@ function embedTelegramMedia(publicDirectory: string, archive: unknown) {
 
 export default defineConfig(({ mode }) => {
   const isStatic = mode === "static";
+  process.env.VITE_APP_VERSION = resolveBuildVersion();
   const outDirectory = isStatic ? "dist-static" : "dist";
   const publicDirectory =
     isStatic && process.env.STATIC_PUBLIC_DIR

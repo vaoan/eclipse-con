@@ -44,5 +44,5 @@
 
 ## Configuration & Environment
 
-- Defaults live in `.env.development`; secrets go in `.env.local`.
+- Safe defaults live in `.env.example`; analytics keys, local overrides, and secrets go in `.env.local` or `.env.development`.
 - Vite env vars must be prefixed with `VITE_` and accessed via `src/shared/infrastructure/config/environment.ts`.

@@ -6,6 +6,7 @@ dist/
 dist-static/
 
 # Environment (local overrides)
+.env.development
 .env.local
 .env.*.local
 

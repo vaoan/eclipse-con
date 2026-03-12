@@ -132,8 +132,9 @@ pnpm typecheck && pnpm lint && pnpm build
 
 ### Environment Variables
 
-- Defined in `.env.development` (committed, safe defaults)
-- Secrets go in `.env.local` (gitignored)
+- Safe defaults live in `.env.example`
+- Keep analytics keys out of `.env.example`
+- Local overrides and secrets go in `.env.local` or `.env.development` (gitignored)
 - Access via `src/shared/infrastructure/config/environment.ts`
 - All Vite env vars must be prefixed with `VITE_`
 

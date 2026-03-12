@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * Updates VITE_APP_VERSION in .env.development to an incrementing number.
+ * Updates VITE_APP_VERSION in .env.example to an incrementing number.
  * Runs in pre-commit to help confirm which build is deployed.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-const ENV_PATH = resolve(".env.development");
+const ENV_PATH = resolve(".env.example");
 
 function getNextVersion(rawEnv) {
   const match = rawEnv.match(/^VITE_APP_VERSION=["']?([0-9]+)["']?/m);

@@ -214,7 +214,7 @@ def write_checkpoint(
 def main() -> None:
     base_dir = Path(__file__).resolve().parent.parent
     load_env_file(base_dir / ".env.local")
-    load_env_file(base_dir / ".env.development")
+    load_env_file(base_dir / ".env.example")
 
     out_dir = base_dir / "public" / "telegram"
     source_path = out_dir / "messages.json"

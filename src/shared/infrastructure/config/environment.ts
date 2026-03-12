@@ -9,7 +9,7 @@ export const environment = {
   analyticsEndpoint: String(
     import.meta.env.VITE_ANALYTICS_ENDPOINT ?? ""
   ).trim(),
-  analyticsEnabled: import.meta.env.VITE_ANALYTICS_ENABLED !== "false",
+  analyticsEnabled: import.meta.env.VITE_ANALYTICS_ENABLED === "true",
   posthogApiKey: String(import.meta.env.VITE_POSTHOG_API_KEY ?? "").trim(),
   posthogHost: String(
     import.meta.env.VITE_POSTHOG_HOST ?? "https://us.i.posthog.com"

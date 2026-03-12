@@ -57,7 +57,7 @@ def load_existing_message_ids(path: Path) -> set[int]:
 async def run() -> None:
     base_dir = Path(__file__).resolve().parent.parent
     load_env_file(base_dir / ".env.local")
-    load_env_file(base_dir / ".env.development")
+    load_env_file(base_dir / ".env.example")
 
     api_id = int(require_env("TELEGRAM_API_ID"))
     api_hash = require_env("TELEGRAM_API_HASH")

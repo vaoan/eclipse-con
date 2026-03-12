@@ -197,7 +197,7 @@ const main = async () => {
 
   let appVersion = "";
   try {
-    const envRaw = fs.readFileSync(path.join(root, ".env.development"), "utf8");
+    const envRaw = fs.readFileSync(path.join(root, ".env.example"), "utf8");
     const match = envRaw.match(/^VITE_APP_VERSION=["']?([0-9]+)["']?/m);
     appVersion = match?.[1] ?? "";
   } catch {
