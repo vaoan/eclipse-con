@@ -12,6 +12,8 @@ import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 import type { Sharp } from "sharp";
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 /* eslint-disable sonarjs/slow-regex, sonarjs/regex-complexity */
 const ASSET_EXTENSION_REGEX =
   /\.(png|jpe?g|gif|webp|svg|woff2?|ttf|otf|eot|mp4|webm)(\?|#|$)/i;
@@ -867,16 +869,12 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: isStatic ? "./" : "/",
-    plugins: [
-      react(),
-      tailwindcss(),
-      ...(isStatic
-        ? [
-            staticBuildPlugin(),
-            inlineAssetsPlugin(resolve(import.meta.dirname, outDirectory)),
-          ]
-        : []),
-    ],
+    plugins: [react(), tailwindcss(), ...(isStatic
+      ? [
+          staticBuildPlugin(),
+          inlineAssetsPlugin(resolve(import.meta.dirname, outDirectory)),
+        ]
+      : []), cloudflare()],
     resolve: {
       alias: {
         "@": resolve(import.meta.dirname, "src"),

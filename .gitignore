@@ -49,3 +49,9 @@ scripts/telegram.session-journal
 lighthouse-report.report.html
 lighthouse-report.report.json
 /artifacts
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
