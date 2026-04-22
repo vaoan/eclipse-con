@@ -1,7 +1,21 @@
 {
   "source": "t.me/FurryMoonfest",
-  "fetchedAt": "2026-04-22T16:41:20.797984+00:00",
+  "fetchedAt": "2026-04-22T16:51:09.246418+00:00",
   "messages": [
+    {
+      "id": 4601,
+      "date": "2026-04-22T16:44:26+00:00",
+      "text": "⚠️ Important notes:\n\nAbout the official Furry Moonfest merch: Due to production timelines, the official kit is exclusive to payments made by May 29, 2026. After this date, registration will only include transportation and full access to all activities.\n\nAbout new features on the website: You can now explore the new features on our site! As this is a beta version, your help is vital. If you find any bugs or have suggestions, please report them in the technical support channel we've opened in the official Moonfest group (👉 https://t.me/FurryMoonfest).",
+      "media": [
+        {
+          "type": "MessageMediaWebPage",
+          "path": "telegram/media/msg_4601.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 35603
+        }
+      ]
+    },
     {
       "id": 4593,
       "date": "2026-04-22T16:41:12+00:00",
