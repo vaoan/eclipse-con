@@ -1,7 +1,21 @@
 {
   "source": "t.me/FurryMoonfest",
-  "fetchedAt": "2026-04-22T14:50:14.844005+00:00",
+  "fetchedAt": "2026-04-22T16:41:20.797984+00:00",
   "messages": [
+    {
+      "id": 4593,
+      "date": "2026-04-22T16:41:12+00:00",
+      "text": "Las maletas ya están listas. La ruta ya está trazada. El punto de llegada ya lo conocen.\n\nSólo falta el pasaje.\n\nFurry Moonfest -- boletería abierta.\n🌙\n\n👉 https://moonfest.furrycolombia.com/?section=registration",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_4593.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 130989
+        }
+      ]
+    },
     {
       "id": 192,
       "date": "2026-03-18T20:47:13+00:00",
