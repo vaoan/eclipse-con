@@ -18,8 +18,10 @@ import {
   CardTitle,
 } from "@/shared/presentation/ui/card";
 import {
-  SECTION_IDS,
   RESERVATION_URL,
+  SECTION_IDS,
+  TICKET_URL_INTERNATIONAL,
+  TICKET_URL_LOCAL,
 } from "@/features/convention/domain/constants";
 import { tid } from "@/shared/application/utils/tid";
 import { SectionHeader } from "../components/SectionHeader";
@@ -107,7 +109,7 @@ function HotelCard({ t }: Readonly<{ t: TFunction }>) {
           <a
             href={RESERVATION_URL}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             data-funnel-step="click_reserve"
             data-cta-id="registration_reserve"
             data-cta-variant="step1_hotel"
@@ -163,19 +165,45 @@ function TicketCard({ t }: Readonly<{ t: TFunction }>) {
           ))}
         </ul>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-col gap-2">
         <Button
-          disabled
-          className="w-full bg-accent/50 text-accent-foreground"
-          data-funnel-step="start_checkout"
-          data-cta-id="registration_ticket"
-          data-cta-variant="step2_ticket"
-          data-content-section="registration"
-          data-content-id="registration_ticket"
-          data-content-interaction="open"
-          {...tid("registration-ticket-cta")}
+          asChild
+          className="w-full bg-accent text-accent-foreground hover:bg-accent-glow"
         >
-          {t("convention.registration.ticketCta")}
+          <a
+            href={TICKET_URL_LOCAL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-funnel-step="start_checkout"
+            data-cta-id="registration_ticket_local"
+            data-cta-variant="step2_ticket_local"
+            data-content-section="registration"
+            data-content-id="registration_ticket_local"
+            data-content-interaction="open"
+            {...tid("registration-ticket-cta-local")}
+          >
+            {t("convention.registration.ticketCtaLocal")}
+          </a>
+        </Button>
+        <Button
+          asChild
+          variant="outline"
+          className="w-full border-accent/50 text-accent hover:bg-accent/10"
+        >
+          <a
+            href={TICKET_URL_INTERNATIONAL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-funnel-step="start_checkout"
+            data-cta-id="registration_ticket_international"
+            data-cta-variant="step2_ticket_international"
+            data-content-section="registration"
+            data-content-id="registration_ticket_international"
+            data-content-interaction="open"
+            {...tid("registration-ticket-cta-international")}
+          >
+            {t("convention.registration.ticketCtaInternational")}
+          </a>
         </Button>
       </CardFooter>
     </Card>

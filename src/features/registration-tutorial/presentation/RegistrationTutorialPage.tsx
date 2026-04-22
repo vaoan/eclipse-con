@@ -6,6 +6,10 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/shared/presentation/ui/button";
 import {
+  TICKET_URL_INTERNATIONAL,
+  TICKET_URL_LOCAL,
+} from "@/features/convention/domain/constants";
+import {
   Dialog,
   DialogContent,
   DialogTitle,
@@ -261,14 +265,39 @@ function TutorialChecklist({ t }: Readonly<{ t: TFunction }>) {
         </div>
         <div className="flex flex-col gap-3">
           <Button
-            disabled
-            variant="outline"
-            className="border-white/15"
+            asChild
+            className="bg-accent text-accent-foreground hover:bg-accent-glow"
             data-content-section="registration_tutorial"
-            data-content-id="tutorial_ticket_cta"
-            data-cta-id="tutorial_ticket_coming_soon"
+            data-content-id="tutorial_ticket_local"
+            data-cta-id="tutorial_ticket_local"
+            data-content-interaction="open"
           >
-            {t("convention.registrationTutorial.actions.ticket")}
+            <a
+              href={TICKET_URL_LOCAL}
+              target="_blank"
+              rel="noopener noreferrer"
+              {...tid("tutorial-ticket-cta-local")}
+            >
+              {t("convention.registrationTutorial.actions.ticketLocal")}
+            </a>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="border-accent/50 text-accent hover:bg-accent/10"
+            data-content-section="registration_tutorial"
+            data-content-id="tutorial_ticket_international"
+            data-cta-id="tutorial_ticket_international"
+            data-content-interaction="open"
+          >
+            <a
+              href={TICKET_URL_INTERNATIONAL}
+              target="_blank"
+              rel="noopener noreferrer"
+              {...tid("tutorial-ticket-cta-international")}
+            >
+              {t("convention.registrationTutorial.actions.ticketInternational")}
+            </a>
           </Button>
           <p className="text-xs text-muted-foreground">
             {t("convention.registrationTutorial.actions.note")}

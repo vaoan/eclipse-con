@@ -562,17 +562,17 @@
       "step2": {
         "label": "Step 2",
         "title": "Event ticket",
-        "description": "Once you have a confirmed room reservation, you can purchase your ticket through the website when registration opens.",
+        "description": "Tickets are now available. Choose your payment method based on your location.",
         "price": "$300,000 COP",
         "priceNote": "(approximately 80 USD)",
         "feature1": "Official merch package",
         "feature2": "Access to all parties, panels, and the artist market",
         "feature3": "And many more surprises!"
       },
-      "ticketCta": "Buy ticket (coming soon)",
+      "ticketCtaLocal": "Buy ticket – Colombia",
+      "ticketCtaInternational": "Buy ticket – International",
       "tutorialLink": "See step-by-step tutorial",
       "tutorialDescription": "New to the process? Follow our visual guide with screenshots to complete your reservation without issues.",
-      "ticketLink": "Buy ticket (coming soon)",
       "devNote": "All prices are per person.",
       "noteServices": "Additional hotel services (spa, thermal pools, bar, etc.) are not included in the hotel package.",
       "note": "Questions: furrycolombia@gmail.com",
@@ -642,6 +642,8 @@
       "actions": {
         "reserve": "Step 1: Reserve hotel room",
         "ticket": "Step 2: Buy event ticket",
+        "ticketLocal": "Step 2: Buy ticket – Colombia",
+        "ticketInternational": "Step 2: Buy ticket – International",
         "note": "Ticket checkout remains separate from the hotel reservation."
       }
     },
