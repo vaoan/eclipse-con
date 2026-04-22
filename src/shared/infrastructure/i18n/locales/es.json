@@ -562,17 +562,17 @@
       "step2": {
         "label": "Paso 2",
         "title": "Entrada al evento",
-        "description": "Una vez tengas tu cupo en un cuarto con una reserva confirmada, podrás adquirir tu entrada a través de la página web una vez se abran las inscripciones.",
+        "description": "Las entradas ya están disponibles. Elige tu método de pago según tu ubicación.",
         "price": "$300.000 COP",
         "priceNote": "(aproximadamente 80 USD)",
         "feature1": "Paquete de merch oficial",
         "feature2": "Acceso a todas las fiestas, paneles y el mercado de artistas",
         "feature3": "¡Y muchas sorpresas más!"
       },
-      "ticketCta": "Comprar boleta (próximamente)",
+      "ticketCtaLocal": "Comprar boleta – Colombia",
+      "ticketCtaInternational": "Comprar boleta – Internacional",
       "tutorialLink": "Ver tutorial paso a paso",
       "tutorialDescription": "¿Primera vez? Sigue nuestra guía visual con capturas de pantalla para completar tu reserva sin problemas.",
-      "ticketLink": "Comprar boleta (próximamente)",
       "devNote": "Todos los precios son por persona.",
       "noteServices": "Los servicios adicionales del hotel (spa, termales, bar, etc.) no están incluidos en el paquete del hotel.",
       "note": "Dudas: furrycolombia@gmail.com",
@@ -642,6 +642,8 @@
       "actions": {
         "reserve": "Paso 1: Reservar habitación",
         "ticket": "Paso 2: Comprar boleta",
+        "ticketLocal": "Paso 2: Comprar boleta – Colombia",
+        "ticketInternational": "Paso 2: Comprar boleta – Internacional",
         "note": "La compra de boleta sigue siendo separada de la reserva del hotel."
       }
     },
