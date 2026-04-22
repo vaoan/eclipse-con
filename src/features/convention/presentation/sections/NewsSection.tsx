@@ -43,9 +43,6 @@ import {
 import { useNewsRenderers } from "./news/renderers";
 import { buildMediaSource, isImage, isVideo } from "./news/utilities";
 
-const INITIAL_VISIBLE = 12;
-const PAGE_SIZE = 12;
-
 const NewsCard = ({
   className,
   contentClassName,
@@ -173,7 +170,6 @@ export function NewsSection() {
   const { renderMedia, renderText, renderPreview } = useNewsRenderers();
   const [archive, setArchive] = useState<TelegramArchive | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
   const [layoutMode, setLayoutMode] = useState<NewsLayoutMode>(() => {
     if (typeof window === "undefined") {
       return DEFAULT_NEWS_LAYOUT;
@@ -276,7 +272,7 @@ export function NewsSection() {
     return () => {
       window.removeEventListener("resize", syncWidths);
     };
-  }, [layoutMode, visibleCount, archive?.messages.length]);
+  }, [layoutMode, archive?.messages.length]);
 
   const formatter = useMemo(() => {
     return new Intl.DateTimeFormat(i18n.language, {
@@ -286,7 +282,7 @@ export function NewsSection() {
   }, [i18n.language]);
 
   const messages = archive?.messages ?? [];
-  const visibleMessages = messages.slice(0, visibleCount);
+  const visibleMessages = messages;
 
   useEffect(() => {
     if (layoutMode !== "email") {
@@ -1455,22 +1451,6 @@ export function NewsSection() {
         >
           {t("convention.news.error")}
         </p>
-      )}
-
-      {messages.length > visibleCount && (
-        <div className="mt-8 flex justify-center">
-          <Button
-            type="button"
-            variant="outline"
-            data-news-action="load_more"
-            onClick={() => {
-              setVisibleCount((count) => count + PAGE_SIZE);
-            }}
-            className="rounded-full border-white/15 px-6 py-2 text-sm font-semibold text-foreground/80 hover:border-white/35 hover:text-foreground"
-          >
-            {t("convention.news.loadMore")}
-          </Button>
-        </div>
       )}
 
       {archive?.source && (
