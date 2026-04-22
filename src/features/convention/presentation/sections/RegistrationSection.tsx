@@ -165,11 +165,8 @@ function TicketCard({ t }: Readonly<{ t: TFunction }>) {
           ))}
         </ul>
       </CardContent>
-      <CardFooter className="flex flex-col gap-2">
-        <Button
-          asChild
-          className="w-full bg-accent text-accent-foreground hover:bg-accent-glow"
-        >
+      <CardFooter className="flex flex-col gap-3">
+        <Button asChild variant="glow" size="lg" className="w-full">
           <a
             href={TICKET_URL_LOCAL}
             target="_blank"
@@ -187,8 +184,8 @@ function TicketCard({ t }: Readonly<{ t: TFunction }>) {
         </Button>
         <Button
           asChild
-          variant="outline"
-          className="w-full border-accent/50 text-accent hover:bg-accent/10"
+          size="lg"
+          className="w-full border border-accent/60 bg-accent/10 text-accent shadow-[0_0_14px_rgba(224,117,58,0.25)] backdrop-blur-sm hover:-translate-y-0.5 hover:bg-accent/20 hover:shadow-[0_0_24px_rgba(224,117,58,0.4)]"
         >
           <a
             href={TICKET_URL_INTERNATIONAL}

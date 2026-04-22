@@ -266,7 +266,8 @@ function TutorialChecklist({ t }: Readonly<{ t: TFunction }>) {
         <div className="flex flex-col gap-3">
           <Button
             asChild
-            className="bg-accent text-accent-foreground hover:bg-accent-glow"
+            variant="glow"
+            size="lg"
             data-content-section="registration_tutorial"
             data-content-id="tutorial_ticket_local"
             data-cta-id="tutorial_ticket_local"
@@ -283,8 +284,8 @@ function TutorialChecklist({ t }: Readonly<{ t: TFunction }>) {
           </Button>
           <Button
             asChild
-            variant="outline"
-            className="border-accent/50 text-accent hover:bg-accent/10"
+            size="lg"
+            className="border border-accent/60 bg-accent/10 text-accent shadow-[0_0_14px_rgba(224,117,58,0.25)] backdrop-blur-sm hover:-translate-y-0.5 hover:bg-accent/20 hover:shadow-[0_0_24px_rgba(224,117,58,0.4)]"
             data-content-section="registration_tutorial"
             data-content-id="tutorial_ticket_international"
             data-cta-id="tutorial_ticket_international"
