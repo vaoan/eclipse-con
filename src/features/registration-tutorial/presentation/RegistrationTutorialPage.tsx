@@ -284,8 +284,8 @@ function TutorialChecklist({ t }: Readonly<{ t: TFunction }>) {
           </Button>
           <Button
             asChild
+            variant="glow"
             size="lg"
-            className="border border-accent/60 bg-accent/10 text-accent shadow-[0_0_14px_rgba(224,117,58,0.25)] backdrop-blur-sm hover:-translate-y-0.5 hover:bg-accent/20 hover:shadow-[0_0_24px_rgba(224,117,58,0.4)]"
             data-content-section="registration_tutorial"
             data-content-id="tutorial_ticket_international"
             data-cta-id="tutorial_ticket_international"
