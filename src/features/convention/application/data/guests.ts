@@ -24,7 +24,7 @@ export const GUESTS: readonly Guest[] = [
     roleKey: "convention.guests.guest3.role",
     bioKey: "convention.guests.guest3.bio",
     initials: "LF",
-    imageSrc: "/assets/organizers/luciafur.webp",
+    imageSrc: "/assets/organizers/luciafur.jpg",
   },
   {
     id: "guest4",
