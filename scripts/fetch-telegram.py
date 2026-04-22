@@ -74,6 +74,8 @@ async def run() -> None:
     api_hash = require_env("TELEGRAM_API_HASH")
     phone = os.environ.get("TELEGRAM_PHONE")
     target = os.environ.get("TELEGRAM_TARGET", "t.me/FurryMoonfest")
+    thread_id_raw = os.environ.get("TELEGRAM_THREAD_ID", "").strip()
+    thread_id = int(thread_id_raw) if thread_id_raw else None
     since_raw = os.environ.get("TELEGRAM_SINCE", "").strip()
     since_dt = None
     if since_raw:
@@ -130,7 +132,7 @@ async def run() -> None:
     entity = await client.get_entity(target)
     messages = []
 
-    async for message in client.iter_messages(entity):
+    async for message in client.iter_messages(entity, reply_to=thread_id):
         if message.id in existing_ids:
             continue
         if since_dt and message.date.astimezone(timezone.utc) < since_dt:
