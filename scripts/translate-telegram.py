@@ -30,6 +30,16 @@ def ensure_telethon() -> None:
         )
 
 
+def ensure_anthropic() -> None:
+    try:
+        import anthropic  # noqa: F401
+    except ModuleNotFoundError:
+        print("Anthropic SDK not found. Installing...")
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", "--upgrade", "anthropic"]
+        )
+
+
 def load_env_file(path: Path) -> None:
     if not path.exists():
         return
@@ -47,6 +57,79 @@ def require_env(name: str) -> str:
     if not value:
         raise SystemExit(f"Missing environment variable: {name}")
     return value
+
+
+def claude_code_translate(text: str) -> str:
+    prompt = (
+        "Translate to English. Preserve emojis, formatting, and names. "
+        f"Return only the translated text, no commentary.\n\n{text}"
+    )
+    env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
+    for attempt in range(9):
+        result = subprocess.run(
+            ["claude", "-p", prompt],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            env=env,
+        )
+        if result.returncode == 0:
+            return result.stdout.strip()
+        stderr = result.stderr.strip()
+        # Retry on rate limit signals
+        if "rate" in stderr.lower() or "429" in stderr:
+            wait_seconds = min(90, 2 ** attempt)
+            print(
+                f"\n[translate] Claude Code rate limit on attempt {attempt + 1}/9. "
+                f"Retrying in {wait_seconds}s..."
+            )
+            time.sleep(wait_seconds)
+            continue
+        raise RuntimeError(f"claude CLI error: {stderr or result.stdout}")
+    raise RuntimeError("Claude Code translation failed after retries")
+
+
+def claude_translate(text: str, api_key: str, model: str) -> str:
+    import anthropic
+
+    client = anthropic.Anthropic(api_key=api_key)
+
+    last_error = None
+    for attempt in range(9):
+        try:
+            message = client.messages.create(
+                model=model,
+                max_tokens=4096,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": (
+                            "Translate to English. Preserve emojis, formatting, "
+                            f"and names. Return only the translated text.\n\n{text}"
+                        ),
+                    }
+                ],
+            )
+            for block in message.content:
+                if block.type == "text":
+                    return block.text.strip()
+            return text
+        except anthropic.RateLimitError as error:
+            last_error = error
+            wait_seconds = min(90, 2 ** attempt)
+            print(
+                f"\n[translate] Claude 429 on attempt {attempt + 1}/9. "
+                f"Retrying in {wait_seconds}s..."
+            )
+            time.sleep(wait_seconds)
+            continue
+        except anthropic.APIError:
+            raise
+
+    if last_error:
+        raise last_error
+    raise RuntimeError("Claude translation failed")
 
 
 def openai_translate(text: str, api_key: str, model: str) -> str:
@@ -284,9 +367,24 @@ def setup_provider() -> tuple:
         def translate_text(input_text: str) -> str:
             return openai_translate(input_text, api_key, model)
 
+    elif provider == "claude_code":
+        translated_by = "Claude Code (subscription)"
+
+        def translate_text(input_text: str) -> str:
+            return claude_code_translate(input_text)
+
+    elif provider == "claude":
+        ensure_anthropic()
+        api_key = require_env("ANTHROPIC_API_KEY")
+        model = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5").strip()
+        translated_by = f"Claude ({model})"
+
+        def translate_text(input_text: str) -> str:
+            return claude_translate(input_text, api_key, model)
+
     else:
         raise SystemExit(
-            "Invalid TRANSLATE_PROVIDER. Use 'azure' or 'openai'."
+            "Invalid TRANSLATE_PROVIDER. Use 'azure', 'openai', 'claude', or 'claude_code'."
         )
 
     print(
