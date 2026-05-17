@@ -530,7 +530,11 @@
       "step1": {
         "label": "Step 1",
         "title": "Hotel reservation",
-        "description": "Independent from event registration. The room cost is split among roommates and includes breakfast and access to hotel facilities."
+        "description": "Independent from event registration. The room cost is split among roommates and includes breakfast and access to hotel facilities.",
+        "soldOut": "Sold out",
+        "fullyBooked": "Fully booked",
+        "soldOutMessage": "Every room in the Moonfest hotel block has been reserved. We can no longer host new attendees on-site.",
+        "checkAvailability": "Check the hotel page in case a spot opens"
       },
       "package": {
         "title": "Hotel reservation",

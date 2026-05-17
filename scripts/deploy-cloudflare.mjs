@@ -19,18 +19,30 @@ if (existsSync(envLocalPath)) {
   }
 }
 
-const wranglerBin = resolve(
+const wranglerEntry = resolve(
   process.cwd(),
   "node_modules",
-  ".bin",
-  process.platform === "win32" ? "wrangler.cmd" : "wrangler"
+  "wrangler",
+  "bin",
+  "wrangler.js"
 );
 
 const args = process.argv.slice(2);
-const result = spawnSync(wranglerBin, ["deploy", "--env=", ...args], {
-  stdio: "inherit",
-  env: process.env,
-  shell: false,
-});
+const result = spawnSync(
+  process.execPath,
+  [wranglerEntry, "deploy", "--env=", ...args],
+  {
+    stdio: "inherit",
+    env: process.env,
+    shell: false,
+  }
+);
+
+if (result.error) {
+  console.error(
+    `[deploy-cloudflare] Failed to spawn wrangler: ${result.error.message}`
+  );
+  process.exit(1);
+}
 
 process.exit(result.status ?? 1);

@@ -530,7 +530,11 @@
       "step1": {
         "label": "Paso 1",
         "title": "Reserva del hotel",
-        "description": "Es independiente del registro al evento. El costo de la habitación se divide entre quienes la compartan e incluye el desayuno y el uso de las instalaciones del hotel."
+        "description": "Es independiente del registro al evento. El costo de la habitación se divide entre quienes la compartan e incluye el desayuno y el uso de las instalaciones del hotel.",
+        "soldOut": "Agotado",
+        "fullyBooked": "Hotel completo",
+        "soldOutMessage": "Todas las habitaciones del bloque del hotel Moonfest están reservadas. Ya no podemos alojar a más asistentes en la sede.",
+        "checkAvailability": "Consulta la página del hotel por si se libera un cupo"
       },
       "package": {
         "title": "Reserva del hotel",

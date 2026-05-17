@@ -2,7 +2,14 @@ import type { TFunction } from "i18next";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { ArrowRight, BookOpen, Check, Hotel, Ticket } from "lucide-react";
+import {
+  ArrowRight,
+  BedDouble,
+  BookOpen,
+  Check,
+  Hotel,
+  Ticket,
+} from "lucide-react";
 
 import {
   PACKAGE_FEATURE_KEYS,
@@ -79,47 +86,39 @@ function HotelCard({ t }: Readonly<{ t: TFunction }>) {
             </li>
           ))}
         </ul>
-        <div className="rounded-xl border border-accent/30 bg-accent/5 p-4 shadow-[inset_0_1px_0_0_rgba(224,117,58,0.1)]">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-            {t("convention.registration.popular")}
-          </p>
-          <div className="space-y-3">
-            {PRICE_TIERS.map(({ nameKey, priceKey }) => (
-              <div
-                key={nameKey}
-                className="flex items-center justify-between gap-4"
-              >
-                <span className="text-sm text-foreground/90">{t(nameKey)}</span>
-                <span className="font-display text-base font-bold text-accent drop-shadow-[0_0_6px_rgba(224,117,58,0.3)]">
-                  {t(priceKey)}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-4 text-xs text-accent/75">
-            {t("convention.registration.priceNote")}
+        <SoldOutPriceBox t={t} />
+      </CardContent>
+      <CardFooter className="flex flex-col gap-3">
+        <div
+          className="flex w-full items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-left"
+          data-content-section="registration"
+          data-content-id="registration_reserve_sold_out"
+          data-content-interaction="blocked"
+        >
+          <BedDouble
+            size={18}
+            className="mt-0.5 shrink-0 text-destructive"
+            aria-hidden="true"
+          />
+          <p className="text-xs leading-relaxed text-foreground/80">
+            {t("convention.registration.step1.soldOutMessage")}
           </p>
         </div>
-      </CardContent>
-      <CardFooter>
-        <Button
-          asChild
-          className="w-full bg-accent text-accent-foreground hover:bg-accent-glow"
+        <a
+          href={RESERVATION_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-center text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-accent hover:underline"
+          data-cta-id="registration_reserve_check"
+          data-cta-variant="step1_hotel_check"
+          data-content-section="registration"
+          data-content-id="registration_reserve_check"
+          data-content-interaction="open"
+          {...tid("registration-reserve-check-link")}
         >
-          <a
-            href={RESERVATION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-funnel-step="click_reserve"
-            data-cta-id="registration_reserve"
-            data-cta-variant="step1_hotel"
-            data-content-section="registration"
-            data-content-id="registration_reserve"
-            data-content-interaction="open"
-          >
-            {t("convention.registration.cta")}
-          </a>
-        </Button>
+          {t("convention.registration.step1.checkAvailability")}
+          <ArrowRight className="h-3 w-3 opacity-60" aria-hidden="true" />
+        </a>
       </CardFooter>
     </Card>
   );
@@ -200,6 +199,80 @@ function TicketCard({ t }: Readonly<{ t: TFunction }>) {
         </Button>
       </CardFooter>
     </Card>
+  );
+}
+
+/**
+ * Step 1 price box rendered in the "sold out" state: the rooms list is
+ * desaturated and crossed out, the header pivots from "Popular" to
+ * "Fully booked", and a torn-edge ribbon is stamped diagonally across the
+ * panel to make the unavailability immediate and unmistakable.
+ */
+function SoldOutPriceBox({ t }: Readonly<{ t: TFunction }>) {
+  return (
+    <div
+      className="relative overflow-hidden rounded-xl border border-destructive/40 bg-destructive/5 p-4 shadow-[inset_0_1px_0_0_rgba(220,38,38,0.12)]"
+      data-content-section="registration"
+      data-content-id="registration_step1_sold_out"
+      {...tid("registration-sold-out-box")}
+    >
+      <div aria-hidden="true" className="opacity-40 saturate-50">
+        <p className="mb-3 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-destructive">
+          <BedDouble size={12} className="shrink-0" />
+          {t("convention.registration.step1.fullyBooked")}
+        </p>
+        <div className="space-y-3">
+          {PRICE_TIERS.map(({ nameKey, priceKey }) => (
+            <div
+              key={nameKey}
+              className="flex items-center justify-between gap-4"
+            >
+              <span className="text-sm text-foreground/90 line-through decoration-destructive/70 decoration-2">
+                {t(nameKey)}
+              </span>
+              <span className="font-display text-base font-bold text-foreground/60 line-through decoration-destructive/70 decoration-2">
+                {t(priceKey)}
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 text-xs text-muted-foreground">
+          {t("convention.registration.priceNote")}
+        </p>
+      </div>
+      <SoldOutRibbon t={t} />
+    </div>
+  );
+}
+
+/**
+ * Torn-edge diagonal ribbon used as the sold-out stamp on the Step 1 price
+ * box. Notched ends and a diagonal hatch overlay give it a stamped, postal
+ * feel; the rotation breaks the grid to draw the eye.
+ */
+function SoldOutRibbon({ t }: Readonly<{ t: TFunction }>) {
+  return (
+    <div
+      className="pointer-events-none absolute inset-x-[-14px] top-1/2 flex -translate-y-1/2 -rotate-[7deg] items-center"
+      aria-hidden="true"
+    >
+      <div
+        className="relative w-full border-y border-red-950/70 bg-gradient-to-r from-red-900 via-destructive to-red-900 py-3 shadow-[0_18px_50px_-12px_rgba(220,38,38,0.65)]"
+        style={{
+          clipPath:
+            "polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 14px 50%)",
+        }}
+      >
+        <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,transparent_0,transparent_7px,rgba(0,0,0,0.16)_7px,rgba(0,0,0,0.16)_9px)]" />
+        <div className="relative flex items-center justify-center gap-3 text-white">
+          <span className="h-px w-6 bg-white/70 sm:w-10" />
+          <p className="font-display text-lg font-black uppercase tracking-[0.35em] drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] sm:text-xl sm:tracking-[0.4em]">
+            {t("convention.registration.step1.soldOut")}
+          </p>
+          <span className="h-px w-6 bg-white/70 sm:w-10" />
+        </div>
+      </div>
+    </div>
   );
 }
 
