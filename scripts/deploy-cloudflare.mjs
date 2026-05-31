@@ -28,9 +28,16 @@ const wranglerEntry = resolve(
 );
 
 const args = process.argv.slice(2);
+const hasExplicitEnv = args.some(
+  (arg, index) =>
+    arg === "--env" ||
+    arg === "-e" ||
+    arg.startsWith("--env=") ||
+    (index > 0 && (args[index - 1] === "--env" || args[index - 1] === "-e"))
+);
 const result = spawnSync(
   process.execPath,
-  [wranglerEntry, "deploy", "--env=", ...args],
+  [wranglerEntry, "deploy", ...(hasExplicitEnv ? [] : ["--env="]), ...args],
   {
     stdio: "inherit",
     env: process.env,
