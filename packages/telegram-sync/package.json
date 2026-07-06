@@ -1,0 +1,9 @@
+{
+  "name": "@furrycolombia/telegram-sync",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "telegram-sync": "bin/sync.mjs"
+  }
+}

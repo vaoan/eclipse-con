@@ -21,6 +21,7 @@ export default tseslint.config(
       "test-results/**",
       "apps/*/scripts/**",
       "apps/*/cloudflare/**",
+      "packages/*/bin/**",
       ".claude/**",
       "eslint-rules/**",
       ".lh-profile/**",
