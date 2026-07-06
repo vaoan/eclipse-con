@@ -1,0 +1,13 @@
+{
+  "target": "t.me/FurryMoonfest",
+  "threadId": 3,
+  "since": "2025-11-08 19:00",
+  "translateTo": "en",
+  "outDir": "public/telegram",
+  "select": {
+    "includeIds": [],
+    "excludeIds": [],
+    "includeKeywords": [],
+    "excludeKeywords": []
+  }
+}

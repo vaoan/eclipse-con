@@ -23,9 +23,11 @@
     "test:e2e:staging": "node scripts/run-playwright-staging.mjs",
     "test:e2e:analytics": "playwright test --config playwright.analytics.config.js",
     "test:e2e:ui": "playwright test --ui",
-    "fetch:telegram": "node scripts/fetch-telegram.mjs",
-    "translate:telegram": "node scripts/translate-telegram.mjs",
-    "sync:telegram": "node scripts/sync-telegram.mjs",
+    "fetch:telegram": "node ../../packages/telegram-sync/bin/sync.mjs sync --config ./telegram.config.json",
+    "translate:telegram": "node ../../packages/telegram-sync/bin/sync.mjs sync --config ./telegram.config.json",
+    "sync:telegram": "node ../../packages/telegram-sync/bin/sync.mjs sync --config ./telegram.config.json",
+    "telegram:list": "node ../../packages/telegram-sync/bin/sync.mjs list --config ./telegram.config.json",
+    "telegram:remove": "node ../../packages/telegram-sync/bin/sync.mjs remove --config ./telegram.config.json",
     "version:auto": "node scripts/bump-version.mjs"
   },
   "dependencies": {

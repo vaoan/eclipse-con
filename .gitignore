@@ -40,6 +40,8 @@ apps/*/e2e/
 /tmp
 **/telegram.session
 **/telegram.session-journal
+/.telegram.session
+/.telegram.session-journal
 **/__pycache__/
 **/.venv-telegram/
 
