@@ -25,7 +25,8 @@
     "test:e2e:ui": "playwright test --ui",
     "fetch:telegram": "node ../../packages/telegram-sync/bin/sync.mjs fetch --config ./telegram.config.json",
     "translate:telegram": "node ../../packages/telegram-sync/bin/sync.mjs translate --config ./telegram.config.json",
-    "sync:telegram": "node ../../packages/telegram-sync/bin/sync.mjs sync --config ./telegram.config.json && pnpm deploy:cloudflare",
+    "sync:telegram": "node ../../packages/telegram-sync/bin/sync.mjs sync --config ./telegram.config.json",
+    "publish:telegram": "pnpm sync:telegram && pnpm deploy:cloudflare",
     "telegram:list": "node ../../packages/telegram-sync/bin/sync.mjs list --config ./telegram.config.json",
     "telegram:remove": "node ../../packages/telegram-sync/bin/sync.mjs remove --config ./telegram.config.json",
     "version:auto": "node scripts/bump-version.mjs"
