@@ -41,6 +41,7 @@ Thumbs.db
 scripts/telegram.session
 scripts/telegram.session-journal
 /scripts/__pycache__
+scripts/.venv-telegram/
 
 # Local lighthouse artifacts
 .lh-profile/

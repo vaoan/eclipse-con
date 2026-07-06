@@ -1,8 +1,10 @@
 import io
 import json
 import os
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.parse
 import urllib.request
@@ -20,24 +22,15 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() not in ("utf-8", "utf8"):
     )
 
 
+from _telegram_bootstrap import ensure_packages  # noqa: E402
+
+
 def ensure_telethon() -> None:
-    try:
-        import telethon  # noqa: F401
-    except ModuleNotFoundError:
-        print("Telethon not found. Installing...")
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "--upgrade", "telethon"]
-        )
+    ensure_packages("telethon")
 
 
 def ensure_anthropic() -> None:
-    try:
-        import anthropic  # noqa: F401
-    except ModuleNotFoundError:
-        print("Anthropic SDK not found. Installing...")
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "--upgrade", "anthropic"]
-        )
+    ensure_packages("anthropic")
 
 
 def load_env_file(path: Path) -> None:
@@ -59,11 +52,57 @@ def require_env(name: str) -> str:
     return value
 
 
-def claude_code_translate(text: str) -> str:
-    prompt = (
+def build_translation_prompt(text: str) -> str:
+    return (
         "Translate to English. Preserve emojis, formatting, and names. "
         f"Return only the translated text, no commentary.\n\n{text}"
     )
+
+
+def is_rate_limit_error(message: str) -> bool:
+    lowered = message.lower()
+    return (
+        "rate" in lowered
+        or "429" in lowered
+        or "too many requests" in lowered
+        or "overloaded" in lowered
+    )
+
+
+def is_cli_access_error(message: str) -> bool:
+    lowered = message.lower()
+    return any(
+        needle in lowered
+        for needle in (
+            "subscription",
+            "license",
+            "billing",
+            "payment",
+            "upgrade",
+            "not logged in",
+            "login required",
+            "authentication",
+            "unauthorized",
+            "forbidden",
+            "quota",
+            "credits",
+            "plan",
+        )
+    )
+
+
+def command_exists(command: str) -> bool:
+    return shutil.which(command) is not None
+
+
+def format_error(error: Exception) -> str:
+    if isinstance(error, urllib.error.HTTPError):
+        return f"HTTP {error.code}"
+    return str(error) or error.__class__.__name__
+
+
+def claude_code_translate(text: str) -> str:
+    prompt = build_translation_prompt(text)
     env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
     for attempt in range(9):
         result = subprocess.run(
@@ -88,6 +127,62 @@ def claude_code_translate(text: str) -> str:
             continue
         raise RuntimeError(f"claude CLI error: {stderr or result.stdout}")
     raise RuntimeError("Claude Code translation failed after retries")
+
+
+def codex_cli_translate(text: str) -> str:
+    prompt = build_translation_prompt(text)
+    model = os.environ.get("CODEX_MODEL", "").strip()
+
+    for attempt in range(9):
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", delete=False, suffix=".txt"
+        ) as handle:
+            output_path = Path(handle.name)
+
+        try:
+            command = [
+                "codex",
+                "exec",
+                "--skip-git-repo-check",
+                "--ignore-rules",
+                "--ephemeral",
+                "--sandbox",
+                "read-only",
+                "--color",
+                "never",
+                "--output-last-message",
+                str(output_path),
+                "-",
+            ]
+            if model:
+                command[2:2] = ["--model", model]
+
+            result = subprocess.run(
+                command,
+                input=prompt,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+            )
+            if result.returncode == 0:
+                translated = output_path.read_text(encoding="utf-8").strip()
+                return translated or text
+
+            stderr = (result.stderr or result.stdout).strip()
+            if is_rate_limit_error(stderr):
+                wait_seconds = min(90, 2 ** attempt)
+                print(
+                    f"\n[translate] Codex CLI rate limit on attempt "
+                    f"{attempt + 1}/9. Retrying in {wait_seconds}s..."
+                )
+                time.sleep(wait_seconds)
+                continue
+            raise RuntimeError(f"codex CLI error: {stderr or 'unknown error'}")
+        finally:
+            output_path.unlink(missing_ok=True)
+
+    raise RuntimeError("Codex CLI translation failed after retries")
 
 
 def claude_translate(text: str, api_key: str, model: str) -> str:
@@ -373,6 +468,29 @@ def setup_provider() -> tuple:
         def translate_text(input_text: str) -> str:
             return claude_code_translate(input_text)
 
+        if command_exists("codex"):
+            codex_model = os.environ.get("CODEX_MODEL", "").strip()
+
+            def fallback_translate_text(input_text: str) -> str:
+                return codex_cli_translate(input_text)
+
+            fallback_provider_label = (
+                f"Codex CLI ({codex_model})" if codex_model else "Codex CLI"
+            )
+            translated_by = (
+                "Claude Code (fallback: "
+                f"{fallback_provider_label})"
+            )
+
+    elif provider == "codex":
+        codex_model = os.environ.get("CODEX_MODEL", "").strip()
+        translated_by = (
+            f"Codex CLI ({codex_model})" if codex_model else "Codex CLI"
+        )
+
+        def translate_text(input_text: str) -> str:
+            return codex_cli_translate(input_text)
+
     elif provider == "claude":
         ensure_anthropic()
         api_key = require_env("ANTHROPIC_API_KEY")
@@ -384,7 +502,8 @@ def setup_provider() -> tuple:
 
     else:
         raise SystemExit(
-            "Invalid TRANSLATE_PROVIDER. Use 'azure', 'openai', 'claude', or 'claude_code'."
+            "Invalid TRANSLATE_PROVIDER. Use 'azure', 'openai', 'claude', "
+            "'claude_code', or 'codex'."
         )
 
     print(
@@ -472,11 +591,16 @@ def main() -> None:
 
         try:
             text_en = translate_text(text)
-        except urllib.error.HTTPError as primary_error:
-            if fallback_translate_text:
+        except (urllib.error.HTTPError, RuntimeError, FileNotFoundError) as primary_error:
+            should_try_fallback = fallback_translate_text is not None and (
+                not isinstance(primary_error, RuntimeError)
+                or is_cli_access_error(str(primary_error))
+                or "not found" in str(primary_error).lower()
+            )
+            if should_try_fallback:
                 print(
                     f"\n[translate] #{msg_id} primary failed "
-                    f"({primary_error.code}). Trying fallback..."
+                    f"({format_error(primary_error)}). Trying fallback..."
                 )
                 try:
                     text_en = fallback_translate_text(text)
@@ -485,7 +609,7 @@ def main() -> None:
                         f"[translate] #{msg_id} used fallback "
                         f"{fallback_provider_label}"
                     )
-                except urllib.error.HTTPError:
+                except (urllib.error.HTTPError, RuntimeError, FileNotFoundError):
                     text_en = ""
             else:
                 text_en = ""

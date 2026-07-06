@@ -8,17 +8,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-def ensure_telethon() -> None:
-    try:
-        import telethon  # noqa: F401
-    except ModuleNotFoundError:
-        print("Telethon not found. Installing...")
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "--upgrade", "telethon"]
-        )
+from _telegram_bootstrap import ensure_packages  # noqa: E402
 
-
-ensure_telethon()
+ensure_packages("telethon")
 
 from telethon import TelegramClient  # noqa: E402
 from telethon.errors import SessionPasswordNeededError  # noqa: E402

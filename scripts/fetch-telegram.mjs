@@ -1,21 +1,19 @@
 import { spawnSync } from "node:child_process";
+import { resolvePythonCommand } from "./resolve-python.mjs";
 
-function tryRun(command, args) {
-  const result = spawnSync(command, args, { stdio: "inherit" });
-  return result.status === 0 ? command : null;
-}
-
-const pythonCmd =
-  tryRun("python", ["--version"]) || tryRun("python3", ["--version"]);
+const pythonCmd = resolvePythonCommand();
 
 if (!pythonCmd) {
   console.error(
     [
-      "Python is required to run Telegram sync (Python 3.10+).",
+      "Could not prepare a Python 3.10+ interpreter with Telethon for Telegram sync.",
+      "The script provisions dependencies automatically, but the environment blocked it.",
       "Install instructions:",
       "  Windows: https://www.python.org/downloads/ (enable 'Add Python to PATH')",
       "  macOS:   brew install python",
-      "  Linux:   sudo apt-get install python3 python3-pip",
+      "  Linux:   sudo apt-get install -y python3 python3-venv",
+      "  WSL:     ensure Windows Python (with Telethon) is reachable, or run as root",
+      "           so python3-venv can be installed automatically",
       "",
       "Then re-run: pnpm fetch:telegram",
     ].join("\n")
