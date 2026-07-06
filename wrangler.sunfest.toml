@@ -12,5 +12,5 @@ not_found_handling = "single-page-application"
 binding = "ASSETS"
 
 [[routes]]
-pattern = "sunfest.furrycolombia.com/*"
-zone_name = "furrycolombia.com"
+pattern = "sunfest.furrycolombia.com"
+custom_domain = true
