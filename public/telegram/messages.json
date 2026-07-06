@@ -1,7 +1,137 @@
 {
   "source": "t.me/FurryMoonfest",
-  "fetchedAt": "2026-05-17T20:55:57.439765+00:00",
+  "fetchedAt": "2026-07-06T04:52:39.089197+00:00",
   "messages": [
+    {
+      "id": 8196,
+      "date": "2026-07-05T18:09:51+00:00",
+      "text": "¡Hoy es el último día para inscribirse!\n\nAcá pueden ver la lista de quienes se han inscrito hasta el momento. \n\nSi su nombre no aparece, no hay cupo reservado. No olviden llenarlo hoy.\n\n👉 https://forms.gle/UY4AaftqE4gawyrh9",
+      "media": [
+        {
+          "type": "MessageMediaDocument",
+          "path": "telegram/media/msg_8196.xlsx",
+          "name": "Listado de personas que usarán el servicio de buses.xlsx",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "size": 11591
+        }
+      ]
+    },
+    {
+      "id": 7659,
+      "date": "2026-07-03T13:08:50+00:00",
+      "text": "Adjuntamos la lista de personas registradas para usar los buses del evento hasta este momento.\n\nSi no apareces aquí, por favor llena el formulario lo antes posible: https://forms.gle/UY4AaftqE4gawyrh9\n\nFecha límite: 5 de julio.\n\nRecuerda que si quieres usar el bus y no estás en esta lista, no tendrás cupo.",
+      "media": [
+        {
+          "type": "MessageMediaDocument",
+          "path": "telegram/media/msg_7659.xlsx",
+          "name": "Listado de personas que usarán el servicio de buses.xlsx",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "size": 10959
+        }
+      ]
+    },
+    {
+      "id": 7081,
+      "date": "2026-06-30T19:33:07+00:00",
+      "text": "🚌 ¡Información del bus para el Moonfest!\n\nSaldremos a las 11:00 AM desde el Carulla de la 116 con Autopista Norte (Carulla Alhambra, a una cuadra al occidente de la estación Pepe Sierra de Transmilenio).\n\n📍 Punto en Maps: https://maps.app.goo.gl/Y9U7LxBPtwGxKn5u9\n\n⚠️ ¡No olviden llenar este formulario antes del 5 de julio! El que no lo llene, no tiene cupo en el bus: https://forms.gle/UY4AaftqE4gawyrh9",
+      "media": []
+    },
+    {
+      "id": 6963,
+      "date": "2026-06-27T14:26:40+00:00",
+      "text": "⚠️ ANUNCIO IMPORTANTE\n\nPara organizar la logística del transporte y definir cuántos buses y cuántos cupos debemos reservar, necesitamos saber el número exacto de asistentes que requerirán de estos servicios.\n\nPor ello, todas las personas que van a asistir deben llenar este formulario ANTES DEL 5 DE JULIO, sin importar cómo planeen llegar. Esto aplica tanto para quienes van en transporte propio, quienes van en el carro de otra persona y, especialmente, quienes planean usar el bus.\n\n❗️Si planeas usar el bus del evento y no estás registrado en esta lista, no podremos garantizarte un cupo ese día, así que por favor llénalo con tiempo.\n\n👉 https://forms.gle/UY4AaftqE4gawyrh9\n\nCualquier inquietud, comunícate con un admin.",
+      "media": []
+    },
+    {
+      "id": 6654,
+      "date": "2026-06-24T20:58:30+00:00",
+      "text": "",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_6654.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 195203
+        }
+      ]
+    },
+    {
+      "id": 6653,
+      "date": "2026-06-24T20:58:30+00:00",
+      "text": "Compartimos con ustedes el código de vestimenta del Furry Moonfest 2026 que fue elaborado en concordancia con los lineamientos dispuestos por el Hotel ESTELAR Paipa & Centro de Convenciones.\n\nLes recordamos que, aunque vamos a estar ocupando un gran porcentaje del hotel, habrán otros huéspedes ajenos al evento, por lo cual solicitamos su mayor colaboración en este aspecto. \n\n🌙",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_6653.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 191904
+        }
+      ]
+    },
+    {
+      "id": 6481,
+      "date": "2026-06-23T01:33:54+00:00",
+      "text": "¡Buenas noticias! \n\nHicimos un poco más de merch, así que vuelve a estar disponible la opción de pagar la boleta con merch incluida, hasta agotar existencias.\n\nSi estaban esperando esta oportunidad, ¡es ahora!\n\n🌙",
+      "media": []
+    },
+    {
+      "id": 6196,
+      "date": "2026-06-12T16:01:25+00:00",
+      "text": "Nos han preguntado por el tamaño del espacio para el sticker personal en la página de credenciales del pasaporte: es de 6 x 6,5 cm. \n\n¡Pueden ir preparando el suyo!\n\n🌙",
+      "media": []
+    },
+    {
+      "id": 6194,
+      "date": "2026-06-12T15:17:27+00:00",
+      "text": "¡Atención, viajeros del Moonfest!\n\nQuienes compraron merch van a recibir su pasaporte del Moonfest, que tendrá una página de colección con espacios para llenar durante el evento.\n\nAsí que si vas a imprimir stickers para compartir, considera hacer algunos de 2,6 x 2,5 cm con tu personaje para que la gente los pegue en su pasaporte.\n\nTambién sirve un sello o cualquier cosa que te imagines para dejar tu marca en los pasaportes de los demás. ¡No hay una sola forma de hacerlo!\n\n🌙",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_6194.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 105933
+        }
+      ]
+    },
+    {
+      "id": 6083,
+      "date": "2026-06-07T15:23:51+00:00",
+      "text": "¡Hoy es el último día!\n\nHoy vence el plazo para pagar la boleta con merch incluida. Después de hoy las boletas siguen disponibles, pero ya sin merch.\n\n🎟️ Pagos por Nequi o Bre-B 👉 https://store.furrycolombia.com/\n🎟️ Pagos para extranjeros o con tarjeta 👉 https://conspace.app/events/moonfest\n\n------------------------\n\n¡También hasta hoy hay plazo para inscribir actividades, paneles y para ser parte del dealer's den!\n\n📋  https://forms.gle/3ZQSLb52dtfn11ek9\n\nNos estaremos comunicando con las personas que hayan enviado sus propuestas a partir del martes. \n\n🌙",
+      "media": []
+    },
+    {
+      "id": 6026,
+      "date": "2026-06-03T21:02:05+00:00",
+      "text": "¡RECORDATORIO PARA ARTISTAS Y PANELISTAS! \n\nHasta este domingo 7 de junio estarán abiertas las convocatorias para actividades y el Dealer’s Den.\n\nSi tienes un panel, taller, actividad o quieres vender mercancía, recuerda registrarte llenando el siguiente formulario:\n👉 https://forms.gle/3ZQSLb52dtfn11ek9\n\n✨ La participación no tiene ningún costo.",
+      "media": []
+    },
+    {
+      "id": 6018,
+      "date": "2026-06-02T23:01:49+00:00",
+      "text": "¡Solo quedan 5 días para pagar tu boleta con merch incluida!\n\nEl plazo cierra el domingo 7 de junio.\n\nPara pagos con Nequi o Bre-B 👉 https://store.furrycolombia.com/\nPara pagos con tarjeta o internacionales 👉 https://conspace.app/events/moonfest \n\n ¡No te quedes sin tu merch!\n\n⚠️ Recuerden que la boleta es obligatoria para entrar al evento.",
+      "media": []
+    },
+    {
+      "id": 5844,
+      "date": "2026-05-27T21:08:33+00:00",
+      "text": "¡Ampliamos el plazo de pago!\n\nMuchos de ustedes nos pidieron más tiempo y los escuchamos. Ahora tendrán hasta el domingo 7 de junio para pagar su boleta. Si pagan antes de esa fecha, la boleta incluye la merch del evento.\n\n⚠️ Recuerden que la boleta es obligatoria para participar del evento. Sin boleta, no hay entrada.\n\nSi tienen cualquier pregunta, no duden en escribirnos\n🌙",
+      "media": []
+    },
+    {
+      "id": 5834,
+      "date": "2026-05-25T17:06:43+00:00",
+      "text": "¡ATENCIÓN MOONFEST!\n\n¿Quieres hacer un panel? ¿Una actividad? ¿Vender cosas en el Dealer's Den?\n\nCuéntanos tu idea llenando este formulario \n👉 https://forms.gle/3ZQSLb52dtfn11ek9\n\nPero recuerda, SÓLO TIENES HASTA EL 7 DE JUNIO. \n\n¿Tienes preguntas? Escríbele a @NachoJukumari.\n\n¡No lo dejes para último momento! \n🌙",
+      "media": []
+    },
+    {
+      "id": 5580,
+      "date": "2026-05-19T14:57:41+00:00",
+      "text": "¡Hola a todos! 🐾\n\nVarios nos han escrito comentando que no podrán realizar su pago antes del 29 de mayo, pero que sí quieren su merch.\n\nEl plazo no se va a ampliar, sin embargo, estamos dispuestos a hacer una excepción. Si nos confirman su intención de pago antes de esa fecha, los incluiremos dentro del conteo para no dejarlos por fuera del pedido.\n\nTengan en cuenta que una vez cerrado el pedido no habrá forma de agregar más unidades, así que si están interesados, escríbannos antes del 29.\n\n⚠️ RECUERDEN: LA BOLETA ES OBLIGATORIA PARA PARTICIPAR EN LAS ACTIVIDADES. TENER SÓLO LA RESERVA DEL HOTEL NO ES SUFICIENTE.",
+      "media": []
+    },
     {
       "id": 5545,
       "date": "2026-05-17T16:56:51+00:00",

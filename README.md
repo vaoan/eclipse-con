@@ -314,6 +314,9 @@ pnpm sync:telegram
 ```
 
 These depend on local credentials configured outside the tracked env example.
+`pnpm translate:telegram` supports `TRANSLATE_PROVIDER=codex` for Codex CLI,
+and `TRANSLATE_PROVIDER=claude_code` now falls back to Codex CLI when Claude
+CLI access fails due to auth/subscription issues.
 
 ## Quality Gates
 

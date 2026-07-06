@@ -1,8 +1,138 @@
 {
   "source": "t.me/FurryMoonfest",
-  "fetchedAt": "2026-05-17T20:55:58.570945+00:00",
-  "translatedBy": "Claude Code (subscription)",
+  "fetchedAt": "2026-07-06T04:52:39.372455+00:00",
+  "translatedBy": "Claude Code (fallback: Codex CLI)",
   "messages": [
+    {
+      "id": 8196,
+      "date": "2026-07-05T18:09:51+00:00",
+      "text": "¡Today is the last day to register!\n\nHere you can see the list of everyone who has registered so far.\n\nIf your name doesn't appear, no spot has been reserved. Don't forget to fill it out today.\n\n👉 https://forms.gle/UY4AaftqE4gawyrh9",
+      "media": [
+        {
+          "type": "MessageMediaDocument",
+          "path": "telegram/media/msg_8196.xlsx",
+          "name": "Listado de personas que usarán el servicio de buses.xlsx",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "size": 11591
+        }
+      ]
+    },
+    {
+      "id": 7659,
+      "date": "2026-07-03T13:08:50+00:00",
+      "text": "We attach the list of people registered to use the event buses so far.\n\nIf you don't appear here, please fill out the form as soon as possible: https://forms.gle/UY4AaftqE4gawyrh9\n\nDeadline: July 5.\n\nRemember that if you want to use the bus and you're not on this list, you won't have a spot.",
+      "media": [
+        {
+          "type": "MessageMediaDocument",
+          "path": "telegram/media/msg_7659.xlsx",
+          "name": "Listado de personas que usarán el servicio de buses.xlsx",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "size": 10959
+        }
+      ]
+    },
+    {
+      "id": 7081,
+      "date": "2026-06-30T19:33:07+00:00",
+      "text": "🚌 Bus information for Moonfest!\n\nWe'll depart at 11:00 AM from the Carulla on 116 and Autopista Norte (Carulla Alhambra, one block west of the Pepe Sierra Transmilenio station).\n\n📍 Maps location: https://maps.app.goo.gl/Y9U7LxBPtwGxKn5u9\n\n⚠️ Don't forget to fill out this form before July 5th! Whoever doesn't fill it out won't have a spot on the bus: https://forms.gle/UY4AaftqE4gawyrh9",
+      "media": []
+    },
+    {
+      "id": 6963,
+      "date": "2026-06-27T14:26:40+00:00",
+      "text": "The translation is straightforward—no skill needed for a direct text translation.\n\n⚠️ IMPORTANT ANNOUNCEMENT\n\nTo organize the transportation logistics and determine how many buses and how many spots we need to reserve, we need to know the exact number of attendees who will require these services.\n\nFor this reason, everyone who is going to attend must fill out this form BEFORE JULY 5, regardless of how they plan to get there. This applies to those traveling in their own transportation, those riding in someone else's car, and especially those planning to use the bus.\n\n❗️If you plan to use the event bus and you are not registered on this list, we will not be able to guarantee you a spot that day, so please fill it out in advance.\n\n👉 https://forms.gle/UY4AaftqE4gawyrh9\n\nIf you have any questions, contact an admin.",
+      "media": []
+    },
+    {
+      "id": 6654,
+      "date": "2026-06-24T20:58:30+00:00",
+      "text": "",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_6654.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 195203
+        }
+      ]
+    },
+    {
+      "id": 6653,
+      "date": "2026-06-24T20:58:30+00:00",
+      "text": "We share with you the dress code for Furry Moonfest 2026, which was developed in accordance with the guidelines set out by the Hotel ESTELAR Paipa & Convention Center.\n\nWe remind you that, although we will be occupying a large percentage of the hotel, there will be other guests not associated with the event, so we ask for your utmost cooperation in this regard.\n\n🌙",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_6653.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 191904
+        }
+      ]
+    },
+    {
+      "id": 6481,
+      "date": "2026-06-23T01:33:54+00:00",
+      "text": "Translation:\n\nGood news! \n\nWe made a bit more merch, so the option to pay for the ticket with merch included is available again, while supplies last.\n\nIf you were waiting for this opportunity, it's now!\n\n🌙",
+      "media": []
+    },
+    {
+      "id": 6196,
+      "date": "2026-06-12T16:01:25+00:00",
+      "text": "We've been asked about the size of the space for the personal sticker on the passport credentials page: it is 6 x 6.5 cm.\n\nYou can start preparing yours!\n\n🌙",
+      "media": []
+    },
+    {
+      "id": 6194,
+      "date": "2026-06-12T15:17:27+00:00",
+      "text": "Attention, Moonfest travelers!\n\nThose who bought merch will receive their Moonfest passport, which will have a collection page with spaces to fill during the event.\n\nSo if you're going to print stickers to share, consider making some 2.6 x 2.5 cm with your character so people can stick them in their passport.\n\nA stamp or anything else you can imagine also works to leave your mark on other people's passports. There's no single way to do it!\n\n🌙",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_6194.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 105933
+        }
+      ]
+    },
+    {
+      "id": 6083,
+      "date": "2026-06-07T15:23:51+00:00",
+      "text": "Today is the last day!\n\nToday is the deadline to pay for the ticket with merch included. After today, tickets will still be available, but without merch.\n\n🎟️ Payments via Nequi or Bre-B 👉 https://store.furrycolombia.com/\n🎟️ Payments for foreigners or by card 👉 https://conspace.app/events/moonfest\n\n------------------------\n\nAlso, today is the last day to register activities, panels, and to be part of the dealer's den!\n\n📋  https://forms.gle/3ZQSLb52dtfn11ek9\n\nWe will be contacting the people who submitted their proposals starting Tuesday.\n\n🌙",
+      "media": []
+    },
+    {
+      "id": 6026,
+      "date": "2026-06-03T21:02:05+00:00",
+      "text": "!REMINDER FOR ARTISTS AND PANELISTS! \n\nUntil this Sunday, June 7, applications for activities and the Dealer’s Den will remain open.\n\nIf you have a panel, workshop, activity, or want to sell merchandise, remember to register by filling out the following form:\n👉 https://forms.gle/3ZQSLb52dtfn11ek9\n\n✨ Participation is completely free.",
+      "media": []
+    },
+    {
+      "id": 6018,
+      "date": "2026-06-02T23:01:49+00:00",
+      "text": "Only 5 days left to pay for your ticket with merch included!\n\nThe deadline closes on Sunday, June 7.\n\nFor payments with Nequi or Bre-B 👉 https://store.furrycolombia.com/\nFor card or international payments 👉 https://conspace.app/events/moonfest \n\nDon't miss out on your merch!\n\n⚠️ Remember that the ticket is required to enter the event.",
+      "media": []
+    },
+    {
+      "id": 5844,
+      "date": "2026-05-27T21:08:33+00:00",
+      "text": "We extended the payment deadline!\n\nMany of you asked us for more time, and we listened. You now have until Sunday, June 7 to pay for your ticket. If you pay before that date, the ticket includes the event merch.\n\n⚠️ Remember that the ticket is required to participate in the event. No ticket, no entry.\n\nIf you have any questions, don’t hesitate to write to us\n🌙",
+      "media": []
+    },
+    {
+      "id": 5834,
+      "date": "2026-05-25T17:06:43+00:00",
+      "text": "ATTENTION MOONFEST!\n\nDo you want to host a panel? An activity? Sell things in the Dealer's Den?\n\nTell us your idea by filling out this form\n👉 https://forms.gle/3ZQSLb52dtfn11ek9\n\nBut remember, YOU ONLY HAVE UNTIL JUNE 7.\n\nDo you have questions? Message @NachoJukumari.\n\nDon't leave it until the last minute!\n🌙",
+      "media": []
+    },
+    {
+      "id": 5580,
+      "date": "2026-05-19T14:57:41+00:00",
+      "text": "Hi everyone! 🐾\n\nSeveral of you have written to us mentioning that you won't be able to make your payment before May 29, but that you do want your merch.\n\nThe deadline will not be extended, however, we are willing to make an exception. If you confirm your intention to pay before that date, we will include you in the count so as not to leave you out of the order.\n\nKeep in mind that once the order is closed there will be no way to add more units, so if you're interested, write to us before the 29.\n\n⚠️ REMEMBER: THE TICKET IS MANDATORY TO PARTICIPATE IN THE ACTIVITIES. HAVING ONLY THE HOTEL RESERVATION IS NOT ENOUGH.",
+      "media": []
+    },
     {
       "id": 5545,
       "date": "2026-05-17T16:56:51+00:00",
