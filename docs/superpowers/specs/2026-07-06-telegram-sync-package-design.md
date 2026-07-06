@@ -27,6 +27,8 @@ moonfest is the first consumer, wired with **exactly today's values** — no beh
 - One package, many event feeds — each app points at a channel/thread/date window and gets its own
   `messages.json` + media.
 - **Precise curation:** include/exclude individual messages by **ID** and by **keyword**.
+- **Append-only archive:** a feed is a permanent record — new syncs only add; the source of _new_
+  news can change over time without ever losing older items; removal is **manual only** (§8).
 - Config that is **committed and reviewable** (non-secret feed settings) vs **secret** (account creds,
   provider keys) kept in env.
 - Preserve the existing WSL self-heal bootstrap (unattended dependency provisioning).
@@ -50,7 +52,7 @@ packages/telegram-sync/
     _bootstrap.py       # WSL/venv self-heal (was scripts/_telegram_bootstrap.py)
   bin/
     resolve-python.mjs  # interpreter resolver (was scripts/resolve-python.mjs)
-    sync.mjs            # orchestrator: fetch → select → translate for a given app config
+    sync.mjs            # orchestrator + subcommands: sync (fetch→select→translate→append), list, remove
   package.json          # name: @furrycolombia/telegram-sync
 ```
 
@@ -88,7 +90,10 @@ account serves every feed.
 
 ## 5. Selection Semantics (deterministic precedence)
 
-Per message, the **first** matching rule decides — top wins, so behavior is always predictable:
+Selection is the **ingest gate**: it decides whether a _newly-seen_ message enters a feed's archive.
+It runs on fetched candidates, not on already-archived items — so tightening a rule never deletes
+history (see §7/§8). Per candidate, the **first** matching rule decides — top wins, so behavior is
+always predictable:
 
 1. `select.excludeIds` contains its id → **OUT** (absolute; wins over everything).
 2. `select.includeIds` contains its id → **IN** (absolute; bypasses the date window).
@@ -113,16 +118,39 @@ without hunting individual IDs. Conflicting `includeIds`/`excludeIds` on the sam
 3. Re-run sync; the committed config is the **single source of truth** for what each feed shows —
    versioned, reviewable, no hidden state.
 
-## 7. Fetch Model
+## 7. Fetch & Archive Model (append-only)
 
-- Fetch = messages on `target`/`threadId` from `since` to now, **plus** any `select.includeIds`
-  fetched explicitly by id (Telethon `get_messages(ids=…)`), so promos outside the window can be
-  pulled in.
-- Apply §5 selection, then translate, then write `<outDir>/messages.json` (+ `media/`).
+`<outDir>/messages.json` is a **durable, append-only archive** (committed to the repo), not a
+regenerated view. Each sync:
+
+1. **Fetch** candidates on the _current_ `target`/`threadId` from a recent horizon (`since` or a
+   short lookback) to now, **plus** any `select.includeIds` fetched explicitly by id (Telethon
+   `get_messages(ids=…)`) so out-of-window promos can be pulled in.
+2. **Gate** candidates through §5 selection and **translate** the survivors.
+3. **Merge** survivors into the existing archive, deduped by **(source, id)**, and write it back.
+   Existing entries are **never removed or reordered**. Each entry records its `source` so ids from
+   different channels never collide.
+
+Consequences (all by design):
+
+- **Changing the source of new news** = point `target` at a new channel. Future syncs append under the
+  new source; everything archived from the old source stays and keeps rendering.
+- **Tightening `excludeIds`/`excludeKeywords`** only blocks _future_ ingests; it does **not** remove
+  already-archived matches. Removal is manual (§8).
+- **Media** is retained the same way — never auto-pruned.
 - No shared raw store: each app fetches independently. Fine for a low-volume news channel; revisit if
   volume or duplicate-fetch cost ever justifies a shared cache.
 
-## 8. Preserved Behavior & Migration Notes
+## 8. Manual Deletion (the only removal path)
+
+Nothing automated ever deletes archived news. When a maintainer genuinely wants an item gone:
+
+- `pnpm --filter <app> telegram:remove <id>` (a `remove` subcommand on `sync.mjs`) drops the entry
+  (and its media) from that app's `messages.json`, or the file is hand-edited — then committed.
+- This is deliberate and reviewable in git history. Selection rules (§5) are for _curating what comes
+  in_, not for deleting what is already archived.
+
+## 9. Preserved Behavior & Migration Notes
 
 - The **WSL self-heal** (venv bootstrap, Windows-python fast-path, interpreter resolver) moves into the
   package unchanged in behavior — sync still runs unattended from WSL-root or Windows.
@@ -132,15 +160,17 @@ without hunting individual IDs. Conflicting `includeIds`/`excludeIds` on the sam
 - The finished-but-uncommitted WSL self-heal work in the current tree is committed **first**, then
   relocated into the package as part of phase one.
 
-## 9. Sunfest Consumer (deferred)
+## 10. Sunfest Consumer (deferred)
 
 sunfest gets a committed `telegram.config.json` **placeholder** (documented, not wired to fetch) until
 the full site has a news UI. Whether it uses its **own channel** or the **same channel date/keyword
 filtered** is then a one-file config choice — the package supports both with no code change.
 
-## 10. Testing
+## 11. Testing
 
 - Unit (selection): table-driven cases over §5 precedence — id-in, id-out, keyword-in, keyword-out,
   window edges, include/exclude conflict.
+- Unit (archive): merge is append-only — a second sync with a changed `target` and a new
+  `excludeKeyword` still retains all previously-archived items; dedup keys on (source, id).
 - Golden: moonfest config + a fixed fetched fixture → `messages.json` matches today's shape.
 - Bootstrap: existing WSL/venv self-heal verification still passes from a pip-less `python3`.
