@@ -97,11 +97,11 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
 
 ---
 
-## Task 2: Selection logic (`select.py`) — TDD
+## Task 2: Selection logic (`selection.py`) — TDD
 
 **Files:**
 
-- Create: `packages/telegram-sync/src/select.py`, `packages/telegram-sync/tests/test_select.py`
+- Create: `packages/telegram-sync/src/selection.py`, `packages/telegram-sync/tests/test_select.py`
 
 **Interfaces:**
 
@@ -116,7 +116,7 @@ import unittest
 from datetime import datetime, timezone
 import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / "src"))
-from select import keep  # noqa: E402
+from selection import keep  # noqa: E402
 
 
 def msg(id, text="hello", when="2026-01-10T00:00:00+00:00"):
@@ -163,7 +163,7 @@ Expected: FAIL — `ModuleNotFoundError: No module named 'select'` or import err
 
 - [ ] **Step 3: Implement `select.py`**
 
-Create `packages/telegram-sync/src/select.py`:
+Create `packages/telegram-sync/src/selection.py`:
 
 ```python
 """Deterministic ingest gate: decide whether a fetched message enters a feed."""
@@ -201,7 +201,7 @@ Expected: PASS — 7 tests OK.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add packages/telegram-sync/src/select.py packages/telegram-sync/tests/test_select.py
+git add packages/telegram-sync/src/selection.py packages/telegram-sync/tests/test_select.py
 git commit -m "feat(telegram-sync): ID + keyword ingest selection with fixed precedence
 
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
@@ -326,7 +326,7 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
 
 **Interfaces:**
 
-- Consumes: env `TELEGRAM_API_ID/HASH/PHONE`, `TELEGRAM_TARGET`, `TELEGRAM_THREAD_ID`, `TELEGRAM_SINCE`, `TELEGRAM_OUT_DIR` (absolute), `TELEGRAM_SESSION` (absolute), `TELEGRAM_SELECT` (JSON). `select.keep`, `archive.merge`, `_bootstrap.ensure_packages`.
+- Consumes: env `TELEGRAM_API_ID/HASH/PHONE`, `TELEGRAM_TARGET`, `TELEGRAM_THREAD_ID`, `TELEGRAM_SINCE`, `TELEGRAM_OUT_DIR` (absolute), `TELEGRAM_SESSION` (absolute), `TELEGRAM_SELECT` (JSON). `selection.keep`, `archive.merge`, `_bootstrap.ensure_packages`.
 - Produces: writes `<TELEGRAM_OUT_DIR>/messages.json` in the preserved shape (now with per-entry `source`).
 
 - [ ] **Step 1: Adapt the existing fetch into the package**
@@ -336,7 +336,7 @@ Create `packages/telegram-sync/src/fetch.py` starting from `apps/moonfest2026/sc
 1. Import the new modules at top (after `ensure_packages("telethon")`):
    ```python
    import json
-   from select import keep
+   from selection import keep
    from archive import merge
    ```
 2. Replace the base-dir/path block. Instead of `base_dir = Path(__file__).resolve().parent.parent` and `out_dir = base_dir / "public" / "telegram"`, use env:
