@@ -110,7 +110,9 @@ test.describe("analytics instrumentation", () => {
           ctaId: typeof entry.ctaId === "string" ? entry.ctaId : null,
           step: typeof entry.step === "string" ? entry.step : null,
           sourceSurface:
-            typeof entry.sourceSurface === "string" ? entry.sourceSurface : null,
+            typeof entry.sourceSurface === "string"
+              ? entry.sourceSurface
+              : null,
           targetAction:
             typeof entry.targetAction === "string" ? entry.targetAction : null,
         }));

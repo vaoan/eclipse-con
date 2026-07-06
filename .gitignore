@@ -28,7 +28,7 @@ blob-report/
 # OS
 .DS_Store
 Thumbs.db
-/e2e
+apps/*/e2e/
 /.claude/skills/.system
 /.claude/sessions
 /.claude/tmp
@@ -38,10 +38,10 @@ Thumbs.db
 .claude/models_cache.json
 .claude/version.json
 /tmp
-scripts/telegram.session
-scripts/telegram.session-journal
-/scripts/__pycache__
-scripts/.venv-telegram/
+**/telegram.session
+**/telegram.session-journal
+**/__pycache__/
+**/.venv-telegram/
 
 # Local lighthouse artifacts
 .lh-profile/

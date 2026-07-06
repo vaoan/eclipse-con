@@ -37,7 +37,6 @@ test("convention page loads all sections with content visible after scroll", asy
       path: `e2e/screenshots/${id}.png`,
       fullPage: false,
     });
-
   }
 
   // Footer check separately (uses heading role to avoid ambiguity)

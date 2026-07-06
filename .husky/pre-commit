@@ -1,3 +1,3 @@
-pnpm version:auto
-git add .env.example
+pnpm --filter moonfest2026 version:auto
+git add apps/moonfest2026/.env.example
 pnpm precommit

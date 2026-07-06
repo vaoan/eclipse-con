@@ -44,7 +44,9 @@ test.describe("browser routing", () => {
   test("browser back from the registration tutorial CTA returns to registration", async ({
     page,
   }) => {
-    await page.goto("/?section=registration", { waitUntil: "domcontentloaded" });
+    await page.goto("/?section=registration", {
+      waitUntil: "domcontentloaded",
+    });
     await dismissConsentGate(page);
     await expect(page).toHaveURL(/\/\?section=registration$/);
     await expectSectionNearTop(page, "section-registration");

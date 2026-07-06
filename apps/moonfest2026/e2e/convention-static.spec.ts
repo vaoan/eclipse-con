@@ -23,7 +23,9 @@ test.describe("static build (file:// protocol)", () => {
     });
   });
 
-  test("hash route refresh keeps deep page and section query", async ({ page }) => {
+  test("hash route refresh keeps deep page and section query", async ({
+    page,
+  }) => {
     const htmlPath = resolve("dist-static/index.html");
     const baseFileUrl = `file:///${htmlPath.replaceAll("\\", "/")}`;
 
@@ -57,7 +59,9 @@ test.describe("static build (file:// protocol)", () => {
     await expect(registrationSection).toBeVisible();
   });
 
-  test("opening tutorial from landing clears section query", async ({ page }) => {
+  test("opening tutorial from landing clears section query", async ({
+    page,
+  }) => {
     const htmlPath = resolve("dist-static/index.html");
     const baseFileUrl = `file:///${htmlPath.replaceAll("\\", "/")}`;
 
@@ -126,7 +130,9 @@ test.describe("static build (file:// protocol)", () => {
       );
       const heading = section.getByRole("heading").first();
       const headingVisible = await heading.isVisible();
-      console.log(`#${id}: opacity=${opacity}, heading visible=${headingVisible}`);
+      console.log(
+        `#${id}: opacity=${opacity}, heading visible=${headingVisible}`
+      );
       expect(Number(opacity)).toBeGreaterThan(0);
       expect(headingVisible).toBe(true);
     }

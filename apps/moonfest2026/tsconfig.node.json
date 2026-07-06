@@ -21,11 +21,5 @@
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "vite.config.ts",
-    "vitest.config.ts",
-    "eslint.config.mjs",
-    "playwright.config.ts",
-    "stylelint.config.mjs"
-  ]
+  "include": ["vite.config.ts", "vitest.config.ts", "playwright.config.ts"]
 }
