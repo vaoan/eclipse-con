@@ -1,8 +1,248 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sun-bg: #fff7ed;
-  --color-sun-glow: #fbbf24;
-  --color-sun-deep: #b45309;
-  --color-sun-ink: #431407;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
+
+  --color-plum: #3b0a26;
+  --color-rose: #c81e5b;
+  --color-tangerine: #f4552b;
+  --color-marigold: #ff9f1c;
+  --color-gold: #ffd97d;
+  --color-sun: #fff6da;
+  --color-cream: #fff3d6;
+  --color-ink: #2a0812;
+  --color-teal: #0d9488;
+  --color-teal-bright: #17b9a8;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--color-plum);
+    color: var(--color-cream);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* ---- Stage: the sky ------------------------------------------------------ */
+.stage {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  text-align: center;
+}
+
+/* Radial dusk: bright sun core burning down into deep tropical plum. */
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background: radial-gradient(
+    125% 95% at 50% 40%,
+    var(--color-sun) 0%,
+    var(--color-gold) 11%,
+    var(--color-marigold) 24%,
+    var(--color-tangerine) 41%,
+    var(--color-rose) 64%,
+    var(--color-plum) 100%
+  );
+}
+
+/* Signature: radiating sun rays, slowly turning. */
+.rays {
+  position: absolute;
+  z-index: -2;
+  left: 50%;
+  top: 40%;
+  width: 200vmax;
+  height: 200vmax;
+  translate: -50% -50%;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(255, 246, 218, 0) 0deg 7deg,
+    rgba(255, 246, 218, 0.17) 7deg 14deg
+  );
+  -webkit-mask-image: radial-gradient(
+    closest-side,
+    #000 26%,
+    rgba(0, 0, 0, 0.5) 48%,
+    transparent 76%
+  );
+  mask-image: radial-gradient(
+    closest-side,
+    #000 26%,
+    rgba(0, 0, 0, 0.5) 48%,
+    transparent 76%
+  );
+  animation: rays-spin 100s linear infinite;
+  will-change: transform;
+}
+
+/* Heat shimmer breathing over the core. */
+.haze {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    55% 40% at 50% 38%,
+    rgba(255, 255, 255, 0.14),
+    transparent 70%
+  );
+  mix-blend-mode: soft-light;
+  animation: haze-breathe 7s ease-in-out infinite;
+}
+
+@keyframes rays-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes haze-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+/* ---- Content ------------------------------------------------------------- */
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  max-width: 62rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(0.68rem, 1.6vw, 0.86rem);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.82;
+}
+
+.wordmark {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  font-size: clamp(3.75rem, 20vw, 13rem);
+  text-wrap: balance;
+}
+
+.wordmark .year {
+  display: block;
+  margin-top: 0.08em;
+  font-size: 0.46em;
+  letter-spacing: 0.06em;
+  color: rgba(42, 8, 18, 0.08);
+  -webkit-text-stroke: clamp(2px, 0.45vw, 4px) var(--color-ink);
+}
+
+.thesis {
+  margin: 0.35em 0 0;
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 4vw, 2.4rem);
+  line-height: 1.05;
+  color: var(--color-cream);
+  text-wrap: balance;
+  text-shadow: 0 2px 26px rgba(59, 10, 38, 0.55);
+}
+
+.subline {
+  margin: 0;
+  max-width: 36ch;
+  font-family: var(--font-body);
+  font-size: clamp(0.92rem, 2vw, 1.1rem);
+  line-height: 1.5;
+  color: var(--color-cream);
+  opacity: 0.86;
+}
+
+/* ---- CTA: the single cool accent ---------------------------------------- */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+  padding: 0.85em 1.7em;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: #fff;
+  background: var(--color-teal);
+  box-shadow:
+    0 14px 34px -10px rgba(13, 148, 136, 0.75),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.cta:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: var(--color-teal-bright);
+  box-shadow:
+    0 20px 40px -12px rgba(13, 148, 136, 0.8),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+.cta:focus-visible {
+  outline: 3px solid var(--color-cream);
+  outline-offset: 3px;
+}
+
+.footer {
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  opacity: 0.72;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rays,
+  .haze {
+    animation: none;
+  }
+  .cta {
+    transition: none;
+  }
 }

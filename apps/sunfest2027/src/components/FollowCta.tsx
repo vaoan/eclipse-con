@@ -11,7 +11,7 @@ interface FollowCtaProps {
   readonly className?: string;
 }
 
-/** Primary "follow us" call-to-action linking to the Telegram channel. */
+/** Primary "join the pack" call-to-action linking to the Telegram channel. */
 export function FollowCta({ className }: Readonly<FollowCtaProps>) {
   const { t } = useTranslation();
   return (
@@ -24,11 +24,7 @@ export function FollowCta({ className }: Readonly<FollowCtaProps>) {
       data-content-id="follow_telegram"
       data-cta-id="teaser_follow"
       data-funnel-step="follow"
-      className={cn(
-        "inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold",
-        "bg-sun-deep text-sun-bg transition-transform hover:scale-105",
-        className
-      )}
+      className={cn("cta", className)}
     >
       <Send className="size-5" aria-hidden="true" />
       {t("teaser.followCta")}

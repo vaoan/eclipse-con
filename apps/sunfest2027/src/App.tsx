@@ -3,30 +3,52 @@ import { useTranslation } from "react-i18next";
 import { FollowCta } from "@/components/FollowCta";
 import { tid } from "@/lib/tid";
 
-/** Single-screen sunfest2027 coming-soon teaser. */
+/** Split a "Brand YEAR" wordmark into its brand and trailing-year parts. */
+function splitWordmark(wordmark: string): readonly [string, string] {
+  const lastSpace = wordmark.lastIndexOf(" ");
+  if (lastSpace > 0) {
+    const tail = wordmark.slice(lastSpace + 1);
+    if (/^\d{4}$/.test(tail)) {
+      return [wordmark.slice(0, lastSpace), tail];
+    }
+  }
+  return [wordmark, ""];
+}
+
+/** Single-screen sunfest2027 coming-soon teaser: a radiant tropical sun. */
 export function App() {
   const { t, i18n } = useTranslation();
+  const wordmark = t("teaser.wordmark");
+  const [brand, year] = splitWordmark(wordmark);
 
   useEffect(() => {
     document.documentElement.lang = i18n.language;
   }, [i18n.language]);
 
   return (
-    <main
-      data-testid={tid("teaser-root")}
-      className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-gradient-to-b from-sun-bg to-sun-glow/40 px-6 text-center text-sun-ink"
-    >
-      <h1 className="text-5xl font-extrabold tracking-tight text-sun-deep md:text-7xl">
-        {t("teaser.wordmark")}
-      </h1>
-      <p className="text-2xl font-semibold md:text-3xl">
-        {t("teaser.saveTheDate")}
-      </p>
-      <p className="max-w-md text-base opacity-80 md:text-lg">
-        {t("teaser.subline")}
-      </p>
-      <FollowCta className="mt-2" />
-      <footer className="mt-10 text-sm opacity-70">{t("teaser.footer")}</footer>
+    <main className="stage" data-testid={tid("teaser-root")}>
+      <div className="rays" aria-hidden="true" />
+      <div className="haze" aria-hidden="true" />
+
+      <div className="content">
+        <p className="eyebrow">{t("teaser.eyebrow")}</p>
+
+        <h1 className="wordmark" aria-label={wordmark}>
+          <span aria-hidden="true">{brand}</span>
+          {year && (
+            <span className="year" aria-hidden="true">
+              {year}
+            </span>
+          )}
+        </h1>
+
+        <p className="thesis">{t("teaser.thesis")}</p>
+        <p className="subline">{t("teaser.subline")}</p>
+
+        <FollowCta />
+
+        <footer className="footer">{t("teaser.footer")}</footer>
+      </div>
     </main>
   );
 }
