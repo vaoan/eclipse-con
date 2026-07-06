@@ -1,9 +1,16 @@
 import asyncio
+import io
 import json
 import os
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Ensure stdout can handle Unicode (emojis in message text) on Windows
+# consoles whose default codepage (e.g. cp1252) can't encode them directly.
+if sys.stdout.encoding and sys.stdout.encoding.lower() not in ("utf-8", "utf8"):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 from _bootstrap import ensure_packages  # noqa: E402
 
