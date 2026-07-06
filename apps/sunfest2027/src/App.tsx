@@ -1,10 +1,16 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FollowCta } from "@/components/FollowCta";
 import { tid } from "@/lib/tid";
 
 /** Single-screen sunfest2027 coming-soon teaser. */
 export function App() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
+
   return (
     <main
       data-testid={tid("teaser-root")}
