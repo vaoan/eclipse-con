@@ -1,0 +1,16 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "sunfest2027"
+compatibility_date = "2025-09-27"
+compatibility_flags = ["nodejs_compat"]
+main = "cloudflare/sunfest-worker.mjs"
+
+workers_dev = true
+
+[assets]
+directory = "./apps/sunfest2027/dist"
+not_found_handling = "single-page-application"
+binding = "ASSETS"
+
+[[routes]]
+pattern = "sunfest.furrycolombia.com/*"
+zone_name = "furrycolombia.com"
