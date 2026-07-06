@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@theme {
+  --color-sun-bg: #fff7ed;
+  --color-sun-glow: #fbbf24;
+  --color-sun-deep: #b45309;
+  --color-sun-ink: #431407;
+}
