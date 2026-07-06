@@ -104,6 +104,10 @@ if (command === "sync") {
     process.exit(1);
   }
   process.exit(runPy("remove_cli.py", [args.id]));
+} else if (command === "fetch") {
+  process.exit(runPy("fetch.py"));
+} else if (command === "translate") {
+  process.exit(runPy("translate.py"));
 } else {
   console.error(`Unknown command: ${command}`);
   process.exit(1);

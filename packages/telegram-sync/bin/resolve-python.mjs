@@ -61,7 +61,7 @@ function findWindowsPython() {
  * Windows Python is preferred because it already holds Telethon and the
  * authenticated Telegram session; it is found on PATH or, failing that, via
  * Windows `where.exe`. Otherwise the native Python is used, and the scripts
- * provision their own dependencies (see `_telegram_bootstrap.py`). Set
+ * provision their own dependencies (see `_bootstrap.py`). Set
  * TELEGRAM_FORCE_LINUX_PYTHON to skip Windows Python and use the Linux
  * interpreter (useful for CI or a self-contained venv).
  *
