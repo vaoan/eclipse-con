@@ -17,79 +17,34 @@
 - Conventional commits; every commit ends with `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
 - pnpm only (never npm/yarn); only `pnpm-lock.yaml` may exist.
 - App package name is exactly `moonfest2026` (used by `pnpm --filter`). Folder is exactly `apps/moonfest2026/`.
-- Secrets are NOT reorganized in this phase: `.env.local` / `.env.example` move into the app **as-is**. The shared-root-secrets split (spec §6) is deferred to Phase 1b (telegram-sync), which is the first phase that actually needs a second consumer.
+- **The husky pre-commit hook runs on every commit** (`pnpm version:auto` → `git add …/.env.example` → `pnpm precommit`/lint-staged). Because it exercises the whole toolchain, the repo must be in a **toolchain-consistent state before any commit**: root `version:auto` must resolve, and lint-staged (prettier + eslint) must pass on staged files. This is why the relocation, the package.json split, and the path/husky fixes all land in **one** commit (Task 2).
+- Secrets are NOT reorganized in this phase: `.env.local` / `.env.example` move into the app **as-is**. The shared-root-secrets split (spec §6) is deferred to Phase 1b (telegram-sync).
 - Acceptance gate (must all pass before phase is "done"): `pnpm --filter moonfest2026 typecheck`, root `pnpm lint`, `pnpm --filter moonfest2026 test`, `pnpm --filter moonfest2026 build`, `pnpm --filter moonfest2026 build:static`, `wrangler deploy --dry-run` with the app config, and the husky `pre-commit` hook on a real staged change. `check:tools`/`check:style` and `test:e2e` are best-effort, not gating (both were already partially broken / gitignored pre-migration).
 
 ---
 
-## Task 1: Land pending Telegram work and branch
+## Task 1: Land pending Telegram work and branch — ✅ COMPLETE
 
-Clean the working tree first so the `git mv` in Task 2 operates on committed files (renames stay legible in history). The tree currently holds the finished, verified WSL self-heal tooling plus a synced news batch.
+(Executed: commits `e6b0531` telegram tooling, `c93e707` news content; branch `chore/monorepo-migration-phase-1a`; tree clean; review clean, no secrets.)
 
-**Files:**
-
-- Commit (tooling): `scripts/_telegram_bootstrap.py`, `scripts/resolve-python.mjs`, `scripts/fetch-telegram.mjs`, `scripts/fetch-telegram.py`, `scripts/translate-telegram.mjs`, `scripts/translate-telegram.py`, `.gitignore`
-- Commit (content): `public/telegram/messages.json`, `public/telegram/messages.en.json`, `public/telegram/media/msg_6194.jpg`, `public/telegram/media/msg_6653.jpg`, `public/telegram/media/msg_6654.jpg`, `public/telegram/media/msg_7659.xlsx`, `public/telegram/media/msg_8196.xlsx`, `public/BreB.jpg`, `README.md`
-
-- [ ] **Step 1: Confirm the current tree state**
-
-Run: `git status --short`
-Expected: the modified/untracked files listed above, on branch `main`.
-
-- [ ] **Step 2: Commit the telegram tooling (WSL self-heal)**
-
-```bash
-git add scripts/_telegram_bootstrap.py scripts/resolve-python.mjs \
-  scripts/fetch-telegram.mjs scripts/fetch-telegram.py \
-  scripts/translate-telegram.mjs scripts/translate-telegram.py .gitignore
-git commit -m "$(cat <<'EOF'
-feat: self-provisioning telegram sync (WSL/venv bootstrap)
-
-Interpreter resolver + Python bootstrap so telegram sync installs its
-own dependencies unattended from WSL-root or Windows.
-
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
-EOF
-)"
-```
-
-Note: the husky hook will bump `.env.example` and re-run lint-staged; that is expected. If it fails on formatting, run `npx prettier --write <file>` on the flagged file and re-commit.
-
-- [ ] **Step 3: Commit the synced news content**
-
-```bash
-git add public/telegram/messages.json public/telegram/messages.en.json \
-  public/telegram/media/msg_6194.jpg public/telegram/media/msg_6653.jpg \
-  public/telegram/media/msg_6654.jpg public/telegram/media/msg_7659.xlsx \
-  public/telegram/media/msg_8196.xlsx public/BreB.jpg README.md
-git commit -m "$(cat <<'EOF'
-chore: sync telegram news batch and media
-
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
-EOF
-)"
-```
-
-- [ ] **Step 4: Create the migration branch**
-
-```bash
-git checkout -b chore/monorepo-migration-phase-1a
-```
-
-- [ ] **Step 5: Verify clean tree on the branch**
-
-Run: `git status --short && git branch --show-current`
-Expected: no output from status (clean tree); branch is `chore/monorepo-migration-phase-1a`.
+The tree held finished, verified WSL self-heal Telegram tooling plus a synced news batch. It was committed in two logical commits (tooling; content) on `main`, then branch `chore/monorepo-migration-phase-1a` was created. This kept the pre-existing work out of the migration PR and gave Task 2 a clean tree.
 
 ---
 
-## Task 2: Add the workspace root and relocate the app
+## Task 2: Relocate the app and rewire the toolchain (single consistent commit)
+
+Move every moonfest file under `apps/moonfest2026/`, split `package.json`, and re-point everything that references old paths — then `pnpm install` and commit **once**. A single commit is mandatory: any commit made after `scripts/` moves but before the root `package.json`/husky are fixed would fail the pre-commit hook (`version:auto` → missing `scripts/bump-version.mjs`), and `--no-verify` is forbidden.
 
 **Files:**
 
-- Create: `pnpm-workspace.yaml`
-- Move (git-tracked, via `git mv`): `src`, `public`, `index.html`, `cloudflare`, `scripts`, `vite.config.ts`, `vitest.config.ts`, `playwright.config.ts`, `playwright.analytics.config.js`, `tsconfig.json`, `tsconfig.app.json`, `tsconfig.node.json`, `wrangler.toml`, `components.json`, `.env.example`, `CLOUDFLARE-SETUP.md` → under `apps/moonfest2026/`
-- Move (untracked/gitignored, via plain `mv`): `.env.local`, `e2e` → under `apps/moonfest2026/`
+- Create: `pnpm-workspace.yaml`, `apps/moonfest2026/package.json`
+- Modify: `package.json` (root → workspace root), `eslint.config.mjs`, `.husky/pre-commit`, `.gitignore`, `sync-telegram.cmd`, `sync-telegram.ps1`, `apps/moonfest2026/tsconfig.node.json` (after move)
+- Move (git-tracked, `git mv`): `src`, `public`, `index.html`, `cloudflare`, `scripts`, `vite.config.ts`, `vitest.config.ts`, `playwright.config.ts`, `playwright.analytics.config.js`, `tsconfig.json`, `tsconfig.app.json`, `tsconfig.node.json`, `wrangler.toml`, `components.json`, `.env.example`, `CLOUDFLARE-SETUP.md` → `apps/moonfest2026/`
+- Move (untracked/gitignored, plain `mv`): `.env.local`, `e2e` → `apps/moonfest2026/`
+
+**Interfaces:**
+
+- Produces: workspace with app package `moonfest2026`. App scripts: `dev`, `build`, `build:static`, `preview`, `typecheck`, `test`, `test:e2e*`, `deploy:cloudflare*`, `fetch:telegram`, `translate:telegram`, `sync:telegram`, `version:auto`. Root delegating scripts: `pnpm --filter moonfest2026 <script>`; root also owns `lint` (`eslint .`), `format`, `check:*`, `precommit`, `prepare`.
 
 - [ ] **Step 1: Create the workspace manifest**
 
@@ -101,15 +56,10 @@ packages:
   - "packages/*"
 ```
 
-- [ ] **Step 2: Create the app directory**
+- [ ] **Step 2: Move the git-tracked app files**
 
 ```bash
 mkdir -p apps/moonfest2026
-```
-
-- [ ] **Step 3: Move the git-tracked app files**
-
-```bash
 git mv src public index.html cloudflare scripts \
   vite.config.ts vitest.config.ts playwright.config.ts playwright.analytics.config.js \
   tsconfig.json tsconfig.app.json tsconfig.node.json \
@@ -117,49 +67,16 @@ git mv src public index.html cloudflare scripts \
   apps/moonfest2026/
 ```
 
-- [ ] **Step 4: Move the untracked env + e2e (gitignored — plain mv)**
+- [ ] **Step 3: Move the untracked env + e2e (gitignored — plain mv)**
 
 ```bash
 [ -f .env.local ] && mv .env.local apps/moonfest2026/.env.local
 [ -d e2e ] && mv e2e apps/moonfest2026/e2e
 ```
 
-- [ ] **Step 5: Verify the move**
+- [ ] **Step 4: Create the app package.json**
 
-Run: `ls apps/moonfest2026 && git status --short`
-Expected: the moved files appear under `apps/moonfest2026/`; `git status` shows renames (`R`) for tracked files and the new `pnpm-workspace.yaml`. Root no longer contains `src/`, `vite.config.ts`, `wrangler.toml`, etc.
-
-- [ ] **Step 6: Commit the relocation**
-
-```bash
-git add pnpm-workspace.yaml apps/moonfest2026
-git commit -m "$(cat <<'EOF'
-refactor: relocate moonfest app into apps/moonfest2026 under pnpm workspace
-
-Pure file move (git mv preserves history). Package.json split and path
-fixes follow in subsequent commits.
-
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
-EOF
-)"
-```
-
----
-
-## Task 3: Split package.json (root workspace + app)
-
-**Files:**
-
-- Create: `apps/moonfest2026/package.json`
-- Modify: `package.json` (root — rewrite to workspace root)
-
-**Interfaces:**
-
-- Produces: app package name `moonfest2026` with scripts `dev`, `build`, `build:static`, `typecheck`, `test`, `test:e2e`, `deploy:cloudflare`, `sync:telegram`, `version:auto`. Root delegating scripts call `pnpm --filter moonfest2026 <script>`.
-
-- [ ] **Step 1: Create the app package.json**
-
-Create `apps/moonfest2026/package.json` (runtime deps + build/test toolchain live here; the app owns its own build/test/deploy scripts):
+Create `apps/moonfest2026/package.json`:
 
 ```json
 {
@@ -228,9 +145,9 @@ Create `apps/moonfest2026/package.json` (runtime deps + build/test toolchain liv
 }
 ```
 
-- [ ] **Step 2: Rewrite the root package.json**
+- [ ] **Step 5: Rewrite the root package.json**
 
-Replace the entire root `package.json` with the workspace root (repo-wide tooling + delegating scripts). `lint`/`format`/`check:*` run from root over `apps/*`; the husky hook lives here:
+Replace the entire root `package.json` with the workspace root:
 
 ```json
 {
@@ -300,65 +217,27 @@ Replace the entire root `package.json` with the workspace root (repo-wide toolin
 }
 ```
 
-- [ ] **Step 3: Verify JSON validity**
+- [ ] **Step 6: Fix the app's node tsconfig include**
 
-Run: `node -e "JSON.parse(require('fs').readFileSync('package.json','utf8'));JSON.parse(require('fs').readFileSync('apps/moonfest2026/package.json','utf8'));console.log('both valid')"`
-Expected: `both valid`
-
-- [ ] **Step 4: Commit**
-
-```bash
-git add package.json apps/moonfest2026/package.json
-git commit -m "$(cat <<'EOF'
-refactor: split package.json into workspace root and moonfest2026 app
-
-Root owns repo-wide tooling (eslint/prettier/stylelint/husky) and
-delegates dev/build/test to the app via pnpm --filter.
-
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
-EOF
-)"
-```
-
----
-
-## Task 4: Re-point paths that don't move with the app
-
-Four things reference locations that changed: the app's node tsconfig includes two root-only config files; the root eslint ignore list points at old paths; the husky hook bumps and stages the app's `.env.example`; `.gitignore` and the telegram launcher shims point at the old `scripts/` location.
-
-**Files:**
-
-- Modify: `apps/moonfest2026/tsconfig.node.json`
-- Modify: `eslint.config.mjs`
-- Modify: `.husky/pre-commit`
-- Modify: `.gitignore`
-- Modify: `sync-telegram.cmd`, `sync-telegram.ps1`
-
-- [ ] **Step 1: Drop root-only config files from the app's node tsconfig**
-
-In `apps/moonfest2026/tsconfig.node.json`, the `include` array lists `eslint.config.mjs` and `stylelint.config.mjs`, which stay at the repo root and no longer exist beside this tsconfig. Change the `include` array to only the app-local config files:
+`apps/moonfest2026/tsconfig.node.json` currently `include`s `eslint.config.mjs` and `stylelint.config.mjs`, which stay at the repo root and no longer sit beside this tsconfig. Set its `include` to only the app-local config files:
 
 ```json
   "include": ["vite.config.ts", "vitest.config.ts", "playwright.config.ts"]
 ```
 
-- [ ] **Step 2: Update the root eslint ignore paths**
+- [ ] **Step 7: Update the root eslint ignore paths**
 
-In `eslint.config.mjs`, the top `ignores` array uses old root-relative paths. Replace the app-relative entries so they match the new location (leave `node_modules/**`, `coverage/**`, `playwright-report/**`, `test-results/**`, `.claude/**`, `.lh-profile/**`, and the config-file entries unchanged):
+In `eslint.config.mjs`, the top `ignores` array uses old root-relative paths. Replace these five entries (leave `node_modules/**`, `coverage/**`, `playwright-report/**`, `test-results/**`, `.claude/**`, `.lh-profile/**`, and the config-file entries unchanged):
 
-```js
-      "apps/*/dist/**",
-      "apps/*/dist-static/**",
-      "apps/*/e2e/**",
-      "apps/*/scripts/**",
-      "apps/*/cloudflare/**",
-```
+- `"dist/**"` → `"apps/*/dist/**"`
+- `"dist-static/**"` → `"apps/*/dist-static/**"`
+- `"e2e/**"` → `"apps/*/e2e/**"`
+- `"scripts/**"` → `"apps/*/scripts/**"`
+- `"cloudflare/**"` → `"apps/*/cloudflare/**"`
 
-(Replace the former `"dist/**"`, `"dist-static/**"`, `"e2e/**"`, `"scripts/**"`, `"cloudflare/**"` entries respectively.)
+- [ ] **Step 8: Re-point the husky pre-commit hook**
 
-- [ ] **Step 3: Re-point the husky pre-commit hook**
-
-The version bump now belongs to the app (its `bump-version.mjs` writes the app's `.env.example` when run with the app as cwd). Replace `.husky/pre-commit` contents with:
+Replace `.husky/pre-commit` contents with (the version bump now delegates to the app, whose `bump-version.mjs` writes the app's `.env.example` when run with the app as cwd):
 
 ```sh
 pnpm --filter moonfest2026 version:auto
@@ -366,9 +245,9 @@ git add apps/moonfest2026/.env.example
 pnpm precommit
 ```
 
-- [ ] **Step 4: Widen the gitignore paths that were root-anchored**
+- [ ] **Step 9: Widen the gitignore paths that were root-anchored**
 
-In `.gitignore`, replace the five moonfest-scripts entries so they match the file at its new depth. Change:
+In `.gitignore`, replace:
 
 ```
 scripts/telegram.session
@@ -377,7 +256,7 @@ scripts/telegram.session-journal
 scripts/.venv-telegram/
 ```
 
-to:
+with:
 
 ```
 **/telegram.session
@@ -386,13 +265,11 @@ to:
 **/.venv-telegram/
 ```
 
-(`dist/`, `dist-static/`, `.env.local`, `.env.*.local`, `coverage/` are not anchored and already match at any depth — leave them.)
+(`dist/`, `dist-static/`, `.env.local`, `.env.*.local`, `coverage/` are not anchored — leave them.)
 
-- [ ] **Step 5: Re-point the telegram launcher shims**
+- [ ] **Step 10: Re-point the telegram launcher shims**
 
-`sync-telegram.cmd` and `sync-telegram.ps1` at the repo root call `scripts/sync-telegram.mjs`, which is now under the app. Update each path:
-
-In `sync-telegram.cmd`:
+`sync-telegram.cmd`:
 
 ```bat
 @echo off
@@ -400,7 +277,7 @@ setlocal
 node "%~dp0apps\moonfest2026\scripts\sync-telegram.mjs" %*
 ```
 
-In `sync-telegram.ps1`:
+`sync-telegram.ps1`:
 
 ```powershell
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -408,63 +285,83 @@ $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 exit $LASTEXITCODE
 ```
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 11: Validate JSON and install the workspace**
 
 ```bash
-git add apps/moonfest2026/tsconfig.node.json eslint.config.mjs .husky/pre-commit .gitignore sync-telegram.cmd sync-telegram.ps1
-git commit -m "$(cat <<'EOF'
-fix: re-point tooling paths for the app relocation
+node -e "JSON.parse(require('fs').readFileSync('package.json','utf8'));JSON.parse(require('fs').readFileSync('apps/moonfest2026/package.json','utf8'));console.log('json ok')"
+pnpm install
+```
 
-Node tsconfig include, eslint ignores, husky version-bump target,
-gitignore depth, and telegram launcher shims now reference
-apps/moonfest2026.
+Expected: `json ok`, then `pnpm install` completes and recognizes workspace packages `moonfest2026` + root. If install errors, resolve before committing.
+
+- [ ] **Step 12: Verify the move looks right**
+
+Run: `ls apps/moonfest2026 && git status --short | head -40`
+Expected: moved files under `apps/moonfest2026/`; `git status` shows renames (`R`) for tracked files plus new `pnpm-workspace.yaml`, modified root `package.json`, `eslint.config.mjs`, `.husky/pre-commit`, `.gitignore`, `sync-telegram.*`, and new `apps/moonfest2026/package.json`. Root no longer has `src/`, `vite.config.ts`, `wrangler.toml`.
+
+- [ ] **Step 13: Commit (the hook must pass cleanly)**
+
+```bash
+git add -- pnpm-workspace.yaml package.json apps/moonfest2026 \
+  eslint.config.mjs .husky/pre-commit .gitignore sync-telegram.cmd sync-telegram.ps1 pnpm-lock.yaml
+git commit -m "$(cat <<'EOF'
+refactor: relocate moonfest into apps/moonfest2026 under pnpm workspace
+
+Moves all moonfest app files under apps/moonfest2026 (git mv preserves
+history), splits package.json into workspace root + app, and re-points
+tooling paths (eslint ignores, node tsconfig include, husky version-bump
+target, gitignore depth, telegram launcher shims). Single commit so the
+pre-commit hook stays toolchain-consistent.
 
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 EOF
 )"
 ```
 
+Expected: the pre-commit hook runs `pnpm --filter moonfest2026 version:auto` (bumps `apps/moonfest2026/.env.example`), stages it, and lint-staged (prettier + eslint) passes on the staged files. If the hook fails:
+
+- **`version:auto` "no projects matched"** → confirm `pnpm-workspace.yaml` exists and `apps/moonfest2026/package.json` has `"name": "moonfest2026"`; re-run `pnpm install`.
+- **eslint config-resolution error on moved `apps/moonfest2026/src/**`** → confirm `eslint.config.mjs`still uses`projectService: true`and that`apps/moonfest2026/tsconfig.json` resolves (`@/_`→`./src/_`). Fix the config, do not `--no-verify`.
+- **prettier `--check` on a moved file** → the file content is unchanged and was clean; if flagged, `npx prettier --write <file>`, `git add` it, retry.
+
+Report DONE only when the commit succeeds with the hook active.
+
 ---
 
-## Task 5: Install and reach a green core gate
+## Task 3: Install verification — reach a green core gate
 
-Install the workspace, then drive the four core gate commands to green. Path re-rooting inside Vite/Vitest/tsconfig is automatic (they use `import.meta.dirname` / relative `paths`), so breakage here is most likely a **missing devDependency in the wrong package.json** or a **stray old path**. Fix and re-run.
+Drive the four core gate commands to green on the committed workspace. Path re-rooting inside Vite/Vitest/tsconfig is automatic (`import.meta.dirname` / relative `paths`), so breakage here is most likely a **missing devDependency in the wrong package.json** or a **stray old path**. Fix, re-run, and commit any fixes.
 
 **Files:**
 
-- Modify (as needed): `apps/moonfest2026/package.json` or `package.json` (only if a missing dependency surfaces)
+- Modify (only if a gate fails): `apps/moonfest2026/package.json` or `package.json`
 
-- [ ] **Step 1: Install the workspace**
-
-Run: `pnpm install`
-Expected: completes; creates a single updated `pnpm-lock.yaml`; recognizes workspace packages `moonfest2026` and the root. If it reports an unmet peer or missing bin, note which package needs the dep.
-
-- [ ] **Step 2: Typecheck the app**
+- [ ] **Step 1: Typecheck the app**
 
 Run: `pnpm --filter moonfest2026 typecheck`
-Expected: PASS (no TS errors). If it errors on `eslint.config.mjs`/`stylelint.config.mjs` not found, re-check Task 4 Step 1 (the node tsconfig `include`).
+Expected: PASS. If it errors on `eslint.config.mjs`/`stylelint.config.mjs` not found, re-check Task 2 Step 6 (the node tsconfig `include`).
 
-- [ ] **Step 3: Lint from root**
+- [ ] **Step 2: Lint from root**
 
 Run: `pnpm lint`
-Expected: PASS with zero errors/warnings. If ESLint reports "could not find config" for app files, confirm `eslint.config.mjs` is still at root and its `projectService` resolves `apps/moonfest2026/tsconfig.json`. If it lints build output, re-check the Task 4 Step 2 ignore paths.
+Expected: PASS, zero errors/warnings. If ESLint can't find config for app files, confirm `eslint.config.mjs` is at root with `projectService` resolving `apps/moonfest2026/tsconfig.json`. If it lints build output, re-check the Task 2 Step 7 ignore paths.
 
-- [ ] **Step 4: Run unit tests**
+- [ ] **Step 3: Unit tests**
 
 Run: `pnpm --filter moonfest2026 test`
-Expected: PASS (or "no tests" passes via `--passWithNoTests`). Vitest resolves `@` → `apps/moonfest2026/src` via its `import.meta.dirname` alias.
+Expected: PASS (or "no tests" via `--passWithNoTests`).
 
-- [ ] **Step 5: Production build**
+- [ ] **Step 4: Production build**
 
 Run: `pnpm --filter moonfest2026 build`
-Expected: PASS; emits `apps/moonfest2026/dist/`. This runs `scripts/build.mjs` with the app as cwd, so `dist/`, `public/`, and the inliner all resolve under the app.
+Expected: PASS; emits `apps/moonfest2026/dist/`.
 
-- [ ] **Step 6: Commit any dependency/path fixes**
+- [ ] **Step 5: Commit any fixes**
 
-Only if Steps 1–5 required edits:
+Only if Steps 1–4 required edits:
 
 ```bash
-git add package.json apps/moonfest2026/package.json pnpm-lock.yaml
+git add -- package.json apps/moonfest2026/package.json pnpm-lock.yaml
 git commit -m "$(cat <<'EOF'
 fix: resolve dependency/path fallout from workspace split
 
@@ -473,19 +370,13 @@ EOF
 )"
 ```
 
-If no edits were needed, still stage the refreshed lockfile:
-
-```bash
-git add pnpm-lock.yaml && git commit -m "chore: update pnpm-lock for workspace
-
-Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
-```
+If no edits were needed, report DONE with a note that the gate passed with no changes (no commit).
 
 ---
 
-## Task 6: Verify static build, deploy dry-run, and the commit hook
+## Task 4: Verify static build, deploy dry-run, and the commit hook
 
-The remaining gate items: the single-file static build, the Cloudflare dry-run (proves the deploy path works **without** touching production), and the husky hook end-to-end.
+The remaining gate items: single-file static build, the Cloudflare dry-run (proves deploy works **without** touching production), and the husky hook end-to-end.
 
 - [ ] **Step 1: Static single-file build**
 
@@ -494,32 +385,30 @@ Expected: PASS; emits `apps/moonfest2026/dist-static/index.html`. (The `P:\Publi
 
 - [ ] **Step 2: Confirm the static output is self-contained**
 
-Run: `node -e "const h=require('fs').readFileSync('apps/moonfest2026/dist-static/index.html','utf8');console.log('has script tag src to external js:', /<script[^>]+src=\"[^\"]+\.js/.test(h))"`
-Expected: `has script tag src to external js: false` (everything inlined).
+Run: `node -e "const h=require('fs').readFileSync('apps/moonfest2026/dist-static/index.html','utf8');console.log('external js src present:', /<script[^>]+src=\"[^\"]+\.js/.test(h))"`
+Expected: `external js src present: false` (everything inlined).
 
 - [ ] **Step 3: Cloudflare deploy dry-run (NO production change)**
 
 Run: `pnpm --filter moonfest2026 exec wrangler deploy --dry-run`
-Expected: PASS; wrangler resolves `apps/moonfest2026/wrangler.toml`, reports the bundled Worker + assets from `./dist`, and exits without deploying. If it can't find `wrangler.toml`, run from the app dir or pass `--config apps/moonfest2026/wrangler.toml`.
+Expected: PASS; wrangler resolves `apps/moonfest2026/wrangler.toml`, reports the bundled Worker + assets from `./dist`, exits without deploying. If it can't find `wrangler.toml`, pass `--config apps/moonfest2026/wrangler.toml`.
 
 - [ ] **Step 4: Exercise the husky pre-commit hook**
 
-Make a trivial staged change and commit to prove the hook (version bump + lint-staged) works under the workspace:
-
 ```bash
-printf '\n' >> apps/moonfest2026/README-e2e-hook-check.md
-git add apps/moonfest2026/README-e2e-hook-check.md
+printf '\n' >> apps/moonfest2026/HOOK-CHECK.md
+git add apps/moonfest2026/HOOK-CHECK.md
 git commit -m "test: verify pre-commit hook under workspace
 
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
 ```
 
-Expected: the hook runs `pnpm --filter moonfest2026 version:auto` (bumps `apps/moonfest2026/.env.example`), stages it, runs lint-staged, and the commit succeeds.
+Expected: hook runs `pnpm --filter moonfest2026 version:auto` (bumps `apps/moonfest2026/.env.example`), stages it, runs lint-staged, commit succeeds.
 
 - [ ] **Step 5: Remove the hook-check file**
 
 ```bash
-git rm apps/moonfest2026/README-e2e-hook-check.md
+git rm apps/moonfest2026/HOOK-CHECK.md
 git commit -m "test: remove pre-commit hook check file
 
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
@@ -527,22 +416,16 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
 
 ---
 
-## Task 7: Best-effort tooling repair, final gate, and PR
+## Task 5: Best-effort tooling repair, final gate, and PR
 
-`check:tools`/`check:style` were already partly broken pre-migration (they referenced non-existent `apps/store`… paths and uninstalled tools). Repair the obviously-fixable parts; do not block the phase on them.
-
-**Files:**
-
-- Modify (best-effort): none required beyond the root `package.json` `check:*` scripts already rewritten in Task 3 Step 2.
+`check:tools`/`check:style` were already partly broken pre-migration (stale `apps/store…` paths, uninstalled tools). Repair the fixable parts; do not block the phase on them.
 
 - [ ] **Step 1: Run the repaired check scripts (best-effort)**
 
 Run: `pnpm check:style` then `pnpm check:tools`
-Expected: `check:style` passes or reports real CSS issues. `check:tools` may still surface knip/cspell findings — record them but do not gate on them. If either throws on a missing tool, note it for a follow-up; it is out of this phase's gate.
+Expected: `check:style` passes or reports real CSS issues. `check:tools` may surface knip/cspell findings — record them, do not gate. If either throws on a missing tool, note it as a follow-up (out of this phase's gate).
 
 - [ ] **Step 2: Run the full acceptance gate in sequence**
-
-Run each and confirm PASS:
 
 ```bash
 pnpm --filter moonfest2026 typecheck
@@ -553,12 +436,12 @@ pnpm --filter moonfest2026 build:static
 pnpm --filter moonfest2026 exec wrangler deploy --dry-run
 ```
 
-Expected: all green. This is the spec's acceptance gate (§2).
+Expected: all green (spec §2 acceptance gate).
 
 - [ ] **Step 3: Confirm the live site was never touched**
 
 Run: `git log --oneline main..HEAD`
-Expected: only the migration commits from this plan — no `wrangler deploy` (non-dry-run) was ever run. The production Worker is unchanged.
+Expected: only migration commits — no non-dry-run `wrangler deploy` was run. Production Worker unchanged.
 
 - [ ] **Step 4: Push the branch and open a PR (no deploy)**
 
@@ -581,11 +464,12 @@ EOF
 
 - [ ] **Step 5: Report the deploy decision to the user**
 
-Do NOT deploy. Tell the user the gate is green and ask whether/when to run the first production deploy of the relocated app (`pnpm --filter moonfest2026 deploy:cloudflare`) to confirm parity — their call, per the spec.
+Do NOT deploy. Report that the gate is green and ask whether/when to run the first production deploy of the relocated app (`pnpm --filter moonfest2026 deploy:cloudflare`) to confirm parity — the user's call.
 
 ---
 
 ## Self-Review Notes
 
-- **Spec coverage:** §2 acceptance criteria → Tasks 5–7 gate. §3 layout → Tasks 2–4. §4 path table → Task 4. §5 workspace/scripts → Task 3. §6 secrets → deferred to Phase 1b (called out in Global Constraints). §7 steps → Tasks 1–7. §8 risks/rollback → branch-based, dry-run-only. §9 sequencing → this is phase 1a; telegram-sync extraction (packages/telegram-sync) is Phase 1b, its own plan.
-- **Not in this plan (Phase 1b):** extracting `packages/telegram-sync/`, `telegram.config.json`, the ID/keyword selection layer, append-only archive semantics, and hoisting shared secrets to root `.env.local`. In 1a the telegram scripts move intact and keep running from the app.
+- **Spec coverage:** §2 acceptance criteria → Tasks 3–5 gate. §3 layout → Task 2. §4 path table → Task 2 Steps 6–10. §5 workspace/scripts → Task 2 Steps 4–5. §6 secrets → deferred to Phase 1b (Global Constraints). §7 steps → Tasks 1–5. §8 risks/rollback → branch-based, dry-run only. §9 sequencing → this is 1a; telegram-sync extraction is Phase 1b (own plan).
+- **Ordering correctness:** the pre-commit hook exercises the full toolchain, so the relocation + package.json split + path/husky fixes are one atomic commit (Task 2). No intermediate broken state is ever committed.
+- **Not in this plan (Phase 1b):** extracting `packages/telegram-sync/`, `telegram.config.json`, ID/keyword selection, append-only archive, and hoisting shared secrets to root `.env.local`. In 1a the telegram scripts move intact and keep running from the app.
