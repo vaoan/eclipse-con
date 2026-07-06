@@ -76,18 +76,18 @@ Vite/wrangler/tsconfig/vitest/playwright configs, its worker, its `public/`, and
 
 Moving the app re-roots most things automatically, but these need explicit attention:
 
-| Concern                       | Change                                                                                       |
-| ----------------------------- | -------------------------------------------------------------------------------------------- | ------ | ----------------------------------------- |
-| `@/*` alias                   | tsconfig `paths` + Vite alias already relative (`./src/*`, `import.meta.dirname`) → intact   |
-| `index.html` script src       | `/src/main.tsx` resolves against the app's Vite root → intact after move                     |
-| Vite config internals         | Uses `import.meta.dirname` for `.env.example`, out dirs, inliner → re-roots with the file    |
-| `wrangler.toml` paths         | `directory = "./dist"`, `main = "cloudflare/worker.mjs"` stay relative to the app dir        |
-| `scripts/*.mjs` cwd           | Run with the app as cwd (via `pnpm --filter`); audit `process.cwd()`/root-relative paths     |
-| `build-static.mjs`            | Reads `.env.example`, writes `dist-static`, copies to `P:\Public Folder` → keep app-relative |
-| husky + lint-staged           | Stay at root; lint-staged globs updated to cover `apps/**`                                   |
-| `version:auto` bump           | Writes `VITE_APP_VERSION` into moonfest's `.env.example` (now under the app)                 |
-| vitest / playwright           | Configs move into the app; root can still invoke via `--filter`                              |
-| `check:tools` / `check:style` | Rewrite the stale `apps/store                                                                | studio | ...`references to the real`apps/\*` names |
+| Concern                       | Change                                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------------------ |
+| `@/*` alias                   | tsconfig `paths` + Vite alias already relative (`./src/*`, `import.meta.dirname`) → intact       |
+| `index.html` script src       | `/src/main.tsx` resolves against the app's Vite root → intact after move                         |
+| Vite config internals         | Uses `import.meta.dirname` for `.env.example`, out dirs, inliner → re-roots with the file        |
+| `wrangler.toml` paths         | `directory = "./dist"`, `main = "cloudflare/worker.mjs"` stay relative to the app dir            |
+| `scripts/*.mjs` cwd           | Run with the app as cwd (via `pnpm --filter`); audit `process.cwd()`/root-relative paths         |
+| `build-static.mjs`            | Reads `.env.example`, writes `dist-static`, copies to `P:\Public Folder` → keep app-relative     |
+| husky + lint-staged           | Stay at root; lint-staged globs updated to cover `apps/**`                                       |
+| `version:auto` bump           | Writes `VITE_APP_VERSION` into moonfest's `.env.example` (now under the app)                     |
+| vitest / playwright           | Configs move into the app; root can still invoke via `--filter`                                  |
+| `check:tools` / `check:style` | Rewrite the stale template references (`apps/store`, `apps/studio`, …) to the real `apps/` names |
 
 ## 5. Workspace & Scripts
 
