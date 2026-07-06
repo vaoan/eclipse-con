@@ -11,6 +11,8 @@
     "release:staging": "node scripts/release.mjs --env=staging",
     "deploy:cloudflare": "node scripts/build.mjs && node scripts/deploy-cloudflare.mjs",
     "deploy:cloudflare:dry-run": "pnpm build && node scripts/deploy-cloudflare.mjs --dry-run",
+    "deploy:cloudflare:staging": "pnpm test:e2e:routing && pnpm build && wrangler deploy --env staging && pnpm test:e2e:staging",
+    "deploy:cloudflare:staging:dry-run": "pnpm build && wrangler deploy --env staging --dry-run",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --passWithNoTests",
