@@ -3,7 +3,8 @@
 - **Date:** 2026-07-06
 - **Status:** Approved (design), pending implementation plan
 - **Author:** Heiner Angarita + Claude
-- **Related:** [`2026-07-06-sunfest-teaser-site-design.md`](./2026-07-06-sunfest-teaser-site-design.md) (phase two)
+- **Related:** [`2026-07-06-sunfest-teaser-site-design.md`](./2026-07-06-sunfest-teaser-site-design.md) (phase two),
+  [`2026-07-06-telegram-sync-package-design.md`](./2026-07-06-telegram-sync-package-design.md) (extracted during phase one)
 
 ## 1. Summary
 
@@ -37,13 +38,16 @@ Everything is reversible via git until the first real redeploy.
 
 ```
 repo/
-  pnpm-workspace.yaml            # NEW: packages: [apps/*]
+  pnpm-workspace.yaml            # NEW: packages: [apps/*, packages/*]
   package.json                   # SLIMMED: workspace root — shared devDeps, husky, delegating scripts
   .husky/pre-commit              # stays at root (workspace-wide)
-  .env.local                     # SLIMMED: shared deploy credentials only (CLOUDFLARE_API_TOKEN)
+  .env.local                     # SLIMMED: shared secrets — Cloudflare token, Telegram account, provider keys
   eslint.config.mjs              # root base (apps extend/consume)
   .prettierrc, .prettierignore   # root (workspace-wide formatting)
   docs/                          # root
+
+  packages/
+    telegram-sync/               # NEW: reusable Telegram→news package (see telegram-sync spec)
 
   apps/
     moonfest2026/                # MOVED: everything moonfest, self-contained
@@ -51,16 +55,17 @@ repo/
       public/
       src/                       # unchanged internals; @/* → ./src/*
       cloudflare/worker.mjs
-      scripts/                   # moonfest-specific: build, build-static, deploy-cloudflare,
-                                 #   release, sync/fetch/translate-telegram, bump-version, etc.
+      scripts/                   # moonfest build/deploy tooling: build, build-static,
+                                 #   deploy-cloudflare, release, bump-version, etc.
+      telegram.config.json       # NEW: moonfest feed config (target/thread/since/select) — committed
       vite.config.ts             # uses import.meta.dirname → re-roots automatically
       wrangler.toml              # [assets] directory = "./dist", main = "cloudflare/worker.mjs"
       tsconfig*.json             # @/* path alias intact
       vitest.config.ts
       playwright.config.ts
-      package.json               # moonfest's build/dev/deploy/test scripts + runtime deps
-      .env.example               # moonfest safe defaults (VITE_*, telegram, translation)
-      .env.local                 # moonfest runtime/content secrets (gitignored)
+      package.json               # moonfest's build/dev/deploy/test + thin telegram-sync scripts
+      .env.example               # moonfest safe defaults (VITE_* analytics)
+      .env.local                 # moonfest app runtime secrets: VITE_* analytics (gitignored)
 
     sunfest2027/                 # phase two (separate spec)
 ```
@@ -103,21 +108,24 @@ Moving the app re-roots most things automatically, but these need explicit atten
 
 ## 6. Secrets & Environment
 
-Three buckets (confirmed against current `.env.local`):
+Three tiers, split by what a value belongs to (confirmed against current `.env.local`):
 
-1. **Shared deploy credential — root `.env.local` (gitignored):** `CLOUDFLARE_API_TOKEN` (deploys any
-   worker in the account, not app-specific), and `CLOUDFLARE_FFXIVBE_ZERO_TRUST_API_TOKEN` if still
-   used. Deploy scripts resolve the token from repo root regardless of which app they build.
-2. **moonfest content/runtime secrets — `apps/moonfest2026/.env.local` (gitignored):** all
-   `TELEGRAM_*`, translation (`ANTHROPIC_API_KEY`, `OPENAI_*`, `TRANSLATE_PROVIDER`), and `VITE_*`
-   analytics keys. Vite auto-loads env from the app root, so these live with moonfest.
-3. **sunfest — its own (phase two):** a static teaser needs essentially none; its `.env.example` is
-   near-empty. Any future analytics/channel secrets are _its own_, isolated from moonfest.
+1. **Shared secrets — root `.env.local` (gitignored):** things that serve the whole account, not one
+   app. `CLOUDFLARE_API_TOKEN` (deploys any worker), the **Telegram account** creds
+   (`TELEGRAM_API_ID/HASH/PHONE`) + `telegram.session` (one account serves every feed), and
+   translation provider keys (`ANTHROPIC_API_KEY`, `OPENAI_*`, `TRANSLATE_PROVIDER`). Deploy and
+   telegram-sync scripts resolve these from repo root regardless of which app they build.
+2. **App runtime secrets — `apps/<app>/.env.local` (gitignored):** the `VITE_*` analytics keys baked
+   into that app's build. Vite auto-loads env from the app root, so these live with the app.
+3. **Non-secret feed config — `apps/<app>/telegram.config.json` (committed):** `target`, `threadId`,
+   `since`, and the ID/keyword `select` rules. Not secret, so versioned and reviewable — this is what
+   makes each event's feed explicit (see the telegram-sync spec).
 
-**Principle:** separate _how we deploy_ (one shared Cloudflare token at root) from _what an app
-contains_ (per-app env files). No new credentials are created now — for today the values are the same
-single set; we are only organizing where they live. Both `.env.example` files are committed (safe
-defaults); both `.env.local` files stay gitignored. Update `.gitignore` to ignore `apps/*/.env.local`.
+**Principle:** separate _how we deploy / who we are_ (shared account secrets at root) from _what an app
+contains_ (app runtime secrets + committed feed config). No new credentials are created now — for
+today the values are the same single set; we are only organizing where they live. All `.env.example`
+files are committed (safe defaults); all `.env.local` files stay gitignored. Update `.gitignore` to
+ignore `apps/*/.env.local`.
 
 ## 7. Migration Steps (high level — detailed in the plan)
 

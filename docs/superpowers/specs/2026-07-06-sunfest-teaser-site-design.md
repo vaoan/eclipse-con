@@ -3,7 +3,8 @@
 - **Date:** 2026-07-06
 - **Status:** Approved (design), pending implementation plan
 - **Author:** Heiner Angarita + Claude
-- **Related:** [`2026-07-06-moonfest-monorepo-migration-design.md`](./2026-07-06-moonfest-monorepo-migration-design.md) (phase one — prerequisite)
+- **Related:** [`2026-07-06-moonfest-monorepo-migration-design.md`](./2026-07-06-moonfest-monorepo-migration-design.md) (phase one — prerequisite),
+  [`2026-07-06-telegram-sync-package-design.md`](./2026-07-06-telegram-sync-package-design.md) (future news source)
 
 ## 1. Summary
 
