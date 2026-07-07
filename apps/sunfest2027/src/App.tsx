@@ -38,10 +38,10 @@ export function App() {
       <div className="garland" aria-hidden="true" />
 
       <div className="valley" aria-hidden="true">
-        <WaxPalm className="palm palm-1" />
-        <WaxPalm className="palm palm-2" />
-        <WaxPalm className="palm palm-3" />
-        <WaxPalm className="palm palm-4" />
+        <WaxPalm className="palm palm-1" src="/assets/palm-1.svg" />
+        <WaxPalm className="palm palm-2" src="/assets/palm-2.svg" />
+        <WaxPalm className="palm palm-3" src="/assets/palm-3.svg" />
+        <WaxPalm className="palm palm-4" src="/assets/palm-4.svg" />
       </div>
 
       <Flower

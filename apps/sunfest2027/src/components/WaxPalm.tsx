@@ -1,18 +1,18 @@
 /** Props for {@link WaxPalm}. */
 interface WaxPalmProps {
   readonly className?: string;
+  readonly src: string;
 }
 
 /**
- * A stylized palm (palma de cera del Quindío), from a CC0 palm illustration
- * recolored to the carnaval palette and stretched tall + thin like the real
- * wax palm. Rendered as a decorative image.
+ * A decorative palm — one of four CC0 palm illustrations recolored to the
+ * carnaval palette (teal fronds, cream trunk). `src` selects which palm.
  */
-export function WaxPalm({ className }: Readonly<WaxPalmProps>) {
+export function WaxPalm({ className, src }: Readonly<WaxPalmProps>) {
   return (
     <img
       className={className}
-      src="/assets/palm.svg"
+      src={src}
       alt=""
       aria-hidden="true"
       loading="lazy"

@@ -205,30 +205,32 @@
 .palm {
   position: absolute;
   bottom: -1%;
-  aspect-ratio: 20 / 58;
-  object-fit: fill;
+  width: auto;
   opacity: 0.95;
   filter: drop-shadow(0 8px 20px rgba(30, 12, 58, 0.35));
 }
 
+/* Outer palms are tall; inner ones shorter. Left-side palms are flipped so
+   every palm's crown curves toward the center. */
 .palm-1 {
-  left: 3%;
-  height: clamp(150px, 34vh, 380px);
+  left: 1%;
+  height: clamp(150px, 33vh, 400px);
+  transform: scaleX(-1);
 }
 
 .palm-2 {
-  left: 15%;
-  height: clamp(110px, 24vh, 270px);
+  left: 18%;
+  height: clamp(110px, 22vh, 260px);
 }
 
 .palm-3 {
-  right: 8%;
-  height: clamp(160px, 38vh, 420px);
+  right: 18%;
+  height: clamp(110px, 22vh, 260px);
 }
 
 .palm-4 {
-  right: 21%;
-  height: clamp(120px, 26vh, 290px);
+  right: 1%;
+  height: clamp(150px, 33vh, 400px);
 }
 
 .eyebrow {
