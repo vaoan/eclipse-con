@@ -35,7 +35,7 @@ export function App() {
       <LanguageToggle />
       <FallingFlowers />
       <div className="confetti" aria-hidden="true" />
-      <div className="bunting" aria-hidden="true" />
+      <div className="garland" aria-hidden="true" />
 
       <div className="valley" aria-hidden="true">
         <WaxPalm className="palm palm-1" />
