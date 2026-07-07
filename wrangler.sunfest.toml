@@ -4,7 +4,9 @@ compatibility_date = "2025-09-27"
 compatibility_flags = ["nodejs_compat"]
 main = "cloudflare/sunfest-worker.mjs"
 
-workers_dev = true
+# Private preview: no public *.workers.dev URL — reachable only via the
+# Zero Trust-gated custom domain below.
+workers_dev = false
 
 [assets]
 directory = "./apps/sunfest2027/dist"
