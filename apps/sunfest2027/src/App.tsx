@@ -34,9 +34,21 @@ export function App() {
       <FallingFlowers />
       <div className="confetti" aria-hidden="true" />
       <div className="bunting" aria-hidden="true" />
-      <Flower className="flower flower-1" color="var(--color-magenta)" />
-      <Flower className="flower flower-2" color="var(--color-teal)" />
-      <Flower className="flower flower-3" color="var(--color-yellow)" />
+      <Flower
+        className="flower flower-1"
+        variant={0}
+        color="var(--color-magenta)"
+      />
+      <Flower
+        className="flower flower-2"
+        variant={2}
+        color="var(--color-teal)"
+      />
+      <Flower
+        className="flower flower-3"
+        variant={3}
+        color="var(--color-yellow)"
+      />
 
       <div className="content">
         <Marimonda className="marimonda" />

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Flower } from "@/components/Flower";
+import { Flower, FLOWER_VARIANTS } from "@/components/Flower";
 import { FALLING_FLOWER_COUNT, FLOWER_COLORS } from "@/carnaval";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
@@ -26,18 +26,19 @@ export function FallingFlowers() {
   const flowers = useMemo(
     () =>
       Array.from({ length: count }, (_, index) => {
-        const size = 14 + seededValue(index, 3) * 16;
+        const size = 18 + seededValue(index, 3) * 18;
         return {
           id: index,
           left: `${seededValue(index, 0) * 100}%`,
           delay: `${seededValue(index, 1) * 16}s`,
           duration: `${11 + seededValue(index, 2) * 11}s`,
           size,
-          opacity: 0.45 + seededValue(index, 4) * 0.4,
+          opacity: 0.5 + seededValue(index, 4) * 0.4,
           keyframe: FLOWER_KEYFRAMES[index % 3] ?? "float-flower-1",
           color:
             FLOWER_COLORS[index % FLOWER_COLORS.length] ??
             "var(--color-yellow)",
+          variant: index % FLOWER_VARIANTS,
           topOffset: -(10 + seededValue(index, 6) * 30),
         };
       }),
@@ -63,7 +64,7 @@ export function FallingFlowers() {
             animation: `${flower.keyframe} ${flower.duration} ${flower.delay} linear infinite`,
           }}
         >
-          <Flower color={flower.color} />
+          <Flower variant={flower.variant} color={flower.color} />
         </span>
       ))}
     </div>
