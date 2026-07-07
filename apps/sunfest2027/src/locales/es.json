@@ -21,6 +21,11 @@
     "socialsLabel": "Redes de Furry Colombia",
     "followOn": "Síguenos en"
   },
+  "groups": {
+    "event": "El evento",
+    "place": "El lugar",
+    "community": "La comunidad"
+  },
   "about": {
     "title": "¿Por qué Sunfest?",
     "paragraph1": "Cuando llega el verano, el fandom colombiano se pone de fiesta. Sunfest es el carnaval furry del Eje Cafetero: color, comparsa y comunidad en el corazón del Quindío.",

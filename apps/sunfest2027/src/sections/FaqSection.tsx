@@ -1,30 +1,32 @@
 import { useTranslation } from "react-i18next";
+import { FaqItem } from "@/components/FaqItem";
 import { SectionHeader } from "@/components/SectionHeader";
+import { SectionWrapper } from "@/components/SectionWrapper";
 import { FAQS, SECTION_IDS } from "@/content";
 
-/** Frequently asked questions — native disclosure accordion. */
+/** Frequently asked questions — a native disclosure accordion. */
 export function FaqSection() {
   const { t } = useTranslation();
+
   return (
-    <section id={SECTION_IDS.faq} className="section">
-      <div className="container container-narrow">
-        <SectionHeader title={t("faq.title")} />
-        <div className="faq-list">
+    <SectionWrapper id={SECTION_IDS.faq} surfaceTone="deep">
+      <div className="mx-auto max-w-4xl">
+        <SectionHeader
+          title={t("faq.title")}
+          eyebrow={t("groups.community")}
+          align="left"
+        />
+        <div className="mt-12">
           {FAQS.map((id) => (
-            <details key={id} className="faq-item">
-              <summary
-                className="faq-q"
-                data-content-section="faq"
-                data-content-id={`faq_${id}`}
-                data-content-interaction="expand"
-              >
-                {t(`faq.items.${id}.question`)}
-              </summary>
-              <p className="faq-a">{t(`faq.items.${id}.answer`)}</p>
-            </details>
+            <FaqItem
+              key={id}
+              id={id}
+              question={t(`faq.items.${id}.question`)}
+              answer={t(`faq.items.${id}.answer`)}
+            />
           ))}
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

@@ -1,6 +1,6 @@
 /**
- * Static content model for the Sunfest site. Each entry pairs a stable id
- * (used to build i18n keys) with presentational metadata like an icon.
+ * Static content model for the Sunfest site. Ids build i18n keys; a few
+ * entries carry presentational metadata (organizer initials, section group).
  */
 
 /** Section ids used for nav anchors and scroll targeting. */
@@ -25,34 +25,34 @@ export const NAV_LINKS = [
   "faq",
 ] as const;
 
-/** Activities shown in "what you'll find". Copy from `activities.<id>.*`. */
+/** Activity ids. Copy from `activities.<id>.*`. */
 export const ACTIVITIES = [
-  { id: "carnaval", icon: "🎭" },
-  { id: "dances", icon: "🎶" },
-  { id: "panels", icon: "🎤" },
-  { id: "dealers", icon: "🛍️" },
-  { id: "coffee", icon: "☕" },
-  { id: "pools", icon: "💧" },
-  { id: "community", icon: "🤝" },
-  { id: "breakfast", icon: "🥐" },
+  "carnaval",
+  "dances",
+  "panels",
+  "dealers",
+  "coffee",
+  "pools",
+  "community",
+  "breakfast",
 ] as const;
 
-/** Hotel Mocawa amenities. Labels from `amenities.items.<id>`. */
+/** Hotel Mocawa amenity ids. Labels from `amenities.items.<id>`. */
 export const AMENITIES = [
-  { id: "adultPool", icon: "🏊" },
-  { id: "kidsPool", icon: "🧒" },
-  { id: "spa", icon: "💆" },
-  { id: "gym", icon: "🏋️" },
-  { id: "tennis", icon: "🎾" },
-  { id: "puttingGreen", icon: "⛳" },
-  { id: "restaurant", icon: "🍽️" },
-  { id: "bars", icon: "🍹" },
-  { id: "fonda", icon: "🫓" },
-  { id: "gameRooms", icon: "🎮" },
-  { id: "businessCenter", icon: "💼" },
-  { id: "wifi", icon: "📶" },
-  { id: "parking", icon: "🅿️" },
-  { id: "transfers", icon: "🚐" },
+  "adultPool",
+  "kidsPool",
+  "spa",
+  "gym",
+  "tennis",
+  "puttingGreen",
+  "restaurant",
+  "bars",
+  "fonda",
+  "gameRooms",
+  "businessCenter",
+  "wifi",
+  "parking",
+  "transfers",
 ] as const;
 
 /** Venue feature bullets. Copy from `venue.features.<id>`. */
@@ -65,27 +65,27 @@ export const VENUE_FEATURES = [
   "landscape",
 ] as const;
 
-/** Travel tips. Copy from `travel.items.<id>.*`. */
+/** Travel tip ids. Copy from `travel.<id>.*`. */
 export const TRAVEL_TIPS = [
-  { id: "airport", icon: "✈️" },
-  { id: "transfers", icon: "🚐" },
-  { id: "weather", icon: "☀️" },
-  { id: "coffee", icon: "🌄" },
-  { id: "food", icon: "🍽️" },
-  { id: "cocora", icon: "🌴" },
+  "airport",
+  "transfers",
+  "weather",
+  "coffee",
+  "food",
+  "cocora",
 ] as const;
 
-/** Furry Colombia organizers. Copy from `organizers.people.<id>.*`. */
+/** Furry Colombia organizers with photo + initials. Copy from `organizers.people.<id>.*`. */
 export const ORGANIZERS = [
-  { id: "gau", initials: "JH" },
-  { id: "nacho", initials: "NA" },
-  { id: "lucia", initials: "LU" },
-  { id: "nell", initials: "NE" },
-  { id: "vaoan", initials: "VA" },
-  { id: "nax", initials: "NX" },
+  { id: "gau", initials: "JH", image: "/assets/organizers/difverrakudif.png" },
+  { id: "nacho", initials: "NA", image: "/assets/organizers/nacho.webp" },
+  { id: "lucia", initials: "LF", image: "/assets/organizers/luciafur.jpg" },
+  { id: "nell", initials: "NL", image: "/assets/organizers/nell.webp" },
+  { id: "vaoan", initials: "VA", image: "/assets/organizers/vaoan.jpg" },
+  { id: "nax", initials: "NX", image: "/assets/organizers/nax.png" },
 ] as const;
 
-/** FAQ entries. Copy from `faq.items.<id>.*`. */
+/** FAQ entry ids. Copy from `faq.items.<id>.*`. */
 export const FAQS = [
   "packages",
   "included",

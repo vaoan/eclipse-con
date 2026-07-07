@@ -19,6 +19,27 @@
   --color-ground-2: #a2317f;
   --color-cream: #fdf3df;
   --color-ink: #2a0f45;
+
+  /* Semantic tokens (ported from moonfest, remapped to the carnaval palette).
+     Moonfest navy → carnaval purple; moonfest gold accent → magenta. */
+  --color-background: #1e0c3a;
+  --color-foreground: #fdf3df;
+  --color-surface: #2a1150;
+  --color-surface-elevated: #38206e;
+  --color-muted: #3a1c66;
+  --color-muted-foreground: #c6b3dd;
+  --color-border: #47276f;
+  --color-border-accent: #c8368c;
+  --color-accent: #c8368c;
+  --color-accent-foreground: #2a0f45;
+  --color-accent-glow: #c86095;
+  --color-primary: #7334a6;
+  --color-primary-foreground: #fdf3df;
+  --color-primary-glow: #874ba7;
+
+  --radius-sm: 0.4rem;
+  --radius-md: 0.6rem;
+  --radius-lg: 0.85rem;
 }
 
 @layer base {
@@ -667,6 +688,21 @@
   50% {
     transform: translateY(4px);
   }
+}
+
+/* ---- Section surfaces (ported from moonfest) ----------------------------
+   Alternating bands: `deep` is an opaque carnaval surface; `elevated` is
+   translucent so the fixed background tint shows through between bands. */
+.section-surface {
+  position: relative;
+}
+
+.section-surface--deep {
+  background-color: var(--color-surface);
+}
+
+.section-surface--elevated {
+  background-color: rgba(56, 32, 110, 0.48);
 }
 
 /* ---- Sections ----------------------------------------------------------- */

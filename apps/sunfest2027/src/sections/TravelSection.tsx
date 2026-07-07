@@ -1,29 +1,41 @@
 import { useTranslation } from "react-i18next";
-import { InfoCard } from "@/components/InfoCard";
 import { SectionHeader } from "@/components/SectionHeader";
+import { SectionWrapper } from "@/components/SectionWrapper";
 import { SECTION_IDS, TRAVEL_TIPS } from "@/content";
 
-/** Getting there — travel tips for reaching the coffee region. */
+/** Getting there — travel tips for reaching the coffee region, as a card grid. */
 export function TravelSection() {
   const { t } = useTranslation();
+
   return (
-    <section id={SECTION_IDS.travel} className="section">
-      <div className="container">
+    <SectionWrapper id={SECTION_IDS.travel} surfaceTone="deep">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <SectionHeader
           title={t("travel.title")}
-          subtitle={t("travel.subtitle")}
+          eyebrow={t("groups.place")}
+          align="left"
         />
-        <div className="card-grid">
-          {TRAVEL_TIPS.map((tip) => (
-            <InfoCard
-              key={tip.id}
-              icon={tip.icon}
-              title={t(`travel.${tip.id}.title`)}
-              description={t(`travel.${tip.id}.description`)}
-            />
-          ))}
-        </div>
+        <p className="max-w-md text-sm text-muted-foreground sm:text-base">
+          {t("travel.subtitle")}
+        </p>
       </div>
-    </section>
+      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {TRAVEL_TIPS.map((tip) => (
+          <article
+            key={tip}
+            className="rounded-2xl border border-white/10 bg-surface/70 p-5 transition-colors duration-300 hover:border-accent/30"
+            data-content-section="travel"
+            data-content-id={`travel_${tip}`}
+          >
+            <p className="font-display text-base font-semibold text-foreground">
+              {t(`travel.${tip}.title`)}
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {t(`travel.${tip}.description`)}
+            </p>
+          </article>
+        ))}
+      </div>
+    </SectionWrapper>
   );
 }

@@ -5,6 +5,7 @@ import { FollowCta } from "@/components/FollowCta";
 import { Flower } from "@/components/Flower";
 import { WaxPalm } from "@/components/WaxPalm";
 import { SECTION_IDS } from "@/content";
+import { useSectionUrlSync } from "@/lib/useSectionUrlSync";
 import { AboutSection } from "@/sections/AboutSection";
 import { ActivitiesSection } from "@/sections/ActivitiesSection";
 import { AmenitiesSection } from "@/sections/AmenitiesSection";
@@ -34,12 +35,18 @@ export function App() {
   const wordmark = t("teaser.wordmark");
   const [brand, year] = splitWordmark(wordmark);
 
+  useSectionUrlSync();
+
   useEffect(() => {
     document.documentElement.lang = i18n.language;
   }, [i18n.language]);
 
   return (
     <>
+      <div
+        className="fixed inset-0 -z-10 bg-[linear-gradient(to_bottom,#1e0c3a_0%,#2a1150_42%,#3a1c66_72%,#1e0c3a_100%)]"
+        aria-hidden="true"
+      />
       <NavBar />
       <main>
         <section

@@ -21,6 +21,11 @@
     "socialsLabel": "Furry Colombia socials",
     "followOn": "Follow on"
   },
+  "groups": {
+    "event": "The event",
+    "place": "The place",
+    "community": "The community"
+  },
   "about": {
     "title": "Why Sunfest?",
     "paragraph1": "When summer arrives, the Colombian fandom throws a party. Sunfest is the furry carnival of the coffee region: color, comparsa, and community in the heart of Quindío.",
