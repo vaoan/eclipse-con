@@ -213,24 +213,24 @@
 /* Outer palms are tall; inner ones shorter. Left-side palms are flipped so
    every palm's crown curves toward the center. */
 .palm-1 {
-  left: 1%;
-  height: clamp(150px, 33vh, 400px);
+  left: 0;
+  height: clamp(190px, 46vh, 540px);
   transform: scaleX(-1);
 }
 
 .palm-2 {
-  left: 18%;
-  height: clamp(110px, 22vh, 260px);
+  left: 20%;
+  height: clamp(140px, 30vh, 340px);
 }
 
 .palm-3 {
-  right: 18%;
-  height: clamp(110px, 22vh, 260px);
+  right: 20%;
+  height: clamp(140px, 30vh, 340px);
 }
 
 .palm-4 {
-  right: 1%;
-  height: clamp(150px, 33vh, 400px);
+  right: 0;
+  height: clamp(190px, 46vh, 540px);
 }
 
 .eyebrow {
