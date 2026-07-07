@@ -204,8 +204,9 @@
 
 .palm {
   position: absolute;
-  bottom: -2%;
-  width: auto;
+  bottom: -1%;
+  aspect-ratio: 20 / 58;
+  object-fit: fill;
   opacity: 0.95;
   filter: drop-shadow(0 8px 20px rgba(30, 12, 58, 0.35));
 }
