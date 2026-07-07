@@ -14,11 +14,11 @@
   --color-teal: #00d9b8;
   --color-teal-soft: #1cc9c1;
 
-  /* Ground (deep purple night, from the palette) + neutral text. */
-  --color-ground: #1e0c3a;
-  --color-ground-2: #34155e;
+  /* Ground (vivid purple→magenta carnaval field) + neutral text. */
+  --color-ground: #5c2b8c;
+  --color-ground-2: #a2317f;
   --color-cream: #fdf3df;
-  --color-ink: #1e0c3a;
+  --color-ink: #2a0f45;
 }
 
 @layer base {
@@ -55,7 +55,8 @@
   text-align: center;
 }
 
-/* Deep purple with a warm carnaval spotlight. */
+/* Vivid daytime carnaval: purple→magenta with a yellow sun-glow rising from
+   below and a teal glow up top — all four palette colors in the field. */
 .stage::before {
   content: "";
   position: absolute;
@@ -63,16 +64,16 @@
   z-index: -4;
   background:
     radial-gradient(
-      118% 82% at 50% 28%,
-      rgba(247, 208, 26, 0.18),
-      transparent 46%
+      125% 90% at 50% 116%,
+      rgba(247, 208, 26, 0.34),
+      transparent 54%
     ),
     radial-gradient(
-      150% 130% at 50% 40%,
-      var(--color-ground-2) 0%,
-      #26104a 46%,
-      var(--color-ground) 100%
-    );
+      120% 70% at 50% 16%,
+      rgba(0, 217, 184, 0.16),
+      transparent 48%
+    ),
+    linear-gradient(168deg, #5c2b8c 0%, #7a2c88 38%, #a2317f 72%, #c8368c 100%);
 }
 
 /* Confetti — sparse carnaval dots, gently drifting. */
@@ -192,13 +193,41 @@
   max-width: 64rem;
 }
 
-.marimonda {
-  width: clamp(88px, 13vw, 148px);
-  height: auto;
-  margin-bottom: 0.2rem;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
-  animation: sway 5s ease-in-out infinite;
-  transform-origin: 50% 15%;
+/* Valley — a stand of wax palms (palma de cera del Quindío) along the base. */
+.valley {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.palm {
+  position: absolute;
+  bottom: -2%;
+  width: auto;
+  opacity: 0.95;
+  filter: drop-shadow(0 8px 20px rgba(30, 12, 58, 0.35));
+}
+
+.palm-1 {
+  left: 3%;
+  height: clamp(150px, 34vh, 380px);
+}
+
+.palm-2 {
+  left: 15%;
+  height: clamp(110px, 24vh, 270px);
+}
+
+.palm-3 {
+  right: 8%;
+  height: clamp(160px, 38vh, 420px);
+}
+
+.palm-4 {
+  right: 21%;
+  height: clamp(120px, 26vh, 290px);
 }
 
 .eyebrow {
@@ -241,9 +270,9 @@
   font-size: clamp(1.7rem, 6vw, 3.6rem);
   line-height: 1;
   letter-spacing: -0.01em;
-  color: var(--color-magenta);
+  color: var(--color-cream);
   text-wrap: balance;
-  text-shadow: 0 2px 24px rgba(200, 54, 140, 0.4);
+  text-shadow: 0 2px 20px rgba(42, 15, 69, 0.45);
 }
 
 .subline {
@@ -449,11 +478,54 @@
   }
 }
 
+/* ---- Language toggle ---------------------------------------------------- */
+.lang-toggle {
+  position: absolute;
+  top: clamp(1rem, 3vw, 1.6rem);
+  right: clamp(1rem, 3vw, 1.6rem);
+  z-index: 10;
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(253, 243, 223, 0.12);
+  border: 1px solid rgba(253, 243, 223, 0.28);
+  backdrop-filter: blur(4px);
+}
+
+.lang-opt {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.32em 0.72em;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--color-cream);
+  background: transparent;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease;
+}
+
+.lang-opt-active {
+  background: var(--color-teal);
+  color: var(--color-ink);
+}
+
+.lang-opt:focus-visible {
+  outline: 2px solid var(--color-yellow);
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .confetti,
   .marimonda,
   .cta,
   .social,
+  .lang-opt,
   .falling-flower {
     animation: none;
     transition: none;
