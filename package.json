@@ -20,6 +20,7 @@
     "dev:sunfest": "pnpm --filter sunfest2027 dev",
     "build:sunfest": "pnpm --filter sunfest2027 build",
     "deploy:sunfest": "pnpm --filter sunfest2027 build && wrangler deploy --config wrangler.sunfest.toml",
+    "sync:secrets": "node scripts/sync-secrets.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

@@ -11,6 +11,11 @@ dist-static/
 .env.local
 .env.*.local
 
+# Synced secrets (pnpm sync:secrets)
+.secrets
+.secrets-download/
+.secrets-decrypted.tmp
+
 # Logs
 *.log
 npm-debug.log*
