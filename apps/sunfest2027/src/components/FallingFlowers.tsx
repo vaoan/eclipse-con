@@ -30,7 +30,7 @@ export function FallingFlowers() {
         return {
           id: index,
           left: `${seededValue(index, 0) * 100}%`,
-          delay: `${seededValue(index, 1) * 16}s`,
+          delay: `-${(seededValue(index, 1) * 22).toFixed(2)}s`,
           duration: `${11 + seededValue(index, 2) * 11}s`,
           size,
           opacity: 0.5 + seededValue(index, 4) * 0.4,
