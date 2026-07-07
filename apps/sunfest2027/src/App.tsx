@@ -16,7 +16,7 @@ function splitWordmark(wordmark: string): readonly [string, string] {
   return [wordmark, ""];
 }
 
-/** Single-screen sunfest2027 coming-soon teaser: a radiant tropical sun. */
+/** Single-screen sunfest2027 coming-soon teaser: a Colombian carnaval night. */
 export function App() {
   const { t, i18n } = useTranslation();
   const wordmark = t("teaser.wordmark");
@@ -28,8 +28,8 @@ export function App() {
 
   return (
     <main className="stage" data-testid={tid("teaser-root")}>
-      <div className="rays" aria-hidden="true" />
-      <div className="haze" aria-hidden="true" />
+      <div className="confetti" aria-hidden="true" />
+      <div className="bunting" aria-hidden="true" />
 
       <div className="content">
         <p className="eyebrow">{t("teaser.eyebrow")}</p>
@@ -43,7 +43,7 @@ export function App() {
           )}
         </h1>
 
-        <p className="thesis">{t("teaser.thesis")}</p>
+        <p className="slogan">{t("teaser.slogan")}</p>
         <p className="subline">{t("teaser.subline")}</p>
 
         <FollowCta />

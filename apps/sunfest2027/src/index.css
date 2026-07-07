@@ -2,18 +2,21 @@
 
 @theme {
   --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-slogan: "Fraunces", Georgia, serif;
   --font-body: "Space Grotesk", system-ui, sans-serif;
 
-  --color-plum: #3b0a26;
-  --color-rose: #c81e5b;
-  --color-tangerine: #f4552b;
-  --color-marigold: #ff9f1c;
-  --color-gold: #ffd97d;
-  --color-sun: #fff6da;
-  --color-cream: #fff3d6;
-  --color-ink: #2a0812;
-  --color-teal: #0d9488;
-  --color-teal-bright: #17b9a8;
+  /* Ground — from the hotel's violet, deepened to a carnaval night. */
+  --color-night: #22103a;
+  --color-night-2: #3a1a5c;
+
+  /* Hotel brand + Quindío flowering trees. */
+  --color-gold: #f5b307; /* guayacán / hotel gold — the sun */
+  --color-fuchsia: #e5197d; /* veranera (bougainvillea) */
+  --color-violet: #a84a9a; /* gualanday / hotel violet */
+  --color-cobalt: #1863dc; /* hotel blue */
+  --color-turquoise: #12b3a6;
+  --color-cream: #fbeecb;
+  --color-ink: #22103a;
 }
 
 @layer base {
@@ -30,14 +33,14 @@
   body {
     margin: 0;
     font-family: var(--font-body);
-    background: var(--color-plum);
+    background: var(--color-night);
     color: var(--color-cream);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 }
 
-/* ---- Stage: the sky ------------------------------------------------------ */
+/* ---- Stage: the carnaval night ------------------------------------------ */
 .stage {
   position: relative;
   min-height: 100dvh;
@@ -45,85 +48,106 @@
   isolation: isolate;
   display: grid;
   place-items: center;
-  padding: clamp(1.5rem, 5vw, 4rem);
+  padding: clamp(3.5rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem)
+    clamp(2rem, 5vw, 4rem);
   text-align: center;
 }
 
-/* Radial dusk: bright sun core burning down into deep tropical plum. */
+/* Aubergine night with a warm carnaval spotlight. */
 .stage::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: -4;
+  background:
+    radial-gradient(
+      115% 80% at 50% 30%,
+      rgba(245, 179, 7, 0.16),
+      transparent 46%
+    ),
+    radial-gradient(
+      140% 130% at 50% 38%,
+      var(--color-night-2) 0%,
+      #2a1246 42%,
+      var(--color-night) 100%
+    );
+}
+
+/* Confetti — sparse carnaval dots, gently drifting. */
+.confetti {
+  position: absolute;
+  inset: -20% 0 0;
   z-index: -3;
-  background: radial-gradient(
-    125% 95% at 50% 40%,
-    var(--color-sun) 0%,
-    var(--color-gold) 11%,
-    var(--color-marigold) 24%,
-    var(--color-tangerine) 41%,
-    var(--color-rose) 64%,
-    var(--color-plum) 100%
-  );
-}
-
-/* Signature: radiating sun rays, slowly turning. */
-.rays {
-  position: absolute;
-  z-index: -2;
-  left: 50%;
-  top: 40%;
-  width: 200vmax;
-  height: 200vmax;
-  translate: -50% -50%;
-  background: repeating-conic-gradient(
-    from 0deg at 50% 50%,
-    rgba(255, 246, 218, 0) 0deg 7deg,
-    rgba(255, 246, 218, 0.17) 7deg 14deg
-  );
-  -webkit-mask-image: radial-gradient(
-    closest-side,
-    #000 26%,
-    rgba(0, 0, 0, 0.5) 48%,
-    transparent 76%
-  );
-  mask-image: radial-gradient(
-    closest-side,
-    #000 26%,
-    rgba(0, 0, 0, 0.5) 48%,
-    transparent 76%
-  );
-  animation: rays-spin 100s linear infinite;
-  will-change: transform;
-}
-
-/* Heat shimmer breathing over the core. */
-.haze {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
   pointer-events: none;
-  background: radial-gradient(
-    55% 40% at 50% 38%,
-    rgba(255, 255, 255, 0.14),
-    transparent 70%
-  );
-  mix-blend-mode: soft-light;
-  animation: haze-breathe 7s ease-in-out infinite;
+  opacity: 0.6;
+  background-image:
+    radial-gradient(
+      circle at 8% 12%,
+      var(--color-fuchsia) 0 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 24% 66%,
+      var(--color-gold) 0 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 41% 24%,
+      var(--color-turquoise) 0 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 58% 78%,
+      var(--color-cobalt) 0 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 72% 34%,
+      var(--color-violet) 0 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 88% 60%,
+      var(--color-gold) 0 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 15% 88%,
+      var(--color-cobalt) 0 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 95% 18%,
+      var(--color-fuchsia) 0 3px,
+      transparent 4px
+    ),
+    radial-gradient(
+      circle at 33% 48%,
+      var(--color-cream) 0 2px,
+      transparent 3px
+    ),
+    radial-gradient(circle at 66% 8%, var(--color-cream) 0 2px, transparent 3px);
+  background-size: 360px 360px;
+  animation: confetti-fall 26s linear infinite;
 }
 
-@keyframes rays-spin {
+/* Banderines — a bunting of carnaval pennants strung across the top. */
+.bunting {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  z-index: -2;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='44'><path d='M0 5 H200' stroke='%23fbeecb' stroke-width='2' opacity='0.75'/><polygon points='3,6 37,6 20,40' fill='%23f5b307'/><polygon points='43,6 77,6 60,40' fill='%23e5197d'/><polygon points='83,6 117,6 100,40' fill='%231863dc'/><polygon points='123,6 157,6 140,40' fill='%23a84a9a'/><polygon points='163,6 197,6 180,40' fill='%2312b3a6'/></svg>");
+  background-repeat: repeat-x;
+  background-position: top center;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+}
+
+@keyframes confetti-fall {
   to {
-    rotate: 360deg;
-  }
-}
-
-@keyframes haze-breathe {
-  0%,
-  100% {
-    opacity: 0.45;
-  }
-  50% {
-    opacity: 0.95;
+    background-position: 40px 360px;
   }
 }
 
@@ -133,19 +157,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(0.75rem, 2vw, 1.25rem);
-  max-width: 62rem;
+  gap: clamp(0.75rem, 2vw, 1.2rem);
+  max-width: 64rem;
 }
 
 .eyebrow {
   margin: 0;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: clamp(0.68rem, 1.6vw, 0.86rem);
-  letter-spacing: 0.42em;
+  font-size: clamp(0.66rem, 1.6vw, 0.82rem);
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--color-ink);
-  opacity: 0.82;
+  color: var(--color-cream);
+  opacity: 0.72;
 }
 
 .wordmark {
@@ -155,58 +179,59 @@
   text-transform: uppercase;
   line-height: 0.82;
   letter-spacing: -0.02em;
-  color: var(--color-ink);
+  color: var(--color-gold);
   font-size: clamp(3.75rem, 20vw, 13rem);
   text-wrap: balance;
+  text-shadow: 0 6px 30px rgba(245, 179, 7, 0.28);
 }
 
 .wordmark .year {
   display: block;
-  margin-top: 0.08em;
-  font-size: 0.46em;
+  margin-top: 0.06em;
+  font-size: 0.44em;
   letter-spacing: 0.06em;
-  color: rgba(42, 8, 18, 0.08);
-  -webkit-text-stroke: clamp(2px, 0.45vw, 4px) var(--color-ink);
+  color: transparent;
+  -webkit-text-stroke: clamp(1.5px, 0.4vw, 3px) var(--color-cream);
 }
 
-.thesis {
-  margin: 0.35em 0 0;
-  max-width: 16ch;
-  font-family: var(--font-display);
+.slogan {
+  margin: 0.15em 0 0;
+  font-family: var(--font-slogan);
+  font-style: italic;
   font-weight: 700;
-  font-size: clamp(1.3rem, 4vw, 2.4rem);
-  line-height: 1.05;
-  color: var(--color-cream);
+  font-size: clamp(1.7rem, 6vw, 3.75rem);
+  line-height: 1;
+  color: var(--color-fuchsia);
   text-wrap: balance;
-  text-shadow: 0 2px 26px rgba(59, 10, 38, 0.55);
+  text-shadow: 0 2px 24px rgba(229, 25, 125, 0.35);
 }
 
 .subline {
-  margin: 0;
-  max-width: 36ch;
+  margin: 0.2em 0 0;
+  max-width: 38ch;
   font-family: var(--font-body);
-  font-size: clamp(0.92rem, 2vw, 1.1rem);
+  font-size: clamp(0.92rem, 2vw, 1.08rem);
   line-height: 1.5;
   color: var(--color-cream);
-  opacity: 0.86;
+  opacity: 0.84;
 }
 
-/* ---- CTA: the single cool accent ---------------------------------------- */
+/* ---- CTA: the cobalt (hotel-blue) accent -------------------------------- */
 .cta {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
   padding: 0.85em 1.7em;
   border-radius: 999px;
   font-family: var(--font-body);
   font-weight: 700;
   font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: #fff;
-  background: var(--color-teal);
+  background: var(--color-cobalt);
   box-shadow:
-    0 14px 34px -10px rgba(13, 148, 136, 0.75),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    0 14px 34px -10px rgba(24, 99, 220, 0.75),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22);
   transition:
     transform 0.18s ease,
     background 0.18s ease,
@@ -215,18 +240,18 @@
 
 .cta:hover {
   transform: translateY(-2px) scale(1.03);
-  background: var(--color-teal-bright);
+  background: #2f77ee;
   box-shadow:
-    0 20px 40px -12px rgba(13, 148, 136, 0.8),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+    0 20px 42px -12px rgba(24, 99, 220, 0.85),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3);
 }
 
 .cta:focus-visible {
-  outline: 3px solid var(--color-cream);
+  outline: 3px solid var(--color-gold);
   outline-offset: 3px;
 }
 
-/* ---- Socials: a quiet monochrome row ------------------------------------ */
+/* ---- Socials: a quiet cream row ----------------------------------------- */
 .socials {
   display: flex;
   gap: 0.3rem;
@@ -239,7 +264,7 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 999px;
-  opacity: 0.72;
+  opacity: 0.7;
   transition:
     transform 0.16s ease,
     background 0.16s ease,
@@ -249,11 +274,11 @@
 .social:hover {
   opacity: 1;
   transform: translateY(-2px);
-  background: rgba(255, 243, 214, 0.4);
+  background: rgba(251, 238, 203, 0.14);
 }
 
 .social:focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--color-gold);
   outline-offset: 2px;
 }
 
@@ -271,16 +296,14 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-cream);
-  opacity: 0.72;
+  opacity: 0.66;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rays,
-  .haze {
-    animation: none;
-  }
+  .confetti,
   .cta,
   .social {
+    animation: none;
     transition: none;
   }
 }

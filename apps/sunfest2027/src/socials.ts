@@ -34,5 +34,5 @@ export const SOCIALS: readonly Social[] = [
   },
 ];
 
-/** simpleicons.org hex color (ink) for the monochrome social row. */
-export const SOCIAL_ICON_COLOR = "2a0812";
+/** simpleicons.org hex color (cream) for the social row on the dark ground. */
+export const SOCIAL_ICON_COLOR = "fbeecb";
