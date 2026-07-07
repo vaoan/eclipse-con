@@ -4,51 +4,43 @@ interface FlowerProps {
   readonly color?: string;
 }
 
-/** A stylized carnaval flower — the blooms that smother Congo turbans. */
+/**
+ * A stylized Cattleya orchid — Colombia's national flower: two showy upper
+ * petals, lower sepals, and the signature ruffled lip with a yellow throat.
+ */
 export function Flower({
   className,
-  color = "var(--color-yellow)",
+  color = "var(--color-magenta)",
 }: Readonly<FlowerProps>) {
   return (
     <svg
       className={className}
-      viewBox="0 0 100 100"
+      viewBox="0 0 100 104"
       role="presentation"
       aria-hidden="true"
     >
       <g fill={color}>
-        <ellipse cx="50" cy="22" rx="13" ry="24" />
-        <ellipse cx="50" cy="22" rx="13" ry="24" transform="rotate(60 50 50)" />
+        {/* dorsal sepal (top) */}
+        <ellipse cx="50" cy="22" rx="9" ry="19" />
+        {/* showy upper petals */}
         <ellipse
-          cx="50"
-          cy="22"
-          rx="13"
-          ry="24"
-          transform="rotate(120 50 50)"
+          cx="27"
+          cy="33"
+          rx="19"
+          ry="13"
+          transform="rotate(-22 27 33)"
         />
-        <ellipse
-          cx="50"
-          cy="22"
-          rx="13"
-          ry="24"
-          transform="rotate(180 50 50)"
-        />
-        <ellipse
-          cx="50"
-          cy="22"
-          rx="13"
-          ry="24"
-          transform="rotate(240 50 50)"
-        />
-        <ellipse
-          cx="50"
-          cy="22"
-          rx="13"
-          ry="24"
-          transform="rotate(300 50 50)"
-        />
+        <ellipse cx="73" cy="33" rx="19" ry="13" transform="rotate(22 73 33)" />
+        {/* lower lateral sepals */}
+        <ellipse cx="33" cy="58" rx="8" ry="17" transform="rotate(30 33 58)" />
+        <ellipse cx="67" cy="58" rx="8" ry="17" transform="rotate(-30 67 58)" />
+        {/* labellum / lip (ruffled trumpet) */}
+        <path d="M50 44 C29 47 25 76 41 90 C46 95 54 95 59 90 C75 76 71 47 50 44 Z" />
       </g>
-      <circle cx="50" cy="50" r="14" fill="var(--color-cream)" />
+      {/* yellow throat */}
+      <ellipse cx="50" cy="60" rx="9" ry="12" fill="var(--color-yellow)" />
+      {/* column */}
+      <ellipse cx="50" cy="46" rx="4.5" ry="7" fill="var(--color-cream)" />
     </svg>
   );
 }
