@@ -1,13 +1,208 @@
 {
+  "nav": {
+    "about": "Why",
+    "activities": "Activities",
+    "venue": "The hotel",
+    "travel": "Getting there",
+    "organizers": "Team",
+    "faq": "FAQ",
+    "menu": "Menu",
+    "follow": "Follow"
+  },
   "teaser": {
     "eyebrow": "Coffee Festival · Quindío · 2027",
     "language": "Language",
     "wordmark": "Sunfest 2027",
     "slogan": "Tiempo de carnaval",
-    "subline": "The full reveal drops when Moonfest 2026 wraps.",
+    "date": "Dates coming soon",
+    "subline": "The furry carnival of Colombia's coffee region, at Hotel Mocawa Resort.",
     "followCta": "Join the pack",
+    "scroll": "Explore",
     "socialsLabel": "Furry Colombia socials",
-    "followOn": "Follow on",
-    "footer": "Furry Colombia"
+    "followOn": "Follow on"
+  },
+  "about": {
+    "title": "Why Sunfest?",
+    "paragraph1": "When summer arrives, the Colombian fandom throws a party. Sunfest is the furry carnival of the coffee region: color, comparsa, and community in the heart of Quindío.",
+    "paragraph2": "After Moonfest under the stars, we head up into the Coffee Cultural Landscape to celebrate under the sun, among wax palms, coffee, and the joy of carnival.",
+    "paragraph3": "Sunfest is Furry Colombia's summer convention: an organized space for the fandom, with artistic programming, themed activities, spaces for creators, and stages for the community, without leaving the country."
+  },
+  "activities": {
+    "title": "What you'll find",
+    "subtitle": "Community, carnival, and an all-inclusive experience in Quindío.",
+    "carnaval": {
+      "title": "Comparsa & parade",
+      "description": "A fursuit parade to the beat of the coffee-region carnival."
+    },
+    "dances": {
+      "title": "Parties & rave",
+      "description": "A Latin party and a rave to dance all night."
+    },
+    "panels": {
+      "title": "Panels & workshops",
+      "description": "Talks, panels, and workshops with special guests."
+    },
+    "dealers": {
+      "title": "Dealer Den",
+      "description": "Buy and sell art, products, and community merch."
+    },
+    "coffee": {
+      "title": "Coffee experiences",
+      "description": "Live the Coffee Cultural Landscape and its coffee culture."
+    },
+    "pools": {
+      "title": "Pools & spa",
+      "description": "Pools, spa, and lounge areas to recharge between events."
+    },
+    "community": {
+      "title": "Community",
+      "description": "Share with friends and meet people in a safe, welcoming space."
+    },
+    "breakfast": {
+      "title": "Breakfast included",
+      "description": "Daily buffet breakfast included in the package."
+    }
+  },
+  "venue": {
+    "title": "The hotel",
+    "name": "Hotel Mocawa Resort",
+    "location": "La Tebaida, Quindío · Colombia",
+    "description": "A resort inspired by coffee culture and Andean scenery, with the vibrant colors of the region's flora. Set in the UNESCO Coffee Cultural Landscape, just minutes from El Edén airport.",
+    "description2": "Pools with a solarium, spa, gym, tennis court, and Restaurante Color make recovery between events effortless, with plenty of space for the convention and the carnival.",
+    "features": {
+      "location": "La Tebaida, Quindío — Km 2.6 toward Valle del Cauca",
+      "airport": "10 minutes from El Edén International Airport",
+      "pools": "Adult pool with solarium and children's pool",
+      "wellness": "Spa, gym, tennis court, and putting green",
+      "dining": "Restaurante Color, bars, and a traditional fonda",
+      "landscape": "In the heart of the Coffee Cultural Landscape (UNESCO)"
+    },
+    "contactTitle": "Hotel contact",
+    "phone": "(+57) 300 912 4676",
+    "email": "reservas@hotelmocawaresort.com",
+    "rnt": "RNT 58580"
+  },
+  "amenities": {
+    "title": "Facilities",
+    "subtitle": "Everything Hotel Mocawa Resort offers.",
+    "items": {
+      "adultPool": "Adult pool",
+      "kidsPool": "Children's pool",
+      "spa": "Spa",
+      "gym": "Gym",
+      "tennis": "Tennis court",
+      "puttingGreen": "Putting green",
+      "restaurant": "Restaurante Color",
+      "bars": "Bars",
+      "fonda": "Traditional fonda",
+      "gameRooms": "Game rooms",
+      "businessCenter": "Business center",
+      "wifi": "Free WiFi",
+      "parking": "Parking",
+      "transfers": "Transport & transfers"
+    }
+  },
+  "travel": {
+    "title": "Getting there",
+    "subtitle": "Into the heart of the coffee region, in Quindío.",
+    "airport": {
+      "title": "Fly to El Edén (Armenia)",
+      "description": "El Edén International Airport is just 10 minutes from the hotel."
+    },
+    "transfers": {
+      "title": "Transfers",
+      "description": "The hotel offers transport and transfers; ask when you book."
+    },
+    "weather": {
+      "title": "Coffee-region weather",
+      "description": "Warm, mild weather year-round; pack light clothes and sun protection."
+    },
+    "coffee": {
+      "title": "Coffee Cultural Landscape",
+      "description": "You're in the landscape declared a UNESCO World Heritage Site."
+    },
+    "food": {
+      "title": "Regional flavor",
+      "description": "Single-origin coffee, bandeja paisa, arepas, and Quindío cuisine."
+    },
+    "cocora": {
+      "title": "Cocora Valley",
+      "description": "Near the valley of the wax palms, Colombia's national tree."
+    }
+  },
+  "organizers": {
+    "title": "Organizers",
+    "subtitle": "The furry team making Sunfest happen.",
+    "people": {
+      "gau": {
+        "name": "Jecht Howl (Gau)",
+        "role": "Event host",
+        "bio": "Welcomes attendees and leads key event communications."
+      },
+      "nacho": {
+        "name": "Nacho",
+        "role": "Community host",
+        "bio": "Coordinates social moments and on-site support so everyone feels welcome."
+      },
+      "lucia": {
+        "name": "Lucía",
+        "role": "Creative producer",
+        "bio": "Shapes the visual storytelling and activity flow of the event."
+      },
+      "nell": {
+        "name": "Nell",
+        "role": "Artist",
+        "bio": "Creates the artwork and visual pieces that define Sunfest's identity."
+      },
+      "vaoan": {
+        "name": "Vaoan",
+        "role": "Tech & web",
+        "bio": "Builds and maintains the event's digital infrastructure."
+      },
+      "nax": {
+        "name": "Nax",
+        "role": "Logistics",
+        "bio": "Handles planning and coordination so everything runs smoothly."
+      }
+    }
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "items": {
+      "packages": {
+        "question": "Can I book just one night?",
+        "answer": "Sunfest runs multi-day packages; details will be announced soon."
+      },
+      "included": {
+        "question": "What does the entry include?",
+        "answer": "Event entry, lodging, and breakfast, within the official package."
+      },
+      "booking": {
+        "question": "How do I book?",
+        "answer": "You'll book directly with Hotel Mocawa Resort via the official link (coming soon)."
+      },
+      "dates": {
+        "question": "When is Sunfest?",
+        "answer": "Exact dates are still to be confirmed. Follow us to hear first."
+      },
+      "lodging": {
+        "question": "Can I attend without staying at the hotel?",
+        "answer": "Sunfest is exclusive to hotel guests."
+      },
+      "changes": {
+        "question": "Can I change my reservation?",
+        "answer": "Contact the hotel directly for any changes."
+      },
+      "questions": {
+        "question": "Have more questions?",
+        "answer": "Email us at furrycolombia@gmail.com."
+      }
+    }
+  },
+  "footer": {
+    "tagline": "The furry carnival of Colombia's coffee region",
+    "credits": "Organized by Furry Colombia",
+    "hashtag": "#SomosFurryColombia",
+    "copyright": "© 2027 Furry Colombia. All rights reserved."
   }
 }

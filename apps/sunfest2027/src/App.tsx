@@ -3,9 +3,17 @@ import { useTranslation } from "react-i18next";
 import { FallingFlowers } from "@/components/FallingFlowers";
 import { FollowCta } from "@/components/FollowCta";
 import { Flower } from "@/components/Flower";
-import { LanguageToggle } from "@/components/LanguageToggle";
-import { SocialLinks } from "@/components/SocialLinks";
 import { WaxPalm } from "@/components/WaxPalm";
+import { SECTION_IDS } from "@/content";
+import { AboutSection } from "@/sections/AboutSection";
+import { ActivitiesSection } from "@/sections/ActivitiesSection";
+import { AmenitiesSection } from "@/sections/AmenitiesSection";
+import { FaqSection } from "@/sections/FaqSection";
+import { FooterSection } from "@/sections/FooterSection";
+import { NavBar } from "@/sections/NavBar";
+import { OrganizersSection } from "@/sections/OrganizersSection";
+import { TravelSection } from "@/sections/TravelSection";
+import { VenueSection } from "@/sections/VenueSection";
 import { tid } from "@/lib/tid";
 
 /** Split a "Brand YEAR" wordmark into its brand and trailing-year parts. */
@@ -20,7 +28,7 @@ function splitWordmark(wordmark: string): readonly [string, string] {
   return [wordmark, ""];
 }
 
-/** Single-screen sunfest2027 teaser: a coffee-carnaval over the Quindío valley. */
+/** Sunfest 2027 site: carnaval hero over the Quindío valley + info sections. */
 export function App() {
   const { t, i18n } = useTranslation();
   const wordmark = t("teaser.wordmark");
@@ -31,55 +39,79 @@ export function App() {
   }, [i18n.language]);
 
   return (
-    <main className="stage" data-testid={tid("teaser-root")}>
-      <LanguageToggle />
-      <FallingFlowers />
-      <div className="confetti" aria-hidden="true" />
-      <div className="garland" aria-hidden="true" />
+    <>
+      <NavBar />
+      <main>
+        <section
+          id={SECTION_IDS.hero}
+          className="stage"
+          data-testid={tid("teaser-root")}
+        >
+          <FallingFlowers />
+          <div className="confetti" aria-hidden="true" />
+          <div className="garland" aria-hidden="true" />
 
-      <div className="valley" aria-hidden="true">
-        <WaxPalm className="palm palm-1" />
-        <WaxPalm className="palm palm-2" />
-        <WaxPalm className="palm palm-3" />
-        <WaxPalm className="palm palm-4" />
-      </div>
+          <div className="valley" aria-hidden="true">
+            <WaxPalm className="palm palm-1" />
+            <WaxPalm className="palm palm-2" />
+            <WaxPalm className="palm palm-3" />
+            <WaxPalm className="palm palm-4" />
+          </div>
 
-      <Flower
-        className="flower flower-1"
-        variant={0}
-        color="var(--color-magenta)"
-      />
-      <Flower
-        className="flower flower-2"
-        variant={2}
-        color="var(--color-teal)"
-      />
-      <Flower
-        className="flower flower-3"
-        variant={3}
-        color="var(--color-yellow)"
-      />
+          <Flower
+            className="flower flower-1"
+            variant={0}
+            color="var(--color-magenta)"
+          />
+          <Flower
+            className="flower flower-2"
+            variant={2}
+            color="var(--color-teal)"
+          />
+          <Flower
+            className="flower flower-3"
+            variant={3}
+            color="var(--color-yellow)"
+          />
 
-      <div className="content">
-        <p className="eyebrow">{t("teaser.eyebrow")}</p>
+          <div className="content">
+            <p className="eyebrow">{t("teaser.eyebrow")}</p>
 
-        <h1 className="wordmark" aria-label={wordmark}>
-          <span aria-hidden="true">{brand}</span>
-          {year && (
-            <span className="year" aria-hidden="true">
-              {year}
-            </span>
-          )}
-        </h1>
+            <h1 className="wordmark" aria-label={wordmark}>
+              <span aria-hidden="true">{brand}</span>
+              {year && (
+                <span className="year" aria-hidden="true">
+                  {year}
+                </span>
+              )}
+            </h1>
 
-        <p className="slogan">{t("teaser.slogan")}</p>
-        <p className="subline">{t("teaser.subline")}</p>
+            <p className="slogan">{t("teaser.slogan")}</p>
+            <p className="date-line">{t("teaser.date")}</p>
+            <p className="subline">{t("teaser.subline")}</p>
 
-        <FollowCta />
-        <SocialLinks />
+            <FollowCta />
 
-        <footer className="footer">{t("teaser.footer")}</footer>
-      </div>
-    </main>
+            <a
+              className="scroll-cue"
+              href={`#${SECTION_IDS.about}`}
+              data-content-section="hero"
+              data-content-id="scroll_cue"
+            >
+              {t("teaser.scroll")}
+            </a>
+          </div>
+        </section>
+
+        <AboutSection />
+        <ActivitiesSection />
+        <VenueSection />
+        <AmenitiesSection />
+        <TravelSection />
+        <OrganizersSection />
+        <FaqSection />
+        <FooterSection />
+      </main>
+    </>
   );
 }
