@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/cn";
 import { tid } from "@/lib/tid";
 
-/** Segmented ES / EN control that switches the active locale. */
+/** Segmented ES / EN control with a sliding thumb that switches the locale. */
 export function LanguageToggle() {
   const { i18n, t } = useTranslation();
   const current = i18n.resolvedLanguage?.startsWith("en") ? "en" : "es";
@@ -12,10 +11,16 @@ export function LanguageToggle() {
   }
 
   return (
-    <div className="lang-toggle" role="group" aria-label={t("teaser.language")}>
+    <div
+      className="lang-toggle"
+      role="group"
+      aria-label={t("teaser.language")}
+      data-active={current}
+    >
+      <span className="lang-thumb" aria-hidden="true" />
       <button
         type="button"
-        className={cn("lang-opt", current === "es" && "lang-opt-active")}
+        className="lang-opt"
         aria-pressed={current === "es"}
         aria-label="Español"
         onClick={() => {
@@ -30,7 +35,7 @@ export function LanguageToggle() {
       </button>
       <button
         type="button"
-        className={cn("lang-opt", current === "en" && "lang-opt-active")}
+        className="lang-opt"
         aria-pressed={current === "en"}
         aria-label="English"
         onClick={() => {
