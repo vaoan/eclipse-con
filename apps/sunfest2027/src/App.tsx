@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FollowCta } from "@/components/FollowCta";
+import { SocialLinks } from "@/components/SocialLinks";
 import { tid } from "@/lib/tid";
 
 /** Split a "Brand YEAR" wordmark into its brand and trailing-year parts. */
@@ -46,6 +47,7 @@ export function App() {
         <p className="subline">{t("teaser.subline")}</p>
 
         <FollowCta />
+        <SocialLinks />
 
         <footer className="footer">{t("teaser.footer")}</footer>
       </div>

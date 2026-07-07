@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/cn";
 import { tid } from "@/lib/tid";
 
-/** Telegram follow URL for notifications. Placeholder — update to the sunfest channel before launch. */
-const FOLLOW_URL = "https://t.me/FurryMoonfest";
+/** Telegram channel for the reveal — the Furry Colombia community channel. */
+const FOLLOW_URL = "https://t.me/furrycolombia";
 
 /** Props for {@link FollowCta}. */
 interface FollowCtaProps {
