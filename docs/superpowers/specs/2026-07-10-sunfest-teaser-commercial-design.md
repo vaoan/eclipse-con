@@ -62,6 +62,47 @@ commercial bands. Keep each section tight.
 5. **CTA band** — "The full announcement drops when Moonfest 2026 closes" +
    "Join the pack" (Telegram) + social links + footer.
 
+## Visual direction
+
+Color and type are **inherited and locked** from the existing brand
+(`src/index.css` `@theme`) — used exactly, not reinvented:
+
+- Ground: the hero's purple carnaval gradient `#5c2b8c → #a2317f → #c8368c`
+  **continues down the whole page** — one unbroken field, no per-section
+  color blocks.
+- Accents cycle the four official hues (yellow `#f7d01a`, magenta `#c8368c`,
+  teal `#00d9b8`, purple `#7334a6`); surfaces/text are cream `#fdf3df` / ink
+  `#2a0f45`.
+- Display: Bricolage Grotesque (800, uppercase, tight). Body: Space Grotesk.
+
+**Connective tissue — the coffee-cherry garland.** The garland motif already
+in the CSS separates sections (a strand between each) instead of hard section
+backgrounds, so the page reads as one strung-up carnaval, not stacked blocks.
+
+**Signature element — venue photos as a carnaval-flag garland.** This is where
+the design spends its boldness. Not a rectangular image grid (generic, and it
+would clash green-photo-on-purple). Each Mocawa photo is a **cream-matted
+"print," tilted a few degrees and hung from the garland string** like festival
+bunting — overlapping slightly, gently staggered. The cream frame + drop
+shadow unifies natural photo tones against the purple ground and keeps photos
+legible over the ambient motion; the tilt + string marries the photography to
+the carnaval. Reuses a motif already in the codebase, so it reads native.
+
+**Ambient motion stays loud full-page (locked choice).** The hero's ambient
+carnaval — confetti, falling flowers, swaying palms — **continues through
+every section**, not just the hero. Ambient layers sit behind content
+(negative `z-index`) at moderate opacity so captions, cards, and copy stay
+readable. Photo legibility is carried by the cream frames and shadows, not by
+calming the background.
+
+**Motion discipline.** New motion beyond the existing ambient loops is limited
+to: a soft scroll-reveal (fade + rise) per section and a subtle sway on the
+photo-flags on hover. All new motion is gated behind `prefers-reduced-motion`.
+
+**"What you'll find" cards.** Small icon+label cards, each accented with one of
+the four palette hues, cycling yellow → magenta → teal → purple. Translucent
+cream surface over the ground; `lucide-react` icons.
+
 ## Architecture
 
 Follows the existing flat sunfest structure (`src/{components,sections,locales}`),
