@@ -1,0 +1,49 @@
+import { describe, expect, it } from "vitest";
+import en from "@/locales/en.json";
+import es from "@/locales/es.json";
+
+const REQUIRED = [
+  "teaser.scrollCue",
+  "about.eyebrow",
+  "about.title",
+  "about.body",
+  "venue.eyebrow",
+  "venue.title",
+  "venue.subtitle",
+  "venue.photos.pool.alt",
+  "venue.photos.pool.caption",
+  "venue.photos.poolNature.alt",
+  "venue.photos.poolNature.caption",
+  "highlights.eyebrow",
+  "highlights.title",
+  "highlights.pools",
+  "highlights.spa",
+  "highlights.coffee",
+  "highlights.nature",
+  "highlights.mountains",
+  "highlights.carnaval",
+  "cta.eyebrow",
+  "cta.title",
+  "cta.body",
+];
+
+/** Resolve a dot path like "venue.photos.pool.alt" against a locale object. */
+function get(object: unknown, path: string): unknown {
+  return path
+    .split(".")
+    .reduce<unknown>(
+      (accumulator, k) => (accumulator as Record<string, unknown>)[k],
+      object
+    );
+}
+
+describe.each([
+  ["es", es],
+  ["en", en],
+])("%s copy", (_name, dict) => {
+  it.each(REQUIRED)("has a non-empty string at %s", (path) => {
+    const value = get(dict, path);
+    expect(typeof value).toBe("string");
+    expect((value as string).length).toBeGreaterThan(0);
+  });
+});

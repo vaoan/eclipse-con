@@ -1,13 +1,65 @@
 {
   "teaser": {
-    "eyebrow": "Coffee Festival · Quindío · 2027",
+    "eyebrow": "Coffee festival · Quindío · 2027",
     "language": "Language",
     "wordmark": "Sunfest 2027",
-    "slogan": "Tiempo de carnaval",
+    "slogan": "Carnival time",
     "subline": "The full reveal drops when Moonfest 2026 wraps.",
+    "scrollCue": "Scroll",
     "followCta": "Join the pack",
     "socialsLabel": "Furry Colombia socials",
-    "followOn": "Follow on",
+    "followOn": "Follow us on",
     "footer": "Furry Colombia"
+  },
+  "about": {
+    "eyebrow": "What is Sunfest?",
+    "title": "A furry carnival in Colombia's coffee region",
+    "body": "Sunfest 2027 is Furry Colombia's next big gathering: days of festivity, fursuits and community among mountains, coffee and wax palms. Same team as Moonfest, new season."
+  },
+  "venue": {
+    "eyebrow": "The setting",
+    "title": "Hotel Mocawa Resort",
+    "subtitle": "La Tebaida, Quindío — in the heart of the UNESCO Coffee Cultural Landscape.",
+    "photos": {
+      "pool": {
+        "alt": "Outdoor pool and solarium at Hotel Mocawa Resort",
+        "caption": "Pool & solarium"
+      },
+      "valley": {
+        "alt": "The Quindío valley seen from the resort",
+        "caption": "Quindío valley"
+      },
+      "fonda": {
+        "alt": "The resort's traditional coffee-country tavern",
+        "caption": "Traditional tavern"
+      },
+      "grounds": {
+        "alt": "Green grounds and architecture of Hotel Mocawa Resort",
+        "caption": "Green grounds"
+      },
+      "landscape": {
+        "alt": "Coffee-country landscape of La Tebaida, Quindío",
+        "caption": "Coffee landscape"
+      },
+      "poolNature": {
+        "alt": "Pool surrounded by lush nature",
+        "caption": "Nature & water"
+      }
+    }
+  },
+  "highlights": {
+    "eyebrow": "What you'll find",
+    "title": "All of it, in one place",
+    "pools": "Pools & solarium",
+    "spa": "Spa",
+    "coffee": "Coffee culture",
+    "nature": "Nature & wildlife",
+    "mountains": "Andes mountains",
+    "carnaval": "Carnival nights"
+  },
+  "cta": {
+    "eyebrow": "Get ready",
+    "title": "The carnival is waiting for you",
+    "body": "The full reveal drops when Moonfest 2026 wraps. Join the pack and be the first to know."
   }
 }

@@ -5,9 +5,61 @@
     "wordmark": "Sunfest 2027",
     "slogan": "Tiempo de carnaval",
     "subline": "El anuncio completo llega al cerrar Moonfest 2026.",
+    "scrollCue": "Desliza",
     "followCta": "Únete a la manada",
     "socialsLabel": "Redes de Furry Colombia",
     "followOn": "Síguenos en",
     "footer": "Furry Colombia"
+  },
+  "about": {
+    "eyebrow": "¿Qué es Sunfest?",
+    "title": "Un carnaval furry en el Eje Cafetero",
+    "body": "Sunfest 2027 es el próximo gran encuentro de Furry Colombia: días de fiesta, disfraces y comunidad entre montañas, café y palmas de cera. Mismo equipo de Moonfest, nueva estación."
+  },
+  "venue": {
+    "eyebrow": "El lugar",
+    "title": "Hotel Mocawa Resort",
+    "subtitle": "La Tebaida, Quindío — en el corazón del Paisaje Cultural Cafetero.",
+    "photos": {
+      "pool": {
+        "alt": "Piscina y solárium al aire libre del Hotel Mocawa Resort",
+        "caption": "Piscina & solárium"
+      },
+      "valley": {
+        "alt": "Valle del Quindío visto desde el resort",
+        "caption": "Valle del Quindío"
+      },
+      "fonda": {
+        "alt": "Fonda típica del resort con decoración cafetera",
+        "caption": "Fonda típica"
+      },
+      "grounds": {
+        "alt": "Zonas verdes y arquitectura del Hotel Mocawa Resort",
+        "caption": "Zonas verdes"
+      },
+      "landscape": {
+        "alt": "Paisaje cafetero de La Tebaida, Quindío",
+        "caption": "Paisaje cafetero"
+      },
+      "poolNature": {
+        "alt": "Piscina rodeada de naturaleza exuberante",
+        "caption": "Naturaleza y agua"
+      }
+    }
+  },
+  "highlights": {
+    "eyebrow": "Lo que te espera",
+    "title": "Todo esto, en un solo lugar",
+    "pools": "Piscinas & solárium",
+    "spa": "Spa",
+    "coffee": "Cultura cafetera",
+    "nature": "Naturaleza & fauna",
+    "mountains": "Montañas de los Andes",
+    "carnaval": "Noches de carnaval"
+  },
+  "cta": {
+    "eyebrow": "Prepárate",
+    "title": "El carnaval te está esperando",
+    "body": "El anuncio completo llega al cerrar Moonfest 2026. Únete a la manada y sé el primero en enterarte."
   }
 }
