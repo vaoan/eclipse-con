@@ -649,6 +649,62 @@
   opacity: 0.9;
 }
 
+/* ---- Venue gallery: photos as cream-framed carnaval flags ---------------- */
+.flag-garland {
+  list-style: none;
+  margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(0.75rem, 2.5vw, 1.75rem);
+}
+
+.flag {
+  width: clamp(150px, 30vw, 260px);
+}
+
+.flag:nth-child(odd) {
+  transform: rotate(-2.5deg);
+}
+.flag:nth-child(even) {
+  transform: rotate(2.5deg);
+  margin-top: 1.25rem;
+}
+
+.flag-figure {
+  margin: 0;
+  padding: 8px 8px 10px;
+  background: var(--color-cream);
+  border-radius: 5px;
+  box-shadow:
+    0 14px 30px -12px rgba(30, 12, 58, 0.7),
+    inset 0 0 0 1px rgba(42, 15, 69, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.flag-figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.flag-caption {
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--color-ink);
+}
+
+.flag:hover .flag-figure {
+  transform: translateY(-4px) rotate(-1deg);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section:not(.is-revealed) {
     opacity: 1;
@@ -662,7 +718,8 @@
   .lang-thumb,
   .lang-opt,
   .falling-flower,
-  .scroll-cue {
+  .scroll-cue,
+  .flag-figure {
     animation: none;
     transition: none;
   }
