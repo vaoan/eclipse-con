@@ -10,12 +10,15 @@ interface ScrollReveal {
 /**
  * Reveals an element once it scrolls into view. Returns `revealed: true`
  * immediately when reduced motion is preferred or IntersectionObserver is
- * unavailable, so content is never hidden without the observer.
+ * unavailable, so content is never hidden without the observer — including
+ * when the reduced-motion preference flips on after mount, since the
+ * returned value is derived from the live preference rather than a value
+ * only set once inside the observer callback.
  */
 export function useScrollReveal(): ScrollReveal {
   const prefersReducedMotion = usePrefersReducedMotion();
   const supported = typeof IntersectionObserver !== "undefined";
-  const [revealed, setRevealed] = useState(prefersReducedMotion || !supported);
+  const [intersected, setIntersected] = useState(false);
   const observer = useRef<IntersectionObserver | null>(null);
 
   const ref = useCallback(
@@ -27,7 +30,7 @@ export function useScrollReveal(): ScrollReveal {
       observer.current = new IntersectionObserver(
         (entries) => {
           if (entries.some((entry) => entry.isIntersecting)) {
-            setRevealed(true);
+            setIntersected(true);
             observer.current?.disconnect();
           }
         },
@@ -37,6 +40,8 @@ export function useScrollReveal(): ScrollReveal {
     },
     [prefersReducedMotion, supported]
   );
+
+  const revealed = intersected || prefersReducedMotion || !supported;
 
   return { ref, revealed };
 }
