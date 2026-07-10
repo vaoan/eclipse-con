@@ -141,6 +141,16 @@
   filter: drop-shadow(0 5px 6px rgba(30, 12, 58, 0.4));
 }
 
+/* Garland divider — a centered coffee-cherry strand separating sections. */
+.garland-divider {
+  height: 46px;
+  margin: clamp(1rem, 4vw, 2.5rem) 0;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='60'><path d='M0 7 Q100 21 200 7' fill='none' stroke='%2300d9b8' stroke-width='3' stroke-linecap='round'/><g fill='%2300d9b8'><ellipse cx='34' cy='20' rx='4' ry='11' transform='rotate(-38 34 20)'/><ellipse cx='48' cy='20' rx='4' ry='11' transform='rotate(38 48 20)'/><ellipse cx='150' cy='20' rx='4' ry='11' transform='rotate(-38 150 20)'/><ellipse cx='164' cy='20' rx='4' ry='11' transform='rotate(38 164 20)'/></g><path d='M92 18 V30' fill='none' stroke='%2300d9b8' stroke-width='2'/><circle cx='87' cy='34' r='5.5' fill='%23c8368c'/><circle cx='97' cy='35' r='5.5' fill='%23f7d01a'/><circle cx='92' cy='42' r='5.5' fill='%23c8368c'/></svg>");
+  background-repeat: repeat-x;
+  background-position: center;
+  filter: drop-shadow(0 5px 6px rgba(30, 12, 58, 0.4));
+}
+
 /* Flowers — Congo-turban blooms scattered as decor. */
 .flower {
   position: absolute;
