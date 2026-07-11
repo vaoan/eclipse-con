@@ -1,15 +1,18 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FallingFlowers } from "@/components/FallingFlowers";
-import { FollowCta } from "@/components/FollowCta";
+import { GarlandDivider } from "@/components/GarlandDivider";
 import { LanguageToggle } from "@/components/LanguageToggle";
-import { SocialLinks } from "@/components/SocialLinks";
+import { CtaBand } from "@/sections/CtaBand";
 import { Hero } from "@/sections/Hero";
+import { Highlights } from "@/sections/Highlights";
+import { VenueGallery } from "@/sections/VenueGallery";
+import { WhatIsSunfest } from "@/sections/WhatIsSunfest";
 import { tid } from "@/lib/tid";
 
 /** Sunfest 2027 commercial teaser: a scrollable coffee-carnaval over the Quindío valley. */
 export function App() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     document.documentElement.lang = i18n.language;
@@ -23,12 +26,14 @@ export function App() {
       <div className="garland" aria-hidden="true" />
 
       <Hero />
-
-      <div className="content">
-        <FollowCta />
-        <SocialLinks />
-        <footer className="footer">{t("teaser.footer")}</footer>
-      </div>
+      <GarlandDivider />
+      <WhatIsSunfest />
+      <GarlandDivider />
+      <VenueGallery />
+      <GarlandDivider />
+      <Highlights />
+      <GarlandDivider />
+      <CtaBand />
     </main>
   );
 }
