@@ -705,6 +705,49 @@
   transform: translateY(-4px) rotate(-1deg);
 }
 
+/* ---- Highlights: what you'll find ---------------------------------------- */
+.cards {
+  list-style: none;
+  margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+@media (min-width: 720px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: clamp(1.1rem, 3vw, 1.6rem) 1rem;
+  border-radius: 16px;
+  background: rgba(253, 243, 223, 0.08);
+  border: 1px solid rgba(253, 243, 223, 0.16);
+  border-top: 3px solid var(--card-accent);
+  backdrop-filter: blur(3px);
+}
+
+.card-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--card-accent);
+}
+
+.card-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  color: var(--color-cream);
+  text-wrap: balance;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .section:not(.is-revealed) {
     opacity: 1;
