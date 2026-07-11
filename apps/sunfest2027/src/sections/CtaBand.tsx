@@ -19,8 +19,8 @@ export function CtaBand() {
       <p className="section-eyebrow">{t("cta.eyebrow")}</p>
       <h2 className="section-title">{t("cta.title")}</h2>
       <p className="section-body">{t("cta.body")}</p>
-      <FollowCta />
-      <SocialLinks />
+      <FollowCta contentSection="cta" />
+      <SocialLinks contentSection="cta" />
       <footer className="footer">{t("teaser.footer")}</footer>
     </section>
   );
