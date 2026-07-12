@@ -124,7 +124,7 @@
     ),
     radial-gradient(circle at 66% 8%, var(--color-cream) 0 2px, transparent 3px);
   background-size: 360px 360px;
-  animation: confetti-fall 26s linear infinite;
+  /* Static: the confetti field stays put — only the flowers fall (below). */
 }
 
 /* Coffee-cherry garland — coffee branches with cherries strung across the top. */
@@ -178,12 +178,6 @@
   top: 20%;
   right: 9%;
   rotate: 8deg;
-}
-
-@keyframes confetti-fall {
-  to {
-    background-position: 0 360px;
-  }
 }
 
 /* ---- Hero: the full-height carnaval headline ----------------------------- */
@@ -649,60 +643,283 @@
   opacity: 0.9;
 }
 
-/* ---- Venue gallery: photos as cream-framed carnaval flags ---------------- */
-.flag-garland {
-  list-style: none;
-  margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: clamp(0.75rem, 2.5vw, 1.75rem);
+/* ---- Resort showcase: the giant pool, rooms and grounds ------------------ */
+.showcase-subheading {
+  margin: clamp(1.75rem, 5vw, 2.75rem) 0 0.25rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  color: var(--color-cream);
 }
 
-.flag {
-  width: clamp(150px, 30vw, 260px);
-}
-
-.flag:nth-child(odd) {
-  transform: rotate(-2.5deg);
-}
-.flag:nth-child(even) {
-  transform: rotate(2.5deg);
-  margin-top: 1.25rem;
-}
-
-.flag-figure {
-  margin: 0;
-  padding: 8px 8px 10px;
+/* Feature: the giant pool — a wide cream-framed hero, clickable. */
+.showcase-feature {
+  display: block;
+  width: 100%;
+  margin: clamp(1.5rem, 4vw, 2.5rem) auto 0;
+  padding: 10px 10px 4px;
+  border: 0;
+  cursor: pointer;
   background: var(--color-cream);
-  border-radius: 5px;
-  box-shadow:
-    0 14px 30px -12px rgba(30, 12, 58, 0.7),
-    inset 0 0 0 1px rgba(42, 15, 69, 0.06);
-  transition: transform 0.2s ease;
+  border-radius: 8px;
+  box-shadow: 0 22px 44px -18px rgba(30, 12, 58, 0.75);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.flag-figure img {
+.showcase-feature:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 28px 52px -18px rgba(30, 12, 58, 0.85);
+}
+
+.showcase-feature:focus-visible {
+  outline: 3px solid var(--color-yellow);
+  outline-offset: 4px;
+}
+
+.showcase-feature-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.showcase-feature-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.6rem 0.4rem 0.3rem;
+  text-align: left;
+}
+
+.showcase-feature-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1.05rem, 2.8vw, 1.5rem);
+  color: var(--color-ink);
+}
+
+.showcase-feature-blurb {
+  font-family: var(--font-body);
+  font-size: clamp(0.82rem, 1.8vw, 0.98rem);
+  color: var(--color-ink);
+  opacity: 0.78;
+}
+
+/* Card grids for rooms (tall) and grounds (wide). */
+.showcase-rooms,
+.showcase-grid {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.showcase-rooms {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+.showcase-grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* Clickable cream-framed photo card (polaroid language, carried from the flags). */
+.showcase-card {
+  display: block;
+  width: 100%;
+  padding: 8px 8px 10px;
+  border: 0;
+  cursor: pointer;
+  background: var(--color-cream);
+  border-radius: 6px;
+  box-shadow: 0 14px 30px -14px rgba(30, 12, 58, 0.7);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.showcase-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 40px -14px rgba(30, 12, 58, 0.82);
+}
+
+.showcase-card:focus-visible {
+  outline: 3px solid var(--color-yellow);
+  outline-offset: 3px;
+}
+
+.showcase-card-img {
   display: block;
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
-.flag-caption {
+.showcase-card-tall .showcase-card-img {
+  aspect-ratio: 3 / 4;
+}
+
+.showcase-card-caption {
+  display: block;
   margin-top: 6px;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.02em;
+  font-size: 0.82rem;
   color: var(--color-ink);
+  text-align: left;
 }
 
-.flag:hover .flag-figure {
-  transform: translateY(-4px) rotate(-1deg);
+/* ---- Lightbox: full-screen carousel with caption on the image footer ----- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(0.25rem, 1.5vw, 0.75rem);
+  padding: clamp(0.75rem, 3vw, 2rem);
+  background: rgba(20, 8, 40, 0.93);
+  backdrop-filter: blur(6px);
+  animation: lightbox-in 0.2s ease-out;
+}
+
+.lightbox-figure {
+  grid-column: 2;
+  position: relative;
+  margin: 0;
+  justify-self: center;
+  max-width: min(1100px, 100%);
+}
+
+.lightbox-img {
+  display: block;
+  max-width: 100%;
+  max-height: 84vh;
+  margin: 0 auto;
+  border-radius: 6px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+}
+
+.lightbox-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: clamp(1.75rem, 6vw, 3rem) clamp(0.9rem, 3vw, 1.4rem)
+    clamp(0.7rem, 2vw, 1rem);
+  border-radius: 0 0 6px 6px;
+  background: linear-gradient(to top, rgba(20, 8, 40, 0.92), transparent);
+  text-align: left;
+}
+
+.lightbox-count {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--color-teal);
+}
+
+.lightbox-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  color: var(--color-cream);
+}
+
+.lightbox-blurb {
+  max-width: 60ch;
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  color: var(--color-cream);
+  opacity: 0.86;
+}
+
+.lightbox-nav,
+.lightbox-close {
+  display: grid;
+  place-items: center;
+  border: 0;
+  cursor: pointer;
+  color: var(--color-ink);
+  background: var(--color-cream);
+  border-radius: 999px;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.lightbox-nav {
+  width: clamp(2.4rem, 6vw, 3.25rem);
+  height: clamp(2.4rem, 6vw, 3.25rem);
+}
+
+.lightbox-prev {
+  grid-column: 1;
+}
+
+.lightbox-next {
+  grid-column: 3;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: clamp(0.75rem, 3vw, 1.5rem);
+  right: clamp(0.75rem, 3vw, 1.5rem);
+  z-index: 1;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.lightbox-nav:hover,
+.lightbox-close:hover {
+  background: var(--color-yellow);
+  transform: scale(1.06);
+}
+
+.lightbox-nav:focus-visible,
+.lightbox-close:focus-visible {
+  outline: 3px solid var(--color-yellow);
+  outline-offset: 3px;
+}
+
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---- Site footer: socials again + the rights line ------------------------ */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: clamp(1.5rem, 5vw, 2.5rem) 1.5rem clamp(2rem, 6vw, 3rem);
+  text-align: center;
+}
+
+.site-footer-legal {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--color-cream);
+  opacity: 0.7;
 }
 
 /* ---- Highlights: what you'll find ---------------------------------------- */
@@ -771,7 +988,11 @@
   .lang-opt,
   .falling-flower,
   .scroll-cue,
-  .flag-figure {
+  .showcase-feature,
+  .showcase-card,
+  .lightbox,
+  .lightbox-nav,
+  .lightbox-close {
     animation: none;
     transition: none;
   }

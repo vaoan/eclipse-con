@@ -16,34 +16,63 @@
     "title": "A furry carnival in Colombia's coffee region",
     "body": "Sunfest 2027 is Furry Colombia's next big gathering: days of festivity, fursuits and community among mountains, coffee and wax palms. Same team as Moonfest, new season."
   },
-  "venue": {
-    "eyebrow": "The setting",
-    "title": "Hotel Mocawa Resort",
-    "subtitle": "La Tebaida, Quindío — in the heart of the UNESCO Coffee Cultural Landscape.",
-    "photos": {
-      "pool": {
-        "alt": "Outdoor pool and solarium at Hotel Mocawa Resort",
-        "caption": "Pool & solarium"
+  "showcase": {
+    "eyebrow": "The resort",
+    "title": "Your warm corner of the coffee region",
+    "body": "Hotel Mocawa Resort is sun, palm trees and turquoise water in the heart of Quindío. Here the warmth of our Colombian land comes back: pool days, mild evenings and carnaval color in every corner.",
+    "roomsHeading": "The rooms",
+    "groundsHeading": "Pool, spa & flavor",
+    "openItem": "View {{title}} full screen",
+    "items": {
+      "giantPool": {
+        "alt": "The giant pool at Hotel Mocawa Resort lit up at dusk",
+        "title": "The giant pool",
+        "blurb": "Turquoise curves among the palms, aglow as evening falls."
       },
-      "valley": {
-        "alt": "The Quindío valley seen from the resort",
-        "caption": "Quindío valley"
+      "suite": {
+        "alt": "Suite with a sunburst ceiling and a jacuzzi by the window",
+        "title": "Suite",
+        "blurb": "Sunburst ceilings, a jacuzzi and color everywhere."
       },
-      "fonda": {
-        "alt": "The resort's traditional coffee-country tavern",
-        "caption": "Traditional tavern"
+      "king": {
+        "alt": "Superior King room with yellow walls and a balcony",
+        "title": "Superior King",
+        "blurb": "Yellow walls and warm light spilling from the balcony."
       },
-      "grounds": {
-        "alt": "Green grounds and architecture of Hotel Mocawa Resort",
-        "caption": "Green grounds"
+      "twin": {
+        "alt": "Superior Twin room with two beds",
+        "title": "Superior Twin",
+        "blurb": "Two beds under the same carnaval ceiling."
+      },
+      "poolside": {
+        "alt": "Poolside area ringed by palm trees under a blue sky",
+        "title": "Poolside",
+        "blurb": "Palm trees, blue sky and the murmur of water."
+      },
+      "aerial": {
+        "alt": "Aerial view of Hotel Mocawa Resort among the mountains",
+        "title": "The resort from above",
+        "blurb": "Clay roofs among the Quindío mountains."
+      },
+      "spa": {
+        "alt": "The spa at Hotel Mocawa Resort",
+        "title": "Spa",
+        "blurb": "A breather between treatment and rest."
+      },
+      "restaurant": {
+        "alt": "Restaurante Color at Hotel Mocawa Resort",
+        "title": "Restaurante Color",
+        "blurb": "Quindío flavors on a table full of color."
+      },
+      "common": {
+        "alt": "The resort's common areas for gathering",
+        "title": "Common areas",
+        "blurb": "Corners to gather with the pack."
       },
       "landscape": {
         "alt": "Coffee-country landscape of La Tebaida, Quindío",
-        "caption": "Coffee landscape"
-      },
-      "poolNature": {
-        "alt": "Pool surrounded by lush nature",
-        "caption": "Nature & water"
+        "title": "Coffee landscape",
+        "blurb": "Wax palms and mountains as far as the eye can see."
       }
     }
   },
@@ -61,5 +90,15 @@
     "eyebrow": "Get ready",
     "title": "The carnival is waiting for you",
     "body": "The full reveal drops when Moonfest 2026 wraps. Join the pack and be the first to know."
+  },
+  "footer": {
+    "rights": "© 2027 Furry Colombia · All rights reserved"
+  },
+  "lightbox": {
+    "label": "Resort gallery",
+    "close": "Close",
+    "prev": "Previous",
+    "next": "Next",
+    "counter": "{{current}} / {{total}}"
   }
 }

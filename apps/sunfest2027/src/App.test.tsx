@@ -18,16 +18,18 @@ describe("Teaser", () => {
     render(<App />);
     expect(screen.getByTestId("hero")).toBeInTheDocument();
     expect(screen.getByTestId("about")).toBeInTheDocument();
-    expect(screen.getByTestId("venue")).toBeInTheDocument();
+    expect(screen.getByTestId("showcase")).toBeInTheDocument();
     expect(screen.getByTestId("highlights")).toBeInTheDocument();
     expect(screen.getByTestId("cta-band")).toBeInTheDocument();
+    expect(screen.getByTestId("site-footer")).toBeInTheDocument();
   });
 
-  it("renders the Furry Colombia social links", () => {
+  it("renders the Furry Colombia social links in the CTA band and the footer", () => {
     render(<App />);
-    expect(screen.getByRole("link", { name: /instagram/i })).toHaveAttribute(
-      "data-content-id",
-      "social_instagram"
-    );
+    const instagram = screen.getAllByRole("link", { name: /instagram/i });
+    expect(instagram).toHaveLength(2);
+    for (const link of instagram) {
+      expect(link).toHaveAttribute("data-content-id", "social_instagram");
+    }
   });
 });

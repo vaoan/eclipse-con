@@ -16,34 +16,63 @@
     "title": "Un carnaval furry en el Eje Cafetero",
     "body": "Sunfest 2027 es el próximo gran encuentro de Furry Colombia: días de fiesta, disfraces y comunidad entre montañas, café y palmas de cera. Mismo equipo de Moonfest, nueva estación."
   },
-  "venue": {
-    "eyebrow": "El lugar",
-    "title": "Hotel Mocawa Resort",
-    "subtitle": "La Tebaida, Quindío — en el corazón del Paisaje Cultural Cafetero.",
-    "photos": {
-      "pool": {
-        "alt": "Piscina y solárium al aire libre del Hotel Mocawa Resort",
-        "caption": "Piscina & solárium"
+  "showcase": {
+    "eyebrow": "El resort",
+    "title": "Tu rincón cálido en el Eje Cafetero",
+    "body": "El Hotel Mocawa Resort es sol, palmeras y agua turquesa en el corazón del Quindío. Aquí vuelve el calor de nuestra tierra colombiana: días de piscina, tardes tibias y color de carnaval en cada rincón.",
+    "roomsHeading": "Las habitaciones",
+    "groundsHeading": "Piscina, spa y sabor",
+    "openItem": "Ver {{title}} en pantalla completa",
+    "items": {
+      "giantPool": {
+        "alt": "Piscina gigante del Hotel Mocawa Resort iluminada al atardecer",
+        "title": "La piscina gigante",
+        "blurb": "Curvas de agua turquesa entre palmeras, encendidas al caer la tarde."
       },
-      "valley": {
-        "alt": "Valle del Quindío visto desde el resort",
-        "caption": "Valle del Quindío"
+      "suite": {
+        "alt": "Suite con techo de sol y jacuzzi junto a la ventana",
+        "title": "Suite",
+        "blurb": "Techos de sol, jacuzzi y color por todas partes."
       },
-      "fonda": {
-        "alt": "Fonda típica del resort con decoración cafetera",
-        "caption": "Fonda típica"
+      "king": {
+        "alt": "Habitación Superior King de muros amarillos y balcón",
+        "title": "Superior King",
+        "blurb": "Muros amarillos y luz cálida que entra por el balcón."
       },
-      "grounds": {
-        "alt": "Zonas verdes y arquitectura del Hotel Mocawa Resort",
-        "caption": "Zonas verdes"
+      "twin": {
+        "alt": "Habitación Superior Twin con dos camas",
+        "title": "Superior Twin",
+        "blurb": "Dos camas bajo el mismo techo de carnaval."
+      },
+      "poolside": {
+        "alt": "Zona de piscina rodeada de palmeras bajo el cielo azul",
+        "title": "Zona de piscina",
+        "blurb": "Palmeras, cielo azul y el rumor del agua."
+      },
+      "aerial": {
+        "alt": "Vista aérea del Hotel Mocawa Resort entre montañas",
+        "title": "El resort desde el aire",
+        "blurb": "Techos de barro entre las montañas del Quindío."
+      },
+      "spa": {
+        "alt": "Spa del Hotel Mocawa Resort",
+        "title": "Spa",
+        "blurb": "Un respiro entre tratamiento y descanso."
+      },
+      "restaurant": {
+        "alt": "Restaurante Color del Hotel Mocawa Resort",
+        "title": "Restaurante Color",
+        "blurb": "Sabores del Quindío en una mesa llena de color."
+      },
+      "common": {
+        "alt": "Zonas comunes del resort para reunirse",
+        "title": "Zonas comunes",
+        "blurb": "Rincones para reunirse con la manada."
       },
       "landscape": {
         "alt": "Paisaje cafetero de La Tebaida, Quindío",
-        "caption": "Paisaje cafetero"
-      },
-      "poolNature": {
-        "alt": "Piscina rodeada de naturaleza exuberante",
-        "caption": "Naturaleza y agua"
+        "title": "Paisaje cafetero",
+        "blurb": "Palmas de cera y montañas hasta donde llega la vista."
       }
     }
   },
@@ -61,5 +90,15 @@
     "eyebrow": "Prepárate",
     "title": "El carnaval te está esperando",
     "body": "El anuncio completo llega al cerrar Moonfest 2026. Únete a la manada y sé el primero en enterarte."
+  },
+  "footer": {
+    "rights": "© 2027 Furry Colombia · Todos los derechos reservados"
+  },
+  "lightbox": {
+    "label": "Galería del resort",
+    "close": "Cerrar",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "counter": "{{current}} / {{total}}"
   }
 }

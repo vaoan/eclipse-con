@@ -6,7 +6,8 @@ import { LanguageToggle } from "@/components/LanguageToggle";
 import { CtaBand } from "@/sections/CtaBand";
 import { Hero } from "@/sections/Hero";
 import { Highlights } from "@/sections/Highlights";
-import { VenueGallery } from "@/sections/VenueGallery";
+import { HotelShowcase } from "@/sections/HotelShowcase";
+import { SiteFooter } from "@/sections/SiteFooter";
 import { WhatIsSunfest } from "@/sections/WhatIsSunfest";
 import { tid } from "@/lib/tid";
 
@@ -29,11 +30,12 @@ export function App() {
       <GarlandDivider />
       <WhatIsSunfest />
       <GarlandDivider />
-      <VenueGallery />
+      <HotelShowcase />
       <GarlandDivider />
       <Highlights />
       <GarlandDivider />
       <CtaBand />
+      <SiteFooter />
     </main>
   );
 }
