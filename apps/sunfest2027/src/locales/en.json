@@ -96,6 +96,22 @@
       "accessible": "Accessible room"
     }
   },
+  "recap": {
+    "eyebrow": "Thank you, pack",
+    "title": "An unforgettable first year",
+    "body": "Moonfest 2026 brought us together with fursuits, carnival and community. Now we go for more at Sunfest 2027.",
+    "attendees": "attendees from 7 countries",
+    "countriesAria": "Participating countries",
+    "countries": {
+      "co": "Colombia",
+      "ar": "Argentina",
+      "cr": "Costa Rica",
+      "do": "Dominican Republic",
+      "mx": "Mexico",
+      "ve": "Venezuela",
+      "us": "United States"
+    }
+  },
   "cta": {
     "eyebrow": "Get ready",
     "title": "The carnival is waiting for you",

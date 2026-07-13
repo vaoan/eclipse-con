@@ -21,6 +21,7 @@ describe("Teaser", () => {
     expect(screen.getByTestId("about")).toBeInTheDocument();
     expect(screen.getByTestId("showcase")).toBeInTheDocument();
     expect(screen.getByTestId("amenities")).toBeInTheDocument();
+    expect(screen.getByTestId("recap")).toBeInTheDocument();
     expect(screen.getByTestId("cta-band")).toBeInTheDocument();
     expect(screen.getByTestId("site-footer")).toBeInTheDocument();
   });

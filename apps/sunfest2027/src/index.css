@@ -1086,6 +1086,99 @@
   color: var(--color-teal);
 }
 
+/* ---- Recap: previous-event stat + moving flag line ----------------------- */
+.recap-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  margin: clamp(1.25rem, 4vw, 2rem) 0 0;
+}
+
+.recap-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+  font-size: clamp(3rem, 12vw, 6rem);
+  color: var(--color-yellow);
+  text-shadow: 0 4px 24px rgba(42, 15, 69, 0.5);
+}
+
+.recap-stat-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: clamp(0.72rem, 1.8vw, 0.9rem);
+  color: var(--color-cream);
+  opacity: 0.85;
+}
+
+/* Moving line of participating-country flags. */
+.flag-marquee {
+  width: 100%;
+  overflow: hidden;
+  margin-top: clamp(1.75rem, 5vw, 2.75rem);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.flag-track {
+  display: flex;
+  width: max-content;
+  gap: clamp(1rem, 3vw, 2.2rem);
+  animation: flag-scroll 30s linear infinite;
+}
+
+.flag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  color: var(--color-cream);
+}
+
+.flag-img {
+  width: clamp(28px, 5vw, 38px);
+  height: auto;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(30, 12, 58, 0.45);
+}
+
+/* Reduced motion: no scroll — a centered wrapped row instead. */
+.flag-marquee-static {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.flag-marquee-static .flag-track {
+  width: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: none;
+}
+
+@keyframes flag-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* ---- Closing CTA band ---------------------------------------------------- */
 .cta-band {
   display: flex;
@@ -1113,6 +1206,7 @@
   .showcase-feature,
   .showcase-card,
   .amenity-card,
+  .flag-track,
   .lightbox,
   .lightbox-nav,
   .lightbox-close {

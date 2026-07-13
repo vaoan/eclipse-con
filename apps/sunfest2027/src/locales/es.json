@@ -96,6 +96,22 @@
       "accessible": "Habitación accesible"
     }
   },
+  "recap": {
+    "eyebrow": "Gracias, manada",
+    "title": "Un primer año inolvidable",
+    "body": "Moonfest 2026 nos reunió con disfraces, carnaval y comunidad. Ahora vamos por más en Sunfest 2027.",
+    "attendees": "asistentes de 7 países",
+    "countriesAria": "Países que participaron",
+    "countries": {
+      "co": "Colombia",
+      "ar": "Argentina",
+      "cr": "Costa Rica",
+      "do": "República Dominicana",
+      "mx": "México",
+      "ve": "Venezuela",
+      "us": "Estados Unidos"
+    }
+  },
   "cta": {
     "eyebrow": "Prepárate",
     "title": "El carnaval te está esperando",
