@@ -80,13 +80,56 @@ if (!python) {
   process.exit(1);
 }
 
+// A Windows Python (python.exe/py.exe) launched from WSL cannot read POSIX
+// paths: it treats the leading "/" as relative to the current drive, so
+// "/mnt/z/…/fetch.py" becomes "Z:\mnt\z\…\fetch.py". Translate the script path
+// and every path-valued env var to their Windows form in that case.
+const usingWindowsPython = /\.exe$/i.test(python);
+
+/**
+ * Convert a POSIX/WSL path to a Windows path when the resolved interpreter is
+ * a Windows Python; otherwise returns the path unchanged. Uses `wslpath -w`,
+ * falling back to a manual `/mnt/<drive>` conversion if it is unavailable.
+ *
+ * @param p - The absolute POSIX path to convert.
+ * @returns A Windows path for Windows Python, or the original path otherwise.
+ */
+function toHostPath(p) {
+  if (!usingWindowsPython) return p;
+  const r = spawnSync("wslpath", ["-w", p], { encoding: "utf8" });
+  if (r.status === 0 && r.stdout.trim()) return r.stdout.trim();
+  const m = /^\/mnt\/([a-z])\/(.*)$/i.exec(p);
+  return m ? `${m[1].toUpperCase()}:\\${m[2].replace(/\//g, "\\")}` : p;
+}
+
+if (usingWindowsPython) {
+  env.TELEGRAM_OUT_DIR = toHostPath(env.TELEGRAM_OUT_DIR);
+  env.TELEGRAM_SESSION = toHostPath(env.TELEGRAM_SESSION);
+  // WSL does not hand a spawned Windows process our custom environment unless
+  // each variable is named in WSLENV. Share the secrets and config vars the
+  // Python scripts read (values are passed verbatim — the paths above were
+  // already converted to Windows form).
+  const shared = [
+    ...Object.keys(secrets),
+    "TELEGRAM_TARGET",
+    "TELEGRAM_THREAD_ID",
+    "TELEGRAM_SINCE",
+    "TELEGRAM_OUT_DIR",
+    "TELEGRAM_SESSION",
+    "TELEGRAM_SELECT",
+    "TRANSLATE_TO",
+  ];
+  const wslenv = [...new Set(shared)].map((key) => `${key}/w`).join(":");
+  env.WSLENV = env.WSLENV ? `${env.WSLENV}:${wslenv}` : wslenv;
+}
+
 const ENTRY = {
   sync: "fetch.py",
   list: "list_cli.py",
   remove: "remove_cli.py",
 };
 function runPy(script, extra = []) {
-  const r = spawnSync(python, [resolve(SRC, script), ...extra], {
+  const r = spawnSync(python, [toHostPath(resolve(SRC, script)), ...extra], {
     stdio: "inherit",
     env,
   });
