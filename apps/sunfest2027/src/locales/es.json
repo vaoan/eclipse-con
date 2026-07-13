@@ -1,11 +1,12 @@
 {
   "teaser": {
-    "eyebrow": "Fiesta del café · Quindío · 2027",
+    "eyebrow": "Los carnavales de Colombia · Quindío · 2027",
     "language": "Idioma",
     "wordmark": "Sunfest 2027",
     "slogan": "Tiempo de carnaval",
     "subline": "El anuncio completo llega al cerrar Moonfest 2026.",
     "scrollCue": "Desliza",
+    "bannerAlt": "Ilustración de Sunfest 2027: personajes furry celebrando el carnaval en el balcón de un pueblo colombiano, con los Andes y la bandera de Colombia al fondo.",
     "followCta": "Únete a la manada",
     "socialsLabel": "Redes de Furry Colombia",
     "followOn": "Síguenos en",
@@ -13,8 +14,8 @@
   },
   "about": {
     "eyebrow": "¿Qué es Sunfest?",
-    "title": "Un carnaval furry en el Eje Cafetero",
-    "body": "Sunfest 2027 es el próximo gran encuentro de Furry Colombia: días de fiesta, disfraces y comunidad entre montañas, café y palmas de cera. Mismo equipo de Moonfest, nueva estación."
+    "title": "Todos los carnavales de Colombia, en versión furry",
+    "body": "Sunfest 2027 reúne el color de los carnavales de todo el país en un gran encuentro de Furry Colombia, entre las montañas y el café del Quindío: días de fiesta, disfraces y comunidad. Mismo equipo de Moonfest, nueva estación."
   },
   "showcase": {
     "eyebrow": "El resort",

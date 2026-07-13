@@ -4,6 +4,7 @@ import es from "@/locales/es.json";
 
 const REQUIRED = [
   "teaser.scrollCue",
+  "teaser.bannerAlt",
   "about.eyebrow",
   "about.title",
   "about.body",

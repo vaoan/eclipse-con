@@ -90,6 +90,7 @@ src/
 - Translation keys: `feature.section.key` (dot notation)
 - Locales: `en`, `es` in `src/shared/infrastructure/i18n/locales/`
 - Always update both locale files when adding keys
+- **Tests assert i18n keys, not translated copy** — the test setup mocks `t()` to return its key, so tests reference keys (`getByRole("heading", { name: "about.title" })`), never wording. See `.claude/rules/i18n-testing.md`.
 
 ### JSDoc
 

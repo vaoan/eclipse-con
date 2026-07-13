@@ -44,6 +44,7 @@ export function HotelShowcase() {
         aria-label={t("showcase.openItem", {
           title: t(SHOWCASE_FEATURE.titleKey),
         })}
+        data-testid={tid("showcase-feature")}
         data-content-section="showcase"
         data-content-id="open_giantPool"
         data-content-interaction="open"

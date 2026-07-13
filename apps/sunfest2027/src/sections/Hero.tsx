@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Flower } from "@/components/Flower";
+import bannerSrc from "@/assets/hero/banner.webp";
 import { ScrollCue } from "@/components/ScrollCue";
 import { WaxPalm } from "@/components/WaxPalm";
 import { tid } from "@/lib/tid";
@@ -16,7 +16,7 @@ function splitWordmark(wordmark: string): readonly [string, string] {
   return [wordmark, ""];
 }
 
-/** Full-height hero: carnaval wordmark over a stand of Quindío wax palms. */
+/** Hero: the carnaval wordmark over a full-width Sunfest 2027 illustration. */
 export function Hero() {
   const { t } = useTranslation();
   const wordmark = t("teaser.wordmark");
@@ -35,22 +35,6 @@ export function Hero() {
         <WaxPalm className="palm palm-4" src="/assets/palm-4.svg" />
       </div>
 
-      <Flower
-        className="flower flower-1"
-        variant={0}
-        color="var(--color-magenta)"
-      />
-      <Flower
-        className="flower flower-2"
-        variant={2}
-        color="var(--color-teal)"
-      />
-      <Flower
-        className="flower flower-3"
-        variant={3}
-        color="var(--color-yellow)"
-      />
-
       <div className="content">
         <p className="eyebrow">{t("teaser.eyebrow")}</p>
         <h1 className="wordmark" aria-label={wordmark}>
@@ -63,8 +47,16 @@ export function Hero() {
         </h1>
         <p className="slogan">{t("teaser.slogan")}</p>
         <p className="subline">{t("teaser.subline")}</p>
-        <ScrollCue />
       </div>
+
+      <img
+        className="hero-banner"
+        src={bannerSrc}
+        alt={t("teaser.bannerAlt")}
+        decoding="async"
+      />
+
+      <ScrollCue />
     </section>
   );
 }

@@ -2,11 +2,12 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { App } from "@/App";
 
+// `t` returns the key under test (see test-setup): assertions name i18n keys.
 describe("Teaser", () => {
   it("renders the hero wordmark and a tracked follow CTA", () => {
     render(<App />);
     expect(
-      screen.getByRole("heading", { name: "Sunfest 2027" })
+      screen.getByRole("heading", { name: "teaser.wordmark" })
     ).toBeInTheDocument();
     const cta = screen.getByTestId("teaser-follow");
     expect(cta).toHaveAttribute("data-content-id", "follow_telegram");
