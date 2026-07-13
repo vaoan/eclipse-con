@@ -26,9 +26,9 @@
     "openItem": "Ver {{title}} en pantalla completa",
     "items": {
       "giantPool": {
-        "alt": "Piscina gigante del Hotel Mocawa Resort iluminada al atardecer",
+        "alt": "Piscina gigante del Hotel Mocawa Resort vista desde el aire",
         "title": "La piscina gigante",
-        "blurb": "Curvas de agua turquesa entre palmeras, encendidas al caer la tarde."
+        "blurb": "Curvas de agua turquesa entre palmeras y jardines, vistas desde el aire."
       },
       "suite": {
         "alt": "Suite con techo de sol y jacuzzi junto a la ventana",
@@ -82,7 +82,7 @@
     "title": "Todo esto, en un solo lugar",
     "moreHeading": "Y mucho más",
     "more": {
-      "kidsPool": "Piscina para niños",
+      "events": "Eventos & bodas",
       "tennis": "Cancha de tenis",
       "puttingGreen": "Putting green",
       "gym": "Gimnasio",

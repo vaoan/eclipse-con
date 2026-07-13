@@ -1,6 +1,5 @@
 import {
   Accessibility,
-  Baby,
   Briefcase,
   Car,
   Coffee,
@@ -12,6 +11,7 @@ import {
   PlaneTakeoff,
   Sparkles,
   TreePalm,
+  Users,
   Volleyball,
   WashingMachine,
   Waves,
@@ -107,7 +107,7 @@ export interface AmenityListItem {
 
 /** The remaining hotel amenities that have no photo, listed as icon + label. */
 export const AMENITY_LIST: readonly AmenityListItem[] = [
-  { id: "kidsPool", icon: Baby, labelKey: "amenities.more.kidsPool" },
+  { id: "events", icon: Users, labelKey: "amenities.more.events" },
   { id: "tennis", icon: Volleyball, labelKey: "amenities.more.tennis" },
   { id: "puttingGreen", icon: Flag, labelKey: "amenities.more.puttingGreen" },
   { id: "gym", icon: Dumbbell, labelKey: "amenities.more.gym" },

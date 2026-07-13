@@ -26,9 +26,9 @@
     "openItem": "View {{title}} full screen",
     "items": {
       "giantPool": {
-        "alt": "The giant pool at Hotel Mocawa Resort lit up at dusk",
+        "alt": "The giant pool at Hotel Mocawa Resort seen from above",
         "title": "The giant pool",
-        "blurb": "Turquoise curves among the palms, aglow as evening falls."
+        "blurb": "Turquoise curves among palms and gardens, seen from above."
       },
       "suite": {
         "alt": "Suite with a sunburst ceiling and a jacuzzi by the window",
@@ -82,7 +82,7 @@
     "title": "All of it, in one place",
     "moreHeading": "And much more",
     "more": {
-      "kidsPool": "Children's pool",
+      "events": "Events & weddings",
       "tennis": "Tennis court",
       "puttingGreen": "Putting green",
       "gym": "Gym",

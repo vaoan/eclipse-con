@@ -30,7 +30,7 @@ const REQUIRED = [
   "amenities.eyebrow",
   "amenities.title",
   "amenities.moreHeading",
-  "amenities.more.kidsPool",
+  "amenities.more.events",
   "amenities.more.wifi",
   "cta.eyebrow",
   "cta.title",
