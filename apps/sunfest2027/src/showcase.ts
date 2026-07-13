@@ -1,6 +1,14 @@
-import { Coffee, Mountain, Sparkles, TreePalm, Waves } from "lucide-react";
+import {
+  Coffee,
+  Mountain,
+  PartyPopper,
+  Sparkles,
+  TreePalm,
+  Waves,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import common from "@/assets/showcase/common.webp";
+import fonda from "@/assets/showcase/fonda.webp";
 import giantPool from "@/assets/showcase/giant-pool.webp";
 import landscape from "@/assets/showcase/landscape.webp";
 import poolside from "@/assets/showcase/poolside.webp";
@@ -73,6 +81,7 @@ export const AMENITIES: readonly Amenity[] = [
   amenity("poolside", poolside, Waves, "var(--color-teal)"),
   amenity("spa", spa, Sparkles, "var(--color-yellow)"),
   amenity("restaurant", restaurant, Coffee, "var(--color-magenta)"),
-  amenity("common", common, TreePalm, "var(--color-purple-soft)"),
-  amenity("landscape", landscape, Mountain, "var(--color-teal)"),
+  amenity("fonda", fonda, PartyPopper, "var(--color-purple-soft)"),
+  amenity("common", common, TreePalm, "var(--color-teal)"),
+  amenity("landscape", landscape, Mountain, "var(--color-yellow)"),
 ];

@@ -59,6 +59,11 @@
         "title": "Restaurante Color",
         "blurb": "Sabores del Quindío en una mesa llena de color."
       },
+      "fonda": {
+        "alt": "Fonda típica del Hotel Mocawa con techo de flores y mesas de colores",
+        "title": "Fonda típica",
+        "blurb": "Mesas de colores, música y comida típica bajo un techo de flores."
+      },
       "common": {
         "alt": "Zonas comunes del resort para reunirse",
         "title": "Zonas comunes",
