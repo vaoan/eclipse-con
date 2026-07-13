@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { FallingFlowers } from "@/components/FallingFlowers";
 import { GarlandDivider } from "@/components/GarlandDivider";
 import { LanguageToggle } from "@/components/LanguageToggle";
+import { Amenities } from "@/sections/Amenities";
 import { CtaBand } from "@/sections/CtaBand";
 import { Hero } from "@/sections/Hero";
-import { Highlights } from "@/sections/Highlights";
 import { HotelShowcase } from "@/sections/HotelShowcase";
 import { SiteFooter } from "@/sections/SiteFooter";
 import { WhatIsSunfest } from "@/sections/WhatIsSunfest";
@@ -28,11 +28,11 @@ export function App() {
 
       <Hero />
       <GarlandDivider />
-      <WhatIsSunfest />
-      <GarlandDivider />
       <HotelShowcase />
       <GarlandDivider />
-      <Highlights />
+      <WhatIsSunfest />
+      <GarlandDivider />
+      <Amenities />
       <GarlandDivider />
       <CtaBand />
       <SiteFooter />

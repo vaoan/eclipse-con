@@ -5,19 +5,13 @@ import { ShowcaseCard } from "@/components/ShowcaseCard";
 import { cn } from "@/lib/cn";
 import { tid } from "@/lib/tid";
 import { useScrollReveal } from "@/lib/useScrollReveal";
-import {
-  SHOWCASE_FEATURE,
-  SHOWCASE_GROUNDS,
-  SHOWCASE_ITEMS,
-  SHOWCASE_ROOMS,
-} from "@/showcase";
+import { SHOWCASE_FEATURE, SHOWCASE_ITEMS, SHOWCASE_ROOMS } from "@/showcase";
 
 const ROOMS_START = 1;
-const GROUNDS_START = ROOMS_START + SHOWCASE_ROOMS.length;
 
 /**
- * "The resort" showcase: the giant pool as a feature, then the rooms and
- * grounds as cream-framed cards. Any photo opens a full-screen lightbox.
+ * "The resort", right after the hero: the giant pool as the money-shot feature,
+ * then the room types. Any photo opens a full-screen lightbox.
  */
 export function HotelShowcase() {
   const { t } = useTranslation();
@@ -74,20 +68,6 @@ export function HotelShowcase() {
               tall
               onOpen={() => {
                 setOpenIndex(ROOMS_START + index);
-              }}
-            />
-          </li>
-        ))}
-      </ul>
-
-      <h3 className="showcase-subheading">{t("showcase.groundsHeading")}</h3>
-      <ul className="showcase-grid">
-        {SHOWCASE_GROUNDS.map((spot, index) => (
-          <li key={spot.id}>
-            <ShowcaseCard
-              item={spot}
-              onOpen={() => {
-                setOpenIndex(GROUNDS_START + index);
               }}
             />
           </li>

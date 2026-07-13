@@ -22,7 +22,6 @@
     "title": "Tu rincón cálido en el Eje Cafetero",
     "body": "El Hotel Mocawa Resort es sol, palmeras y agua turquesa en el corazón del Quindío. Aquí vuelve el calor de nuestra tierra colombiana: días de piscina, tardes tibias y color de carnaval en cada rincón.",
     "roomsHeading": "Las habitaciones",
-    "groundsHeading": "Piscina, spa y sabor",
     "openItem": "Ver {{title}} en pantalla completa",
     "items": {
       "giantPool": {
@@ -47,13 +46,8 @@
       },
       "poolside": {
         "alt": "Zona de piscina rodeada de palmeras bajo el cielo azul",
-        "title": "Zona de piscina",
+        "title": "Piscinas & solárium",
         "blurb": "Palmeras, cielo azul y el rumor del agua."
-      },
-      "aerial": {
-        "alt": "Vista aérea del Hotel Mocawa Resort entre montañas",
-        "title": "El resort desde el aire",
-        "blurb": "Techos de barro entre las montañas del Quindío."
       },
       "spa": {
         "alt": "Spa del Hotel Mocawa Resort",
@@ -77,15 +71,9 @@
       }
     }
   },
-  "highlights": {
+  "amenities": {
     "eyebrow": "Lo que te espera",
-    "title": "Todo esto, en un solo lugar",
-    "pools": "Piscinas & solárium",
-    "spa": "Spa",
-    "coffee": "Cultura cafetera",
-    "nature": "Naturaleza & fauna",
-    "mountains": "Montañas de los Andes",
-    "carnaval": "Noches de carnaval"
+    "title": "Todo esto, en un solo lugar"
   },
   "cta": {
     "eyebrow": "Prepárate",

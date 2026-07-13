@@ -1,4 +1,5 @@
-import aerial from "@/assets/showcase/aerial.webp";
+import { Coffee, Mountain, Sparkles, TreePalm, Waves } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import common from "@/assets/showcase/common.webp";
 import giantPool from "@/assets/showcase/giant-pool.webp";
 import landscape from "@/assets/showcase/landscape.webp";
@@ -32,7 +33,7 @@ function item(id: string, source: string): ShowcaseItem {
   };
 }
 
-/** The giant pool — the section's wide feature image. */
+/** The giant pool — the showcase's wide feature image. */
 export const SHOWCASE_FEATURE: ShowcaseItem = item("giantPool", giantPool);
 
 /** The three room types, shown as tall portrait cards. */
@@ -42,22 +43,36 @@ export const SHOWCASE_ROOMS: readonly ShowcaseItem[] = [
   item("twin", roomTwin),
 ];
 
-/** Pool, spa, dining, grounds and landscape — the wide amenity cards. */
-export const SHOWCASE_GROUNDS: readonly ShowcaseItem[] = [
-  item("poolside", poolside),
-  item("aerial", aerial),
-  item("spa", spa),
-  item("restaurant", restaurant),
-  item("common", common),
-  item("landscape", landscape),
-];
-
-/**
- * Every showcase item in display/lightbox order (feature → rooms → grounds).
- * The lightbox cycles this flat list; each section maps its own slice.
- */
+/** The showcase lightbox order: the giant pool, then the rooms. */
 export const SHOWCASE_ITEMS: readonly ShowcaseItem[] = [
   SHOWCASE_FEATURE,
   ...SHOWCASE_ROOMS,
-  ...SHOWCASE_GROUNDS,
+];
+
+/** A venue amenity: a showcase photo plus a lucide icon and a palette accent. */
+export interface Amenity extends ShowcaseItem {
+  readonly icon: LucideIcon;
+  readonly color: string;
+}
+
+/** Build an amenity from its id, photo, icon and accent color. */
+function amenity(
+  id: string,
+  source: string,
+  icon: LucideIcon,
+  color: string
+): Amenity {
+  return { ...item(id, source), icon, color };
+}
+
+/**
+ * The venue amenities, each shown as a photo + icon + label + blurb card and
+ * cycled through their own lightbox. Colors rotate the carnaval hues.
+ */
+export const AMENITIES: readonly Amenity[] = [
+  amenity("poolside", poolside, Waves, "var(--color-teal)"),
+  amenity("spa", spa, Sparkles, "var(--color-yellow)"),
+  amenity("restaurant", restaurant, Coffee, "var(--color-magenta)"),
+  amenity("common", common, TreePalm, "var(--color-purple-soft)"),
+  amenity("landscape", landscape, Mountain, "var(--color-teal)"),
 ];

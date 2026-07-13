@@ -22,7 +22,6 @@
     "title": "Your warm corner of the coffee region",
     "body": "Hotel Mocawa Resort is sun, palm trees and turquoise water in the heart of Quindío. Here the warmth of our Colombian land comes back: pool days, mild evenings and carnaval color in every corner.",
     "roomsHeading": "The rooms",
-    "groundsHeading": "Pool, spa & flavor",
     "openItem": "View {{title}} full screen",
     "items": {
       "giantPool": {
@@ -47,13 +46,8 @@
       },
       "poolside": {
         "alt": "Poolside area ringed by palm trees under a blue sky",
-        "title": "Poolside",
+        "title": "Pools & solarium",
         "blurb": "Palm trees, blue sky and the murmur of water."
-      },
-      "aerial": {
-        "alt": "Aerial view of Hotel Mocawa Resort among the mountains",
-        "title": "The resort from above",
-        "blurb": "Clay roofs among the Quindío mountains."
       },
       "spa": {
         "alt": "The spa at Hotel Mocawa Resort",
@@ -77,15 +71,9 @@
       }
     }
   },
-  "highlights": {
+  "amenities": {
     "eyebrow": "What you'll find",
-    "title": "All of it, in one place",
-    "pools": "Pools & solarium",
-    "spa": "Spa",
-    "coffee": "Coffee culture",
-    "nature": "Nature & wildlife",
-    "mountains": "Andes mountains",
-    "carnaval": "Carnival nights"
+    "title": "All of it, in one place"
   },
   "cta": {
     "eyebrow": "Get ready",

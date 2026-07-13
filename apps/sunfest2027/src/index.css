@@ -698,22 +698,14 @@
   opacity: 0.78;
 }
 
-/* Card grids for rooms (tall) and grounds (wide). */
-.showcase-rooms,
-.showcase-grid {
+/* Room cards grid (tall portrait). */
+.showcase-rooms {
   list-style: none;
   margin: 0.75rem 0 0;
   padding: 0;
   display: grid;
   gap: clamp(0.75rem, 2vw, 1.25rem);
-}
-
-.showcase-rooms {
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-}
-
-.showcase-grid {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 /* Clickable cream-framed photo card (polaroid language, carried from the flags). */
@@ -909,47 +901,86 @@
   opacity: 0.7;
 }
 
-/* ---- Highlights: what you'll find ---------------------------------------- */
-.cards {
+/* ---- Amenities: photo + icon + label + description cards ------------------ */
+.amenities-grid {
   list-style: none;
   margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(0.75rem, 2vw, 1.25rem);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(0.9rem, 2.5vw, 1.5rem);
 }
 
-@media (min-width: 720px) {
-  .cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.card {
+.amenity-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  padding: clamp(1.1rem, 3vw, 1.6rem) 1rem;
-  border-radius: 16px;
-  background: rgba(253, 243, 223, 0.08);
+  width: 100%;
+  padding: 0;
+  cursor: pointer;
   border: 1px solid rgba(253, 243, 223, 0.16);
   border-top: 3px solid var(--card-accent);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(253, 243, 223, 0.08);
   backdrop-filter: blur(3px);
+  text-align: left;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
-.card-icon {
-  width: 30px;
-  height: 30px;
+.amenity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 38px -16px rgba(30, 12, 58, 0.8);
+}
+
+.amenity-card:focus-visible {
+  outline: 3px solid var(--color-yellow);
+  outline-offset: 3px;
+}
+
+.amenity-card-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.amenity-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: clamp(0.75rem, 2vw, 1rem);
+}
+
+.amenity-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.amenity-card-icon {
+  width: 22px;
+  height: 22px;
+  flex: none;
   color: var(--card-accent);
 }
 
-.card-label {
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: clamp(0.85rem, 2vw, 1rem);
+.amenity-card-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: clamp(0.92rem, 2vw, 1.05rem);
   color: var(--color-cream);
-  text-wrap: balance;
+}
+
+.amenity-card-desc {
+  font-family: var(--font-body);
+  font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+  line-height: 1.45;
+  color: var(--color-cream);
+  opacity: 0.82;
 }
 
 /* ---- Closing CTA band ---------------------------------------------------- */
@@ -977,6 +1008,7 @@
   .scroll-cue,
   .showcase-feature,
   .showcase-card,
+  .amenity-card,
   .lightbox,
   .lightbox-nav,
   .lightbox-close {
