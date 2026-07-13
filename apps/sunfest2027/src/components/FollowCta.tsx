@@ -11,12 +11,21 @@ interface FollowCtaProps {
   readonly className?: string;
   /** Analytics section this CTA is attributed to. Defaults to `"teaser"`. */
   readonly contentSection?: string;
+  /** Test id, so multiple instances stay uniquely selectable. */
+  readonly testId?: string;
+  /** Analytics content id. */
+  readonly contentId?: string;
+  /** Analytics CTA id. */
+  readonly ctaId?: string;
 }
 
 /** Primary "join the pack" call-to-action linking to the Telegram channel. */
 export function FollowCta({
   className,
   contentSection = "teaser",
+  testId = "teaser-follow",
+  contentId = "follow_telegram",
+  ctaId = "teaser_follow",
 }: Readonly<FollowCtaProps>) {
   const { t } = useTranslation();
   return (
@@ -24,10 +33,10 @@ export function FollowCta({
       href={FOLLOW_URL}
       target="_blank"
       rel="noreferrer"
-      data-testid={tid("teaser-follow")}
+      data-testid={tid(testId)}
       data-content-section={contentSection}
-      data-content-id="follow_telegram"
-      data-cta-id="teaser_follow"
+      data-content-id={contentId}
+      data-cta-id={ctaId}
       data-funnel-step="follow"
       className={cn("cta", className)}
     >

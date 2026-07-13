@@ -151,59 +151,47 @@
   filter: drop-shadow(0 5px 6px rgba(30, 12, 58, 0.4));
 }
 
-/* ---- Hero: the wordmark over the full-width Sunfest illustration --------- */
+/* ---- Hero: the full-screen Sunfest illustration with text over it -------- */
 .hero {
   position: relative;
+  isolation: isolate;
   min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(1.25rem, 4vw, 2.5rem);
-  padding: clamp(3rem, 7vh, 5rem) 0;
+  display: grid;
+  place-items: center;
   overflow: hidden;
+  padding: clamp(3rem, 7vh, 5rem) clamp(1.5rem, 5vw, 4rem);
   text-align: center;
 }
 
-/* Wax palms (palma de cera del Quindío) — kept as faint background imagery
-   behind the headline and banner, semi-transparent but still visible. */
-.valley {
+/* The illustration fills the whole hero; the text sits over it. */
+.hero-banner {
   position: absolute;
   inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
 }
 
-.palm {
+/* Dark vignette so the wordmark stays legible over the bright illustration. */
+.hero-scrim {
   position: absolute;
-  bottom: -1%;
-  width: auto;
-  opacity: 0.3;
-  filter: drop-shadow(0 8px 20px rgba(30, 12, 58, 0.3));
-}
-
-/* Outer palms tall, inner ones shorter; left-side palms flipped so every
-   crown curves toward the center. */
-.palm-1 {
-  left: 0;
-  height: clamp(190px, 46vh, 540px);
-  transform: scaleX(-1);
-}
-
-.palm-2 {
-  left: 20%;
-  height: clamp(140px, 30vh, 340px);
-}
-
-.palm-3 {
-  right: 20%;
-  height: clamp(140px, 30vh, 340px);
-}
-
-.palm-4 {
-  right: 0;
-  height: clamp(190px, 46vh, 540px);
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(
+      120% 90% at 50% 42%,
+      rgba(20, 8, 40, 0.55),
+      transparent 62%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(20, 8, 40, 0.35),
+      transparent 30%,
+      transparent 68%,
+      rgba(20, 8, 40, 0.45)
+    );
 }
 
 /* ---- Content ------------------------------------------------------------- */
@@ -217,13 +205,27 @@
   padding-inline: clamp(1.5rem, 5vw, 4rem);
 }
 
-/* The banner stretches full-bleed across the viewport, scaling with it while
-   keeping its aspect ratio so the whole illustration stays visible. */
-.hero-banner {
-  display: block;
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 18px 40px rgba(30, 12, 58, 0.45));
+/* The text column sits above the illustration + scrim, with strong shadows. */
+.hero-content {
+  z-index: 2;
+  gap: clamp(0.9rem, 2.5vw, 1.4rem);
+}
+
+.hero-content .eyebrow {
+  opacity: 0.92;
+  text-shadow: 0 2px 8px rgba(20, 8, 40, 0.9);
+}
+
+.hero-content .wordmark {
+  text-shadow:
+    0 2px 6px rgba(20, 8, 40, 0.95),
+    0 6px 28px rgba(20, 8, 40, 0.85);
+}
+
+.hero-content .slogan {
+  text-shadow:
+    0 2px 6px rgba(20, 8, 40, 0.95),
+    0 4px 18px rgba(20, 8, 40, 0.8);
 }
 
 .eyebrow {

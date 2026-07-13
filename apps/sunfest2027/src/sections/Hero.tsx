@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import bannerSrc from "@/assets/hero/banner.webp";
-import { ScrollCue } from "@/components/ScrollCue";
-import { WaxPalm } from "@/components/WaxPalm";
+import { FollowCta } from "@/components/FollowCta";
 import { tid } from "@/lib/tid";
 
 /** Split a "Brand YEAR" wordmark into its brand and trailing-year parts. */
@@ -16,7 +15,11 @@ function splitWordmark(wordmark: string): readonly [string, string] {
   return [wordmark, ""];
 }
 
-/** Hero: the carnaval wordmark over a full-width Sunfest 2027 illustration. */
+/**
+ * Full-screen hero: the Sunfest 2027 illustration fills the viewport, with the
+ * wordmark, slogan and CTA centered over it — the rest of the page scrolls up
+ * beneath it.
+ */
 export function Hero() {
   const { t } = useTranslation();
   const wordmark = t("teaser.wordmark");
@@ -28,14 +31,15 @@ export function Hero() {
       data-content-section="teaser"
       data-testid={tid("hero")}
     >
-      <div className="valley" aria-hidden="true">
-        <WaxPalm className="palm palm-1" src="/assets/palm-1.svg" />
-        <WaxPalm className="palm palm-2" src="/assets/palm-2.svg" />
-        <WaxPalm className="palm palm-3" src="/assets/palm-3.svg" />
-        <WaxPalm className="palm palm-4" src="/assets/palm-4.svg" />
-      </div>
+      <img
+        className="hero-banner"
+        src={bannerSrc}
+        alt={t("teaser.bannerAlt")}
+        decoding="async"
+      />
+      <div className="hero-scrim" aria-hidden="true" />
 
-      <div className="content">
+      <div className="content hero-content">
         <p className="eyebrow">{t("teaser.eyebrow")}</p>
         <h1 className="wordmark" aria-label={wordmark}>
           <span aria-hidden="true">{brand}</span>
@@ -46,17 +50,12 @@ export function Hero() {
           )}
         </h1>
         <p className="slogan">{t("teaser.slogan")}</p>
-        <p className="subline">{t("teaser.subline")}</p>
+        <FollowCta
+          testId="hero-follow"
+          contentId="hero_follow_telegram"
+          ctaId="hero_follow"
+        />
       </div>
-
-      <img
-        className="hero-banner"
-        src={bannerSrc}
-        alt={t("teaser.bannerAlt")}
-        decoding="async"
-      />
-
-      <ScrollCue />
     </section>
   );
 }
