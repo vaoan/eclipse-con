@@ -4,7 +4,8 @@ compatibility_date = "2025-09-27"
 compatibility_flags = ["nodejs_compat"]
 main = "cloudflare/sunfest-worker.mjs"
 
-# Public site on the custom domain below; no *.workers.dev URL is exposed.
+# Behind Cloudflare Zero Trust Access on the custom domain below (one-time-PIN
+# allowlist); no public *.workers.dev URL is exposed.
 workers_dev = false
 
 [assets]
