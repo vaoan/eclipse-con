@@ -154,7 +154,6 @@
 /* ---- Hero: the full-screen Sunfest illustration with text over it -------- */
 .hero {
   position: relative;
-  isolation: isolate;
   min-height: 100dvh;
   display: grid;
   place-items: center;
@@ -163,22 +162,24 @@
   text-align: center;
 }
 
-/* The illustration fills the whole hero; the text sits over it. */
+/* The illustration is a background layer: it sits above the gradient/confetti
+   but below the falling flowers (z-index -1), so the flowers drift over it. */
 .hero-banner {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: -2;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 42%;
 }
 
-/* Dark vignette so the wordmark stays legible over the bright illustration. */
+/* Dark vignette so the wordmark stays legible over the bright illustration.
+   Kept at banner level so the falling flowers drift over it too. */
 .hero-scrim {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: -2;
   background:
     radial-gradient(
       120% 90% at 50% 42%,
@@ -205,9 +206,9 @@
   padding-inline: clamp(1.5rem, 5vw, 4rem);
 }
 
-/* The text column sits above the illustration + scrim, with strong shadows. */
+/* The text column sits above the falling flowers, with strong shadows. */
 .hero-content {
-  z-index: 2;
+  z-index: 1;
   gap: clamp(0.9rem, 2.5vw, 1.4rem);
 }
 
