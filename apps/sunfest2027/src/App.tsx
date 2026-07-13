@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FallingFlowers } from "@/components/FallingFlowers";
+import { FlowerToggle } from "@/components/FlowerToggle";
 import { GarlandDivider } from "@/components/GarlandDivider";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { Amenities } from "@/sections/Amenities";
@@ -22,6 +23,7 @@ export function App() {
   return (
     <main className="stage" data-testid={tid("teaser-root")}>
       <LanguageToggle />
+      <FlowerToggle />
       <FallingFlowers />
       <div className="confetti" aria-hidden="true" />
       <div className="garland" aria-hidden="true" />

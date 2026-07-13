@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Flower, FLOWER_VARIANTS } from "@/components/Flower";
 import { FALLING_FLOWER_COUNT, FLOWER_COLORS } from "@/carnaval";
+import { useFlowerShower } from "@/lib/useFlowerShower";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const FLOWER_KEYFRAMES = [
@@ -21,7 +22,9 @@ function seededValue(index: number, offset: number): number {
  */
 export function FallingFlowers() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const count = prefersReducedMotion ? 0 : FALLING_FLOWER_COUNT;
+  const flowerShowerOn = useFlowerShower();
+  const count =
+    prefersReducedMotion || !flowerShowerOn ? 0 : FALLING_FLOWER_COUNT;
 
   const flowers = useMemo(
     () =>
