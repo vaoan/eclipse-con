@@ -78,7 +78,22 @@
   },
   "amenities": {
     "eyebrow": "What you'll find",
-    "title": "All of it, in one place"
+    "title": "All of it, in one place",
+    "moreHeading": "And much more",
+    "more": {
+      "kidsPool": "Children's pool",
+      "tennis": "Tennis court",
+      "puttingGreen": "Putting green",
+      "gym": "Gym",
+      "gameRooms": "Game rooms",
+      "bars": "Bars",
+      "business": "Business center",
+      "parking": "Parking",
+      "laundry": "Laundry",
+      "transfers": "Airport transfers",
+      "wifi": "WiFi",
+      "accessible": "Accessible room"
+    }
   },
   "cta": {
     "eyebrow": "Get ready",

@@ -1,10 +1,22 @@
 import {
+  Accessibility,
+  Baby,
+  Briefcase,
+  Car,
   Coffee,
+  Dumbbell,
+  Flag,
+  Gamepad2,
   Mountain,
   PartyPopper,
+  PlaneTakeoff,
   Sparkles,
   TreePalm,
+  Volleyball,
+  WashingMachine,
   Waves,
+  Wifi,
+  Wine,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import common from "@/assets/showcase/common.webp";
@@ -84,4 +96,31 @@ export const AMENITIES: readonly Amenity[] = [
   amenity("fonda", fonda, PartyPopper, "var(--color-purple-soft)"),
   amenity("common", common, TreePalm, "var(--color-teal)"),
   amenity("landscape", landscape, Mountain, "var(--color-yellow)"),
+];
+
+/** An amenity shown as an icon + label in the "and much more" checklist. */
+export interface AmenityListItem {
+  readonly id: string;
+  readonly icon: LucideIcon;
+  readonly labelKey: string;
+}
+
+/** The remaining hotel amenities that have no photo, listed as icon + label. */
+export const AMENITY_LIST: readonly AmenityListItem[] = [
+  { id: "kidsPool", icon: Baby, labelKey: "amenities.more.kidsPool" },
+  { id: "tennis", icon: Volleyball, labelKey: "amenities.more.tennis" },
+  { id: "puttingGreen", icon: Flag, labelKey: "amenities.more.puttingGreen" },
+  { id: "gym", icon: Dumbbell, labelKey: "amenities.more.gym" },
+  { id: "gameRooms", icon: Gamepad2, labelKey: "amenities.more.gameRooms" },
+  { id: "bars", icon: Wine, labelKey: "amenities.more.bars" },
+  { id: "business", icon: Briefcase, labelKey: "amenities.more.business" },
+  { id: "parking", icon: Car, labelKey: "amenities.more.parking" },
+  { id: "laundry", icon: WashingMachine, labelKey: "amenities.more.laundry" },
+  { id: "transfers", icon: PlaneTakeoff, labelKey: "amenities.more.transfers" },
+  { id: "wifi", icon: Wifi, labelKey: "amenities.more.wifi" },
+  {
+    id: "accessible",
+    icon: Accessibility,
+    labelKey: "amenities.more.accessible",
+  },
 ];

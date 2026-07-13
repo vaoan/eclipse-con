@@ -919,10 +919,10 @@
   flex: 0 0 clamp(160px, 44vw, 232px);
 }
 
-/* One full-width card per row on small screens (readable, no truncation). */
-@media (max-width: 480px) {
+/* Two cards per row on phones. */
+@media (max-width: 560px) {
   .amenities-grid > li {
-    flex-basis: 100%;
+    flex-basis: calc(50% - 0.45rem);
   }
 }
 
@@ -1010,6 +1010,38 @@
   line-height: 1.45;
   color: var(--color-cream);
   opacity: 0.82;
+}
+
+/* "And much more" — icon + label chips for the photo-less amenities. */
+.amenity-list {
+  list-style: none;
+  margin: clamp(1rem, 3vw, 1.75rem) auto 0;
+  padding: 0;
+  max-width: 52rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+}
+
+.amenity-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(253, 243, 223, 0.16);
+  background: rgba(253, 243, 223, 0.08);
+  font-family: var(--font-body);
+  font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+  color: var(--color-cream);
+  text-align: left;
+}
+
+.amenity-list-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--color-teal);
 }
 
 /* ---- Closing CTA band ---------------------------------------------------- */

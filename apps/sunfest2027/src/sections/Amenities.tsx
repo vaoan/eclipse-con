@@ -5,7 +5,7 @@ import { Lightbox } from "@/components/Lightbox";
 import { cn } from "@/lib/cn";
 import { tid } from "@/lib/tid";
 import { useScrollReveal } from "@/lib/useScrollReveal";
-import { AMENITIES } from "@/showcase";
+import { AMENITIES, AMENITY_LIST } from "@/showcase";
 
 /**
  * "What you'll find" — the venue amenities, each a photo + icon + label +
@@ -35,6 +35,16 @@ export function Amenities() {
                 setOpenIndex(index);
               }}
             />
+          </li>
+        ))}
+      </ul>
+
+      <h3 className="showcase-subheading">{t("amenities.moreHeading")}</h3>
+      <ul className="amenity-list">
+        {AMENITY_LIST.map(({ id, icon: Icon, labelKey }) => (
+          <li key={id}>
+            <Icon className="amenity-list-icon" aria-hidden="true" />
+            <span>{t(labelKey)}</span>
           </li>
         ))}
       </ul>

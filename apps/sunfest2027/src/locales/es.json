@@ -78,7 +78,22 @@
   },
   "amenities": {
     "eyebrow": "Lo que te espera",
-    "title": "Todo esto, en un solo lugar"
+    "title": "Todo esto, en un solo lugar",
+    "moreHeading": "Y mucho más",
+    "more": {
+      "kidsPool": "Piscina para niños",
+      "tennis": "Cancha de tenis",
+      "puttingGreen": "Putting green",
+      "gym": "Gimnasio",
+      "gameRooms": "Salones de juegos",
+      "bars": "Bares",
+      "business": "Business center",
+      "parking": "Parqueadero",
+      "laundry": "Lavandería",
+      "transfers": "Traslados",
+      "wifi": "WiFi",
+      "accessible": "Habitación accesible"
+    }
   },
   "cta": {
     "eyebrow": "Prepárate",
