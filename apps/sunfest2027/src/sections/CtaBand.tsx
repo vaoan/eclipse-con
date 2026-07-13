@@ -1,11 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { FollowCta } from "@/components/FollowCta";
-import { SocialLinks } from "@/components/SocialLinks";
 import { cn } from "@/lib/cn";
 import { tid } from "@/lib/tid";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
-/** Closing band: the reveal promise, the follow CTA, socials and footer. */
+/** Closing band: the reveal promise, the follow CTA and footer line. */
 export function CtaBand() {
   const { t } = useTranslation();
   const { ref, revealed } = useScrollReveal();
@@ -20,7 +19,6 @@ export function CtaBand() {
       <h2 className="section-title">{t("cta.title")}</h2>
       <p className="section-body">{t("cta.body")}</p>
       <FollowCta contentSection="cta" />
-      <SocialLinks contentSection="cta" />
       <footer className="footer">{t("teaser.footer")}</footer>
     </section>
   );

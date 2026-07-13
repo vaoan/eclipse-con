@@ -25,12 +25,11 @@ describe("Teaser", () => {
     expect(screen.getByTestId("site-footer")).toBeInTheDocument();
   });
 
-  it("renders the Furry Colombia social links in the CTA band and the footer", () => {
+  it("renders the Furry Colombia social links once, in the footer", () => {
     render(<App />);
     const instagram = screen.getAllByRole("link", { name: /instagram/i });
-    expect(instagram).toHaveLength(2);
-    for (const link of instagram) {
-      expect(link).toHaveAttribute("data-content-id", "social_instagram");
-    }
+    expect(instagram).toHaveLength(1);
+    expect(instagram[0]).toHaveAttribute("data-content-id", "social_instagram");
+    expect(instagram[0]).toHaveAttribute("data-content-section", "footer");
   });
 });

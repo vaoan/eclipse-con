@@ -4,7 +4,7 @@ import { CtaBand } from "@/sections/CtaBand";
 
 // `t` returns the key under test (see test-setup): assertions name i18n keys.
 describe("CtaBand", () => {
-  it("renders the closing title, follow CTA and socials", () => {
+  it("renders the closing title and follow CTA", () => {
     render(<CtaBand />);
     expect(
       screen.getByRole("heading", { name: "cta.title" })
@@ -13,8 +13,5 @@ describe("CtaBand", () => {
       "data-cta-id",
       "teaser_follow"
     );
-    expect(
-      screen.getByRole("link", { name: /instagram/i })
-    ).toBeInTheDocument();
   });
 });
