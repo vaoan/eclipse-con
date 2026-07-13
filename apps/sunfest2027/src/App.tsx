@@ -31,13 +31,13 @@ export function App() {
 
       <Hero />
       <GarlandDivider />
+      <Recap />
+      <GarlandDivider />
       <HotelShowcase />
       <GarlandDivider />
       <WhatIsSunfest />
       <GarlandDivider />
       <Amenities />
-      <GarlandDivider />
-      <Recap />
       <GarlandDivider />
       <CtaBand />
       <SiteFooter />
