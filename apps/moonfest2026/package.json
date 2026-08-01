@@ -25,8 +25,7 @@
     "test:e2e:ui": "playwright test --ui",
     "fetch:telegram": "node ../../packages/telegram-sync/bin/sync.mjs fetch --config ./telegram.config.json",
     "translate:telegram": "node ../../packages/telegram-sync/bin/sync.mjs translate --config ./telegram.config.json",
-    "sync:telegram": "node ../../packages/telegram-sync/bin/sync.mjs sync --config ./telegram.config.json",
-    "publish:telegram": "pnpm sync:telegram && pnpm deploy:cloudflare",
+    "sync:telegram": "node ../../packages/telegram-sync/bin/sync.mjs sync --config ./telegram.config.json && pnpm deploy:cloudflare",
     "telegram:list": "node ../../packages/telegram-sync/bin/sync.mjs list --config ./telegram.config.json",
     "telegram:remove": "node ../../packages/telegram-sync/bin/sync.mjs remove --config ./telegram.config.json",
     "version:auto": "node scripts/bump-version.mjs"
@@ -48,7 +47,6 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.1",
     "@playwright/test": "^1.58.2",
-    "@rollup/rollup-linux-x64-gnu": "^4.60.3",
     "@tailwindcss/vite": "^4.2.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
