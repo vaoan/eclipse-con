@@ -24,6 +24,11 @@
 @layer base {
   :root {
     color-scheme: dark;
+
+    /* Every content section fills at least one screen so each one reads as its
+       own beat. `svh` (not `dvh`) keeps the height stable while mobile browser
+       chrome slides in and out, which would otherwise re-centre mid-scroll. */
+    --section-min-h: 100svh;
   }
 
   html,
@@ -610,10 +615,25 @@
   }
 }
 
-/* ---- Content sections (below the hero) ----------------------------------- */
+/* ---- Content sections (below the hero) -----------------------------------
+   Each section claims a full screen and centres its content in it, so the page
+   reads as a sequence of distinct beats rather than one continuous column.
+   Sections whose content is taller than the screen simply grow past it — this
+   is a floor, not a fixed height. `align-content` (not `place-items`) keeps
+   children full-width, so the showcase and amenity grids still span the
+   section. */
 .section {
   position: relative;
   z-index: 1;
+  display: grid;
+
+  /* A definite single column. Without this the implicit `auto` track sizes to
+     its max-content — which stretch can grow but never shrink — so a child
+     grid like `.amenity-list` would widen the section past the viewport and
+     scroll the whole page sideways on phones. */
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  min-height: var(--section-min-h);
   margin: 0 auto;
   padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 5vw, 4rem);
   max-width: 68rem;
@@ -1059,6 +1079,12 @@
   list-style: none;
   margin: clamp(1rem, 3vw, 1.75rem) auto 0;
   padding: 0;
+
+  /* The section is a grid, and `margin-inline: auto` on a grid item turns off
+     stretch — leaving the list to size itself from its own content, which for
+     an `auto-fit` grid means every column at full width. An explicit width
+     keeps it definite, so the auto margins only ever centre it. */
+  width: 100%;
   max-width: 52rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
@@ -1179,11 +1205,14 @@
   }
 }
 
-/* ---- Closing CTA band ---------------------------------------------------- */
+/* ---- Closing CTA band ----------------------------------------------------
+   Stays a centred flex column, so it needs `justify-content` rather than the
+   `align-content` that vertically centres the grid-based sections. */
 .cta-band {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: clamp(0.5rem, 1.5vw, 0.9rem);
   padding-bottom: clamp(3rem, 8vw, 6rem);
 }
