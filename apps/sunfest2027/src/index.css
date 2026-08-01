@@ -942,7 +942,9 @@
   }
 }
 
-/* ---- Site footer: socials again + the rights line ------------------------ */
+/* ---- Site footer: brand line, socials again, the rights line -------------
+   Lives inside the closing section (see `.cta-band`), which supplies the page
+   padding, so this only has to stack and centre its own three rows. */
 .site-footer {
   position: relative;
   z-index: 1;
@@ -950,8 +952,11 @@
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  padding: clamp(1.5rem, 5vw, 2.5rem) 1.5rem clamp(2rem, 6vw, 3rem);
   text-align: center;
+}
+
+.site-footer .footer {
+  margin: 0;
 }
 
 .site-footer-legal {
@@ -1206,15 +1211,22 @@
 }
 
 /* ---- Closing CTA band ----------------------------------------------------
-   Stays a centred flex column, so it needs `justify-content` rather than the
-   `align-content` that vertically centres the grid-based sections. */
+   The last screen carries both closing beats: the message takes the free space
+   and centres in it, the footer settles on the baseline underneath. Explicit
+   rows (rather than the `align-content` that centres the other sections) keep
+   the footer on that baseline however tall the message runs. */
 .cta-band {
+  grid-template-rows: 1fr auto;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.cta-band-message {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(0.5rem, 1.5vw, 0.9rem);
-  padding-bottom: clamp(3rem, 8vw, 6rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

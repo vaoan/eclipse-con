@@ -9,7 +9,6 @@ import { CtaBand } from "@/sections/CtaBand";
 import { Hero } from "@/sections/Hero";
 import { HotelShowcase } from "@/sections/HotelShowcase";
 import { Recap } from "@/sections/Recap";
-import { SiteFooter } from "@/sections/SiteFooter";
 import { WhatIsSunfest } from "@/sections/WhatIsSunfest";
 import { tid } from "@/lib/tid";
 
@@ -40,7 +39,6 @@ export function App() {
       <Amenities />
       <GarlandDivider />
       <CtaBand />
-      <SiteFooter />
     </main>
   );
 }

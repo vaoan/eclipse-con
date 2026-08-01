@@ -14,4 +14,11 @@ describe("CtaBand", () => {
       "teaser_follow"
     );
   });
+
+  it("closes the page with the footer inside the same section", () => {
+    render(<CtaBand />);
+    expect(screen.getByTestId("cta-band")).toContainElement(
+      screen.getByTestId("site-footer")
+    );
+  });
 });
