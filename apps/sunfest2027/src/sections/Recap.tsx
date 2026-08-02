@@ -6,6 +6,9 @@ import { cn } from "@/lib/cn";
 import { tid } from "@/lib/tid";
 import { useScrollReveal } from "@/lib/useScrollReveal";
 
+/** The archived Moonfest 2026 site; the old moonfest host now 301s to Sunfest. */
+const MOONFEST_ARCHIVE_URL = "https://moonfest2026.furrycolombia.com/";
+
 /**
  * A thank-you recap of the previous event that hypes the new one: the
  * attendee count and a moving line of the countries that took part. Sits on a
@@ -43,6 +46,20 @@ export function Recap() {
       </p>
 
       <FlagMarquee />
+
+      <a
+        className="recap-archive-link"
+        href={MOONFEST_ARCHIVE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-content-section="recap"
+        data-content-id="recap_moonfest_archive"
+        data-cta-id="recap_moonfest_archive"
+        data-content-interaction="open"
+        data-testid={tid("recap-archive-link")}
+      >
+        {t("recap.archiveLink")}
+      </a>
     </section>
   );
 }

@@ -1334,6 +1334,36 @@
   color: var(--color-moon-fg);
 }
 
+/* Way through to the archived 2026 site — Moonfest's own outlined pill. */
+.recap-archive-link {
+  justify-self: center;
+  margin-top: clamp(1.5rem, 4vw, 2.25rem);
+  padding: 0.7rem 1.5rem;
+  border: 1px solid rgb(224 117 58 / 40%);
+  border-radius: 999px;
+  background: rgb(224 117 58 / 10%);
+  font-family: var(--font-moon-body);
+  font-weight: 600;
+  font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+  color: var(--color-moon-accent);
+  text-decoration: none;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.recap-archive-link:hover {
+  border-color: rgb(224 117 58 / 60%);
+  background: rgb(224 117 58 / 20%);
+  transform: translateY(-1px);
+}
+
+.recap-archive-link:focus-visible {
+  outline: 3px solid var(--color-moon-accent);
+  outline-offset: 3px;
+}
+
 /* Reduced motion: no scroll — a centered wrapped row instead. */
 .flag-marquee-static {
   -webkit-mask-image: none;

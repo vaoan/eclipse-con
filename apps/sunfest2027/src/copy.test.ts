@@ -39,6 +39,7 @@ const REQUIRED = [
   "recap.countriesAria",
   "recap.countries.co",
   "recap.countries.us",
+  "recap.archiveLink",
   "cta.eyebrow",
   "cta.title",
   "cta.body",
