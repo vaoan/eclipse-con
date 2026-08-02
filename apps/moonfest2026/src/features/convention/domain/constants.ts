@@ -29,11 +29,3 @@ export const PARALLAX_SPEED = {
   MEDIUM: 0.3,
   FAST: 0.5,
 } as const;
-
-/** External hotel reservation URL for the convention package. */
-export const RESERVATION_URL =
-  "https://be.synxis.com/?adult=1&arrive=2026-07-10&chain=23120&child=0&currency=COP&depart=2026-07-13&hotel=1440&level=hotel&locale=es-MX&rooms=1&group=2607VENTAS";
-
-/** Ticket purchase URL for Colombian/local attendees (Furry Colombia store). */
-export const TICKET_URL_LOCAL =
-  "https://store.furrycolombia.com/store/es/products/0ac90670-ea99-4a25-9bb5-18605394f771/moonfest-2026-entrada-al-evento";

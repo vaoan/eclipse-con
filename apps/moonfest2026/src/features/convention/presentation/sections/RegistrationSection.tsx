@@ -24,11 +24,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/presentation/ui/card";
-import {
-  RESERVATION_URL,
-  SECTION_IDS,
-  TICKET_URL_LOCAL,
-} from "@/features/convention/domain/constants";
+import { SECTION_IDS } from "@/features/convention/domain/constants";
 import { tid } from "@/shared/application/utils/tid";
 import { SectionHeader } from "../components/SectionHeader";
 import { SectionWrapper } from "../components/SectionWrapper";
@@ -103,21 +99,17 @@ function HotelCard({ t }: Readonly<{ t: TFunction }>) {
             {t("convention.registration.step1.soldOutMessage")}
           </p>
         </div>
-        <a
-          href={RESERVATION_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-center text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-accent hover:underline"
-          data-cta-id="registration_reserve_check"
-          data-cta-variant="step1_hotel_check"
+        {/* The link through to the hotel's booking page is gone: registration
+            is closed, so the section offers no route to a purchase at all. */}
+        <p
+          className="text-center text-xs text-muted-foreground"
           data-content-section="registration"
-          data-content-id="registration_reserve_check"
-          data-content-interaction="open"
-          {...tid("registration-reserve-check-link")}
+          data-content-id="registration_reserve_closed"
+          data-content-interaction="blocked"
+          {...tid("registration-reserve-closed-note")}
         >
-          {t("convention.registration.step1.checkAvailability")}
-          <ArrowRight className="h-3 w-3 opacity-60" aria-hidden="true" />
-        </a>
+          {t("convention.registration.step1.closed")}
+        </p>
       </CardFooter>
     </Card>
   );
@@ -143,13 +135,21 @@ function TicketCard({ t }: Readonly<{ t: TFunction }>) {
         </p>
       </CardHeader>
       <CardContent className="flex-1 space-y-6">
-        <div className="rounded-xl border border-accent/30 bg-accent/5 p-4 text-center">
-          <p className="font-display text-2xl font-bold text-accent drop-shadow-[0_0_6px_rgba(224,117,58,0.3)]">
-            {t("convention.registration.step2.price")}
-          </p>
-          <p className="mt-1 text-xs text-accent/75">
-            {t("convention.registration.step2.priceNote")}
-          </p>
+        <div
+          className="relative overflow-hidden rounded-xl border border-destructive/40 bg-destructive/5 p-4 text-center shadow-[inset_0_1px_0_0_rgba(220,38,38,0.12)]"
+          data-content-section="registration"
+          data-content-id="registration_step2_sold_out"
+          {...tid("registration-ticket-sold-out-box")}
+        >
+          <div aria-hidden="true" className="opacity-40 saturate-50">
+            <p className="font-display text-2xl font-bold text-foreground/70 line-through decoration-destructive/70 decoration-2">
+              {t("convention.registration.step2.price")}
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {t("convention.registration.step2.priceNote")}
+            </p>
+          </div>
+          <SoldOutRibbon t={t} />
         </div>
         <ul className="space-y-3">
           {TICKET_FEATURE_KEYS.map((key) => (
@@ -164,21 +164,19 @@ function TicketCard({ t }: Readonly<{ t: TFunction }>) {
         </ul>
       </CardContent>
       <CardFooter className="flex flex-col gap-3">
-        <Button asChild variant="glow" size="lg" className="w-full">
-          <a
-            href={TICKET_URL_LOCAL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-funnel-step="start_checkout"
-            data-cta-id="registration_ticket_local"
-            data-cta-variant="step2_ticket_local"
-            data-content-section="registration"
-            data-content-id="registration_ticket_local"
-            data-content-interaction="open"
-            {...tid("registration-ticket-cta-local")}
-          >
-            {t("convention.registration.ticketCtaLocal")}
-          </a>
+        <Button
+          variant="glow-muted"
+          size="lg"
+          className="w-full"
+          disabled
+          data-cta-id="registration_ticket_local"
+          data-cta-variant="step2_ticket_local"
+          data-content-section="registration"
+          data-content-id="registration_ticket_local"
+          data-content-interaction="blocked"
+          {...tid("registration-ticket-cta-local")}
+        >
+          {t("convention.registration.step2.localSoldOut")}
         </Button>
         <Button
           variant="glow-muted"
@@ -195,7 +193,7 @@ function TicketCard({ t }: Readonly<{ t: TFunction }>) {
           {t("convention.registration.step2.internationalSoldOut")}
         </Button>
         <p className="text-xs leading-relaxed text-foreground/80">
-          {t("convention.registration.step2.internationalSoldOutMessage")}
+          {t("convention.registration.step2.soldOutMessage")}
         </p>
       </CardFooter>
     </Card>
@@ -267,7 +265,7 @@ function SoldOutRibbon({ t }: Readonly<{ t: TFunction }>) {
         <div className="relative flex items-center justify-center gap-3 text-white">
           <span className="h-px w-6 bg-white/70 sm:w-10" />
           <p className="font-display text-lg font-black uppercase tracking-[0.35em] drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] sm:text-xl sm:tracking-[0.4em]">
-            {t("convention.registration.step1.soldOut")}
+            {t("convention.registration.soldOut")}
           </p>
           <span className="h-px w-6 bg-white/70 sm:w-10" />
         </div>

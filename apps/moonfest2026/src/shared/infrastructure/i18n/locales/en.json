@@ -531,10 +531,9 @@
         "label": "Step 1",
         "title": "Hotel reservation",
         "description": "Independent from event registration. The room cost is split among roommates and includes breakfast and access to hotel facilities.",
-        "soldOut": "Sold out",
         "fullyBooked": "Fully booked",
         "soldOutMessage": "Every room in the Moonfest hotel block has been reserved. We can no longer host new attendees on-site.",
-        "checkAvailability": "Check the hotel page in case a spot opens"
+        "closed": "Registration is closed."
       },
       "package": {
         "title": "Hotel reservation",
@@ -566,14 +565,15 @@
       "step2": {
         "label": "Step 2",
         "title": "Event ticket",
-        "description": "Tickets are now available. Choose your payment method based on your location.",
+        "description": "Tickets are no longer available.",
         "price": "$300,000 COP",
         "priceNote": "(approximately 85 USD)",
         "feature1": "Official merch package",
         "feature2": "Access to all parties, panels, and the artist market",
         "feature3": "And many more surprises!",
         "internationalSoldOut": "International ticket sold out",
-        "internationalSoldOutMessage": "The international allocation is full. Write to us at furrycolombia@gmail.com if you need help."
+        "localSoldOut": "Colombia ticket sold out",
+        "soldOutMessage": "Moonfest 2026 tickets are sold out. Write to us at furrycolombia@gmail.com if you need help."
       },
       "ticketCtaLocal": "Buy ticket – Colombia",
       "ticketCtaInternational": "Buy ticket – International",
@@ -582,7 +582,8 @@
       "devNote": "All prices are per person.",
       "noteServices": "Additional hotel services (spa, thermal pools, bar, etc.) are not included in the hotel package.",
       "note": "Questions: furrycolombia@gmail.com",
-      "highlight": "Want to attend? Reserve today and secure your place at this unforgettable event."
+      "highlight": "Want to attend? Reserve today and secure your place at this unforgettable event.",
+      "soldOut": "Sold out"
     },
     "registrationTutorial": {
       "badge": "Registration guide",
@@ -651,7 +652,8 @@
         "ticketLocal": "Step 2: Buy ticket – Colombia",
         "ticketInternational": "Step 2: Buy ticket – International",
         "note": "Ticket checkout remains separate from the hotel reservation.",
-        "ticketInternationalSoldOut": "Step 2: International ticket sold out"
+        "ticketInternationalSoldOut": "Step 2: International ticket sold out",
+        "ticketLocalSoldOut": "Step 2: Colombia ticket sold out"
       }
     },
     "news": {

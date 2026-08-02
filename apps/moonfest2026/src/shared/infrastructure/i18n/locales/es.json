@@ -531,10 +531,9 @@
         "label": "Paso 1",
         "title": "Reserva del hotel",
         "description": "Es independiente del registro al evento. El costo de la habitación se divide entre quienes la compartan e incluye el desayuno y el uso de las instalaciones del hotel.",
-        "soldOut": "Agotado",
         "fullyBooked": "Hotel completo",
         "soldOutMessage": "Todas las habitaciones del bloque del hotel Moonfest están reservadas. Ya no podemos alojar a más asistentes en la sede.",
-        "checkAvailability": "Consulta la página del hotel por si se libera un cupo"
+        "closed": "El registro está cerrado."
       },
       "package": {
         "title": "Reserva del hotel",
@@ -566,14 +565,15 @@
       "step2": {
         "label": "Paso 2",
         "title": "Entrada al evento",
-        "description": "Las entradas ya están disponibles. Elige tu método de pago según tu ubicación.",
+        "description": "Las entradas ya no están disponibles.",
         "price": "$300.000 COP",
         "priceNote": "(aproximadamente 85 USD)",
         "feature1": "Paquete de merch oficial",
         "feature2": "Acceso a todas las fiestas, paneles y el mercado de artistas",
         "feature3": "¡Y muchas sorpresas más!",
         "internationalSoldOut": "Boleta internacional agotada",
-        "internationalSoldOutMessage": "El cupo internacional está completo. Escríbenos a furrycolombia@gmail.com si necesitas ayuda."
+        "localSoldOut": "Boleta Colombia agotada",
+        "soldOutMessage": "Las entradas de Moonfest 2026 están agotadas. Escríbenos a furrycolombia@gmail.com si necesitas ayuda."
       },
       "ticketCtaLocal": "Comprar boleta – Colombia",
       "ticketCtaInternational": "Comprar boleta – Internacional",
@@ -582,7 +582,8 @@
       "devNote": "Todos los precios son por persona.",
       "noteServices": "Los servicios adicionales del hotel (spa, termales, bar, etc.) no están incluidos en el paquete del hotel.",
       "note": "Dudas: furrycolombia@gmail.com",
-      "highlight": "¿Quieres asistir? Reserva hoy y asegura tu lugar en este evento inolvidable."
+      "highlight": "¿Quieres asistir? Reserva hoy y asegura tu lugar en este evento inolvidable.",
+      "soldOut": "Agotado"
     },
     "registrationTutorial": {
       "badge": "Guía de registro",
@@ -651,7 +652,8 @@
         "ticketLocal": "Paso 2: Comprar boleta – Colombia",
         "ticketInternational": "Paso 2: Comprar boleta – Internacional",
         "note": "La compra de boleta sigue siendo separada de la reserva del hotel.",
-        "ticketInternationalSoldOut": "Paso 2: Boleta internacional agotada"
+        "ticketInternationalSoldOut": "Paso 2: Boleta internacional agotada",
+        "ticketLocalSoldOut": "Paso 2: Boleta Colombia agotada"
       }
     },
     "news": {
