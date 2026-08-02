@@ -1,10 +1,15 @@
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import moonfestLogoSrc from "@/assets/moonfest-logo.svg";
 import { FlagMarquee } from "@/components/FlagMarquee";
 import { NightSkyCanvas } from "@/components/NightSkyCanvas";
 import { cn } from "@/lib/cn";
 import { tid } from "@/lib/tid";
+import { useLazyStylesheet } from "@/lib/useLazyStylesheet";
 import { useScrollReveal } from "@/lib/useScrollReveal";
+
+/** Moonfest's Ofelia faces, loaded only as this section approaches. */
+const OFELIA_STYLESHEET = "https://use.typekit.net/pgq2ndh.css";
 
 /** The archived Moonfest 2026 site; the old moonfest host now 301s to Sunfest. */
 const MOONFEST_ARCHIVE_URL = "https://moonfest2026.furrycolombia.com/";
@@ -18,10 +23,20 @@ const MOONFEST_ARCHIVE_URL = "https://moonfest2026.furrycolombia.com/";
 export function Recap() {
   const { t } = useTranslation();
   const { ref, revealed } = useScrollReveal();
+  const fontRef = useLazyStylesheet(OFELIA_STYLESHEET);
+
+  // One element, two observers: the reveal animation and the font preload.
+  const setSection = useCallback(
+    (node: HTMLElement | null) => {
+      ref(node);
+      fontRef(node);
+    },
+    [ref, fontRef]
+  );
 
   return (
     <section
-      ref={ref}
+      ref={setSection}
       className={cn("section", "section-recap", revealed && "is-revealed")}
       data-content-section="recap"
       data-testid={tid("recap")}
