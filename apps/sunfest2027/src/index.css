@@ -1170,11 +1170,16 @@
   );
 }
 
-/* The star canvas paints over the gradient, under the watermark. */
+/* The star canvas paints over the gradient, under the watermark.
+   `width: 100vw`, not `100%`: a canvas is a replaced element, so a percentage
+   resolves against the section's 68rem cap and leaves the stars stopping short
+   of the screen edges while the gradient behind them runs full-bleed. Omitting
+   width entirely is worse still — replaced elements fall back to their
+   intrinsic 300x150 rather than stretching to the insets. */
 .recap-sky {
   z-index: -2;
   display: block;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   background: transparent;
   will-change: transform;
