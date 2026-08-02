@@ -27,6 +27,7 @@
     "test:moonfest": "pnpm --filter moonfest2026 test",
     "test:e2e:moonfest": "pnpm --filter moonfest2026 test:e2e",
     "deploy:cloudflare:moonfest": "pnpm --filter moonfest2026 deploy:cloudflare",
+    "deploy:archive:moonfest": "pnpm --filter moonfest2026 deploy:archive",
     "version:auto:moonfest": "pnpm --filter moonfest2026 version:auto",
     "sync:telegram:moonfest2026": "pnpm --filter moonfest2026 sync:telegram",
     "sync:secrets": "node scripts/sync-secrets.mjs",

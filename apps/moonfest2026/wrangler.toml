@@ -14,13 +14,10 @@ not_found_handling = "single-page-application"
 run_worker_first = true
 binding = "ASSETS"
 
-# The archived Moonfest 2026 site. The original moonfest.furrycolombia.com now
-# redirects to Sunfest via a zone-level redirect rule, so this host is where the
-# site itself lives.
-[[routes]]
-pattern = "moonfest2026.furrycolombia.com"
-custom_domain = true
-
+# The archived site itself lives on its own assets-only Worker, so that its
+# traffic is free — see wrangler.archive.toml. This Worker keeps only the two
+# hosts that genuinely need code to run.
+#
 # Apex is a reverse proxy to the Carrd landing page (see cloudflare/worker.mjs),
 # not the Moonfest SPA — it stays put.
 [[routes]]

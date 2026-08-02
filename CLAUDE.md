@@ -27,10 +27,25 @@ scripts/                # Workspace-level tooling (sync-secrets.mjs)
 
 Deployment:
 
-| App          | Host                         | Config                                       |
-| ------------ | ---------------------------- | -------------------------------------------- |
-| sunfest2027  | `sunfest.furrycolombia.com`  | `wrangler.sunfest.toml` (repo root)          |
-| moonfest2026 | `moonfest.furrycolombia.com` | `apps/moonfest2026/wrangler.toml` (archived) |
+Every event gets its own app, its own Worker and its own hostname — nothing is
+bundled together. A concluded event keeps its site at `<event><year>` and its
+generic hostname is retired to point at whatever is current.
+
+| What                   | Host                                                                | Worker         | Config                                    |
+| ---------------------- | ------------------------------------------------------------------- | -------------- | ----------------------------------------- |
+| sunfest2027 (active)   | `sunfest.furrycolombia.com`                                         | `sunfest2027`  | `wrangler.sunfest.toml` (repo root)       |
+| moonfest2026 (archive) | `moonfest2026.furrycolombia.com`                                    | `moonfest2026` | `apps/moonfest2026/wrangler.archive.toml` |
+| Retired host + apex    | `moonfest.furrycolombia.com` → Sunfest, `furrycolombia.com` → Carrd | `eclipse-con`  | `apps/moonfest2026/wrangler.toml`         |
+
+Archives are served by **assets-only** Workers — no `main`, so no code runs and
+Static Assets requests are free and uncounted. Only hosts that genuinely need
+logic (the apex Carrd proxy, the retired-host redirect) run a Worker. Archive
+builds read `apps/moonfest2026/.env.production`, which pins analytics off so a
+developer's local `.env.local` keys can never end up in an archived bundle.
+
+When Sunfest 2027 concludes, the same shape applies: archive it at
+`sunfest2027.furrycolombia.com` on its own assets-only Worker, and point
+`sunfest.furrycolombia.com` at whatever event is next.
 
 ## Git Safety
 

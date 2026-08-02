@@ -1,0 +1,20 @@
+#:schema node_modules/wrangler/config-schema.json
+
+# Archived Moonfest 2026 site — assets only, no Worker script.
+#
+# Deliberately has no `main`: with nothing to run, every request is served
+# straight from Workers Static Assets, which are free and do not count as
+# Worker invocations. The main `wrangler.toml` Worker keeps the apex Carrd
+# proxy and the moonfest.* → Sunfest redirect, which do need code.
+name = "moonfest2026"
+compatibility_date = "2025-09-27"
+
+workers_dev = false
+
+[assets]
+directory = "./dist"
+not_found_handling = "single-page-application"
+
+[[routes]]
+pattern = "moonfest2026.furrycolombia.com"
+custom_domain = true
