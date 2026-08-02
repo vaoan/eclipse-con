@@ -3,6 +3,7 @@ import co from "@/assets/flags/co.png";
 import cr from "@/assets/flags/cr.png";
 import doFlag from "@/assets/flags/do.png";
 import mx from "@/assets/flags/mx.png";
+import pa from "@/assets/flags/pa.png";
 import sv from "@/assets/flags/sv.png";
 import us from "@/assets/flags/us.png";
 import ve from "@/assets/flags/ve.png";
@@ -22,6 +23,7 @@ export const RECAP_COUNTRIES: readonly Country[] = [
   { code: "do", src: doFlag, nameKey: "recap.countries.do" },
   { code: "sv", src: sv, nameKey: "recap.countries.sv" },
   { code: "mx", src: mx, nameKey: "recap.countries.mx" },
+  { code: "pa", src: pa, nameKey: "recap.countries.pa" },
   { code: "ve", src: ve, nameKey: "recap.countries.ve" },
   { code: "us", src: us, nameKey: "recap.countries.us" },
 ];

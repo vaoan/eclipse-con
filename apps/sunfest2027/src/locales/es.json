@@ -100,7 +100,7 @@
     "eyebrow": "Gracias, manada",
     "title": "Un primer año inolvidable",
     "body": "Moonfest 2026 nos reunió con disfraces, carnaval y comunidad. Ahora vamos por más en Sunfest 2027.",
-    "attendees": "asistentes de 8 países",
+    "attendees": "asistentes de 9 países",
     "countriesAria": "Países que participaron",
     "countries": {
       "co": "Colombia",
@@ -109,6 +109,7 @@
       "do": "República Dominicana",
       "sv": "El Salvador",
       "mx": "México",
+      "pa": "Panamá",
       "ve": "Venezuela",
       "us": "Estados Unidos"
     }
