@@ -33,6 +33,8 @@ export function Recap() {
         src={moonfestLogoSrc}
         alt=""
         aria-hidden="true"
+        loading="lazy"
+        decoding="async"
         draggable={false}
       />
 

@@ -47,6 +47,7 @@ export function HotelShowcase() {
           src={SHOWCASE_FEATURE.src}
           alt=""
           className="showcase-feature-img"
+          loading="lazy"
           decoding="async"
         />
         <span className="showcase-feature-caption">

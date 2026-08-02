@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import bannerSrc from "@/assets/hero/banner.webp";
+import bannerNarrowSrc from "@/assets/hero/banner-1280.webp";
 import { FollowCta } from "@/components/FollowCta";
 import { tid } from "@/lib/tid";
 
@@ -34,8 +35,11 @@ export function Hero() {
       <img
         className="hero-banner"
         src={bannerSrc}
+        srcSet={`${bannerNarrowSrc} 1280w, ${bannerSrc} 1920w`}
+        sizes="100vw"
         alt={t("teaser.bannerAlt")}
         decoding="async"
+        fetchPriority="high"
       />
       <div className="hero-scrim" aria-hidden="true" />
 

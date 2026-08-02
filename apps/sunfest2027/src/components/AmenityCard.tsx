@@ -25,7 +25,7 @@ export function AmenityCard({ item, onOpen }: Readonly<AmenityCardProps>) {
       data-content-interaction="open"
     >
       <img
-        src={item.src}
+        src={item.thumb}
         alt=""
         loading="lazy"
         decoding="async"

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:static": "tsc -b && vite build --outDir dist-static",
+    "build:static": "tsc -b && vite build --mode singlefile --outDir dist-static",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --passWithNoTests",

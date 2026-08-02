@@ -28,7 +28,7 @@ export function ShowcaseCard({
       data-content-interaction="open"
     >
       <img
-        src={item.src}
+        src={item.thumb}
         alt=""
         loading="lazy"
         decoding="async"
