@@ -1,5 +1,5 @@
 import { Send } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/i18n";
 import { cn } from "@/lib/cn";
 import { tid } from "@/lib/tid";
 

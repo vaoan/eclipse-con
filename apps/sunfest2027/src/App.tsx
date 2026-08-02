@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/i18n";
 import { FallingFlowers } from "@/components/FallingFlowers";
 import { FlowerToggle } from "@/components/FlowerToggle";
 import { GarlandDivider } from "@/components/GarlandDivider";

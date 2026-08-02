@@ -1,5 +1,5 @@
 import { Flower2 } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/i18n";
 import { setFlowerShower, useFlowerShower } from "@/lib/useFlowerShower";
 import { tid } from "@/lib/tid";
 

@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useRef } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/i18n";
 import { LightboxFigure } from "@/components/LightboxFigure";
 import type { ShowcaseItem } from "@/showcase";
 import { tid } from "@/lib/tid";

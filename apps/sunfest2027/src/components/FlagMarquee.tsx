@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/i18n";
 import { RECAP_COUNTRIES } from "@/flags";
 import { cn } from "@/lib/cn";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";

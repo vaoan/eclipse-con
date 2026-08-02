@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/i18n";
 import moonfestLogoSrc from "@/assets/moonfest-logo.svg";
 import { FlagMarquee } from "@/components/FlagMarquee";
 import { NightSkyCanvas } from "@/components/NightSkyCanvas";

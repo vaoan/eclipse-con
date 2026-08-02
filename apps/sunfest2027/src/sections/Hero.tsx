@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/i18n";
 import bannerSrc from "@/assets/hero/banner.webp";
 import bannerNarrowSrc from "@/assets/hero/banner-1280.webp";
 import { FollowCta } from "@/components/FollowCta";

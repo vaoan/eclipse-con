@@ -1,13 +1,13 @@
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/i18n";
 import { tid } from "@/lib/tid";
 
 /** Segmented ES / EN control with a sliding thumb that switches the locale. */
 export function LanguageToggle() {
   const { i18n, t } = useTranslation();
-  const current = i18n.resolvedLanguage?.startsWith("en") ? "en" : "es";
+  const current = i18n.resolvedLanguage.startsWith("en") ? "en" : "es";
 
   function setLanguage(language: "es" | "en") {
-    void i18n.changeLanguage(language);
+    i18n.changeLanguage(language);
   }
 
   return (
