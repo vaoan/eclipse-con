@@ -27,6 +27,16 @@ function isCarrdProxyHost(hostname) {
   return hostname === "furrycolombia.com";
 }
 
+/**
+ * The 2026 site is archived at moonfest2026.furrycolombia.com, so the original
+ * host sends visitors to the active event instead. This costs no extra Worker
+ * invocations: `run_worker_first` already runs this Worker for every request on
+ * that host, and returning here skips the asset serving it used to do.
+ */
+function isRetiredMoonfestHost(hostname) {
+  return hostname === "moonfest.furrycolombia.com";
+}
+
 function rewriteCarrdString(value) {
   return value
     .replaceAll(CARRD_ORIGIN, PRIMARY_DOMAIN)
@@ -162,6 +172,10 @@ export default {
   async fetch(request, env) {
     try {
       const url = new URL(request.url);
+
+      if (isRetiredMoonfestHost(url.hostname)) {
+        return Response.redirect("https://sunfest.furrycolombia.com/", 301);
+      }
 
       if (isCarrdProxyHost(url.hostname)) {
         return await proxyCarrdRequest(request);

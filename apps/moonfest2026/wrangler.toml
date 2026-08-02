@@ -14,14 +14,24 @@ not_found_handling = "single-page-application"
 run_worker_first = true
 binding = "ASSETS"
 
-# Custom domain route
+# The archived Moonfest 2026 site. The original moonfest.furrycolombia.com now
+# redirects to Sunfest via a zone-level redirect rule, so this host is where the
+# site itself lives.
 [[routes]]
-pattern = "moonfest.furrycolombia.com/*"
-zone_name = "furrycolombia.com"
+pattern = "moonfest2026.furrycolombia.com"
+custom_domain = true
 
+# Apex is a reverse proxy to the Carrd landing page (see cloudflare/worker.mjs),
+# not the Moonfest SPA — it stays put.
 [[routes]]
 pattern = "furrycolombia.com"
 custom_domain = true
+
+# The retired host. The Worker 301s it to Sunfest (see cloudflare/worker.mjs);
+# the route has to stay bound for those requests to reach the Worker at all.
+[[routes]]
+pattern = "moonfest.furrycolombia.com/*"
+zone_name = "furrycolombia.com"
 
 [env.staging]
 name = "eclipse-con-staging"
