@@ -14,6 +14,14 @@
   --color-teal: #00d9b8;
   --color-teal-soft: #1cc9c1;
 
+  /* Moonfest's own faces and text colours, used only by the recap section so
+     that one beat reads as the previous event's own space. */
+  --font-moon-display: "ofelia-display", "Bricolage Grotesque", sans-serif;
+  --font-moon-body: "ofelia-text", "Space Grotesk", sans-serif;
+  --color-moon-fg: #e8e4df;
+  --color-moon-muted: #b8b3c7;
+  --color-moon-accent: #e0753a;
+
   /* Ground (vivid purple→magenta carnaval field) + neutral text. */
   --color-ground: #5c2b8c;
   --color-ground-2: #a2317f;
@@ -51,6 +59,11 @@
 .stage {
   position: relative;
   isolation: isolate;
+
+  /* `clip`, not `hidden`: it contains full-bleed section backgrounds that break
+     out past the viewport edge without turning the page into a scroll
+     container or trapping the fixed ambient layers. */
+  overflow-x: clip;
   min-height: 100dvh;
 }
 
@@ -1117,6 +1130,99 @@
   color: var(--color-teal);
 }
 
+/* ---- Recap: night sky + Moonfest watermark, the one look-back beat -------
+   The Moonfest treatment carried over: its night-sky gradient, its star canvas
+   (see NightSkyCanvas) and its logo watermarked behind the content. Scoped to
+   this section only, and masked at both edges so it dissolves into the
+   carnaval field rather than banding across it. */
+.section-recap {
+  isolation: isolate;
+}
+
+/* Sections are capped at 68rem and centred, so the sky layers have to break
+   out of that box to read as a full-bleed band. `.stage` clips the sideways
+   spill (see its `overflow-x`), which also keeps the scrollbar out of the sum. */
+.section-recap::before,
+.recap-sky {
+  position: absolute;
+  inset-block: 0;
+  inset-inline: calc(50% - 50vw);
+  pointer-events: none;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 14%,
+    #000 86%,
+    transparent 100%
+  );
+}
+
+.section-recap::before {
+  content: "";
+  z-index: -3;
+  background: linear-gradient(
+    to bottom,
+    #01020a 0%,
+    #040824 18%,
+    #09133a 44%,
+    #060c26 72%,
+    #02040d 100%
+  );
+}
+
+/* The star canvas paints over the gradient, under the watermark. */
+.recap-sky {
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  will-change: transform;
+}
+
+/* The Moonfest logo, matched to how it actually reads on its own site. There it
+   is set to 0.14 but sits behind a section surface of rgba(26,27,58,0.48), so
+   it lands at ~0.073 effective; here nothing covers it, so 0.14 would render
+   roughly twice as strong. Widths follow Moonfest's own ladder. */
+.recap-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 20rem;
+  height: auto;
+  transform: translate(-50%, -50%);
+  opacity: 0.073;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 95%))
+    drop-shadow(0 4px 16px rgb(0 0 0 / 75%));
+}
+
+@media (width >= 768px) {
+  .recap-watermark {
+    width: 32rem;
+  }
+}
+
+@media (width >= 1024px) {
+  .recap-watermark {
+    width: 42rem;
+  }
+}
+
+@media (width >= 1280px) {
+  .recap-watermark {
+    width: 48rem;
+  }
+}
+
+@media (width >= 1536px) {
+  .recap-watermark {
+    width: 56rem;
+  }
+}
+
 /* ---- Recap: previous-event stat + moving flag line ----------------------- */
 .recap-stat {
   display: flex;
@@ -1189,6 +1295,43 @@
   height: auto;
   border-radius: 3px;
   box-shadow: 0 2px 6px rgba(30, 12, 58, 0.45);
+}
+
+/* Moonfest's type and palette, scoped to this section: its display face and
+   cream-white for the heading, its muted lilac for prose, its warm orange for
+   the accents that Sunfest would otherwise set in yellow and teal. Sunfest's
+   own drop shadows come off — they are tuned for the bright carnaval field and
+   only muddy things against the night sky. */
+.section-recap .section-eyebrow {
+  font-family: var(--font-moon-body);
+  color: var(--color-moon-accent);
+}
+
+.section-recap .section-title {
+  font-family: var(--font-moon-display);
+  color: var(--color-moon-fg);
+  text-shadow: none;
+}
+
+.section-recap .section-body {
+  font-family: var(--font-moon-body);
+  color: var(--color-moon-muted);
+}
+
+.section-recap .recap-number {
+  font-family: var(--font-moon-display);
+  color: var(--color-moon-accent);
+  text-shadow: none;
+}
+
+.section-recap .recap-stat-label {
+  font-family: var(--font-moon-body);
+  color: var(--color-moon-muted);
+}
+
+.section-recap .flag-name {
+  font-family: var(--font-moon-body);
+  color: var(--color-moon-fg);
 }
 
 /* Reduced motion: no scroll — a centered wrapped row instead. */
