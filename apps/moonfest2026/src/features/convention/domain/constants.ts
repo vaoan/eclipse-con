@@ -37,6 +37,3 @@ export const RESERVATION_URL =
 /** Ticket purchase URL for Colombian/local attendees (Furry Colombia store). */
 export const TICKET_URL_LOCAL =
   "https://store.furrycolombia.com/store/es/products/0ac90670-ea99-4a25-9bb5-18605394f771/moonfest-2026-entrada-al-evento";
-
-/** Ticket purchase URL for international attendees (Conspace). */
-export const TICKET_URL_INTERNATIONAL = "https://conspace.app/events/moonfest";

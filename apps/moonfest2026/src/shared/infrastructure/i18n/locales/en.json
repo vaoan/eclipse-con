@@ -465,7 +465,7 @@
         "bio": "Creates the artwork and visual pieces that shape Moonfest's creative identity."
       },
       "guest5": {
-        "name": "Vaoan",
+        "name": "Aeleos",
         "role": "Tech & web",
         "bio": "Builds and maintains the digital infrastructure that keeps Moonfest running behind the scenes."
       },
@@ -571,7 +571,9 @@
         "priceNote": "(approximately 85 USD)",
         "feature1": "Official merch package",
         "feature2": "Access to all parties, panels, and the artist market",
-        "feature3": "And many more surprises!"
+        "feature3": "And many more surprises!",
+        "internationalSoldOut": "International ticket sold out",
+        "internationalSoldOutMessage": "The international allocation is full. Write to us at furrycolombia@gmail.com if you need help."
       },
       "ticketCtaLocal": "Buy ticket – Colombia",
       "ticketCtaInternational": "Buy ticket – International",
@@ -648,7 +650,8 @@
         "ticket": "Step 2: Buy event ticket",
         "ticketLocal": "Step 2: Buy ticket – Colombia",
         "ticketInternational": "Step 2: Buy ticket – International",
-        "note": "Ticket checkout remains separate from the hotel reservation."
+        "note": "Ticket checkout remains separate from the hotel reservation.",
+        "ticketInternationalSoldOut": "Step 2: International ticket sold out"
       }
     },
     "news": {

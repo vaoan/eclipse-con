@@ -27,7 +27,6 @@ import {
 import {
   RESERVATION_URL,
   SECTION_IDS,
-  TICKET_URL_INTERNATIONAL,
   TICKET_URL_LOCAL,
 } from "@/features/convention/domain/constants";
 import { tid } from "@/shared/application/utils/tid";
@@ -181,22 +180,23 @@ function TicketCard({ t }: Readonly<{ t: TFunction }>) {
             {t("convention.registration.ticketCtaLocal")}
           </a>
         </Button>
-        <Button asChild variant="glow" size="lg" className="w-full">
-          <a
-            href={TICKET_URL_INTERNATIONAL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-funnel-step="start_checkout"
-            data-cta-id="registration_ticket_international"
-            data-cta-variant="step2_ticket_international"
-            data-content-section="registration"
-            data-content-id="registration_ticket_international"
-            data-content-interaction="open"
-            {...tid("registration-ticket-cta-international")}
-          >
-            {t("convention.registration.ticketCtaInternational")}
-          </a>
+        <Button
+          variant="glow-muted"
+          size="lg"
+          className="w-full"
+          disabled
+          data-cta-id="registration_ticket_international"
+          data-cta-variant="step2_ticket_international"
+          data-content-section="registration"
+          data-content-id="registration_ticket_international"
+          data-content-interaction="blocked"
+          {...tid("registration-ticket-cta-international")}
+        >
+          {t("convention.registration.step2.internationalSoldOut")}
         </Button>
+        <p className="text-xs leading-relaxed text-foreground/80">
+          {t("convention.registration.step2.internationalSoldOutMessage")}
+        </p>
       </CardFooter>
     </Card>
   );

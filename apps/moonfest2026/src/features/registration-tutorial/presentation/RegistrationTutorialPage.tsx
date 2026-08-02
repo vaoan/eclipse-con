@@ -5,10 +5,7 @@ import { ArrowLeft, BadgeAlert, Info, ZoomIn } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/shared/presentation/ui/button";
-import {
-  TICKET_URL_INTERNATIONAL,
-  TICKET_URL_LOCAL,
-} from "@/features/convention/domain/constants";
+import { TICKET_URL_LOCAL } from "@/features/convention/domain/constants";
 import {
   Dialog,
   DialogContent,
@@ -283,22 +280,18 @@ function TutorialChecklist({ t }: Readonly<{ t: TFunction }>) {
             </a>
           </Button>
           <Button
-            asChild
-            variant="glow"
+            variant="glow-muted"
             size="lg"
+            disabled
             data-content-section="registration_tutorial"
             data-content-id="tutorial_ticket_international"
             data-cta-id="tutorial_ticket_international"
-            data-content-interaction="open"
+            data-content-interaction="blocked"
+            {...tid("tutorial-ticket-cta-international")}
           >
-            <a
-              href={TICKET_URL_INTERNATIONAL}
-              target="_blank"
-              rel="noopener noreferrer"
-              {...tid("tutorial-ticket-cta-international")}
-            >
-              {t("convention.registrationTutorial.actions.ticketInternational")}
-            </a>
+            {t(
+              "convention.registrationTutorial.actions.ticketInternationalSoldOut"
+            )}
           </Button>
           <p className="text-xs text-muted-foreground">
             {t("convention.registrationTutorial.actions.note")}

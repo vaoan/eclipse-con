@@ -465,7 +465,7 @@
         "bio": "Crea las piezas visuales y el arte que le dan identidad creativa a Moonfest."
       },
       "guest5": {
-        "name": "Vaoan",
+        "name": "Aeleos",
         "role": "Tecnología y web",
         "bio": "Construye y mantiene la infraestructura digital que hace funcionar Moonfest entre bambalinas."
       },
@@ -571,7 +571,9 @@
         "priceNote": "(aproximadamente 85 USD)",
         "feature1": "Paquete de merch oficial",
         "feature2": "Acceso a todas las fiestas, paneles y el mercado de artistas",
-        "feature3": "¡Y muchas sorpresas más!"
+        "feature3": "¡Y muchas sorpresas más!",
+        "internationalSoldOut": "Boleta internacional agotada",
+        "internationalSoldOutMessage": "El cupo internacional está completo. Escríbenos a furrycolombia@gmail.com si necesitas ayuda."
       },
       "ticketCtaLocal": "Comprar boleta – Colombia",
       "ticketCtaInternational": "Comprar boleta – Internacional",
@@ -648,7 +650,8 @@
         "ticket": "Paso 2: Comprar boleta",
         "ticketLocal": "Paso 2: Comprar boleta – Colombia",
         "ticketInternational": "Paso 2: Comprar boleta – Internacional",
-        "note": "La compra de boleta sigue siendo separada de la reserva del hotel."
+        "note": "La compra de boleta sigue siendo separada de la reserva del hotel.",
+        "ticketInternationalSoldOut": "Paso 2: Boleta internacional agotada"
       }
     },
     "news": {
