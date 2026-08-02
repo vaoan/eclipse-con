@@ -77,12 +77,16 @@ export function NightSkyCanvas({
     const midStars: Star[] = [];
     const brightStars: Star[] = [];
     const shootingStars: ShootingStar[] = [];
-    const farStarCount = isMobileViewport ? 500 : 1600;
-    const midStarCount = isMobileViewport ? 220 : 600;
-    const brightStarCount = isMobileViewport ? 90 : 260;
-    const quickFarStarCount = isMobileViewport ? 200 : 500;
-    const quickMidStarCount = isMobileViewport ? 100 : 240;
-    const quickBrightStarCount = isMobileViewport ? 50 : 110;
+    // Moonfest's counts were sized for a sky that filled its whole page. Here
+    // the sky is one section, and every star is an arc+fill each frame, so the
+    // phone tier is thinned hard — it is the difference between a phone
+    // rendering this comfortably and pegging its main thread.
+    const farStarCount = isMobileViewport ? 170 : 1600;
+    const midStarCount = isMobileViewport ? 80 : 600;
+    const brightStarCount = isMobileViewport ? 40 : 260;
+    const quickFarStarCount = isMobileViewport ? 90 : 500;
+    const quickMidStarCount = isMobileViewport ? 45 : 240;
+    const quickBrightStarCount = isMobileViewport ? 22 : 110;
     const maxShootingStars = isMobileViewport ? 3 : 5;
     const minShootDelayMs = isMobileViewport ? 1200 : 900;
     const maxShootDelayMs = isMobileViewport ? 2800 : 2200;
@@ -94,6 +98,8 @@ export function NightSkyCanvas({
     let lastTimestamp = 0;
     let nextShotAt = 0;
     let hasValidSize = false;
+    let lastDrawAt = 0;
+    const minFrameGapMs = isMobileViewport ? 1000 / 30 : 0;
     let resizeObserver: ResizeObserver | null = null;
     let hasFullStars = false;
     let fullStarTimer = 0;
@@ -307,6 +313,19 @@ export function NightSkyCanvas({
 
     const animate = (timestamp: number) => {
       const now = timestamp || performance.now();
+
+      // Most of the per-frame cost is painting the canvas, not the maths, so
+      // phones draw at 30fps. Ambient twinkling reads no differently, and the
+      // shooting-star physics stay correct because the delta below is measured
+      // from the last frame actually drawn.
+      if (minFrameGapMs > 0 && lastDrawAt && now - lastDrawAt < minFrameGapMs) {
+        if (running) {
+          animationFrameId = window.requestAnimationFrame(animate);
+        }
+        return;
+      }
+      lastDrawAt = now;
+
       const deltaSeconds = lastTimestamp
         ? clamp((now - lastTimestamp) / 1000, 0, 0.05)
         : 0.016;
@@ -317,7 +336,9 @@ export function NightSkyCanvas({
       }
 
       if (!hasValidSize) {
-        animationFrameId = window.requestAnimationFrame(animate);
+        if (running) {
+          animationFrameId = window.requestAnimationFrame(animate);
+        }
         return;
       }
 
@@ -338,15 +359,66 @@ export function NightSkyCanvas({
         drawShootingStars(deltaSeconds);
       }
 
+      if (running) {
+        animationFrameId = window.requestAnimationFrame(animate);
+      }
+    };
+
+    // The sky belongs to one section of a long page, so it must not burn the
+    // main thread while that section is scrolled away or the tab is in the
+    // background. Moonfest could animate unconditionally — its sky was the
+    // whole page — but here the loop only runs while the canvas is on screen.
+    let onScreen = true;
+    let running = false;
+
+    const start = () => {
+      if (running || !onScreen || document.hidden) {
+        return;
+      }
+      running = true;
+      lastTimestamp = 0;
+      lastDrawAt = 0;
+      // Do not fire the backlog of shooting stars that "accrued" while paused.
+      nextShotAt =
+        performance.now() +
+        minShootDelayMs +
+        Math.random() * (maxShootDelayMs - minShootDelayMs);
       animationFrameId = window.requestAnimationFrame(animate);
     };
 
+    const stop = () => {
+      running = false;
+      window.cancelAnimationFrame(animationFrameId);
+    };
+
+    const handleVisibility = () => {
+      if (document.hidden) {
+        stop();
+      } else {
+        start();
+      }
+    };
+
     resize();
-    nextShotAt =
-      performance.now() +
-      minShootDelayMs +
-      Math.random() * (maxShootDelayMs - minShootDelayMs);
-    animate(performance.now());
+
+    let intersectionObserver: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver === "undefined") {
+      start();
+    } else {
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          onScreen = entries.some((entry) => entry.isIntersecting);
+          if (onScreen) {
+            start();
+          } else {
+            stop();
+          }
+        },
+        // A little margin so the sky is already alive as it scrolls into view.
+        { rootMargin: "200px" }
+      );
+      intersectionObserver.observe(canvas);
+    }
 
     if (typeof ResizeObserver !== "undefined") {
       resizeObserver = new ResizeObserver(resize);
@@ -354,12 +426,15 @@ export function NightSkyCanvas({
     }
     window.addEventListener("resize", resize);
     window.addEventListener("orientationchange", resize);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
-      window.cancelAnimationFrame(animationFrameId);
+      stop();
+      intersectionObserver?.disconnect();
       resizeObserver?.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("orientationchange", resize);
+      document.removeEventListener("visibilitychange", handleVisibility);
       window.clearTimeout(fullStarTimer);
     };
   }, [isMobileViewport, prefersReducedMotion]);
