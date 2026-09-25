@@ -22,7 +22,8 @@ packages/
 └── telegram-sync/      # Telegram → site news sync (used by moonfest2026 only)
 cloudflare/             # sunfest-worker.mjs — the Sunfest asset worker
 docs/superpowers/       # Dated design specs and implementation plans (historical)
-scripts/                # Workspace-level tooling (sync-secrets.mjs)
+scripts/                # Workspace-level tooling (sync-secrets.mjs, make-qr.mjs)
+publicity/              # Print assets: the sunfest2027 QR code and the logo it embeds
 ```
 
 Deployment:
@@ -211,6 +212,7 @@ pnpm format:check     # Prettier (check only)
 pnpm check:style      # Stylelint across all apps
 pnpm check:tools      # cspell + knip + jscpd + ls-lint
 pnpm sync:secrets     # Pull repo secrets into .secrets
+pnpm qr:sunfest2027   # Regenerate publicity/sunfest2027-qr.png (QR with the FC logo)
 
 # Archived site — Moonfest 2026
 pnpm dev:moonfest
