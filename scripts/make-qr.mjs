@@ -12,10 +12,14 @@
  *   .svg  vector modules with the logo embedded, sized in millimetres via
  *         `--mm` (default 50). Prefer this for anything that goes to print.
  *
+ * Without `--logo` the code is plain; pair that with `--ec M` for the
+ * smallest code the URL allows, since the 30 % budget of level H only earns
+ * its extra modules when something covers the centre.
+ *
  * Usage:
- *   node scripts/make-qr.mjs --url <url> --logo <image> --out <file.png|svg>
- *                            [--size 2048] [--mm 50] [--logo-scale 0.22]
- *                            [--dark #000000]
+ *   node scripts/make-qr.mjs --url <url> --out <file.png|svg> [--logo <image>]
+ *                            [--ec H] [--size 2048] [--mm 50]
+ *                            [--logo-scale 0.22] [--dark #000000]
  *
  * Example:
  *   pnpm qr:sunfest2027
@@ -41,6 +45,7 @@ const { values: args } = parseArgs({
     url: { type: "string" },
     logo: { type: "string" },
     out: { type: "string" },
+    ec: { type: "string", default: "H" },
     size: { type: "string", default: "2048" },
     mm: { type: "string" },
     "logo-scale": { type: "string", default: "0.22" },
@@ -48,13 +53,15 @@ const { values: args } = parseArgs({
   },
 });
 
-if (!args.url || !args.logo || !args.out) {
+if (!args.url || !args.out) {
   console.error(
-    "Usage: node scripts/make-qr.mjs --url <url> --logo <image> --out <file.png|svg>"
+    "Usage: node scripts/make-qr.mjs --url <url> --out <file.png|svg> [--logo <image>] [--ec L|M|Q|H]"
   );
   process.exit(1);
 }
 
+const errorCorrectionLevel = args.ec.toUpperCase();
+const hasLogo = Boolean(args.logo);
 const logoScale = Number.parseFloat(args["logo-scale"]);
 const outPath = resolve(args.out);
 const isSvg = extname(outPath).toLowerCase() === ".svg";
@@ -99,24 +106,27 @@ async function renderPng() {
 
   const qrPng = await QRCode.toBuffer(args.url, {
     type: "png",
-    errorCorrectionLevel: "H",
+    errorCorrectionLevel,
     width: size,
     margin: QUIET_ZONE_MODULES,
     color: { dark: args.dark, light: "#ffffff" },
   });
 
-  let image = sharp(qrPng).composite([
-    {
-      input: roundedSquare(plateSize, "#ffffff"),
-      left: Math.round(plateOffset),
-      top: Math.round(plateOffset),
-    },
-    {
-      input: await roundedLogo(logoSize),
-      left: Math.round(logoOffset),
-      top: Math.round(logoOffset),
-    },
-  ]);
+  let image = sharp(qrPng);
+  if (hasLogo) {
+    image = image.composite([
+      {
+        input: roundedSquare(plateSize, "#ffffff"),
+        left: Math.round(plateOffset),
+        top: Math.round(plateOffset),
+      },
+      {
+        input: await roundedLogo(logoSize),
+        left: Math.round(logoOffset),
+        top: Math.round(logoOffset),
+      },
+    ]);
+  }
 
   if (widthMm) {
     // Density is what layout tools read to place the image at a physical size.
@@ -125,12 +135,15 @@ async function renderPng() {
 
   return {
     buffer: await image.png().toBuffer(),
-    note: `${size}x${size}px, logo ${logoSize}px${widthMm ? `, prints at ${widthMm}mm` : ""}`,
+    note:
+      `${size}x${size}px, level ${errorCorrectionLevel}` +
+      (hasLogo ? `, logo ${logoSize}px` : ", no logo") +
+      (widthMm ? `, prints at ${widthMm}mm` : ""),
   };
 }
 
 async function renderSvg() {
-  const qr = QRCode.create(args.url, { errorCorrectionLevel: "H" });
+  const qr = QRCode.create(args.url, { errorCorrectionLevel });
   const modules = qr.modules.size;
   const side = modules + QUIET_ZONE_MODULES * 2;
   const { logo, plate, logoOffset, plateOffset } = layout(side);
@@ -145,21 +158,28 @@ async function renderSvg() {
     }
   }
 
-  const logoPx = Math.round(logo * SVG_LOGO_PX_PER_MODULE);
-  const logoData = (await roundedLogo(logoPx)).toString("base64");
   const fmt = (n) => Number(n.toFixed(3));
+  let overlay = "";
+  if (hasLogo) {
+    const logoPx = Math.round(logo * SVG_LOGO_PX_PER_MODULE);
+    const logoData = (await roundedLogo(logoPx)).toString("base64");
+    overlay =
+      `  <rect x="${fmt(plateOffset)}" y="${fmt(plateOffset)}" width="${fmt(plate)}" height="${fmt(plate)}" rx="${fmt(plate * CORNER_RADIUS_SCALE)}" fill="#ffffff"/>\n` +
+      `  <image x="${fmt(logoOffset)}" y="${fmt(logoOffset)}" width="${fmt(logo)}" height="${fmt(logo)}" href="data:image/png;base64,${logoData}"/>\n`;
+  }
 
   const svg =
     `<svg xmlns="http://www.w3.org/2000/svg" width="${widthMm}mm" height="${widthMm}mm" viewBox="0 0 ${side} ${side}">\n` +
     `  <rect width="${side}" height="${side}" fill="#ffffff"/>\n` +
     `  <path d="${d}" fill="${args.dark}"/>\n` +
-    `  <rect x="${fmt(plateOffset)}" y="${fmt(plateOffset)}" width="${fmt(plate)}" height="${fmt(plate)}" rx="${fmt(plate * CORNER_RADIUS_SCALE)}" fill="#ffffff"/>\n` +
-    `  <image x="${fmt(logoOffset)}" y="${fmt(logoOffset)}" width="${fmt(logo)}" height="${fmt(logo)}" href="data:image/png;base64,${logoData}"/>\n` +
+    overlay +
     `</svg>\n`;
 
   return {
     buffer: Buffer.from(svg),
-    note: `${widthMm}mm, version ${qr.version} (${modules} modules), logo ${fmt(logo)} modules`,
+    note:
+      `${widthMm}mm, level ${errorCorrectionLevel}, version ${qr.version} (${modules} modules)` +
+      (hasLogo ? `, logo ${fmt(logo)} modules` : ", no logo"),
   };
 }
 

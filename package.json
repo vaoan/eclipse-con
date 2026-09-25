@@ -32,6 +32,7 @@
     "sync:telegram:moonfest2026": "pnpm --filter moonfest2026 sync:telegram",
     "qr:sunfest2027": "node scripts/make-qr.mjs --url https://sunfest2027.furrycolombia.com/ --logo publicity/furrycolombia-logo.jpg --out publicity/sunfest2027-qr.png",
     "qr:sunfest2027:print": "node scripts/make-qr.mjs --url https://sunfest2027.furrycolombia.com/ --logo publicity/furrycolombia-logo.jpg --out publicity/sunfest2027-qr-50mm.svg --mm 50 && node scripts/make-qr.mjs --url https://sunfest2027.furrycolombia.com/ --logo publicity/furrycolombia-logo.jpg --out publicity/sunfest2027-qr-50mm.png --mm 50 --size 1181",
+    "qr:sunfest2027:plain": "node scripts/make-qr.mjs --url https://sunfest2027.furrycolombia.com/ --ec M --out publicity/sunfest2027-qr-30mm-plain.svg --mm 30 && node scripts/make-qr.mjs --url https://sunfest2027.furrycolombia.com/ --ec M --out publicity/sunfest2027-qr-30mm-plain.png --mm 30 --size 709",
     "sync:secrets": "node scripts/sync-secrets.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
