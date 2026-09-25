@@ -2,4 +2,3 @@
 .tmp/
 lighthouse-report.report.html
 lighthouse-report.report.json
-pnpm-lock.yaml
