@@ -31,21 +31,29 @@ Every event gets its own app, its own Worker and its own hostname — nothing is
 bundled together. A concluded event keeps its site at `<event><year>` and its
 generic hostname is retired to point at whatever is current.
 
-| What                   | Host                                                                | Worker         | Config                                    |
-| ---------------------- | ------------------------------------------------------------------- | -------------- | ----------------------------------------- |
-| sunfest2027 (active)   | `sunfest.furrycolombia.com`                                         | `sunfest2027`  | `wrangler.sunfest.toml` (repo root)       |
-| moonfest2026 (archive) | `moonfest2026.furrycolombia.com`                                    | `moonfest2026` | `apps/moonfest2026/wrangler.archive.toml` |
-| Retired host + apex    | `moonfest.furrycolombia.com` → Sunfest, `furrycolombia.com` → Carrd | `eclipse-con`  | `apps/moonfest2026/wrangler.toml`         |
+| What                   | Host                                                                                                                       | Worker         | Config                                    |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------- | ----------------------------------------- |
+| sunfest2027 (active)   | `sunfest.furrycolombia.com`                                                                                                | `sunfest2027`  | `wrangler.sunfest.toml` (repo root)       |
+| moonfest2026 (archive) | `moonfest2026.furrycolombia.com`                                                                                           | `moonfest2026` | `apps/moonfest2026/wrangler.archive.toml` |
+| Redirect hosts + apex  | `sunfest2027.furrycolombia.com` → Sunfest (302), `moonfest.furrycolombia.com` → Sunfest (301), `furrycolombia.com` → Carrd | `eclipse-con`  | `apps/moonfest2026/wrangler.toml`         |
 
 Archives are served by **assets-only** Workers — no `main`, so no code runs and
 Static Assets requests are free and uncounted. Only hosts that genuinely need
-logic (the apex Carrd proxy, the retired-host redirect) run a Worker. Archive
+logic (the apex Carrd proxy, the redirect hosts) run a Worker. Archive
 builds read `apps/moonfest2026/.env.production`, which pins analytics off so a
 developer's local `.env.local` keys can never end up in an archived bundle.
 
-When Sunfest 2027 concludes, the same shape applies: archive it at
-`sunfest2027.furrycolombia.com` on its own assets-only Worker, and point
-`sunfest.furrycolombia.com` at whatever event is next.
+Publicity links to the year-stamped host, `sunfest2027.furrycolombia.com`.
+While the event is live, the `eclipse-con` Worker 302s it (path and query
+preserved) to `sunfest.furrycolombia.com`. It is a 302 rather than a 301 so
+browsers never cache the hop: once the event concludes, that host becomes the
+archived site itself.
+
+When Sunfest 2027 concludes, the same shape applies: detach
+`sunfest2027.furrycolombia.com` from `eclipse-con`, archive the site there on
+its own assets-only Worker, and point `sunfest.furrycolombia.com` at whatever
+event is next. Publicity printed with the year-stamped link keeps working and
+stays frozen on the 2027 edition.
 
 ## Git Safety
 

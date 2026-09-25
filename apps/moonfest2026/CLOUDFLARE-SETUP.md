@@ -26,17 +26,17 @@
 
 #### `eclipse-con`
 
-| Field               | Value                                           |
-| ------------------- | ----------------------------------------------- |
-| Purpose             | Main site worker                                |
-| Has assets          | Yes                                             |
-| Has modules         | No                                              |
-| Compatibility date  | `2025-09-27`                                    |
-| Compatibility flags | `nodejs_compat`                                 |
-| Workers URL         | `https://eclipse-con.furrycolombia.workers.dev` |
-| Custom route        | `moonfest.furrycolombia.com/*`                  |
-| Custom domain       | `furrycolombia.com`                             |
-| Status              | Working                                         |
+| Field               | Value                                                |
+| ------------------- | ---------------------------------------------------- |
+| Purpose             | Main site worker                                     |
+| Has assets          | Yes                                                  |
+| Has modules         | No                                                   |
+| Compatibility date  | `2025-09-27`                                         |
+| Compatibility flags | `nodejs_compat`                                      |
+| Workers URL         | `https://eclipse-con.furrycolombia.workers.dev`      |
+| Custom route        | `moonfest.furrycolombia.com/*`                       |
+| Custom domains      | `furrycolombia.com`, `sunfest2027.furrycolombia.com` |
+| Status              | Working                                              |
 
 #### `moonfest2026`
 

@@ -30,6 +30,15 @@ custom_domain = true
 pattern = "moonfest.furrycolombia.com/*"
 zone_name = "furrycolombia.com"
 
+# The year-stamped Sunfest host that publicity links to. While the event is
+# live the Worker 302s it to sunfest.furrycolombia.com; when Sunfest 2027
+# concludes, detach it here and attach it to that event's assets-only archive
+# Worker so those links freeze on the 2027 edition. A Custom Domain (not a
+# zone route) so `wrangler deploy` provisions the DNS record and certificate.
+[[routes]]
+pattern = "sunfest2027.furrycolombia.com"
+custom_domain = true
+
 [env.staging]
 name = "eclipse-con-staging"
 main = "cloudflare/worker.mjs"

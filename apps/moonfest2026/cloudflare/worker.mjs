@@ -1,6 +1,9 @@
 const CARRD_ORIGIN = "https://furrycolombia.carrd.co";
 const CARRD_HOST = "furrycolombia.carrd.co";
 const PRIMARY_DOMAIN = "https://furrycolombia.com";
+const SUNFEST_ORIGIN = "https://sunfest.furrycolombia.com";
+const SUNFEST_YEAR_HOST = "sunfest2027.furrycolombia.com";
+const RETIRED_MOONFEST_HOST = "moonfest.furrycolombia.com";
 const INTERNAL_ERROR_STATUS = 503;
 const INTERNAL_ERROR_TEXT = "Temporary worker error";
 const RUNTIME_CONFIG_KEYS = [
@@ -34,7 +37,29 @@ function isCarrdProxyHost(hostname) {
  * that host, and returning here skips the asset serving it used to do.
  */
 function isRetiredMoonfestHost(hostname) {
-  return hostname === "moonfest.furrycolombia.com";
+  return hostname === RETIRED_MOONFEST_HOST;
+}
+
+/**
+ * The year-stamped Sunfest host. Printed and posted publicity links to it so
+ * that, once the 2027 event concludes and this host becomes the archived site
+ * (the same move Moonfest made to moonfest2026.*), those links keep landing on
+ * the 2027 edition rather than on whatever event is current.
+ *
+ * Until then it forwards to the live site. The redirect is a 302, not a 301,
+ * on purpose: browsers cache 301s indefinitely, and a visitor who followed one
+ * today would still be sent to the next event after the archive swap.
+ */
+function isSunfestYearHost(hostname) {
+  return hostname === SUNFEST_YEAR_HOST;
+}
+
+/** Forward to the live Sunfest site, keeping the path and any campaign query. */
+function redirectToSunfest(url) {
+  return Response.redirect(
+    `${SUNFEST_ORIGIN}${url.pathname}${url.search}`,
+    302
+  );
 }
 
 function rewriteCarrdString(value) {
@@ -174,7 +199,11 @@ export default {
       const url = new URL(request.url);
 
       if (isRetiredMoonfestHost(url.hostname)) {
-        return Response.redirect("https://sunfest.furrycolombia.com/", 301);
+        return Response.redirect(`${SUNFEST_ORIGIN}/`, 301);
+      }
+
+      if (isSunfestYearHost(url.hostname)) {
+        return redirectToSunfest(url);
       }
 
       if (isCarrdProxyHost(url.hostname)) {
