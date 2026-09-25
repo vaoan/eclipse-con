@@ -1,20 +1,27 @@
 #!/usr/bin/env node
 /**
- * Generate a print-ready QR code PNG with a logo in the centre.
+ * Generate a print-ready QR code with a logo in the centre.
  *
  * The QR is encoded at error-correction level H, which survives up to 30 %
  * of its modules being covered. The logo sits on a white rounded plate that
  * covers well under that budget, so the code stays scannable with a margin.
  *
+ * Output format follows the `--out` extension:
+ *   .png  raster, `--size` pixels wide; with `--mm` it also carries print
+ *         density so layout tools open it at that physical width.
+ *   .svg  vector modules with the logo embedded, sized in millimetres via
+ *         `--mm` (default 50). Prefer this for anything that goes to print.
+ *
  * Usage:
- *   node scripts/make-qr.mjs --url <url> --logo <image> --out <file.png>
- *                            [--size 2048] [--logo-scale 0.22] [--dark #000000]
+ *   node scripts/make-qr.mjs --url <url> --logo <image> --out <file.png|svg>
+ *                            [--size 2048] [--mm 50] [--logo-scale 0.22]
+ *                            [--dark #000000]
  *
  * Example:
  *   pnpm qr:sunfest2027
  */
 import { mkdir, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { dirname, extname, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import QRCode from "qrcode";
 import sharp from "sharp";
@@ -25,6 +32,9 @@ const PLATE_PADDING_SCALE = 0.03;
 const CORNER_RADIUS_SCALE = 0.18;
 /** Quiet zone around the code, in modules, as the QR spec recommends. */
 const QUIET_ZONE_MODULES = 4;
+const MM_PER_INCH = 25.4;
+/** Pixels rendered per module in the SVG's embedded logo raster. */
+const SVG_LOGO_PX_PER_MODULE = 24;
 
 const { values: args } = parseArgs({
   options: {
@@ -32,6 +42,7 @@ const { values: args } = parseArgs({
     logo: { type: "string" },
     out: { type: "string" },
     size: { type: "string", default: "2048" },
+    mm: { type: "string" },
     "logo-scale": { type: "string", default: "0.22" },
     dark: { type: "string", default: "#000000" },
   },
@@ -39,15 +50,27 @@ const { values: args } = parseArgs({
 
 if (!args.url || !args.logo || !args.out) {
   console.error(
-    "Usage: node scripts/make-qr.mjs --url <url> --logo <image> --out <file.png>"
+    "Usage: node scripts/make-qr.mjs --url <url> --logo <image> --out <file.png|svg>"
   );
   process.exit(1);
 }
 
-const size = Number.parseInt(args.size, 10);
 const logoScale = Number.parseFloat(args["logo-scale"]);
-const logoSize = Math.round(size * logoScale);
-const plateSize = Math.round(logoSize + size * PLATE_PADDING_SCALE * 2);
+const outPath = resolve(args.out);
+const isSvg = extname(outPath).toLowerCase() === ".svg";
+const widthMm = args.mm ? Number.parseFloat(args.mm) : isSvg ? 50 : undefined;
+
+/** Geometry of the plate and logo for a code `side` units wide. */
+function layout(side) {
+  const logo = side * logoScale;
+  const plate = logo + side * PLATE_PADDING_SCALE * 2;
+  return {
+    logo,
+    plate,
+    logoOffset: (side - logo) / 2,
+    plateOffset: (side - plate) / 2,
+  };
+}
 
 /** An SVG rounded square, used both as a white plate and as an alpha mask. */
 function roundedSquare(side, fill) {
@@ -59,35 +82,88 @@ function roundedSquare(side, fill) {
   );
 }
 
-const qrPng = await QRCode.toBuffer(args.url, {
-  type: "png",
-  errorCorrectionLevel: "H",
-  width: size,
-  margin: QUIET_ZONE_MODULES,
-  color: { dark: args.dark, light: "#ffffff" },
-});
+/** The logo resized to `side` pixels with rounded corners, as a PNG buffer. */
+async function roundedLogo(side) {
+  return sharp(resolve(args.logo))
+    .resize(side, side, { fit: "cover" })
+    .composite([{ input: roundedSquare(side, "#ffffff"), blend: "dest-in" }])
+    .png()
+    .toBuffer();
+}
 
-const logoPng = await sharp(resolve(args.logo))
-  .resize(logoSize, logoSize, { fit: "cover" })
-  .composite([{ input: roundedSquare(logoSize, "#ffffff"), blend: "dest-in" }])
-  .png()
-  .toBuffer();
+async function renderPng() {
+  const size = Number.parseInt(args.size, 10);
+  const { logo, plate, logoOffset, plateOffset } = layout(size);
+  const logoSize = Math.round(logo);
+  const plateSize = Math.round(plate);
 
-const centre = (side) => Math.round((size - side) / 2);
+  const qrPng = await QRCode.toBuffer(args.url, {
+    type: "png",
+    errorCorrectionLevel: "H",
+    width: size,
+    margin: QUIET_ZONE_MODULES,
+    color: { dark: args.dark, light: "#ffffff" },
+  });
 
-const output = await sharp(qrPng)
-  .composite([
+  let image = sharp(qrPng).composite([
     {
       input: roundedSquare(plateSize, "#ffffff"),
-      left: centre(plateSize),
-      top: centre(plateSize),
+      left: Math.round(plateOffset),
+      top: Math.round(plateOffset),
     },
-    { input: logoPng, left: centre(logoSize), top: centre(logoSize) },
-  ])
-  .png()
-  .toBuffer();
+    {
+      input: await roundedLogo(logoSize),
+      left: Math.round(logoOffset),
+      top: Math.round(logoOffset),
+    },
+  ]);
 
-const outPath = resolve(args.out);
+  if (widthMm) {
+    // Density is what layout tools read to place the image at a physical size.
+    image = image.withMetadata({ density: size / (widthMm / MM_PER_INCH) });
+  }
+
+  return {
+    buffer: await image.png().toBuffer(),
+    note: `${size}x${size}px, logo ${logoSize}px${widthMm ? `, prints at ${widthMm}mm` : ""}`,
+  };
+}
+
+async function renderSvg() {
+  const qr = QRCode.create(args.url, { errorCorrectionLevel: "H" });
+  const modules = qr.modules.size;
+  const side = modules + QUIET_ZONE_MODULES * 2;
+  const { logo, plate, logoOffset, plateOffset } = layout(side);
+
+  // One path for every dark module, in module units, so the code stays vector.
+  let d = "";
+  for (let row = 0; row < modules; row += 1) {
+    for (let col = 0; col < modules; col += 1) {
+      if (qr.modules.get(row, col)) {
+        d += `M${col + QUIET_ZONE_MODULES} ${row + QUIET_ZONE_MODULES}h1v1h-1z`;
+      }
+    }
+  }
+
+  const logoPx = Math.round(logo * SVG_LOGO_PX_PER_MODULE);
+  const logoData = (await roundedLogo(logoPx)).toString("base64");
+  const fmt = (n) => Number(n.toFixed(3));
+
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${widthMm}mm" height="${widthMm}mm" viewBox="0 0 ${side} ${side}">\n` +
+    `  <rect width="${side}" height="${side}" fill="#ffffff"/>\n` +
+    `  <path d="${d}" fill="${args.dark}"/>\n` +
+    `  <rect x="${fmt(plateOffset)}" y="${fmt(plateOffset)}" width="${fmt(plate)}" height="${fmt(plate)}" rx="${fmt(plate * CORNER_RADIUS_SCALE)}" fill="#ffffff"/>\n` +
+    `  <image x="${fmt(logoOffset)}" y="${fmt(logoOffset)}" width="${fmt(logo)}" height="${fmt(logo)}" href="data:image/png;base64,${logoData}"/>\n` +
+    `</svg>\n`;
+
+  return {
+    buffer: Buffer.from(svg),
+    note: `${widthMm}mm, version ${qr.version} (${modules} modules), logo ${fmt(logo)} modules`,
+  };
+}
+
+const { buffer, note } = isSvg ? await renderSvg() : await renderPng();
 await mkdir(dirname(outPath), { recursive: true });
-await writeFile(outPath, output);
-console.log(`Wrote ${outPath} (${size}x${size}, logo ${logoSize}px)`);
+await writeFile(outPath, buffer);
+console.log(`Wrote ${outPath} (${note})`);

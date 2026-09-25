@@ -31,6 +31,7 @@
     "version:auto:moonfest": "pnpm --filter moonfest2026 version:auto",
     "sync:telegram:moonfest2026": "pnpm --filter moonfest2026 sync:telegram",
     "qr:sunfest2027": "node scripts/make-qr.mjs --url https://sunfest2027.furrycolombia.com/ --logo publicity/furrycolombia-logo.jpg --out publicity/sunfest2027-qr.png",
+    "qr:sunfest2027:print": "node scripts/make-qr.mjs --url https://sunfest2027.furrycolombia.com/ --logo publicity/furrycolombia-logo.jpg --out publicity/sunfest2027-qr-50mm.svg --mm 50 && node scripts/make-qr.mjs --url https://sunfest2027.furrycolombia.com/ --logo publicity/furrycolombia-logo.jpg --out publicity/sunfest2027-qr-50mm.png --mm 50 --size 1181",
     "sync:secrets": "node scripts/sync-secrets.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",

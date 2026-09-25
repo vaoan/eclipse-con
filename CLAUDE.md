@@ -213,6 +213,7 @@ pnpm check:style      # Stylelint across all apps
 pnpm check:tools      # cspell + knip + jscpd + ls-lint
 pnpm sync:secrets     # Pull repo secrets into .secrets
 pnpm qr:sunfest2027   # Regenerate publicity/sunfest2027-qr.png (QR with the FC logo)
+pnpm qr:sunfest2027:print   # Same code as a 50 mm vector SVG + 600 dpi PNG for print
 
 # Archived site — Moonfest 2026
 pnpm dev:moonfest
