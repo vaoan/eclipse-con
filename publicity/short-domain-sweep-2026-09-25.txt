@@ -1,0 +1,423 @@
+# Short-domain availability sweep, 2026-09-25
+# Names fur frc fco fcl sun fyc across two-letter TLDs; checked against each registry's RDAP or WHOIS.
+# AVAILABLE = registry reports no such domain. 'no answer' = registry has no public lookup; skipped.
+
+
+fcl.ac    taken
+fcl.ag    AVAILABLE
+fcl.am    AVAILABLE
+fcl.ar    AVAILABLE
+fcl.at    taken
+fcl.au    taken
+fcl.be    taken
+fcl.bo    unclear: whois.nic.bo solo acepta consultas con dominios .bo
+fcl.ca    taken
+fcl.cc    taken
+fcl.ch    taken
+fcl.cl    taken
+fcl.cx    AVAILABLE
+fcl.cz    taken
+fcl.dk    taken
+fcl.do    AVAILABLE
+fcl.ec    taken
+fcl.ee    taken
+fcl.es    no answer
+fcl.eu    taken
+fcl.fi    taken
+fcl.fm    AVAILABLE
+fcl.fr    taken
+fcl.gd    taken
+fcl.ge    taken
+fcl.gg    AVAILABLE
+fcl.gl    AVAILABLE
+fcl.gs    AVAILABLE
+fcl.hk    unclear: CMM174
+fcl.hu    unclear: domain:         fcl.hu
+fcl.id    AVAILABLE
+fcl.im    AVAILABLE
+fcl.io    taken
+fcl.is    taken
+fcl.it    taken
+fcl.je    AVAILABLE
+fcl.ky    AVAILABLE
+fcl.la    AVAILABLE
+fcl.li    AVAILABLE
+fcl.lt    AVAILABLE
+fcl.lv    taken
+fcl.ly    taken
+fcl.md    AVAILABLE
+fcl.me    taken
+fcl.ms    AVAILABLE
+fcl.mx    taken
+fcl.my    reserved
+fcl.no    taken
+fcl.nu    AVAILABLE
+fcl.nz    taken
+fcl.pe    taken
+fcl.pl    taken
+fcl.pw    taken
+fcl.re    taken
+fcl.se    taken
+fcl.sg    AVAILABLE
+fcl.sh    AVAILABLE
+fcl.si    taken
+fcl.sk    taken
+fcl.so    AVAILABLE
+fcl.st    AVAILABLE
+fcl.tc    taken
+fcl.tf    AVAILABLE
+fcl.tv    AVAILABLE
+fcl.tw    rdap 426
+fcl.vc    AVAILABLE
+fcl.vg    AVAILABLE
+fcl.ws    AVAILABLE
+fco.ac    AVAILABLE
+fco.ag    AVAILABLE
+fco.am    AVAILABLE
+fco.ar    AVAILABLE
+fco.at    taken
+fco.au    taken
+fco.be    taken
+fco.bo    unclear: whois.nic.bo solo acepta consultas con dominios .bo
+fco.ca    taken
+fco.cc    taken
+fco.ch    taken
+fco.cl    taken
+fco.cx    AVAILABLE
+fco.cz    taken
+fco.dk    taken
+fco.do    AVAILABLE
+fco.ec    taken
+fco.ee    AVAILABLE
+fco.es    no answer
+fco.eu    taken
+fco.fi    taken
+fco.fm    AVAILABLE
+fco.fr    taken
+fco.gd    AVAILABLE
+fco.ge    taken
+fco.gg    AVAILABLE
+fco.gl    AVAILABLE
+fco.gs    AVAILABLE
+fco.hk    unclear: The domain has not been registered.
+fco.hu    unclear: domain:         fco.hu
+fco.id    AVAILABLE
+fco.im    taken
+fco.io    taken
+fco.is    AVAILABLE
+fco.it    taken
+fco.je    AVAILABLE
+fco.ky    AVAILABLE
+fco.la    taken
+fco.li    taken
+fco.lt    AVAILABLE
+fco.lv    AVAILABLE
+fco.ly    taken
+fco.md    taken
+fco.me    taken
+fco.ms    AVAILABLE
+fco.mx    taken
+fco.my    reserved
+fco.no    taken
+fco.nu    AVAILABLE
+fco.nz    AVAILABLE
+fco.pe    taken
+fco.pl    taken
+fco.pw    AVAILABLE
+fco.re    taken
+fco.se    taken
+fco.sg    AVAILABLE
+fco.sh    taken
+fco.si    taken
+fco.sk    AVAILABLE
+fco.so    AVAILABLE
+fco.st    AVAILABLE
+fco.tc    taken
+fco.tf    AVAILABLE
+fco.tv    AVAILABLE
+fco.tw    rdap 426
+fco.vc    AVAILABLE
+fco.vg    AVAILABLE
+fco.ws    AVAILABLE
+frc.ac    taken
+frc.ag    AVAILABLE
+frc.am    AVAILABLE
+frc.ar    AVAILABLE
+frc.at    taken
+frc.au    AVAILABLE
+frc.be    taken
+frc.bo    unclear: whois.nic.bo solo acepta consultas con dominios .bo
+frc.ca    AVAILABLE
+frc.cc    taken
+frc.ch    taken
+frc.cl    taken
+frc.cx    AVAILABLE
+frc.cz    taken
+frc.dk    taken
+frc.do    AVAILABLE
+frc.ec    taken
+frc.ee    taken
+frc.es    no answer
+frc.eu    taken
+frc.fi    taken
+frc.fm    AVAILABLE
+frc.fr    taken
+frc.gd    AVAILABLE
+frc.ge    AVAILABLE
+frc.gg    taken
+frc.gl    AVAILABLE
+frc.gs    AVAILABLE
+frc.hk    unclear: The domain has not been registered.
+frc.hu    unclear: domain:         frc.hu
+frc.id    AVAILABLE
+frc.ie    no answer
+frc.im    taken
+frc.io    taken
+frc.is    taken
+frc.it    taken
+frc.je    AVAILABLE
+frc.ky    AVAILABLE
+frc.la    taken
+frc.li    AVAILABLE
+frc.lt    taken
+frc.lv    taken
+frc.ly    taken
+frc.md    AVAILABLE
+frc.me    taken
+frc.ms    AVAILABLE
+frc.mx    taken
+frc.my    reserved
+frc.no    taken
+frc.nu    taken
+frc.nz    taken
+frc.pe    taken
+frc.pl    taken
+frc.pw    AVAILABLE
+frc.re    AVAILABLE
+frc.se    taken
+frc.sg    taken
+frc.sh    taken
+frc.si    taken
+frc.sk    taken
+frc.so    AVAILABLE
+frc.st    AVAILABLE
+frc.tc    taken
+frc.tf    AVAILABLE
+frc.tv    AVAILABLE
+frc.tw    rdap 426
+frc.vc    taken
+frc.vg    AVAILABLE
+frc.ws    AVAILABLE
+fur.ac    taken
+fur.ag    AVAILABLE
+fur.am    taken
+fur.ar    AVAILABLE
+fur.at    taken
+fur.au    taken
+fur.be    taken
+fur.bo    unclear: whois.nic.bo solo acepta consultas con dominios .bo
+fur.bz    no answer
+fur.ca    taken
+fur.cc    taken
+fur.ch    taken
+fur.cl    taken
+fur.cr    no answer
+fur.cx    taken
+fur.cz    taken
+fur.dk    taken
+fur.do    AVAILABLE
+fur.ec    taken
+fur.ee    taken
+fur.es    no answer
+fur.eu    taken
+fur.fi    taken
+fur.fm    taken
+fur.fr    taken
+fur.gd    taken
+fur.ge    taken
+fur.gg    taken
+fur.gl    AVAILABLE
+fur.gs    AVAILABLE
+fur.gt    no answer
+fur.hk    taken
+fur.hu    unclear: domain:         fur.hu
+fur.id    taken
+fur.ie    taken
+fur.im    taken
+fur.io    taken
+fur.is    taken
+fur.it    taken
+fur.je    AVAILABLE
+fur.ky    AVAILABLE
+fur.la    taken
+fur.li    taken
+fur.lt    taken
+fur.lu    no answer
+fur.lv    AVAILABLE
+fur.ly    taken
+fur.md    AVAILABLE
+fur.me    taken
+fur.ms    taken
+fur.mx    taken
+fur.my    taken
+fur.no    taken
+fur.nu    taken
+fur.nz    taken
+fur.pa    no answer
+fur.pe    taken
+fur.ph    no answer
+fur.pl    taken
+fur.pt    no answer
+fur.pw    taken
+fur.py    no answer
+fur.re    taken
+fur.ro    no answer
+fur.se    taken
+fur.sg    AVAILABLE
+fur.sh    taken
+fur.si    taken
+fur.sk    AVAILABLE
+fur.so    taken
+fur.st    taken
+fur.tc    taken
+fur.tf    taken
+fur.tv    taken
+fur.tw    rdap 426
+fur.vc    taken
+fur.vg    AVAILABLE
+fur.ws    AVAILABLE
+fyc.ac    AVAILABLE
+fyc.ag    AVAILABLE
+fyc.am    AVAILABLE
+fyc.ar    AVAILABLE
+fyc.at    no answer
+fyc.au    taken
+fyc.be    AVAILABLE
+fyc.bo    unclear: whois.nic.bo solo acepta consultas con dominios .bo
+fyc.ca    taken
+fyc.cc    taken
+fyc.ch    taken
+fyc.cl    taken
+fyc.cx    AVAILABLE
+fyc.cz    taken
+fyc.dk    unclear: Too many requests.
+fyc.do    AVAILABLE
+fyc.ec    taken
+fyc.ee    AVAILABLE
+fyc.eu    taken
+fyc.fi    taken
+fyc.fm    AVAILABLE
+fyc.fr    taken
+fyc.gd    AVAILABLE
+fyc.ge    AVAILABLE
+fyc.gg    taken
+fyc.gl    AVAILABLE
+fyc.gs    AVAILABLE
+fyc.hk    taken
+fyc.hu    unclear: domain:         fyc.hu
+fyc.id    AVAILABLE
+fyc.im    taken
+fyc.io    taken
+fyc.is    AVAILABLE
+fyc.it    AVAILABLE
+fyc.je    AVAILABLE
+fyc.ky    AVAILABLE
+fyc.la    taken
+fyc.li    AVAILABLE
+fyc.lt    AVAILABLE
+fyc.lv    taken
+fyc.ly    taken
+fyc.md    AVAILABLE
+fyc.me    taken
+fyc.ms    AVAILABLE
+fyc.mx    taken
+fyc.my    taken
+fyc.no    taken
+fyc.nu    taken
+fyc.nz    AVAILABLE
+fyc.pe    taken
+fyc.pl    taken
+fyc.pw    AVAILABLE
+fyc.re    AVAILABLE
+fyc.se    taken
+fyc.sg    taken
+fyc.sh    AVAILABLE
+fyc.si    AVAILABLE
+fyc.sk    AVAILABLE
+fyc.so    AVAILABLE
+fyc.st    AVAILABLE
+fyc.tc    taken
+fyc.tf    AVAILABLE
+fyc.tv    AVAILABLE
+fyc.tw    rdap 426
+fyc.vc    AVAILABLE
+fyc.vg    AVAILABLE
+fyc.ws    AVAILABLE
+sun.ac    taken
+sun.ag    taken
+sun.am    taken
+sun.ar    taken
+sun.at    taken
+sun.au    taken
+sun.be    taken
+sun.bo    unclear: Dominio: sun.bo
+sun.ca    taken
+sun.cc    taken
+sun.ch    taken
+sun.cl    taken
+sun.cx    taken
+sun.cz    taken
+sun.dk    taken
+sun.do    taken
+sun.ec    taken
+sun.ee    taken
+sun.es    no answer
+sun.eu    taken
+sun.fi    taken
+sun.fm    taken
+sun.fr    taken
+sun.gd    taken
+sun.ge    taken
+sun.gg    taken
+sun.gl    taken
+sun.gs    taken
+sun.hk    taken
+sun.hu    unclear: domain:         sun.hu
+sun.id    taken
+sun.im    taken
+sun.io    taken
+sun.is    taken
+sun.it    taken
+sun.je    taken
+sun.ky    taken
+sun.la    taken
+sun.li    taken
+sun.lt    taken
+sun.lv    taken
+sun.ly    taken
+sun.md    taken
+sun.me    taken
+sun.ms    taken
+sun.mx    taken
+sun.my    taken
+sun.no    taken
+sun.nu    taken
+sun.nz    taken
+sun.pe    taken
+sun.pl    taken
+sun.pw    taken
+sun.re    taken
+sun.se    taken
+sun.sg    taken
+sun.sh    taken
+sun.si    taken
+sun.sk    taken
+sun.so    taken
+sun.st    taken
+sun.tc    taken
+sun.tf    taken
+sun.tv    taken
+sun.tw    rdap 426
+sun.vc    taken
+sun.vg    taken
+sun.ws    no answer
