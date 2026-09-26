@@ -1,7 +1,305 @@
 {
   "source": "t.me/FurryMoonfest",
-  "fetchedAt": "2026-07-06T04:52:39.089197+00:00",
+  "fetchedAt": "2026-07-23T01:35:33.975474+00:00",
   "messages": [
+    {
+      "id": 12601,
+      "date": "2026-07-15T00:21:01+00:00",
+      "text": "Ya apareció gracias",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 12597,
+      "date": "2026-07-15T00:09:46+00:00",
+      "text": "Oigan! Se me perdió una bolsita chiquita  gris como de gafas… ahí tengo unos párpados y una lengua ><\nSi alguien la tiene por favor avisarme!",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11911,
+      "date": "2026-07-13T22:52:24+00:00",
+      "text": "Necesitamos saber a quién pertenecen estás maletas. Por favor hablarme al interno.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11911.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 225074
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11841,
+      "date": "2026-07-13T21:24:41+00:00",
+      "text": "¡Muchas gracias por todo!\nPor cada sonrisa, por cada momento de felicidad y de compañerismo, por todo el inmenso apoyo que recibimos de todos y cada uno de ustedes. \n\n¡Nos vemos en el Furry Sunfest 2027!\nwww.sunfest.furrycolombia.com",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11837,
+      "date": "2026-07-13T20:54:35+00:00",
+      "text": "Atención!!\n\nEn pocos minutos empezará la subasta de los pendones y las figuras oficiales del Moonfest!\n\nLos esperamos en el salón principal.",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11757,
+      "date": "2026-07-13T18:05:38+00:00",
+      "text": "Encontramos esto, el dueño puede pasar a reclamarlo en la mesa de sellos para pasaporte.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11757.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 188000
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11756,
+      "date": "2026-07-13T18:05:19+00:00",
+      "text": "Encontramos una billetera, el dueño puede pasar a reclamarla en la mesa de sellos para pasaporte.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11756.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 149304
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11748,
+      "date": "2026-07-13T17:15:41+00:00",
+      "text": "¿Quisieras tener un recuerdo único del Moonfest 2026?\n\nEn la ceremonia de cierre estaremos subastado toda la imaginería oficial del evento.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11748.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 529920
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11745,
+      "date": "2026-07-13T17:07:39+00:00",
+      "text": "CHICXS!!!\n\nYA PUEDEN PASAR AL SALON SUBUGUXI A RECIBIR EL ULTIMO SELLO DEL PASAPORTE!",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11645,
+      "date": "2026-07-13T14:47:23+00:00",
+      "text": "¡Por favor recuerden hacer check out antes de las 12 del día!\n\nRecuerden que somos 200 personas, no lo dejen para el final. Si pueden hacer check out desde temprano, les agradeceríamos mucho.",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11462,
+      "date": "2026-07-13T03:47:17+00:00",
+      "text": "@YaedeO Encontramos tu bolsita en el Salón Tundama. La tenemos en el Salón Sugamuxi (salón principal)",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11442,
+      "date": "2026-07-13T03:25:18+00:00",
+      "text": "Hola! Si alguien se encuentra un termo o botilito azul, por favor comunicarse con @loafingfolf",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11110,
+      "date": "2026-07-12T17:22:03+00:00",
+      "text": "Encontramos unas gafas, la persona que las perdió puede retirarlas en el mercado de artistas.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11110.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 120918
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11100,
+      "date": "2026-07-12T16:50:56+00:00",
+      "text": "Hola! Las siguientes personas, las necesitamos en el salón Zaque lo antes posible.\n\nCampi\nGabriel Aguirre \nVonky\nJuanjo\nFox front Yakov\nFeli\nFoxycrafter",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11076,
+      "date": "2026-07-12T15:14:01+00:00",
+      "text": "Ubicamos una bolsa perdida, necesito que el dueño me hable por interno para devolverla",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11076.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 137556
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11073,
+      "date": "2026-07-12T15:05:31+00:00",
+      "text": "A todas las personas que van a vender sus productos en el Mercado de Artistas lxs esperamos en el Salón Zaque a partir de las 12:00 para empezar a organizar el material.\n\n¡Gracias!",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 11043,
+      "date": "2026-07-12T13:46:02+00:00",
+      "text": "Buenos días, el chico que perdió el guante que me escriba al interno para devolverlo por favor.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11043.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 371917
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 10933,
+      "date": "2026-07-12T04:14:12+00:00",
+      "text": "Ready para la noche de sus vidas? \n\nEl rave empezara a las 11:25PM\n\nLos esperamos en el salon Sugamuxi 💃🤩",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_10933.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 216877
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 10780,
+      "date": "2026-07-11T21:21:19+00:00",
+      "text": "Les dejamos la carta del barco para todos aquellos interesados",
+      "media": [
+        {
+          "type": "MessageMediaDocument",
+          "path": "telegram/media/msg_10780.pdf",
+          "name": "CARTA BARCO LIBERTAD.pdf",
+          "mime": "application/pdf",
+          "size": 602634
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 10756,
+      "date": "2026-07-11T20:28:59+00:00",
+      "text": "https://www.instagram.com/furrycolombia\n\nNo olviden seguir y republicar nuestro instagram e etiquetarnos en sus fotos 💛💚",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 10617,
+      "date": "2026-07-11T15:22:04+00:00",
+      "text": "A todas las personas que van a vender sus productos en el Mercado de Artistas lxs esperamos en el Salón Zaque a partir de las 12:15 para empezar a organizar el material.\n\n¡Gracias!",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 10553,
+      "date": "2026-07-11T14:15:08+00:00",
+      "text": "En la última página de su pasaporte van a encontrar un espacio para tres sellos que juntos forman una sola imagen.\n\nEl primero lo damos hoy en el Mercado de Artistas, el segundo mañana, también en el Mercado, y el tercero el lunes en la ceremonia de cierre. \n\n¡No olviden llevar su pasaporte a cada uno de estos momentos o se quedan sin el sello!",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 10546,
+      "date": "2026-07-11T13:51:42+00:00",
+      "text": "¡Hola!\n\nDos cositas:\n\n1. Para quienes no recogieron su merch anoche, vamos a estar en el mercado de artistas con las bolsas y pasaportes que quedaron. \n\n2. Recuerden por favor usar su manilla para identificarlos fácilmente. \n\nGracias! 🤎",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 10418,
+      "date": "2026-07-11T04:14:50+00:00",
+      "text": "Hola a todos!!\nVengo a pedirles un favor. \nRecuerden que tenemos otros huéspedes fuera del evento. \nNos pidieron que cuando estén caminando a su habitación intenten no hacer ruido en los pasillos. \nMuchas gracias",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 10084,
+      "date": "2026-07-10T19:14:56+00:00",
+      "text": "Para agilizar el registro de los huéspedes, el hotel ha puesto una mesa organizada en orden alfabético según el apellido. Cuando lleguen, por favor encuentren su fila y podrán irse registrando.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_10084.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 1019205
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 9782,
+      "date": "2026-07-10T13:13:54+00:00",
+      "text": "🚌 ¡Información del bus para el Moonfest!\n\nSaldremos a las 11:00 AM desde el Carulla de la 116 con Autopista Norte (Carulla Alhambra, a una cuadra al occidente de la estación Pepe Sierra de Transmilenio).\n\n📍 Punto en Maps: https://maps.app.goo.gl/Y9U7LxBPtwGxKn5u9\n\nUNICAMENTE LOS QUE SE INSCRIBIERON EN EL FORM",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 9430,
+      "date": "2026-07-09T15:31:08+00:00",
+      "text": "Hola! Si hay acá una persona llamada Zeryl le pido el favor de que se comunique conmigo lo más pronto posible. Gracias.",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 9340,
+      "date": "2026-07-08T22:34:36+00:00",
+      "text": "Información importante sobre el pago del hotel\n\nEs probable que el hotel no les cobre por adelantado sino directamente al momento del check-in.\n\nEsto es porque quienes sean extranjeros y presenten su pasaporte en recepción quedan exentos de IVA, lo que hace que el cuarto les salga más barato. Por eso el hotel prefiere esperar a ver quién llega con pasaporte antes de cobrar.\n\nSi son extranjeros, no olviden tener su pasaporte a mano al llegar.",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 8955,
+      "date": "2026-07-07T20:20:40+00:00",
+      "text": "Adjuntamos un archivo con el listado de personas que quedaron inscritas para usar el servicio de bus.\n\nSi no ves tu nombre, comunícate con un admin HOY. \n\n🌙",
+      "media": [
+        {
+          "type": "MessageMediaDocument",
+          "path": "telegram/media/msg_8955.xlsx",
+          "name": "Listado de personas que usarán el servicio de buses (1).xlsx",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "size": 11184
+        }
+      ],
+      "source": "t.me/FurryMoonfest"
+    },
+    {
+      "id": 8651,
+      "date": "2026-07-06T21:34:05+00:00",
+      "text": "Hola a todos! Algunas personas se inscribieron dos veces a la lista de buses. Queremos saber si fue intencional o un accidente ya que esto nos aumenta los costos. \nBill / Obey\nJean SOREN\nJuguito\nKovua\nLegend\nMache / DirtyMache\nPaul Lionfur\nScalyclaw Pythonara\nThrix\nPor favor escribirme al directo.",
+      "media": [],
+      "source": "t.me/FurryMoonfest"
+    },
     {
       "id": 8196,
       "date": "2026-07-05T18:09:51+00:00",

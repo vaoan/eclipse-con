@@ -83,18 +83,37 @@ def command_exists(command: str) -> bool:
     return shutil.which(command) is not None
 
 
+def gh_copilot_available() -> bool:
+    if not command_exists("gh"):
+        return False
+    result = subprocess.run(
+        ["gh", "copilot", "--", "--help"],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    return result.returncode == 0
+
+
 def format_error(error: Exception) -> str:
     if isinstance(error, urllib.error.HTTPError):
         return f"HTTP {error.code}"
     return str(error) or error.__class__.__name__
 
 
-def claude_code_translate(text: str) -> str:
-    prompt = build_translation_prompt(text)
-    env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
+def run_cli_with_retries(
+    label: str,
+    command: list[str],
+    *,
+    input_text: str | None = None,
+    env: dict[str, str] | None = None,
+    output_path: Path | None = None,
+) -> str:
     for attempt in range(9):
         result = subprocess.run(
-            ["claude", "-p", prompt],
+            command,
+            input=input_text,
             capture_output=True,
             text=True,
             encoding="utf-8",
@@ -102,75 +121,81 @@ def claude_code_translate(text: str) -> str:
             env=env,
         )
         if result.returncode == 0:
-            return result.stdout.strip()
-        stderr = result.stderr.strip()
-        # Retry on rate limit signals
-        if "rate" in stderr.lower() or "429" in stderr:
+            if output_path is not None:
+                translated = output_path.read_text(encoding="utf-8").strip()
+            else:
+                translated = result.stdout.strip()
+            return translated or (input_text or "")
+
+        stderr = (result.stderr or result.stdout).strip()
+        if is_rate_limit_error(stderr):
             wait_seconds = min(90, 2 ** attempt)
             print(
-                f"\n[translate] Claude Code rate limit on attempt {attempt + 1}/9. "
-                f"Retrying in {wait_seconds}s..."
+                f"\n[translate] {label} rate limit on attempt "
+                f"{attempt + 1}/9. Retrying in {wait_seconds}s..."
             )
             time.sleep(wait_seconds)
             continue
-        raise RuntimeError(f"claude CLI error: {stderr or result.stdout}")
-    raise RuntimeError("Claude Code translation failed after retries")
+        raise RuntimeError(f"{label} error: {stderr or 'unknown error'}")
+
+    raise RuntimeError(f"{label} translation failed after retries")
+
+
+def claude_code_translate(text: str) -> str:
+    prompt = build_translation_prompt(text)
+    env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
+    return run_cli_with_retries(
+        "Claude Code CLI",
+        ["claude", "-p", prompt],
+        env=env,
+        input_text=text,
+    )
 
 
 def codex_cli_translate(text: str) -> str:
     prompt = build_translation_prompt(text)
     model = os.environ.get("CODEX_MODEL", "").strip()
 
-    for attempt in range(9):
-        with tempfile.NamedTemporaryFile(
-            mode="w", encoding="utf-8", delete=False, suffix=".txt"
-        ) as handle:
-            output_path = Path(handle.name)
+    with tempfile.NamedTemporaryFile(
+        mode="w", encoding="utf-8", delete=False, suffix=".txt"
+    ) as handle:
+        output_path = Path(handle.name)
 
-        try:
-            command = [
-                "codex",
-                "exec",
-                "--skip-git-repo-check",
-                "--ignore-rules",
-                "--ephemeral",
-                "--sandbox",
-                "read-only",
-                "--color",
-                "never",
-                "--output-last-message",
-                str(output_path),
-                "-",
-            ]
-            if model:
-                command[2:2] = ["--model", model]
+    try:
+        command = [
+            "codex",
+            "exec",
+            "--skip-git-repo-check",
+            "--ignore-rules",
+            "--ephemeral",
+            "--sandbox",
+            "read-only",
+            "--color",
+            "never",
+            "--output-last-message",
+            str(output_path),
+            "-",
+        ]
+        if model:
+            command[2:2] = ["--model", model]
 
-            result = subprocess.run(
-                command,
-                input=prompt,
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                errors="replace",
-            )
-            if result.returncode == 0:
-                translated = output_path.read_text(encoding="utf-8").strip()
-                return translated or text
+        return run_cli_with_retries(
+            "Codex CLI",
+            command,
+            input_text=prompt,
+            output_path=output_path,
+        )
+    finally:
+        output_path.unlink(missing_ok=True)
 
-            stderr = (result.stderr or result.stdout).strip()
-            if is_rate_limit_error(stderr):
-                wait_seconds = min(90, 2 ** attempt)
-                print(
-                    f"\n[translate] Codex CLI rate limit on attempt "
-                    f"{attempt + 1}/9. Retrying in {wait_seconds}s..."
-                )
-                time.sleep(wait_seconds)
-                continue
-            raise RuntimeError(f"codex CLI error: {stderr or 'unknown error'}")
-        finally:
-            output_path.unlink(missing_ok=True)
 
-    raise RuntimeError("Codex CLI translation failed after retries")
+def copilot_cli_translate(text: str) -> str:
+    prompt = build_translation_prompt(text)
+    return run_cli_with_retries(
+        "GitHub Copilot CLI",
+        ["gh", "copilot", "-p", prompt],
+        input_text=text,
+    )
 
 
 def claude_translate(text: str, api_key: str, model: str) -> str:
@@ -403,16 +428,21 @@ def write_checkpoint(
     )
 
 
-def setup_provider() -> tuple:
+def discover_providers() -> tuple[list[tuple[str, callable]], str]:
     provider = os.environ.get("TRANSLATE_PROVIDER", "openai").strip().lower()
     to_lang = os.environ.get("TRANSLATE_TO", "en").strip() or "en"
-    translated_by = "Azure AI Translator"
-    fallback_translate_text = None
-    fallback_provider_label = ""
+    providers: list[tuple[str, callable]] = []
 
-    if provider == "azure":
-        azure_key = require_env("AZURE_TRANSLATOR_KEY")
-        azure_region = require_env("AZURE_TRANSLATOR_REGION")
+    def add_provider(label: str, func: callable) -> None:
+        if any(existing_label == label for existing_label, _ in providers):
+            return
+        providers.append((label, func))
+
+    def try_add_azure() -> None:
+        azure_key = os.environ.get("AZURE_TRANSLATOR_KEY", "").strip()
+        azure_region = os.environ.get("AZURE_TRANSLATOR_REGION", "").strip()
+        if not azure_key or not azure_region:
+            return
         azure_endpoint = os.environ.get(
             "AZURE_TRANSLATOR_ENDPOINT",
             "https://api.cognitive.microsofttranslator.com",
@@ -429,81 +459,135 @@ def setup_provider() -> tuple:
                 to_lang,
             )
 
-        openai_key = os.environ.get("OPENAI_API_KEY", "").strip()
-        if openai_key:
-            openai_model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini").strip()
+        add_provider("Azure AI Translator", translate_text)
 
-            def fallback_translate_text(input_text: str) -> str:
-                return openai_translate(input_text, openai_key, openai_model)
-
-            fallback_provider_label = f"OpenAI ({openai_model})"
-            translated_by = (
-                "Azure AI Translator (fallback: "
-                f"{fallback_provider_label})"
-            )
-
-    elif provider == "openai":
-        api_key = require_env("OPENAI_API_KEY")
+    def try_add_openai() -> None:
+        api_key = os.environ.get("OPENAI_API_KEY", "").strip()
+        if not api_key:
+            return
         model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini").strip()
-        translated_by = f"OpenAI ({model})"
 
         def translate_text(input_text: str) -> str:
             return openai_translate(input_text, api_key, model)
 
-    elif provider == "claude_code":
-        translated_by = "Claude Code (subscription)"
+        add_provider(f"OpenAI ({model})", translate_text)
 
-        def translate_text(input_text: str) -> str:
-            return claude_code_translate(input_text)
-
-        if command_exists("codex"):
-            codex_model = os.environ.get("CODEX_MODEL", "").strip()
-
-            def fallback_translate_text(input_text: str) -> str:
-                return codex_cli_translate(input_text)
-
-            fallback_provider_label = (
-                f"Codex CLI ({codex_model})" if codex_model else "Codex CLI"
-            )
-            translated_by = (
-                "Claude Code (fallback: "
-                f"{fallback_provider_label})"
-            )
-
-    elif provider == "codex":
-        codex_model = os.environ.get("CODEX_MODEL", "").strip()
-        translated_by = (
-            f"Codex CLI ({codex_model})" if codex_model else "Codex CLI"
-        )
-
-        def translate_text(input_text: str) -> str:
-            return codex_cli_translate(input_text)
-
-    elif provider == "claude":
+    def try_add_claude_api() -> None:
+        api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+        if not api_key:
+            return
         ensure_anthropic()
-        api_key = require_env("ANTHROPIC_API_KEY")
         model = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5").strip()
-        translated_by = f"Claude ({model})"
 
         def translate_text(input_text: str) -> str:
             return claude_translate(input_text, api_key, model)
 
-    else:
+        add_provider(f"Claude ({model})", translate_text)
+
+    def try_add_claude_cli() -> None:
+        if command_exists("claude"):
+            add_provider("Claude Code CLI", claude_code_translate)
+
+    def try_add_codex_cli() -> None:
+        if command_exists("codex"):
+            model = os.environ.get("CODEX_MODEL", "").strip()
+            label = f"Codex CLI ({model})" if model else "Codex CLI"
+            add_provider(label, codex_cli_translate)
+
+    def try_add_copilot_cli() -> None:
+        if gh_copilot_available():
+            add_provider("GitHub Copilot CLI", copilot_cli_translate)
+
+    provider_builders = {
+        "azure": try_add_azure,
+        "openai": try_add_openai,
+        "claude": try_add_claude_api,
+        "claude_code": try_add_claude_cli,
+        "codex": try_add_codex_cli,
+        "copilot": try_add_copilot_cli,
+        "auto": lambda: None,
+    }
+    if provider not in provider_builders:
         raise SystemExit(
-            "Invalid TRANSLATE_PROVIDER. Use 'azure', 'openai', 'claude', "
-            "'claude_code', or 'codex'."
+            "Invalid TRANSLATE_PROVIDER. Use 'auto', 'azure', 'openai', "
+            "'claude', 'claude_code', 'codex', or 'copilot'."
         )
 
+    preferred_order = {
+        "auto": [
+            try_add_claude_cli,
+            try_add_codex_cli,
+            try_add_copilot_cli,
+            try_add_claude_api,
+            try_add_openai,
+            try_add_azure,
+        ],
+        "claude_code": [
+            try_add_claude_cli,
+            try_add_codex_cli,
+            try_add_copilot_cli,
+            try_add_claude_api,
+            try_add_openai,
+            try_add_azure,
+        ],
+        "codex": [
+            try_add_codex_cli,
+            try_add_claude_cli,
+            try_add_copilot_cli,
+            try_add_openai,
+            try_add_claude_api,
+            try_add_azure,
+        ],
+        "copilot": [
+            try_add_copilot_cli,
+            try_add_codex_cli,
+            try_add_claude_cli,
+            try_add_openai,
+            try_add_claude_api,
+            try_add_azure,
+        ],
+        "claude": [
+            try_add_claude_api,
+            try_add_claude_cli,
+            try_add_codex_cli,
+            try_add_copilot_cli,
+            try_add_openai,
+            try_add_azure,
+        ],
+        "openai": [
+            try_add_openai,
+            try_add_codex_cli,
+            try_add_claude_cli,
+            try_add_copilot_cli,
+            try_add_claude_api,
+            try_add_azure,
+        ],
+        "azure": [
+            try_add_azure,
+            try_add_openai,
+            try_add_codex_cli,
+            try_add_claude_cli,
+            try_add_copilot_cli,
+            try_add_claude_api,
+        ],
+    }
+
+    for builder in preferred_order[provider]:
+        builder()
+
+    if not providers:
+        raise SystemExit(
+            "No translation providers available. Configure API keys or install "
+            "a supported CLI (claude, codex, gh copilot)."
+        )
+
+    translated_by = " -> ".join(label for label, _ in providers)
+    print(f"[translate] Provider preference={provider} target={to_lang}")
     print(
-        f"[translate] Provider={provider} target={to_lang}"
+        "[translate] Provider chain: "
+        + " -> ".join(label for label, _ in providers)
     )
-    if fallback_translate_text and fallback_provider_label:
-        print(
-            "[translate] Fallback enabled: Azure -> "
-            f"{fallback_provider_label}"
-        )
-
-    return translate_text, fallback_translate_text, fallback_provider_label, translated_by
+    return providers, translated_by
 
 
 def main() -> None:
@@ -559,51 +643,47 @@ def main() -> None:
         print(f"[translate] Synced {target_path}")
         return
 
-    translate_text, fallback_translate_text, fallback_provider_label, \
-        translated_by = setup_provider()
+    providers, translated_by = discover_providers()
 
     total_missing = len(needs_translation)
-    missing_ids = {int(m["id"]) for m in needs_translation}
     translated_new = 0
     missing_count = 0
-    fallback_used_count = 0
+    provider_usage: dict[str, int] = {}
 
     for idx, message in enumerate(needs_translation, 1):
         msg_id = int(message["id"])
         text = message.get("text") or ""
         render_progress(idx, total_missing, translated_new, 0, missing_count)
 
-        try:
-            text_en = translate_text(text)
-        except (urllib.error.HTTPError, RuntimeError, FileNotFoundError) as primary_error:
-            should_try_fallback = fallback_translate_text is not None and (
-                not isinstance(primary_error, RuntimeError)
-                or is_cli_access_error(str(primary_error))
-                or "not found" in str(primary_error).lower()
-            )
-            if should_try_fallback:
+        text_en = ""
+        provider_used = ""
+        for provider_label, translate_text in providers:
+            try:
+                text_en = translate_text(text)
+                provider_used = provider_label
+                break
+            except (
+                urllib.error.HTTPError,
+                RuntimeError,
+                FileNotFoundError,
+                OSError,
+            ) as provider_error:
                 print(
-                    f"\n[translate] #{msg_id} primary failed "
-                    f"({format_error(primary_error)}). Trying fallback..."
+                    f"\n[translate] #{msg_id} {provider_label} failed "
+                    f"({format_error(provider_error)})."
                 )
-                try:
-                    text_en = fallback_translate_text(text)
-                    fallback_used_count += 1
+                if provider_label != providers[-1][0]:
                     print(
-                        f"[translate] #{msg_id} used fallback "
-                        f"{fallback_provider_label}"
+                        f"[translate] #{msg_id} trying next provider..."
                     )
-                except (urllib.error.HTTPError, RuntimeError, FileNotFoundError):
-                    text_en = ""
-            else:
-                text_en = ""
 
         if text_en:
             existing[msg_id] = text_en
             translated_new += 1
+            provider_usage[provider_used] = provider_usage.get(provider_used, 0) + 1
             print(
                 f"\n[translate] #{msg_id} translated "
-                f"({len(text_en)} chars)"
+                f"with {provider_used} ({len(text_en)} chars)"
             )
         else:
             missing_count += 1
@@ -630,11 +710,11 @@ def main() -> None:
         json.dumps(target, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     print(f"Saved English messages to {target_path}")
-    if fallback_used_count:
-        print(
-            f"{fallback_used_count} messages were translated with fallback "
-            f"provider ({fallback_provider_label})."
+    if provider_usage:
+        usage_summary = ", ".join(
+            f"{label}: {count}" for label, count in provider_usage.items()
         )
+        print(f"[translate] Provider usage: {usage_summary}")
     if missing_count:
         print(f"{missing_count} messages still missing translation. Re-run later.")
 

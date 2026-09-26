@@ -1,8 +1,276 @@
 {
   "source": "t.me/FurryMoonfest",
-  "fetchedAt": "2026-07-06T04:52:39.372455+00:00",
-  "translatedBy": "Claude Code (fallback: Codex CLI)",
+  "fetchedAt": "2026-07-23T01:37:25.334731+00:00",
+  "translatedBy": "Claude Code CLI -> Codex CLI -> Claude (claude-haiku-4-5) -> OpenAI (gpt-4o-mini)",
   "messages": [
+    {
+      "id": 12601,
+      "date": "2026-07-15T00:21:01+00:00",
+      "text": "It showed up now, thanks",
+      "media": []
+    },
+    {
+      "id": 12597,
+      "date": "2026-07-15T00:09:46+00:00",
+      "text": "Hey! I lost a small gray little pouch, kind of like one for glasses... in there I have some eyelids and a tongue ><\nIf someone has it, please let me know!",
+      "media": []
+    },
+    {
+      "id": 11911,
+      "date": "2026-07-13T22:52:24+00:00",
+      "text": "We need to know who these suitcases belong to. Please contact me on the extension.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11911.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 225074
+        }
+      ]
+    },
+    {
+      "id": 11841,
+      "date": "2026-07-13T21:24:41+00:00",
+      "text": "Thank you so much for everything!\nFor every smile, for every moment of happiness and companionship, for all the immense support we received from each and every one of you. \n\nSee you at Furry Sunfest 2027!\nwww.sunfest.furrycolombia.com",
+      "media": []
+    },
+    {
+      "id": 11837,
+      "date": "2026-07-13T20:54:35+00:00",
+      "text": "Attention!!\n\nIn a few minutes, the auction for the official Moonfest banners and figures will begin!\n\nWe’re waiting for you in the main hall.",
+      "media": []
+    },
+    {
+      "id": 11757,
+      "date": "2026-07-13T18:05:38+00:00",
+      "text": "We found this. The owner can come claim it at the passport stamp table.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11757.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 188000
+        }
+      ]
+    },
+    {
+      "id": 11756,
+      "date": "2026-07-13T18:05:19+00:00",
+      "text": "We found a wallet; the owner can come claim it at the passport stamp table.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11756.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 149304
+        }
+      ]
+    },
+    {
+      "id": 11748,
+      "date": "2026-07-13T17:15:41+00:00",
+      "text": "Would you like to have a unique keepsake from Moonfest 2026?\n\nAt the closing ceremony, we will be auctioning off all of the event’s official imagery.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11748.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 529920
+        }
+      ]
+    },
+    {
+      "id": 11745,
+      "date": "2026-07-13T17:07:39+00:00",
+      "text": "CHICXS!!!\n\nYOU CAN NOW GO TO THE SUBUGUXI ROOM TO RECEIVE THE LAST PASSPORT STAMP!",
+      "media": []
+    },
+    {
+      "id": 11645,
+      "date": "2026-07-13T14:47:23+00:00",
+      "text": "Please remember to check out before 12 noon!\n\nKeep in mind that there are 200 of us, so please don’t leave it until the end. If you can check out early, we would really appreciate it.",
+      "media": []
+    },
+    {
+      "id": 11462,
+      "date": "2026-07-13T03:47:17+00:00",
+      "text": "@YaedeO We found your little bag in the Tundama Hall. We have it in the Sugamuxi Hall (main hall)",
+      "media": []
+    },
+    {
+      "id": 11442,
+      "date": "2026-07-13T03:25:18+00:00",
+      "text": "Hello! If anyone finds a blue thermos or little water bottle, please get in touch with @loafingfolf",
+      "media": []
+    },
+    {
+      "id": 11110,
+      "date": "2026-07-12T17:22:03+00:00",
+      "text": "We found a pair of glasses; the person who lost them can pick them up at the artisans' market.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11110.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 120918
+        }
+      ]
+    },
+    {
+      "id": 11100,
+      "date": "2026-07-12T16:50:56+00:00",
+      "text": "Hi! We need the following people in the Zaque hall as soon as possible.\n\nCampi\nGabriel Aguirre\nVonky\nJuanjo\nFox front Yakov\nFeli\nFoxycrafter",
+      "media": []
+    },
+    {
+      "id": 11076,
+      "date": "2026-07-12T15:14:01+00:00",
+      "text": "We found a lost bag, I need the owner to message me privately so I can return it",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11076.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 137556
+        }
+      ]
+    },
+    {
+      "id": 11073,
+      "date": "2026-07-12T15:05:31+00:00",
+      "text": "We invite everyone who will be selling their products at the Artists' Market to join us in the Salón Zaque starting at 12:00 to begin organizing the material.\n\nThank you! 🙏",
+      "media": []
+    },
+    {
+      "id": 11043,
+      "date": "2026-07-12T13:46:02+00:00",
+      "text": "Good morning, would the boy who lost the glove please message me privately so I can return it, thank you.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_11043.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 371917
+        }
+      ]
+    },
+    {
+      "id": 10933,
+      "date": "2026-07-12T04:14:12+00:00",
+      "text": "Ready for the night of your lives?\n\nThe rave will begin at 11:25PM\n\nWe'll be waiting for you in the Sugamuxi hall 💃🤩",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_10933.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 216877
+        }
+      ]
+    },
+    {
+      "id": 10780,
+      "date": "2026-07-11T21:21:19+00:00",
+      "text": "The translated text:\n\nHere's the boat menu for everyone who's interested",
+      "media": [
+        {
+          "type": "MessageMediaDocument",
+          "path": "telegram/media/msg_10780.pdf",
+          "name": "CARTA BARCO LIBERTAD.pdf",
+          "mime": "application/pdf",
+          "size": 602634
+        }
+      ]
+    },
+    {
+      "id": 10756,
+      "date": "2026-07-11T20:28:59+00:00",
+      "text": "Don't forget to follow and repost our instagram and tag us in your photos 💛💚\n\nhttps://www.instagram.com/furrycolombia",
+      "media": []
+    },
+    {
+      "id": 10617,
+      "date": "2026-07-11T15:22:04+00:00",
+      "text": "To everyone who will be selling their products at the Artists' Market, we'll be waiting for you in the Zaque Hall starting at 12:15 to begin organizing the material.\n\nThank you! 🙏",
+      "media": []
+    },
+    {
+      "id": 10553,
+      "date": "2026-07-11T14:15:08+00:00",
+      "text": "En la última página de su pasaporte van a encontrar un espacio para tres sellos que juntos forman una sola imagen.\n\nOn the last page of your passport you'll find a space for three stamps that together form a single image.\n\nThe first one we give today at the Artists' Market, the second one tomorrow, also at the Market, and the third one on Monday at the closing ceremony.\n\nDon't forget to bring your passport to each of these moments or you'll miss out on the stamp!",
+      "media": []
+    },
+    {
+      "id": 10546,
+      "date": "2026-07-11T13:51:42+00:00",
+      "text": "¡Hola! → Hello!\n\nHello!\n\nTwo little things:\n\n1. For those who didn't pick up their merch last night, we'll be at the artists' market with the leftover bags and passports.\n\n2. Please remember to wear your wristband so we can identify you easily.\n\nThanks! 🤎",
+      "media": []
+    },
+    {
+      "id": 10418,
+      "date": "2026-07-11T04:14:50+00:00",
+      "text": "The user is asking for a translation only — this is a direct request with explicit output instructions. No skill applies to a plain translation task.\n\nHi everyone!! 😊\nI come to ask you a favor.\nRemember that we have other guests outside the event.\nThey asked us that when you're walking to your room, please try not to make noise in the hallways.\nThank you very much\n\nWait — the original has no emojis. Let me re-check.",
+      "media": []
+    },
+    {
+      "id": 10084,
+      "date": "2026-07-10T19:14:56+00:00",
+      "text": "To streamline guest check-in, the hotel has set up a table organized in alphabetical order by last name. When you arrive, please find your row and you'll be able to check in.",
+      "media": [
+        {
+          "type": "MessageMediaPhoto",
+          "path": "telegram/media/msg_10084.jpg",
+          "name": null,
+          "mime": "image/jpeg",
+          "size": 1019205
+        }
+      ]
+    },
+    {
+      "id": 9782,
+      "date": "2026-07-10T13:13:54+00:00",
+      "text": "The translation is straightforward. No skill needed for a direct translation request.\n\n🚌 Moonfest bus information!\n\nWe'll depart at 11:00 AM from the Carulla at 116th with Autopista Norte (Carulla Alhambra, one block west of the Pepe Sierra Transmilenio station).\n\n📍 Location on Maps: https://maps.app.goo.gl/Y9U7LxBPtwGxKn5u9\n\nONLY THOSE WHO SIGNED UP ON THE FORM",
+      "media": []
+    },
+    {
+      "id": 9430,
+      "date": "2026-07-09T15:31:08+00:00",
+      "text": "This is a translation task with clear instructions. No skill applies to a direct translation request, so I'll respond directly.\n\nHi! If there is a person here named Zeryl, I kindly ask them to get in touch with me as soon as possible. Thank you.",
+      "media": []
+    },
+    {
+      "id": 9340,
+      "date": "2026-07-08T22:34:36+00:00",
+      "text": "**Important information about the hotel payment**\n\nThe hotel will likely not charge you in advance but rather directly at check-in.\n\nThis is because those who are foreigners and present their passport at the front desk are exempt from VAT, which makes the room cheaper for them. That's why the hotel prefers to wait and see who arrives with a passport before charging.\n\nIf you are foreigners, don't forget to have your passport handy when you arrive.",
+      "media": []
+    },
+    {
+      "id": 8955,
+      "date": "2026-07-07T20:20:40+00:00",
+      "text": "We attach a file with the list of people who are registered to use the bus service.\n\nIf you don't see your name, contact an admin TODAY.\n\n🌙",
+      "media": [
+        {
+          "type": "MessageMediaDocument",
+          "path": "telegram/media/msg_8955.xlsx",
+          "name": "Listado de personas que usarán el servicio de buses (1).xlsx",
+          "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "size": 11184
+        }
+      ]
+    },
+    {
+      "id": 8651,
+      "date": "2026-07-06T21:34:05+00:00",
+      "text": "This is a translation task — no code, no skills apply. Here's the translation:\n\n---\n\nHi everyone! Some people signed up twice for the bus list. We'd like to know if it was intentional or an accident, since this increases our costs.\nBill / Obey\nJean SOREN\nJuguito\nKovua\nLegend\nMache / DirtyMache\nPaul Lionfur\nScalyclaw Pythonara\nThrix\nPlease write to me in the direct chat.",
+      "media": []
+    },
     {
       "id": 8196,
       "date": "2026-07-05T18:09:51+00:00",
