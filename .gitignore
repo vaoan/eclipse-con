@@ -60,3 +60,11 @@ lighthouse-report.report.json
 /artifacts
 /.chrome-profile
 /worker-configuration.d.ts
+
+# Claude Code local state (per-machine databases, caches and ids)
+.claude/cache/
+.claude/*.sqlite
+.claude/*.sqlite-shm
+.claude/*.sqlite-wal
+.claude/cap_sid
+.claude/installation_id

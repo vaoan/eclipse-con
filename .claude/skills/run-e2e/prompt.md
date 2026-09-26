@@ -2,6 +2,10 @@
 
 Skill for running end-to-end tests using Playwright.
 
+> **Scope: `apps/moonfest2026` only** — the active `apps/sunfest2027` site has no
+> E2E suite. Run from the repo root with `pnpm test:e2e:moonfest`, or from
+> `apps/moonfest2026/` for the more specific commands below.
+
 ## Steps
 
 1. **Install browsers** (first time or after Playwright version update):

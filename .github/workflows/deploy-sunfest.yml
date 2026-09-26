@@ -1,7 +1,8 @@
 name: Deploy Sunfest
 
-# Manual trigger — deploys the sunfest2027 teaser to its Cloudflare Worker,
-# retrieving the Cloudflare token from the repository secret at run time.
+# Manual trigger — deploys sunfest2027, the active Furry Colombia site, to its
+# Cloudflare Worker, retrieving the Cloudflare token from the repository secret
+# at run time.
 on:
   workflow_dispatch:
 
@@ -21,7 +22,7 @@ jobs:
       - name: Install workspace
         run: pnpm install --frozen-lockfile
 
-      - name: Build sunfest teaser
+      - name: Build sunfest site
         run: pnpm --filter sunfest2027 build
 
       - name: Deploy to Cloudflare (token from secret)

@@ -2,20 +2,24 @@
 
 Fully unattended: always does a static build, fixes all issues, commits, pushes, and copies to the network share if available. Never asks the user anything.
 
+Targets **`apps/sunfest2027`**, the active site. All paths below are relative to
+the repo root.
+
 ## Steps
 
 ### 1. Freshness check
 
-The static build is considered _stale_ when any source file is newer than `dist-static/index.html`.
+The static build is considered _stale_ when any source file is newer than `apps/sunfest2027/dist-static/index.html`.
 
 ```powershell
-$artifact = "dist-static\index.html"
+$app = "apps\sunfest2027"
+$artifact = "$app\dist-static\index.html"
 $stale = $false
 if (-not (Test-Path $artifact)) {
     $stale = $true
 } else {
     $artifactTime = (Get-Item $artifact).LastWriteTime
-    $newer = Get-ChildItem -Recurse src, public, index.html `
+    $newer = Get-ChildItem -Recurse "$app\src", "$app\public", "$app\index.html" `
         | Where-Object { $_.LastWriteTime -gt $artifactTime }
     if ($newer) { $stale = $true }
 }
@@ -30,7 +34,7 @@ Run the static build. If it fails, diagnose and fix the issue automatically, the
 pnpm build:static
 ```
 
-This produces `dist-static/index.html`.
+This produces `apps/sunfest2027/dist-static/index.html`.
 
 ### 3. Commit & push
 
@@ -52,7 +56,7 @@ If the `P:` drive is mounted, copy the artifact there automatically:
 
 ```powershell
 if (Test-Path "P:\") {
-    Copy-Item "dist-static\index.html" "P:\Public Folder\index.html" -Force
+    Copy-Item "apps\sunfest2027\dist-static\index.html" "P:\Public Folder\index.html" -Force
     Write-Host "Deployed to P:\Public Folder\index.html"
 } else {
     Write-Host "P: drive not found — skipping network copy"

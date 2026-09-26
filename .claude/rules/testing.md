@@ -49,7 +49,8 @@ UserCard.test.tsx
 
 ## E2E Tests — Playwright
 
-- E2E tests live in the `e2e/` directory at the project root.
+- E2E tests exist for `apps/moonfest2026` only; the active `apps/sunfest2027` site has no E2E suite.
+- E2E tests live in the `e2e/` directory at that app's root, run with `pnpm test:e2e:moonfest`.
 - Use Playwright for browser-based end-to-end testing.
 - Use `page.getByTestId()` for element selection.
 - See `e2e-selectors.md` for selector rules.

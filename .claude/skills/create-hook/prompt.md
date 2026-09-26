@@ -2,6 +2,10 @@
 
 Skill for creating a custom React hook with proper typing and testing.
 
+> **Where the file goes depends on the app.** In the active
+> `apps/sunfest2027`, all hooks live flat in `src/lib/use[Name].ts`. The layered
+> paths below apply to the archived `apps/moonfest2026`.
+
 ## Steps
 
 1. **Create `use[Name].ts`** in the appropriate `application/` layer:

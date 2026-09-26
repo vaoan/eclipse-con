@@ -1,3 +1,3 @@
-pnpm --filter moonfest2026 version:auto
-git add apps/moonfest2026/.env.example
+# Moonfest 2026 has concluded; its per-commit version bump no longer runs here.
+# Bump it by hand with `pnpm version:auto:moonfest` if that app is touched.
 pnpm precommit

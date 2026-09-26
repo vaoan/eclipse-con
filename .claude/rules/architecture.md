@@ -1,5 +1,11 @@
 # Clean Architecture for SPA
 
+> **Scope: `apps/moonfest2026` only.** That app is archived but still built, so
+> keep to these rules when editing it. The active site, `apps/sunfest2027`, is a
+> single scrolling page with a deliberately flat layout
+> (`src/sections/`, `src/components/`, `src/lib/`, `src/locales/`) — do not
+> restructure it into feature modules. See `CLAUDE.md` for both layouts.
+
 ## Feature-Based Module Structure
 
 Each feature lives under `src/features/[name]/` with four layers:

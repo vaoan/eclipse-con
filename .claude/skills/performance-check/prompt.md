@@ -1,6 +1,8 @@
 # Lighthouse & Accessibility Audit
 
-Runs a full audit of the eclipse-con SPA: **Lighthouse** (Performance · Accessibility · Best-Practices · SEO) plus **axe-core WCAG 2.1 AA** runtime scan on all pages.
+Runs a full audit of **`apps/sunfest2027`**, the active site: **Lighthouse** (Performance · Accessibility · Best-Practices · SEO) plus **axe-core WCAG 2.1 AA** runtime scan.
+
+Sunfest is a single page with no router, so the only route is `root`. (The archived Moonfest app also has `/registration-tutorial` — pass `--routes root,/registration-tutorial` and run against `pnpm dev:moonfest` if you were explicitly asked to audit it.)
 
 Scripts are in `.claude/skills/performance-check/scripts/` and output compact JSON — Claude parses and summarises them; raw JSON never enters the context.
 
@@ -59,16 +61,17 @@ Ask the user if they want `desktop` (default) or `mobile` form factor for Lighth
 
 #### If the user chooses **Static build**
 
-Check whether the build is **fresh**: `dist-static/index.html` must exist **and** be newer than the most recently modified file under `src/` (any file: `.ts`, `.tsx`, `.css`, `.json`, etc.).
+Check whether the build is **fresh**: `apps/sunfest2027/dist-static/index.html` must exist **and** be newer than the most recently modified file under `apps/sunfest2027/src/` (any file: `.ts`, `.tsx`, `.css`, `.json`, etc.).
 
 On Unix/macOS:
 
 ```bash
-STATIC="dist-static/index.html"
+APP="apps/sunfest2027"
+STATIC="$APP/dist-static/index.html"
 if [ ! -f "$STATIC" ]; then
   echo "STALE: missing"
 else
-  NEWEST_SRC=$(find src -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.css" -o -name "*.json" \) -newer "$STATIC" | head -1)
+  NEWEST_SRC=$(find "$APP/src" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.css" -o -name "*.json" \) -newer "$STATIC" | head -1)
   if [ -n "$NEWEST_SRC" ]; then echo "STALE: $NEWEST_SRC"; else echo "FRESH"; fi
 fi
 ```
@@ -76,11 +79,12 @@ fi
 On Windows (PowerShell):
 
 ```powershell
-$static = "dist-static\index.html"
+$app = "apps\sunfest2027"
+$static = "$app\dist-static\index.html"
 if (-not (Test-Path $static)) { "STALE: missing" }
 else {
   $buildTime = (Get-Item $static).LastWriteTime
-  $newer = Get-ChildItem src -Recurse -Include *.ts,*.tsx,*.css,*.json |
+  $newer = Get-ChildItem "$app\src" -Recurse -Include *.ts,*.tsx,*.css,*.json |
            Where-Object { $_.LastWriteTime -gt $buildTime } | Select-Object -First 1
   if ($newer) { "STALE: $($newer.FullName)" } else { "FRESH" }
 }
@@ -95,7 +99,7 @@ else {
 
   Wait for it to complete (allow up to 120 s). If it fails, report the error and stop.
 
-Set `TARGET_URL=file:///$(pwd)/dist-static/index.html` (on Windows use the full absolute path with forward slashes: `file:///Z:/Github/eclipse-con/dist-static/index.html`).
+Set `TARGET_URL=file:///$(pwd)/apps/sunfest2027/dist-static/index.html` (on Windows use the full absolute path with forward slashes: `file:///Z:/Github/eclipse-con/apps/sunfest2027/dist-static/index.html`).
 
 > ⚠️ Lighthouse is **skipped** for static builds — note this clearly in the report.
 
@@ -112,7 +116,7 @@ mkdir -p .audit
 **For HTTP targets — both scans in parallel:**
 
 ```bash
-node .claude/skills/performance-check/scripts/axe-scan.mjs "$TARGET_URL" --routes root,/registration-tutorial \
+node .claude/skills/performance-check/scripts/axe-scan.mjs "$TARGET_URL" --routes root \
   > .audit/axe-result.json 2>.audit/axe-err.txt &
 AXE_PID=$!
 
@@ -128,7 +132,7 @@ echo "axe:$AXE_EXIT lh:$LH_EXIT"
 **For file:// targets — axe-core only:**
 
 ```bash
-node .claude/skills/performance-check/scripts/axe-scan.mjs "$TARGET_URL" --routes root,/registration-tutorial \
+node .claude/skills/performance-check/scripts/axe-scan.mjs "$TARGET_URL" --routes root \
   > .audit/axe-result.json 2>.audit/axe-err.txt
 echo "axe:$?"
 ```
@@ -170,7 +174,7 @@ After rendering the report in the conversation, write the exact same markdown co
 ## Report format
 
 ```markdown
-## Audit Report — eclipse-con
+## Audit Report — Sunfest 2027
 
 **Target:** `<url>` | **Date:** <date> | **Form factor:** desktop/mobile
 
@@ -198,7 +202,7 @@ Show opportunities (time savings in ms) in a separate sub-section.
 
 ### Axe-Core WCAG 2.1 AA
 
-**Scanned:** `/`, `/registration-tutorial`
+**Scanned:** `/`
 **Violations:** X critical · Y serious · Z moderate · W minor
 
 For each violation (sorted critical → minor):
@@ -253,7 +257,7 @@ Both scripts write progress to disk immediately so a crashed or interrupted run 
 
 ```bash
 # Just re-run the same command — the checkpoint is picked up automatically
-node .claude/skills/performance-check/scripts/axe-scan.mjs "$TARGET_URL" --routes root,/registration-tutorial \
+node .claude/skills/performance-check/scripts/axe-scan.mjs "$TARGET_URL" --routes root \
   > .audit/axe-result.json 2>.audit/axe-err.txt
 ```
 

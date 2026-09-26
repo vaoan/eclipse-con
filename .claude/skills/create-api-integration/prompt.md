@@ -2,6 +2,10 @@
 
 Skill for creating an API integration following Clean Architecture layers. This serves as the pattern for future API service integrations.
 
+> **Scope: `apps/moonfest2026` only** (archived). The active `apps/sunfest2027`
+> site is fully static and makes no API calls. All paths below are relative to
+> `apps/moonfest2026/`.
+
 ## Steps
 
 1. **Create service in feature's `infrastructure/` layer**:

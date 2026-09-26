@@ -2,6 +2,12 @@
 
 Skill for creating a new React component with proper typing, testing, and conventions.
 
+> **Where the file goes depends on the app.** In the active
+> `apps/sunfest2027`: `src/components/[Name].tsx` (or `src/sections/[Name].tsx`
+> for a full-screen page section), styled with hand-written CSS in
+> `src/index.css` using the `@theme` tokens — not Tailwind utilities in JSX. The
+> layered paths below apply to the archived `apps/moonfest2026`.
+
 ## Steps
 
 1. **Determine the component location**:

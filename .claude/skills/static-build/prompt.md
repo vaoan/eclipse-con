@@ -1,6 +1,10 @@
 # Static Build
 
-Skill for creating a fully self-contained static build that can be opened directly from the filesystem (double-click `index.html`).
+Skill for producing a fully self-contained static build that can be opened
+directly from the filesystem (double-click `index.html`).
+
+Targets **`apps/sunfest2027`**, the active site. For the archived Moonfest app
+see [Moonfest variant](#moonfest-variant) at the bottom.
 
 ## Steps
 
@@ -15,7 +19,7 @@ Skill for creating a fully self-contained static build that can be opened direct
 2. **Clean previous static build**:
 
    ```bash
-   rm -rf dist-static
+   rm -rf apps/sunfest2027/dist-static
    ```
 
 3. **Build the static bundle**:
@@ -24,43 +28,66 @@ Skill for creating a fully self-contained static build that can be opened direct
    pnpm build:static
    ```
 
-   This produces a single `dist-static/index.html` file with all CSS and JS inlined. No assets folder, no external dependencies, no server required.
+   This produces a single `apps/sunfest2027/dist-static/index.html` with all
+   CSS, JS, fonts, and images inlined. No assets folder, no external
+   dependencies, no server required.
 
 4. **Verify the build**:
 
-   Run the Playwright e2e test against the static build using `file://` protocol:
-
    ```bash
-   pnpm exec playwright test e2e/convention-static.spec.ts --reporter=list
+   pnpm test
    ```
 
-   All sections must be visible and render correctly.
+   Sunfest has no E2E suite, so verification is the unit tests plus a manual
+   check: open the artifact over `file://` and confirm the hero renders, the
+   sections reveal on scroll, the language toggle switches copy, and the
+   lightbox opens.
 
 5. **Report the result**:
-   - Confirm the output is a single `index.html` file in `dist-static/`.
+   - Confirm the output is a single `index.html` in `apps/sunfest2027/dist-static/`.
    - Report the file size.
-   - Confirm the e2e test passed (all sections visible on `file://` protocol).
+   - Confirm the unit tests passed.
 
 ## How It Works
 
-The static build (`--mode static`) applies three Vite plugins:
+`vite-plugin-singlefile` (configured in `apps/sunfest2027/vite.config.ts`) is
+active for **every** build of this app, not just the static one:
 
-- **staticBuildPlugin** — Replaces `createBrowserRouter` with `createHashRouter` so routing works without a server.
-- **inlineAssetsPlugin** — After Vite writes the bundle, reads all CSS/JS assets and inlines them directly into `index.html` as `<style>` and `<script type="module">` tags, then deletes the `assets/` folder.
-- **Rollup `inlineDynamicImports: true`** — Merges all chunks into a single JS bundle so there are no external `import()` calls.
+- All JS is merged into one bundle and inlined as `<script type="module">`.
+- All CSS is inlined as `<style>`.
+- Images imported from `src/assets/` are inlined as data URIs.
 
-This eliminates `file://` CORS restrictions since inline module scripts don't need to fetch anything.
+This eliminates `file://` CORS restrictions, since inline module scripts don't
+need to fetch anything. Because there is no router, no hash-routing shim is
+required.
+
+`pnpm build` and `pnpm build:static` therefore produce the same artifact; they
+differ only in output directory (`dist/` for the Cloudflare Worker,
+`dist-static/` for the portable copy).
 
 ## Troubleshooting
 
-- **Blank page when opening**: Ensure `pnpm build:static` was used (not `pnpm build`). Only the static build inlines assets.
-- **Build fails with type errors**: Run `pnpm typecheck` first and fix issues.
-- **Sections invisible**: The scroll-reveal animation hides sections until scrolled to. If they stay invisible, check the `useScrollReveal` hook returns the three-state (`pending`/`hidden`/`visible`) pattern.
-- **E2E test can't find Chromium**: Run `pnpm exec playwright install chromium` first.
+- **Blank page when opening**: check the browser console. Inline module scripts still need the document to be served with the right charset — confirm `<meta charset>` survived the build.
+- **Build fails with type errors**: run `pnpm typecheck` first and fix issues.
+- **Sections invisible**: the scroll-reveal animation hides sections until scrolled to. If they stay invisible, check `useScrollReveal` — it must return `revealed: true` immediately when `IntersectionObserver` is unavailable or reduced motion is preferred.
+- **Sections look cramped or uncentered**: every `.section` uses `min-height: var(--section-min-h)` (`100svh`) with `align-content: center`. A section that sets its own `display` (like `.cta-band`) needs `justify-content: center` instead.
 
 ## Rules
 
 - Always run `pnpm typecheck && pnpm lint` before building.
-- Always verify with the e2e test after building.
-- Never commit the `dist-static/` output (it's gitignored).
-- The static build disables sourcemaps to reduce file size.
+- Never commit `dist/` or `dist-static/` output (both are gitignored).
+- Add new colours as `@theme` tokens in `src/index.css`, never as literals.
+
+## Moonfest variant
+
+The archived Moonfest app has a much heavier static pipeline — it swaps
+`createBrowserRouter` for `createHashRouter`, optimizes and embeds Telegram
+media, and dedupes data URIs:
+
+```bash
+pnpm build:static:moonfest
+pnpm exec playwright test e2e/convention-static.spec.ts --reporter=list
+```
+
+Run the Playwright command from `apps/moonfest2026/`. Only touch this if you
+were explicitly asked to work on the archived site.

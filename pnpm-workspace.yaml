@@ -1,3 +1,13 @@
 packages:
   - "apps/*"
   - "packages/*"
+
+# Install native optional binaries (esbuild, rollup, sharp) for both Windows
+# and Linux so builds work from Windows and from WSL against the same
+# node_modules on the shared drive.
+supportedArchitectures:
+  os:
+    - win32
+    - linux
+  cpu:
+    - x64
