@@ -4,8 +4,10 @@
  *
  *   pnpm links:secrets
  *
- * VISITOR_HASH_KEY            generated once into .env.local if missing (keep
- *                             it: changing it only resets today's uniques)
+ * VISITOR_HASH_KEY            from .secrets (GitHub secret, synced). If it is
+ *                             missing everywhere, one is generated into
+ *                             .env.local — then store it as the GitHub secret
+ *                             (changing it only resets today's uniques)
  * GOOGLE_SERVICE_ACCOUNT_JSON from .secrets / .env.local (optional until the
  *                             Google side exists)
  *

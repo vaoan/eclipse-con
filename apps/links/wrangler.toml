@@ -43,7 +43,7 @@ crons = ["* * * * *"]
 ACCESS_TEAM = "furrycolombia.cloudflareaccess.com"
 # AUD tag of the "fco.bz admin" Access app. `pnpm links:access` prints it.
 # Empty = /api answers 503 (fails closed).
-ACCESS_AUD = ""
+ACCESS_AUD = "7529506cb34050a20e2cb386961af0644ab0d70c5194c2e8a1ec090bea33ec8f"
 # The Google Sheet with the links (an ID, not a secret; only accounts it is
 # shared with can open it). Empty = sync is skipped.
 LINKS_SHEET_ID = "1nYh6VshxYNEAN9oIcxPO1EBjgOcqDaFflKkGlTwcAn4"
