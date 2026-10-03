@@ -58,6 +58,10 @@ stays frozen on the 2027 edition.
 
 ## Git Safety
 
+- **Every `git` and `gh` call uses the PAT in `.secrets` (`GH_TOKEN`)**, with
+  commit identity set `--local` from `gh api user` — never from
+  `git config --global` or a hardcoded name/email. Procedure (same as AeleOS):
+  `docs/git-with-gh-token.md`.
 - **NEVER** force push to `main`
 - **NEVER** use `--no-verify` to skip hooks
 - **NEVER** commit `.env.local` or files containing secrets
