@@ -106,6 +106,12 @@ describe("planSync", () => {
     expect(plan.errors[0]?.reason).toBe(STATUS.badSlug);
   });
 
+  it("rejects reserved scanner words with their own message", () => {
+    const plan = planSync([row({ slug: "api" })], []);
+    expect(plan.upserts).toEqual([]);
+    expect(plan.errors[0]?.reason).toBe(STATUS.reservedSlug);
+  });
+
   it("lets the first of duplicate slugs win and reports the rest", () => {
     const plan = planSync(
       [row(), row({ row: 3, destination: "https://example.org/" })],

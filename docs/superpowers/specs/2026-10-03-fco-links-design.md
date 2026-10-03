@@ -339,6 +339,32 @@ points at the year-stamped host on purpose: when Sunfest 2027 concludes and
 that host becomes the archive, the printed `fco.bz/s27` freezes on the 2027
 edition, matching the CLAUDE.md publicity rule.
 
+## Scanner traffic (added after launch)
+
+Within an hour of going live, about 140 of the first 147 logged requests were
+vulnerability scanners probing paths like `/.env`, `/.git` and `/config.json`.
+This is normal for a new domain, which shows up in Certificate Transparency
+logs. They redirected harmlessly, but they polluted the "misses" stats and
+spent the daily D1 write allowance. Three layers now handle them:
+
+1. **Firewall rule** (`pnpm links:waf`, Cloudflare Free custom rules, no
+   regex). On fco.bz it blocks any path containing `.` (except
+   `/favicon.ico`) and `RESERVED_SLUGS` (`/api`, `/config`, `/env`,
+   `/wp-admin`, …), returning a 403 at the edge. Blocked requests cost no
+   Worker request and no D1 write.
+2. **The Worker** redirects paths that are not well-formed slugs without
+   logging them.
+3. **The Sheet sync** rejects reserved slugs with the status "✗ slug
+   reservado".
+
+`RESERVED_SLUGS` lives in `worker/slug.ts`; the firewall script reads it from
+there.
+
+**Account limit to keep in mind:** Workers Free allows 100,000 requests a day
+**per account**, shared with the `eclipse-con` Worker. Past it, fco.bz returns
+error 1027 until midnight UTC; a custom domain has no origin to fail open to.
+Move to Workers Paid ($5/month) before QR codes go out at scale.
+
 ## Out of scope (for now)
 
 Public stats pages, link expiry, password-protected links, A/B destinations,

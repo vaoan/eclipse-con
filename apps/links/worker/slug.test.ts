@@ -32,6 +32,13 @@ describe("isValidSlug", () => {
       expect(isValidSlug(slug)).toBe(false);
     }
   );
+
+  it.each(["api", "env", "config", "wp-admin"])(
+    "rejects the reserved scanner word %s",
+    (slug) => {
+      expect(isValidSlug(slug)).toBe(false);
+    }
+  );
 });
 
 describe("isHttpsUrl", () => {

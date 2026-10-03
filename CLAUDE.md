@@ -259,6 +259,7 @@ pnpm links:migrate      # Apply D1 migrations to the remote fco-links database
 pnpm links:secrets      # Upload VISITOR_HASH_KEY + GOOGLE_SERVICE_ACCOUNT_JSON
 pnpm links:access       # Zero Trust app/policy/group for admin.fco.bz (writes ACCESS_AUD)
 pnpm links:sheet-setup  # Prepare the Google Sheet (tabs, validation, checkbox)
+pnpm links:waf          # fco.bz firewall rule: blocks scanner probes + RESERVED_SLUGS
 
 # Archived site — Moonfest 2026
 pnpm dev:moonfest

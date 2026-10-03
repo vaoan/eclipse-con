@@ -29,6 +29,7 @@
     "links:secrets": "node apps/links/scripts/push-secrets.mjs",
     "links:access": "node apps/links/scripts/access.mjs",
     "links:sheet-setup": "node apps/links/scripts/sheet-setup.mjs",
+    "links:waf": "node apps/links/scripts/waf.mjs",
     "dev:moonfest": "pnpm --filter moonfest2026 dev",
     "build:moonfest": "pnpm --filter moonfest2026 build",
     "build:static:moonfest": "pnpm --filter moonfest2026 build:static",

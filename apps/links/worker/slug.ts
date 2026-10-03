@@ -1,6 +1,35 @@
 /** Allowed slug shape: lowercase letters, digits and hyphens, 1–32 chars. */
 export const SLUG_PATTERN = /^[a-z0-9-]{1,32}$/;
 
+/**
+ * Words vulnerability scanners probe on every new domain. They can never be
+ * slugs: the Cloudflare firewall rule (`pnpm links:waf`, which reads this list)
+ * blocks them before the Worker runs, the Sheet sync rejects them, and the
+ * redirect does not log them.
+ */
+export const RESERVED_SLUGS: readonly string[] = [
+  "actuator",
+  "admin",
+  "api",
+  "app",
+  "application",
+  "backend",
+  "backup",
+  "cgi-bin",
+  "config",
+  "debug",
+  "env",
+  "functions",
+  "js",
+  "phpmyadmin",
+  "server",
+  "vendor",
+  "wp-admin",
+  "wp-content",
+  "wp-includes",
+  "wp-login",
+];
+
 /** Longest slug kept when logging a miss, so junk paths cannot bloat rows. */
 const MAX_MISS_LENGTH = 64;
 
@@ -23,13 +52,14 @@ export function slugFromPath(pathname: string): string {
 }
 
 /**
- * Whether a string is a well-formed slug.
+ * Whether a string is a usable slug: well-formed and not reserved.
  *
  * @param slug - Candidate slug.
- * @returns True when it matches {@link SLUG_PATTERN}.
+ * @returns True when it matches {@link SLUG_PATTERN} and is not in
+ *   {@link RESERVED_SLUGS}.
  */
 export function isValidSlug(slug: string): boolean {
-  return SLUG_PATTERN.test(slug);
+  return SLUG_PATTERN.test(slug) && !RESERVED_SLUGS.includes(slug);
 }
 
 /**

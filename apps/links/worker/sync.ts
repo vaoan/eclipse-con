@@ -1,7 +1,7 @@
 import type { Env } from "./env";
 import { refreshLinks } from "./linkCache";
 import { openSheet, type CellValue, type Fetcher } from "./sheet";
-import { isHttpsUrl, isValidSlug } from "./slug";
+import { RESERVED_SLUGS, isHttpsUrl, isValidSlug } from "./slug";
 
 /** Data rows of the Links tab (row 1 is the header). */
 export const LINKS_RANGE = "Links!A2:F";
@@ -15,6 +15,7 @@ export const STATUS = {
   live: "✓ activo",
   paused: "⏸ pausado: va a furrycolombia.com",
   badSlug: "✗ slug inválido: solo minúsculas, números o guiones (máx. 32)",
+  reservedSlug: "✗ slug reservado (lo bloquea el firewall): elige otro",
   badDestination: "✗ destino inválido: debe empezar con https://",
   duplicate: (row: number) => `✗ slug repetido: ya está en la fila ${row}`,
   keptPrevious: " — sigue activo el destino anterior",
@@ -126,7 +127,9 @@ function rejection(
   firstRowBySlug: ReadonlyMap<string, number>
 ): string | null {
   if (!isValidSlug(row.slug)) {
-    return STATUS.badSlug;
+    return RESERVED_SLUGS.includes(row.slug)
+      ? STATUS.reservedSlug
+      : STATUS.badSlug;
   }
   const firstRow = firstRowBySlug.get(row.slug);
   if (firstRow !== undefined && firstRow !== row.row) {

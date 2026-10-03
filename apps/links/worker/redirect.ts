@@ -59,8 +59,10 @@ export interface RedirectContext {
 
 /**
  * Handles a request on the short-link host: `/` and unknown slugs go to
- * furrycolombia.com, known slugs to their destination. GET clicks are logged
- * after the response is sent; logging failures never affect the visitor.
+ * furrycolombia.com, known slugs to their destination. GET clicks on
+ * well-formed slugs (hits and typo misses) are logged after the response is
+ * sent; malformed paths are not logged at all. Logging failures never affect
+ * the visitor.
  *
  * @param request - Incoming request.
  * @param context - Bindings, waitUntil, cache and clock.
@@ -82,8 +84,15 @@ export async function handleRedirect(
     return redirectTo(FALLBACK_URL);
   }
 
+  // Paths that cannot be a slug (`.env`, `config.json`, `.git/HEAD`) are
+  // vulnerability scanners, not typos: redirect them without a D1 write, so
+  // they neither pollute the stats nor spend the daily write allowance.
+  if (!isValidSlug(slug)) {
+    return redirectTo(FALLBACK_URL);
+  }
+
   const snapshot = await loadLinks(context.env.DB, context.cache, context.now);
-  const target = isValidSlug(slug) ? snapshot?.links[slug] : undefined;
+  const target = snapshot?.links[slug];
   const location =
     target?.active === true
       ? mergeQuery(target.destination, url.searchParams)

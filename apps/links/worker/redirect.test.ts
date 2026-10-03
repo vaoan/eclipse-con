@@ -90,6 +90,23 @@ describe("handleRedirect", () => {
     ]);
   });
 
+  it.each(["/.env", "/config.json", "/.git/HEAD", "/readme.md", "/%ZZ"])(
+    "redirects scanner path %s without logging it",
+    async (path) => {
+      const { context, raw, flush } = setup();
+      const response = await handleRedirect(
+        makeRequest(`https://fco.bz${path}`),
+        context
+      );
+      await flush();
+      expect(response.status).toBe(302);
+      expect(response.headers.get("location")).toBe(FALLBACK_URL);
+      expect(raw.prepare("SELECT COUNT(*) AS n FROM clicks").get()).toEqual({
+        n: 0,
+      });
+    }
+  );
+
   it("sends paused links to the fallback but still counts them", async () => {
     const { context, raw, flush } = setup();
     const response = await handleRedirect(
