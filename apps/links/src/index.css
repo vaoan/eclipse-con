@@ -1,0 +1,614 @@
+@import "tailwindcss";
+
+/*
+ * fco.bz dashboard. Hand-written CSS on @theme tokens (same convention as
+ * sunfest2027). Chart colors are the dataviz reference palette: slot 1 blue
+ * (clicks), slot 2 orange (unique visitors) — validated for CVD separation and
+ * contrast in both modes. Text never wears a series color.
+ */
+@theme {
+  --color-surface: #fcfcfb;
+  --color-page: #f9f9f7;
+  --color-ink: #0b0b0b;
+  --color-ink-2: #52514e;
+  --color-muted: #898781;
+  --color-grid: #e1e0d9;
+  --color-axis: #c3c2b7;
+  --color-border: rgb(11 11 11 / 10%);
+  --color-series-1: #2a78d6;
+  --color-series-2: #eb6834;
+  --color-warn: #fab219;
+  --color-wash: #f0efec;
+  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface: #1a1a19;
+    --color-page: #0d0d0d;
+    --color-ink: #fff;
+    --color-ink-2: #c3c2b7;
+    --color-grid: #2c2c2a;
+    --color-axis: #383835;
+    --color-border: rgb(255 255 255 / 10%);
+    --color-series-1: #3987e5;
+    --color-series-2: #d95926;
+    --color-wash: #383835;
+  }
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.muted {
+  color: var(--color-ink-2);
+}
+
+.small {
+  font-size: 13px;
+}
+
+.strong {
+  font-weight: 600;
+}
+
+.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────── */
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.brand {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.topbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/*
+ * Single-column grids get an explicit minmax(0, 1fr): an implicit `auto`
+ * column grows to its widest child's min-content (a wide table), which made
+ * the page scroll sideways on phones.
+ */
+.page,
+.overview,
+.side,
+.stats {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.side {
+  align-content: start;
+}
+
+@media (width >= 1100px) {
+  .overview {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+}
+
+.stats {
+  transition: opacity 150ms ease;
+}
+
+.stats.is-refreshing {
+  opacity: 0.55;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+}
+
+.card {
+  min-width: 0;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.card-head,
+.scope-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title,
+.scope-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.scope-title {
+  font-size: 20px;
+}
+
+.subhead {
+  margin: 12px 0 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.plain-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+}
+
+/* ── Controls ───────────────────────────────────────────────────────── */
+
+.button,
+.ghost-button,
+.segment {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button {
+  color: var(--color-surface);
+  background: var(--color-ink);
+  border: 0;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.ghost-button,
+.segment {
+  color: var(--color-ink);
+  background: transparent;
+  border: 1px solid var(--color-border);
+}
+
+.ghost-button:hover,
+.segment:hover {
+  background: var(--color-wash);
+}
+
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.segment.is-selected {
+  font-weight: 700;
+  border-color: var(--color-ink);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.date-field,
+.toggle {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.date-field input,
+.search {
+  min-height: 32px;
+  padding: 4px 8px;
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+}
+
+.search {
+  min-width: min(100%, 280px);
+}
+
+.link-button {
+  padding: 0;
+  color: var(--color-ink);
+  background: none;
+  border: 0;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-axis);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.link-button[aria-pressed="true"] {
+  text-decoration-color: var(--color-ink);
+}
+
+.badge {
+  display: inline-block;
+  margin: 4px 4px 0 0;
+  padding: 0 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.badge-warn {
+  border-color: var(--color-warn);
+}
+
+.actions,
+.export {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+/* ── Tables ─────────────────────────────────────────────────────────── */
+
+/* position: relative so the visually hidden (absolute) cell labels are
+   clipped by the scroller instead of widening the page. */
+.table-scroll {
+  position: relative;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.data-table th,
+.data-table td {
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-grid);
+}
+
+.data-table thead th {
+  color: var(--color-ink-2);
+  font-weight: 600;
+}
+
+.data-table .numeric {
+  text-align: right;
+}
+
+.data-table tr.is-selected {
+  background: var(--color-wash);
+}
+
+.destination {
+  max-width: 260px;
+  overflow-wrap: anywhere;
+}
+
+.destination a {
+  color: var(--color-ink-2);
+}
+
+/* ── Stat tiles ─────────────────────────────────────────────────────── */
+
+.tiles {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.tile {
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.tile-label {
+  color: var(--color-ink-2);
+  font-size: 13px;
+}
+
+.tile-value {
+  margin: 4px 0 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.tile-hero .tile-value {
+  font-size: 48px;
+  line-height: 1.1;
+}
+
+/* ── Charts ─────────────────────────────────────────────────────────── */
+
+.chart-frame {
+  position: relative;
+  width: 100%;
+}
+
+.chart-frame svg {
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.chart-frame svg:focus-visible {
+  outline: 2px solid var(--color-series-1);
+  outline-offset: 2px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-ink-2);
+  font-size: 13px;
+}
+
+.legend li {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.key-line {
+  display: inline-block;
+  width: 14px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.key-line.series-1 {
+  background: var(--color-series-1);
+}
+
+.key-line.series-2 {
+  background: var(--color-series-2);
+}
+
+.grid line,
+line.grid {
+  stroke: var(--color-grid);
+  stroke-width: 1;
+}
+
+.axis-label {
+  fill: var(--color-muted);
+  color: var(--color-muted);
+  font-size: 11px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+path.line,
+polyline.line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.line.series-1 {
+  stroke: var(--color-series-1);
+}
+
+.line.series-2 {
+  stroke: var(--color-series-2);
+}
+
+path.area.series-1 {
+  fill: var(--color-series-1);
+  fill-opacity: 0.1;
+  stroke: none;
+}
+
+circle.dot {
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+
+circle.dot.series-1 {
+  fill: var(--color-series-1);
+}
+
+circle.dot.series-2 {
+  fill: var(--color-series-2);
+}
+
+.crosshair {
+  stroke: var(--color-axis);
+  stroke-width: 1;
+}
+
+.hit-area {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 2;
+  min-width: 160px;
+  padding: 8px 10px;
+  pointer-events: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 12%);
+  font-size: 13px;
+}
+
+.tooltip-title {
+  margin-bottom: 4px;
+  color: var(--color-ink-2);
+}
+
+.tooltip-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.sparkline {
+  display: block;
+  overflow: visible;
+}
+
+/* Bars: ≤ 24px thick, 4px rounded data-end, square at the baseline. */
+.bar-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.bar-table th,
+.bar-table td {
+  padding: 4px 0;
+  font-weight: 400;
+  text-align: left;
+}
+
+.bar-table td {
+  padding-left: 8px;
+  white-space: nowrap;
+}
+
+.bar-label {
+  width: 100%;
+}
+
+.bar-name {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.bar-track {
+  display: block;
+  height: 8px;
+  margin-top: 2px;
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  min-width: 2px;
+  border-radius: 0 4px 4px 0;
+}
+
+.bar.series-1 {
+  background: var(--color-series-1);
+}
+
+/* Heatmap & map: one hue, intensity via --heat, lightest recedes to surface. */
+.heatmap {
+  width: 100%;
+  min-width: 480px;
+  border-spacing: 2px;
+  font-size: 11px;
+}
+
+.heatmap th {
+  padding: 0 4px;
+  font-weight: 400;
+  text-align: right;
+}
+
+.heat-cell {
+  min-width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  background: color-mix(
+    in oklab,
+    var(--color-series-1) var(--heat),
+    var(--color-surface)
+  );
+}
+
+.heat-cell:hover {
+  outline: 2px solid var(--color-ink);
+}
+
+.country {
+  fill: var(--color-wash);
+  stroke: var(--color-surface);
+  stroke-width: 0.5;
+}
+
+.country.has-clicks {
+  fill: color-mix(
+    in oklab,
+    var(--color-series-1) var(--heat),
+    var(--color-surface)
+  );
+}
+
+.country:hover {
+  stroke: var(--color-ink);
+  stroke-width: 1;
+}

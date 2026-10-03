@@ -1,0 +1,151 @@
+{
+  "header": {
+    "title": "fco.bz · enlaces cortos",
+    "signedInAs": "Sesión: {{email}}",
+    "signOut": "Cerrar sesión",
+    "openSheet": "Abrir la hoja de enlaces",
+    "language": "English"
+  },
+  "filters": {
+    "label": "Periodo",
+    "presets": {
+      "1d": "24 horas",
+      "7d": "7 días",
+      "30d": "30 días",
+      "90d": "90 días",
+      "all": "Todo",
+      "custom": "Personalizado"
+    },
+    "from": "Desde",
+    "to": "Hasta",
+    "includeBots": "Incluir bots y vistas previas"
+  },
+  "scope": {
+    "all": "Todos los enlaces",
+    "campaign": "Campaña {{campaign}}",
+    "link": "fco.bz/{{slug}}",
+    "back": "Ver todos los enlaces"
+  },
+  "tiles": {
+    "clicks": "Clics",
+    "uniques": "Visitantes únicos (por día)",
+    "shares": "Veces compartido",
+    "bots": "Bots"
+  },
+  "chart": {
+    "title": "Clics en el tiempo",
+    "titleHourly": "Clics por hora (últimas 24 h)",
+    "clicks": "Clics",
+    "uniques": "Visitantes únicos",
+    "date": "Fecha",
+    "hour": "Hora",
+    "showTable": "Ver como tabla",
+    "showChart": "Ver como gráfica",
+    "empty": "Todavía no hay clics en este periodo."
+  },
+  "heatmap": {
+    "title": "¿Cuándo hacen clic? (hora de Bogotá)",
+    "weekday": "Día",
+    "cell": "{{day}} {{hour}}:00 — {{count}} clics",
+    "weekdays": {
+      "0": "Lun",
+      "1": "Mar",
+      "2": "Mié",
+      "3": "Jue",
+      "4": "Vie",
+      "5": "Sáb",
+      "6": "Dom"
+    }
+  },
+  "map": {
+    "title": "Mapa de clics por país",
+    "country": "{{name}}: {{count}} clics"
+  },
+  "breakdown": {
+    "country": "Países",
+    "region": "Regiones",
+    "city": "Ciudades",
+    "device": "Dispositivos",
+    "os": "Sistemas operativos",
+    "browser": "Navegadores y apps",
+    "lang": "Idiomas",
+    "as_org": "Operadores de internet",
+    "referrer_host": "Desde dónde llegan",
+    "utm_source": "utm_source",
+    "utm_medium": "utm_medium",
+    "utm_campaign": "utm_campaign",
+    "preview_app": "Compartido en",
+    "previewHint": "Una app generó la vista previa porque alguien pegó el enlace allí.",
+    "unknown": "Desconocido",
+    "direct": "Directo o app (sin referencia)",
+    "untagged": "Sin etiqueta UTM",
+    "empty": "Sin datos",
+    "value": "Valor",
+    "count": "Clics",
+    "uniques": "Únicos"
+  },
+  "device": {
+    "mobile": "Celular",
+    "tablet": "Tableta",
+    "desktop": "Computador",
+    "smarttv": "Smart TV",
+    "console": "Consola",
+    "wearable": "Reloj o wearable",
+    "embedded": "Otro dispositivo",
+    "bot": "Bot"
+  },
+  "links": {
+    "title": "Enlaces",
+    "search": "Buscar enlace, etiqueta o campaña",
+    "editHint": "Los enlaces se crean y editan en la hoja de Google; los cambios llegan aquí en menos de un minuto.",
+    "columns": {
+      "link": "Enlace",
+      "destination": "Destino",
+      "campaign": "Campaña",
+      "clicks": "Clics",
+      "uniques": "Únicos",
+      "trend": "Últimos 30 días",
+      "lastClick": "Último clic",
+      "actions": "Acciones"
+    },
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "qrSvg": "QR (SVG)",
+    "qrPng": "QR (PNG)",
+    "paused": "Pausado",
+    "missing": "No está en la hoja",
+    "never": "Nunca",
+    "empty": "Todavía no hay enlaces. Agrega una fila en la hoja.",
+    "noMatch": "Ningún enlace coincide con la búsqueda.",
+    "trendLabel": "{{count}} clics en 30 días"
+  },
+  "misses": {
+    "title": "Enlaces que no existen",
+    "hint": "Alguien escribió fco.bz/… con un slug que no existe; fue enviado a furrycolombia.com."
+  },
+  "sync": {
+    "title": "Sincronización con la hoja",
+    "lastRun": "Última sincronización: {{time}}",
+    "never": "Todavía no se ha sincronizado.",
+    "ok": "Todo en orden",
+    "failed": "Falló: {{message}}",
+    "notConfigured": "La hoja de Google aún no está conectada.",
+    "now": "Sincronizar ahora",
+    "running": "Sincronizando…",
+    "errors": "Filas con problemas",
+    "row": "Fila {{row}}",
+    "missing": "Enlaces borrados de la hoja (siguen funcionando con su último destino)",
+    "statsUpdated": "Estadísticas actualizadas: {{time}}"
+  },
+  "export": {
+    "button": "Exportar clics (CSV)",
+    "running": "Exportando…",
+    "failed": "No se pudo exportar."
+  },
+  "state": {
+    "loading": "Cargando…",
+    "error": "No se pudieron cargar los datos.",
+    "unauthorized": "Tu sesión expiró. Recarga la página para volver a entrar.",
+    "retry": "Reintentar"
+  }
+}
