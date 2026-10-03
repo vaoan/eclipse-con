@@ -32,6 +32,7 @@ export default tseslint.config(
       "stylelint.config.mjs",
       "apps/*/playwright.analytics.config.js",
       "worker-configuration.d.ts",
+      "**/.wrangler/**",
     ],
   },
   js.configs.recommended,
