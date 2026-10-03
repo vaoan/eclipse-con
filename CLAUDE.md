@@ -17,6 +17,7 @@ is where new work goes by default.
 ```
 apps/
 ├── sunfest2027/        # ACTIVE — the live Sunfest 2027 site
+├── links/              # fco.bz short links: redirect Worker + admin.fco.bz dashboard
 └── moonfest2026/       # ARCHIVED — Moonfest 2026, kept buildable for reference
 packages/
 └── telegram-sync/      # Telegram → site news sync (used by moonfest2026 only)
@@ -37,6 +38,7 @@ generic hostname is retired to point at whatever is current.
 | sunfest2027 (active)   | `sunfest.furrycolombia.com`                                                                                                | `sunfest2027`  | `wrangler.sunfest.toml` (repo root)       |
 | moonfest2026 (archive) | `moonfest2026.furrycolombia.com`                                                                                           | `moonfest2026` | `apps/moonfest2026/wrangler.archive.toml` |
 | Redirect hosts + apex  | `sunfest2027.furrycolombia.com` → Sunfest (302), `moonfest.furrycolombia.com` → Sunfest (301), `furrycolombia.com` → Carrd | `eclipse-con`  | `apps/moonfest2026/wrangler.toml`         |
+| Short links            | `fco.bz/<slug>` (302 + click analytics), `admin.fco.bz` dashboard behind Zero Trust                                        | `fco-links`    | `apps/links/wrangler.toml`                |
 
 Archives are served by **assets-only** Workers — no `main`, so no code runs and
 Static Assets requests are free and uncounted. Only hosts that genuinely need
@@ -92,8 +94,34 @@ is a single-page scroll with no router and no E2E suite.
 
 ## Architecture
 
-The two apps are deliberately structured differently — match the app you are
-editing rather than importing one app's conventions into the other.
+The apps are deliberately structured differently — match the app you are
+editing rather than importing one app's conventions into another.
+
+### links (fco.bz) — Worker + flat dashboard
+
+Spec: `docs/superpowers/specs/2026-10-03-fco-links-design.md`.
+
+```
+apps/links/
+├── worker/             # The fco-links Worker (redirect, capture, linkCache, access,
+│                       #   api, sheet, sync, rollup, summary, backup, scheduled) + tests
+├── migrations/         # D1 (`fco-links`) schema
+├── src/                # admin.fco.bz dashboard — flat like sunfest2027
+│   ├── App.tsx, components/, lib/, locales/, index.css
+├── scripts/            # access.mjs, sheet-setup.mjs, push-secrets.mjs (ESLint-ignored)
+└── wrangler.toml
+```
+
+- **Links are edited in a Google Sheet**, not in code or the dashboard; the
+  Worker syncs it every minute into D1. A deleted row never deletes a link.
+- **Workers Free limits shape the code** (10 ms CPU, 50 D1 queries per
+  invocation, 5M reads / 100k writes per day): aggregation happens in SQL,
+  the rollup is incremental, and redirects survive D1 errors via a stale
+  Cache API snapshot. Keep it that way.
+- Never store a raw IP. The repo is public: emails, keys and the hash key stay
+  in `.secrets` / `.env.local` / Worker secrets.
+- Worker tests run in Node with `worker/test/d1.ts` (`node:sqlite` standing in
+  for D1, real migrations applied).
 
 ### sunfest2027 (active) — flat single-page structure
 
@@ -219,6 +247,18 @@ pnpm sync:secrets     # Pull repo secrets into .secrets
 pnpm qr:sunfest2027   # Regenerate publicity/sunfest2027-qr.png (QR with the FC logo)
 pnpm qr:sunfest2027:print   # Same code as a 50 mm vector SVG + 600 dpi PNG for print
 pnpm qr:sunfest2027:plain   # No-logo 30 mm version (level M, smallest that scans from 30 cm)
+
+# Short links — fco.bz (apps/links)
+pnpm dev:links          # Dashboard dev server (proxies /api to dev:links:worker)
+pnpm dev:links:worker   # wrangler dev: Worker + local D1 (set DEV_ACCESS_EMAIL in .dev.vars)
+pnpm test:links         # Worker + dashboard tests
+pnpm typecheck:links
+pnpm build:links
+pnpm deploy:links       # Build + wrangler deploy --config apps/links/wrangler.toml
+pnpm links:migrate      # Apply D1 migrations to the remote fco-links database
+pnpm links:secrets      # Upload VISITOR_HASH_KEY + GOOGLE_SERVICE_ACCOUNT_JSON
+pnpm links:access       # Zero Trust app/policy/group for admin.fco.bz (writes ACCESS_AUD)
+pnpm links:sheet-setup  # Prepare the Google Sheet (tabs, validation, checkbox)
 
 # Archived site — Moonfest 2026
 pnpm dev:moonfest
