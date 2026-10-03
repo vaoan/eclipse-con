@@ -258,8 +258,19 @@ conventions: react-i18next with es and en, `tid()`, JSDoc.
   - Referrers and UTM tables; "Shared on" from preview fetches.
   - An hour-of-day × day-of-week heatmap (Bogotá time).
   - Bots-and-previews toggle and CSV export of the raw rows.
-- **Per link:** copy the short URL; download its QR code (PNG/SVG, using the
-  repo's existing QR settings).
+- **Per link:** copy the short URL; download its QR code as SVG or PNG at the
+  **print standard** (`src/lib/qr.ts`, the result of the publicity size
+  ladder): the smallest code a phone reads from 30 cm.
+  - The URL is upper-case, so QR alphanumeric mode applies and `s27` fits
+    version 1 (21×21).
+  - Level M, no logo.
+  - 0.5 mm modules and a 4-module quiet zone, so `s27` is 14.5 mm. Longer slugs
+    keep the module size and grow the version.
+  - The SVG is sized in mm. The PNG uses 24 px per module and carries a pHYs
+    density of 48,000 px/m (≈1219 ppi), so Photoshop, Illustrator and InDesign
+    open both at the same physical size.
+  - File names state the size, e.g. `fco-bz-s27-qr-14.5mm.svg`. The s27 output
+    matches `publicity/fco-bz-s27-qr-0p5mm-q4.svg` module for module.
 - **Header:** the signed-in email (from Access) and a sign-out link.
 
 ## Access (Zero Trust)
