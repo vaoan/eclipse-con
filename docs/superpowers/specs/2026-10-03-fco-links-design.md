@@ -190,11 +190,28 @@ Google is unreachable, the links simply keep their last synced state.
 
 ### Where data lives, and how it's backed up
 
-| Data      | Source of truth                             | Backup                                                                                                                                  |
-| --------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Links     | Google Sheet (D1 holds a synced copy)       | Drive version history                                                                                                                   |
-| Clicks    | D1 database `fco-links` (new; none existed) | D1 Time Travel (point-in-time restore: 7 days free, 30 paid); nightly "Clicks by day" tab; **weekly full CSV export to a Drive folder** |
-| Sync runs | D1                                          | Not backed up; it's operational log only                                                                                                |
+| Data      | Source of truth                             | Backup                                                                                                                           |
+| --------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Links     | Google Sheet (D1 holds a synced copy)       | Drive version history                                                                                                            |
+| Clicks    | D1 database `fco-links` (new; none existed) | D1 Time Travel (point-in-time restore: 7 days free, 30 paid); nightly "Clicks by day" tab; **raw-clicks CSV export** (see below) |
+| Sync runs | D1                                          | Not backed up; it's operational log only                                                                                         |
+
+**Raw-clicks backup (revised 2026-10-03).** A Drive CSV is not possible: a
+service account has no storage quota on a consumer Gmail Drive, so it cannot
+create files there. R2 is not enabled on the account either. So:
+
+1. `GET admin.fco.bz/api/export.csv?from=&to=&after=` streams raw clicks paged
+   by id (50k rows per response; the `X-Next-After` header gives the next
+   page). It sits behind Access and the Worker's JWT check, and also accepts a
+   Cloudflare Access **service token**, so a scheduled job elsewhere can pull
+   it. The dashboard's "Export CSV" button walks every page.
+2. **Optional R2:** if a `BACKUP_BUCKET` R2 binding is added, the weekly cron
+   writes `clicks/YYYY-Www.csv.gz` there. Without the binding the cron logs and
+   skips. The binding is left commented out in `wrangler.toml`.
+
+The Sheet writes (the status column and the "Clicks by day" tab) are
+unaffected: the Sheet is owned by the user, and the service account only
+edits it.
 
 **D1 Free limits** (checked against developers.cloudflare.com on 2026-10-03):
 500 MB per database, 5 GB per account, 5M rows read and 100k rows written per
@@ -211,8 +228,8 @@ follow from that:
    best-effort in `waitUntil`, so if it fails the visitor is still redirected.
 2. **The dashboard never scans raw clicks.** An hourly cron rolls new clicks
    into `daily_stats` (date × slug × dimension × value → clicks, uniques), and
-   every chart reads that. Raw rows are read only for CSV export and the
-   weekly Drive backup, both of which page through by id.
+   every chart reads that. Raw rows are read only for the CSV export and the
+   optional weekly R2 export, both of which page through by id.
 
 ### Channel tracking
 
@@ -268,7 +285,7 @@ apps/links/
 │   ├── api.ts           # links list, stats queries, sync status / sync now
 │   ├── sheet.ts         # Google Sheets client (service-account JWT via WebCrypto)
 │   ├── sync.ts          # Sheet → D1 with validation; nightly summary → Sheet
-│   ├── backup.ts        # weekly raw-clicks CSV → Drive folder
+│   ├── backup.ts        # raw-clicks CSV: /api/export.csv + optional weekly R2 export
 │   ├── rollup.ts        # hourly clicks → daily_stats
 │   ├── linkCache.ts     # Cache API snapshot of links, stale-on-error
 │   └── access.ts        # Cf-Access-Jwt-Assertion verification
