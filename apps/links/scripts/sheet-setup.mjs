@@ -118,8 +118,14 @@ async function sheets(method, path, body) {
 }
 
 const fields =
-  "sheets(properties(sheetId,title,index),conditionalFormats,protectedRanges)";
+  "properties.locale,sheets(properties(sheetId,title,index),conditionalFormats,protectedRanges)";
 let spreadsheet = await sheets("GET", `?fields=${encodeURIComponent(fields)}`);
+
+// Formulas are parsed in the Sheet's locale: where the decimal mark is a
+// comma (es_CO, the owner account's default), arguments are separated by ";".
+const locale = (spreadsheet.properties?.locale ?? "en_US").replace("_", "-");
+const decimalIsComma = new Intl.NumberFormat(locale).format(1.5).includes(",");
+const SEP = decimalIsComma ? ";" : ",";
 const titles = spreadsheet.sheets.map((sheet) => sheet.properties.title);
 
 // Tabs: reuse a lone empty default tab as "Links"; add whatever is missing.
@@ -210,8 +216,7 @@ const requests = [
             type: "CUSTOM_FORMULA",
             values: [
               {
-                userEnteredValue:
-                  '=AND(LEN(A2)>0, NOT(REGEXMATCH(A2, "^[a-z0-9-]{1,32}$")))',
+                userEnteredValue: `=AND(LEN(A2)>0${SEP} NOT(REGEXMATCH(A2${SEP} "^[a-z0-9-]{1,32}$")))`,
               },
             ],
           },
@@ -230,8 +235,7 @@ const requests = [
             type: "CUSTOM_FORMULA",
             values: [
               {
-                userEnteredValue:
-                  '=AND(LEN(B2)>0, NOT(REGEXMATCH(B2, "^https://")))',
+                userEnteredValue: `=AND(LEN(B2)>0${SEP} NOT(REGEXMATCH(B2${SEP} "^https://")))`,
               },
             ],
           },

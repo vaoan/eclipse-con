@@ -46,7 +46,7 @@ ACCESS_TEAM = "furrycolombia.cloudflareaccess.com"
 ACCESS_AUD = ""
 # The Google Sheet with the links (an ID, not a secret; only accounts it is
 # shared with can open it). Empty = sync is skipped.
-LINKS_SHEET_ID = ""
+LINKS_SHEET_ID = "1nYh6VshxYNEAN9oIcxPO1EBjgOcqDaFflKkGlTwcAn4"
 
 # Secrets (wrangler secret put / `pnpm links:secrets`), never in this file:
 #   VISITOR_HASH_KEY             HMAC key for the daily visitor hash
