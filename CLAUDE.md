@@ -40,6 +40,14 @@ generic hostname is retired to point at whatever is current.
 | Redirect hosts + apex  | `sunfest2027.furrycolombia.com` → Sunfest (302), `moonfest.furrycolombia.com` → Sunfest (301), `furrycolombia.com` → Carrd | `eclipse-con`  | `apps/moonfest2026/wrangler.toml`         |
 | Short links            | `fco.bz/<slug>` (302 + click analytics), `admin.fco.bz` dashboard behind Zero Trust                                        | `fco-links`    | `apps/links/wrangler.toml`                |
 
+**Deploys are manual**, each Worker from its own script (`pnpm deploy:sunfest`,
+`pnpm deploy:links`, `pnpm deploy:cloudflare:moonfest`,
+`pnpm deploy:archive:moonfest`). There is no Cloudflare Git integration
+(Workers Builds). The old `eclipse-con` triggers ran `wrangler deploy` at the
+repo root, which has had no Worker config since the workspace move (`c6b0c26`),
+so they failed on every push; they were removed on 2026-10-03. Pushing to
+`main` deploys nothing.
+
 Archives are served by **assets-only** Workers — no `main`, so no code runs and
 Static Assets requests are free and uncounted. Only hosts that genuinely need
 logic (the apex Carrd proxy, the redirect hosts) run a Worker. Archive
