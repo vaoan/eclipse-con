@@ -1,0 +1,151 @@
+{
+  "header": {
+    "title": "fco.bz · short links",
+    "signedInAs": "Signed in as {{email}}",
+    "signOut": "Sign out",
+    "openSheet": "Open the links Sheet",
+    "language": "Español"
+  },
+  "filters": {
+    "label": "Period",
+    "presets": {
+      "1d": "24 hours",
+      "7d": "7 days",
+      "30d": "30 days",
+      "90d": "90 days",
+      "all": "All time",
+      "custom": "Custom"
+    },
+    "from": "From",
+    "to": "To",
+    "includeBots": "Include bots and link previews"
+  },
+  "scope": {
+    "all": "All links",
+    "campaign": "Campaign {{campaign}}",
+    "link": "fco.bz/{{slug}}",
+    "back": "Back to all links"
+  },
+  "tiles": {
+    "clicks": "Clicks",
+    "uniques": "Unique visitors (per day)",
+    "shares": "Times shared",
+    "bots": "Bots"
+  },
+  "chart": {
+    "title": "Clicks over time",
+    "titleHourly": "Clicks per hour (last 24 h)",
+    "clicks": "Clicks",
+    "uniques": "Unique visitors",
+    "date": "Date",
+    "hour": "Hour",
+    "showTable": "Show as table",
+    "showChart": "Show as chart",
+    "empty": "No clicks in this period yet."
+  },
+  "heatmap": {
+    "title": "When do people click? (Bogotá time)",
+    "weekday": "Day",
+    "cell": "{{day}} {{hour}}:00 — {{count}} clicks",
+    "weekdays": {
+      "0": "Mon",
+      "1": "Tue",
+      "2": "Wed",
+      "3": "Thu",
+      "4": "Fri",
+      "5": "Sat",
+      "6": "Sun"
+    }
+  },
+  "map": {
+    "title": "Map of clicks by country",
+    "country": "{{name}}: {{count}} clicks"
+  },
+  "breakdown": {
+    "country": "Countries",
+    "region": "Regions",
+    "city": "Cities",
+    "device": "Devices",
+    "os": "Operating systems",
+    "browser": "Browsers and apps",
+    "lang": "Languages",
+    "as_org": "Internet providers",
+    "referrer_host": "Where they came from",
+    "utm_source": "utm_source",
+    "utm_medium": "utm_medium",
+    "utm_campaign": "utm_campaign",
+    "preview_app": "Shared on",
+    "previewHint": "An app built a link preview because someone pasted the link there.",
+    "unknown": "Unknown",
+    "direct": "Direct or in-app (no referrer)",
+    "untagged": "No UTM tag",
+    "empty": "No data",
+    "value": "Value",
+    "count": "Clicks",
+    "uniques": "Unique"
+  },
+  "device": {
+    "mobile": "Phone",
+    "tablet": "Tablet",
+    "desktop": "Computer",
+    "smarttv": "Smart TV",
+    "console": "Console",
+    "wearable": "Watch or wearable",
+    "embedded": "Other device",
+    "bot": "Bot"
+  },
+  "links": {
+    "title": "Links",
+    "search": "Search link, label or campaign",
+    "editHint": "Links are created and edited in the Google Sheet; changes show up here within a minute.",
+    "columns": {
+      "link": "Link",
+      "destination": "Destination",
+      "campaign": "Campaign",
+      "clicks": "Clicks",
+      "uniques": "Unique",
+      "trend": "Last 30 days",
+      "lastClick": "Last click",
+      "actions": "Actions"
+    },
+    "copy": "Copy",
+    "copied": "Copied",
+    "qrSvg": "QR (SVG)",
+    "qrPng": "QR (PNG)",
+    "paused": "Paused",
+    "missing": "Not in the Sheet",
+    "never": "Never",
+    "empty": "No links yet. Add a row to the Sheet.",
+    "noMatch": "No link matches the search.",
+    "trendLabel": "{{count}} clicks in 30 days"
+  },
+  "misses": {
+    "title": "Links that don't exist",
+    "hint": "Someone typed fco.bz/… with a slug that doesn't exist; they were sent to furrycolombia.com."
+  },
+  "sync": {
+    "title": "Sheet sync",
+    "lastRun": "Last sync: {{time}}",
+    "never": "Not synced yet.",
+    "ok": "All good",
+    "failed": "Failed: {{message}}",
+    "notConfigured": "The Google Sheet is not connected yet.",
+    "now": "Sync now",
+    "running": "Syncing…",
+    "errors": "Rows with problems",
+    "row": "Row {{row}}",
+    "missing": "Links deleted from the Sheet (still live with their last destination)",
+    "statsUpdated": "Stats updated: {{time}}"
+  },
+  "export": {
+    "button": "Export clicks (CSV)",
+    "running": "Exporting…",
+    "failed": "Export failed."
+  },
+  "state": {
+    "loading": "Loading…",
+    "error": "Couldn't load the data.",
+    "unauthorized": "Your session expired. Reload the page to sign in again.",
+    "retry": "Retry"
+  }
+}

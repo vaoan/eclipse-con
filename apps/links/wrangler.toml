@@ -1,0 +1,60 @@
+#:schema ../../node_modules/wrangler/config-schema.json
+# fco-links — short links on fco.bz + the admin.fco.bz dashboard.
+# Spec: docs/superpowers/specs/2026-10-03-fco-links-design.md
+name = "fco-links"
+main = "worker/index.ts"
+compatibility_date = "2025-09-27"
+
+# Only the two custom domains below. No *.workers.dev or preview URL, so the
+# dashboard API cannot be reached around Cloudflare Access.
+workers_dev = false
+preview_urls = false
+
+[[routes]]
+pattern = "fco.bz"
+custom_domain = true
+
+[[routes]]
+pattern = "admin.fco.bz"
+custom_domain = true
+
+# Dashboard SPA. run_worker_first: every request reaches the Worker, which
+# routes by host — fco.bz paths are slugs, never asset lookups.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "fco-links"
+database_id = "913b5b83-46b1-4d76-971c-0210ff10aae5"
+migrations_dir = "migrations"
+
+# One trigger, dispatched by minute in worker/scheduled.ts: Sheet sync every
+# minute, rollup at :07, nightly Sheet summary 06:30 UTC (01:30 Bogotá),
+# weekly R2 export Monday 07:00 UTC.
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+# Zero Trust team domain (JWT issuer and certs).
+ACCESS_TEAM = "furrycolombia.cloudflareaccess.com"
+# AUD tag of the "fco.bz admin" Access app. `pnpm links:access` prints it.
+# Empty = /api answers 503 (fails closed).
+ACCESS_AUD = "7529506cb34050a20e2cb386961af0644ab0d70c5194c2e8a1ec090bea33ec8f"
+# The Google Sheet with the links (an ID, not a secret; only accounts it is
+# shared with can open it). Empty = sync is skipped.
+LINKS_SHEET_ID = "1nYh6VshxYNEAN9oIcxPO1EBjgOcqDaFflKkGlTwcAn4"
+
+# Secrets (wrangler secret put / `pnpm links:secrets`), never in this file:
+#   VISITOR_HASH_KEY             HMAC key for the daily visitor hash
+#   GOOGLE_SERVICE_ACCOUNT_JSON  service account that edits the Sheet
+
+# Optional weekly raw-clicks export. R2 is not enabled on the account yet;
+# enable it in the dashboard, create the bucket, then uncomment. Without the
+# binding the weekly job logs and skips.
+# [[r2_buckets]]
+# binding = "BACKUP_BUCKET"
+# bucket_name = "fco-links-backup"

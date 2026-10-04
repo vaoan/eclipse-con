@@ -68,3 +68,8 @@ lighthouse-report.report.json
 .claude/*.sqlite-wal
 .claude/cap_sid
 .claude/installation_id
+
+# Wrangler local state and dev-only vars (apps/links)
+.wrangler/
+.dev.vars
+
