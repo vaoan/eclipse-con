@@ -40,13 +40,19 @@ generic hostname is retired to point at whatever is current.
 | Redirect hosts + apex  | `sunfest2027.furrycolombia.com` → Sunfest (302), `moonfest.furrycolombia.com` → Sunfest (301), `furrycolombia.com` → Carrd | `eclipse-con`  | `apps/moonfest2026/wrangler.toml`         |
 | Short links            | `fco.bz/<slug>` (302 + click analytics), `admin.fco.bz` dashboard behind Zero Trust                                        | `fco-links`    | `apps/links/wrangler.toml`                |
 
-**Deploys are manual**, each Worker from its own script (`pnpm deploy:sunfest`,
-`pnpm deploy:links`, `pnpm deploy:cloudflare:moonfest`,
+**Sunfest deploys on push to `main`.** `.github/workflows/deploy-sunfest.yml`
+tests, builds and runs `wrangler deploy --config wrangler.sunfest.toml` with the
+`CLOUDFLARE_API_TOKEN` repository secret on every push to `main` (a merged PR
+is a push). Pushes that only touch `apps/moonfest2026/`, `apps/links/`,
+`packages/`, `docs/`, `publicity/` or Markdown skip it; it can also be run by
+hand from the Actions tab. `pnpm deploy:sunfest` still works locally.
+
+The other Workers stay **manual**, each from its own script
+(`pnpm deploy:links`, `pnpm deploy:cloudflare:moonfest`,
 `pnpm deploy:archive:moonfest`). There is no Cloudflare Git integration
 (Workers Builds). The old `eclipse-con` triggers ran `wrangler deploy` at the
 repo root, which has had no Worker config since the workspace move (`c6b0c26`),
-so they failed on every push; they were removed on 2026-10-03. Pushing to
-`main` deploys nothing.
+so they failed on every push; they were removed on 2026-10-03.
 
 Archives are served by **assets-only** Workers — no `main`, so no code runs and
 Static Assets requests are free and uncounted. Only hosts that genuinely need

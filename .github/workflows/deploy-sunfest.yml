@@ -1,10 +1,29 @@
 name: Deploy Sunfest
 
-# Manual trigger — deploys sunfest2027, the active Furry Colombia site, to its
-# Cloudflare Worker, retrieving the Cloudflare token from the repository secret
-# at run time.
+# Deploys sunfest2027, the active Furry Colombia site, to its Cloudflare Worker
+# on every push to main (a merged PR is a push), retrieving the Cloudflare
+# token from the repository secret at run time. Pushes that only touch other
+# apps, docs or print assets skip it. Can also be run by hand.
 on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "apps/moonfest2026/**"
+      - "apps/links/**"
+      - "packages/**"
+      - "docs/**"
+      - "publicity/**"
+      - "**/*.md"
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deploy at a time; a newer push waits for the running one instead of
+# cancelling it halfway through an upload.
+concurrency:
+  group: deploy-sunfest
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -21,6 +40,9 @@ jobs:
 
       - name: Install workspace
         run: pnpm install --frozen-lockfile
+
+      - name: Test sunfest site
+        run: pnpm --filter sunfest2027 test
 
       - name: Build sunfest site
         run: pnpm --filter sunfest2027 build
