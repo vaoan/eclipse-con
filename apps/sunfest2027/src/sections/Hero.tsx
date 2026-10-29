@@ -7,27 +7,14 @@ import { tid } from "@/lib/tid";
 /** The event is in September 2027; exact days are announced later (ISO 8601 month). */
 const EVENT_MONTH = "2027-09";
 
-/** Split a "Brand YEAR" wordmark into its brand and trailing-year parts. */
-function splitWordmark(wordmark: string): readonly [string, string] {
-  const lastSpace = wordmark.lastIndexOf(" ");
-  if (lastSpace > 0) {
-    const tail = wordmark.slice(lastSpace + 1);
-    if (/^\d{4}$/.test(tail)) {
-      return [wordmark.slice(0, lastSpace), tail];
-    }
-  }
-  return [wordmark, ""];
-}
-
 /**
  * Full-screen hero: the Sunfest 2027 illustration fills the viewport, with the
- * wordmark, slogan, event month and CTA centered over it — the rest of the page scrolls up
- * beneath it.
+ * wordmark, slogan, event month and CTA centered over it — the rest of the page
+ * scrolls up beneath it. The slogan stays in Spanish in every locale, since a
+ * translation changes its meaning.
  */
 export function Hero() {
   const { t } = useTranslation();
-  const wordmark = t("teaser.wordmark");
-  const [brand, year] = splitWordmark(wordmark);
 
   return (
     <section
@@ -48,15 +35,10 @@ export function Hero() {
 
       <div className="content hero-content">
         <p className="eyebrow">{t("teaser.eyebrow")}</p>
-        <h1 className="wordmark" aria-label={wordmark}>
-          <span aria-hidden="true">{brand}</span>
-          {year && (
-            <span className="year" aria-hidden="true">
-              {year}
-            </span>
-          )}
-        </h1>
-        <p className="slogan">{t("teaser.slogan")}</p>
+        <h1 className="wordmark">{t("teaser.wordmark")}</h1>
+        <p className="slogan" lang="es">
+          {t("teaser.slogan")}
+        </p>
         <p className="hero-dates">
           <time dateTime={EVENT_MONTH}>{t("teaser.dates")}</time>
         </p>
