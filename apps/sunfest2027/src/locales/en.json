@@ -101,7 +101,7 @@
     "eyebrow": "Thank you, pack",
     "title": "An unforgettable first year",
     "body": "Moonfest 2026 was yours: attendees, artists, staff and volunteers. Thank you for every moment under the moon.",
-    "attendees": "attendees from 9 countries",
+    "attendees": "attendees from 10 countries",
     "countriesAria": "Participating countries",
     "countries": {
       "co": "Colombia",
@@ -111,6 +111,7 @@
       "sv": "El Salvador",
       "mx": "Mexico",
       "pa": "Panama",
+      "pr": "Puerto Rico",
       "ve": "Venezuela",
       "us": "United States"
     },
