@@ -1,340 +1,71 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code in this repository, short on purpose: each line links to the lesson that holds the full text and the reason, and lessons are read when relevant, not on every turn. Layout, per-site architecture, the full command list and the how-to steps: `docs/lessons/project-overview.md`.
 
-## Project Overview
+## What eclipse-con is
 
-**eclipse-con** is a pnpm workspace holding the Furry Colombia event sites. Each
-site is a React single-page application built with Vite, TypeScript, and
-Tailwind CSS v4.
+A pnpm workspace holding the Furry Colombia event sites, each a React single-page app built with Vite, TypeScript (strict) and Tailwind CSS v4. **Moonfest 2026 has concluded. Sunfest 2027 is the active product**: every unsuffixed command (`pnpm dev`, `pnpm build`, `pnpm test`) targets it, and new work goes there by default.
 
-**Moonfest 2026 has concluded. Sunfest 2027 is the active product** — it is what
-every unsuffixed command (`pnpm dev`, `pnpm build`, `pnpm test`) targets, and it
-is where new work goes by default.
+- `apps/sunfest2027/` is ACTIVE and flat: `src/{sections,components,lib,locales,assets}`, with hand-written CSS in `src/index.css` on `@theme` tokens. It is a single-file static site with no router, no E2E suite, no env vars and no Telegram sync; do not invent those for it.
+- `apps/links/` is the fco.bz redirect Worker (`worker/`, D1 `migrations/`) plus the admin.fco.bz dashboard (`src/`, flat). Links are edited in a Google Sheet, never in code; keep within the Workers Free limits (10 ms CPU, 50 D1 queries per invocation) and never store a raw IP.
+- `apps/moonfest2026/` is ARCHIVED and kept buildable: Clean Architecture under `src/{app,features,shared}`. Read-only maintenance; add nothing unasked, and do not port its structure onto Sunfest.
+- `packages/telegram-sync/` serves Moonfest only. `cloudflare/` holds the Sunfest asset worker. `docs/superpowers/` holds dated specs and plans (historical).
 
-## Repository Layout
+The apps are deliberately structured differently: match the app you are editing, and never import across apps.
 
-```
-apps/
-├── sunfest2027/        # ACTIVE — the live Sunfest 2027 site
-├── links/              # fco.bz short links: redirect Worker + admin.fco.bz dashboard
-└── moonfest2026/       # ARCHIVED — Moonfest 2026, kept buildable for reference
-packages/
-└── telegram-sync/      # Telegram → site news sync (used by moonfest2026 only)
-cloudflare/             # sunfest-worker.mjs — the Sunfest asset worker
-docs/superpowers/       # Dated design specs and implementation plans (historical)
-scripts/                # Workspace-level tooling (sync-secrets.mjs, make-qr.mjs)
-publicity/              # Print assets: the sunfest2027 QR code and the logo it embeds
-```
+## Invariants
 
-Deployment:
+- **Sunfest deploys on every push to `main`** (a merged PR is a push) through `.github/workflows/deploy-sunfest.yml`, unless only `apps/moonfest2026/`, `apps/links/`, `packages/`, `docs/`, `publicity/` or Markdown changed. The other Workers deploy by hand (`pnpm deploy:links`, `pnpm deploy:cloudflare:moonfest`, `pnpm deploy:archive:moonfest`). → `docs/lessons/project-overview.md` (Deployment)
+- **Every `git` and `gh` call uses the PAT in `.secrets` (`GH_TOKEN`)**, with commit identity set `--local` from `gh api user`; never `git config --global` or a hardcoded name or email. Procedure: `docs/git-with-gh-token.md`. Never print the token.
+- **NEVER force push to `main`** (`--force` or `--force-with-lease`): it destroys shared history. → `docs/lessons/git-safety.md`
+- **NEVER use `--no-verify`** on a commit or push: the pre-commit and pre-push hooks enforce quality. → `docs/lessons/git-safety.md`
+- **NEVER commit `.env.local`, `.env.*.local`, or any file with keys, tokens, passwords or credentials.** If staged by mistake, unstage at once; if committed, alert the team. The repo is public. → `docs/lessons/git-safety.md`
+- **ALWAYS create a new commit; do not amend unless the user explicitly asks**, because amending after a failed pre-commit hook can destroy the previous commit's content. → `docs/lessons/git-safety.md`
+- **ALWAYS stage specific files** (`git add <file>`), never `git add -A` or `git add .`, which can sweep in secrets or unintended files. → `docs/lessons/git-safety.md`
+- **ALWAYS end AI-generated commits with `Co-Authored-By: Claude <noreply@anthropic.com>`** (the model name may follow `Claude`). → `docs/lessons/git-workflow.md`
+- **Commit as Conventional Commits**: `feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `style`. **Branch as `feature/`, `fix/`, `chore/` or `refactor/` plus a description** (`fix/login-redirect`). One concern per PR, small, with a description of what changed and why. → `docs/lessons/git-workflow.md`
 
-Every event gets its own app, its own Worker and its own hostname — nothing is
-bundled together. A concluded event keeps its site at `<event><year>` and its
-generic hostname is retired to point at whatever is current.
+## Before calling work finished
 
-| What                   | Host                                                                                                                       | Worker         | Config                                    |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------- | ----------------------------------------- |
-| sunfest2027 (active)   | `sunfest.furrycolombia.com`                                                                                                | `sunfest2027`  | `wrangler.sunfest.toml` (repo root)       |
-| moonfest2026 (archive) | `moonfest2026.furrycolombia.com`                                                                                           | `moonfest2026` | `apps/moonfest2026/wrangler.archive.toml` |
-| Redirect hosts + apex  | `sunfest2027.furrycolombia.com` → Sunfest (302), `moonfest.furrycolombia.com` → Sunfest (301), `furrycolombia.com` → Carrd | `eclipse-con`  | `apps/moonfest2026/wrangler.toml`         |
-| Short links            | `fco.bz/<slug>` (302 + click analytics), `admin.fco.bz` dashboard behind Zero Trust                                        | `fco-links`    | `apps/links/wrangler.toml`                |
+Run `pnpm typecheck && pnpm lint && pnpm build`, all with zero errors, and `pnpm test`; CI runs typecheck, lint, test, build in that order and a failure blocks the rest. JSDoc warnings count as errors. After a layout change to Sunfest also run `pnpm check:overflow`. Other gates: `pnpm format:check`, `pnpm check:style`, `pnpm check:tools` (cspell, knip, jscpd, ls-lint). The pre-commit hook runs `pnpm precommit` (lint-staged) and does not bump versions. → `docs/lessons/build-checks.md`
 
-**Sunfest deploys on push to `main`.** `.github/workflows/deploy-sunfest.yml`
-tests, builds and runs `wrangler deploy --config wrangler.sunfest.toml` with the
-`CLOUDFLARE_API_TOKEN` repository secret on every push to `main` (a merged PR
-is a push). Pushes that only touch `apps/moonfest2026/`, `apps/links/`,
-`packages/`, `docs/`, `publicity/` or Markdown skip it; it can also be run by
-hand from the Actions tab. `pnpm deploy:sunfest` still works locally.
+## Commands
 
-The other Workers stay **manual**, each from its own script
-(`pnpm deploy:links`, `pnpm deploy:cloudflare:moonfest`,
-`pnpm deploy:archive:moonfest`). There is no Cloudflare Git integration
-(Workers Builds). The old `eclipse-con` triggers ran `wrangler deploy` at the
-repo root, which has had no Worker config since the workspace move (`c6b0c26`),
-so they failed on every push; they were removed on 2026-10-03.
-
-Archives are served by **assets-only** Workers — no `main`, so no code runs and
-Static Assets requests are free and uncounted. Only hosts that genuinely need
-logic (the apex Carrd proxy, the redirect hosts) run a Worker. Archive
-builds read `apps/moonfest2026/.env.production`, which pins analytics off so a
-developer's local `.env.local` keys can never end up in an archived bundle.
-
-Publicity links to the year-stamped host, `sunfest2027.furrycolombia.com`.
-While the event is live, the `eclipse-con` Worker 302s it (path and query
-preserved) to `sunfest.furrycolombia.com`. It is a 302 rather than a 301 so
-browsers never cache the hop: once the event concludes, that host becomes the
-archived site itself.
-
-When Sunfest 2027 concludes, the same shape applies: detach
-`sunfest2027.furrycolombia.com` from `eclipse-con`, archive the site there on
-its own assets-only Worker, and point `sunfest.furrycolombia.com` at whatever
-event is next. Publicity printed with the year-stamped link keeps working and
-stays frozen on the 2027 edition.
-
-## Git Safety
-
-- **Every `git` and `gh` call uses the PAT in `.secrets` (`GH_TOKEN`)**, with
-  commit identity set `--local` from `gh api user` — never from
-  `git config --global` or a hardcoded name/email. Procedure (same as AeleOS):
-  `docs/git-with-gh-token.md`.
-- **NEVER** force push to `main`
-- **NEVER** use `--no-verify` to skip hooks
-- **NEVER** commit `.env.local` or files containing secrets
-- **ALWAYS** create new commits (don't amend unless explicitly asked)
-- **ALWAYS** stage specific files (avoid `git add -A` or `git add .`)
-- **ALWAYS** include `Co-Authored-By: Claude <noreply@anthropic.com>` in AI-generated commits
-- Use conventional commits: `feat:`, `fix:`, `chore:`, `refactor:`, `docs:`, `test:`, `style:`
-
-## Technology Stack
-
-| Category        | Technology                 |
-| --------------- | -------------------------- |
-| Framework       | React 19                   |
-| Build Tool      | Vite 7                     |
-| Language        | TypeScript 5 (strict mode) |
-| Styling         | Tailwind CSS v4 + CVA      |
-| Routing         | React Router v7            |
-| i18n            | react-i18next              |
-| Testing         | Vitest + Testing Library   |
-| E2E Testing     | Playwright                 |
-| Linting         | ESLint 9 (flat config)     |
-| Formatting      | Prettier                   |
-| Package Manager | pnpm 10                    |
-| Icons           | lucide-react               |
-
-React Router, Playwright, and CVA are used by `moonfest2026` only. `sunfest2027`
-is a single-page scroll with no router and no E2E suite.
-
-## Architecture
-
-The apps are deliberately structured differently — match the app you are
-editing rather than importing one app's conventions into another.
-
-### links (fco.bz) — Worker + flat dashboard
-
-Spec: `docs/superpowers/specs/2026-10-03-fco-links-design.md`.
-
-```
-apps/links/
-├── worker/             # The fco-links Worker (redirect, capture, linkCache, access,
-│                       #   api, sheet, sync, rollup, summary, backup, scheduled) + tests
-├── migrations/         # D1 (`fco-links`) schema
-├── src/                # admin.fco.bz dashboard — flat like sunfest2027
-│   ├── App.tsx, components/, lib/, locales/, index.css
-├── scripts/            # access.mjs, sheet-setup.mjs, push-secrets.mjs (ESLint-ignored)
-└── wrangler.toml
-```
-
-- **Links are edited in a Google Sheet**, not in code or the dashboard; the
-  Worker syncs it every minute into D1. A deleted row never deletes a link.
-- **Workers Free limits shape the code** (10 ms CPU, 50 D1 queries per
-  invocation, 5M reads / 100k writes per day): aggregation happens in SQL,
-  the rollup is incremental, and redirects survive D1 errors via a stale
-  Cache API snapshot. Keep it that way.
-- Never store a raw IP. The repo is public: emails, keys and the hash key stay
-  in `.secrets` / `.env.local` / Worker secrets.
-- Worker tests run in Node with `worker/test/d1.ts` (`node:sqlite` standing in
-  for D1, real migrations applied).
-
-### sunfest2027 (active) — flat single-page structure
-
-The site is one scrolling page, so it does not carry feature-module ceremony:
-
-```
-apps/sunfest2027/src/
-├── App.tsx             # Composes the sections in scroll order
-├── main.tsx            # Entry point
-├── index.css           # All styling: @theme tokens + hand-written CSS
-├── sections/           # One file per full-screen page section (+ tests)
-├── components/         # Reusable pieces used across sections (+ tests)
-├── lib/                # Hooks and utilities (cn, tid, useScrollReveal, …)
-├── locales/            # en.json, es.json
-├── assets/             # Imported images (hero, showcase, flags)
-└── *.ts                # Content constants (showcase, carnaval, flags, socials)
-```
-
-Conventions specific to this app:
-
-- **Sections are full-screen.** Every `.section` has `min-height: var(--section-min-h)` (`100svh`) and centres its content, so each one reads as its own beat. Sections with more content than fits simply grow past it — the height is a floor, not a fixed size.
-- **Styling is hand-written CSS in `index.css`**, not Tailwind utilities in JSX. Colours come from the `@theme` tokens at the top of that file (`--color-yellow`, `--color-magenta`, `--color-purple`, `--color-teal`, …). Add a token rather than a literal.
-- Section content lives in `src/locales/`, not the shared i18n folder.
-
-### moonfest2026 (archived) — Clean Architecture
-
-```
-apps/moonfest2026/src/
-├── app/                    # App shell (providers, router, layouts)
-├── features/               # Feature modules
-│   └── [feature]/
-│       ├── domain/         # Types, constants, business rules
-│       ├── application/    # Hooks, utils, services
-│       ├── infrastructure/ # External integrations
-│       └── presentation/   # Components, pages
-├── shared/                 # App-wide shared code (same four layers)
-└── test/                   # Test setup
-```
-
-Dependency rules:
-
-- **Presentation** depends on **Application** and **Domain**
-- **Application** depends on **Domain** only
-- **Domain** has **no dependencies** on other layers
-- Features **never** import from other features directly
-- Shared code is accessible to all features
-
-Treat this app as read-only maintenance. Do not port its structure onto
-sunfest2027, and do not add features to it without being asked.
-
-## Patterns & Conventions
-
-These apply to **both** apps.
-
-### Components
-
-- Function components only, one component per file
-- Props interface with `readonly` modifier, suffixed with `Props`
-- Use `tid()` for test IDs (stripped in production)
-- Use `cn()` for class merging
-- Use `useTranslation()` for all display strings (never hardcode)
-
-### Naming
-
-- **Files**: PascalCase for components/types, camelCase for utils/hooks, kebab-case for configs
-- **Components**: PascalCase
-- **Hooks**: `use*` prefix
-- **Types/Interfaces**: PascalCase (no `I` prefix)
-- **Constants**: `UPPER_SNAKE_CASE`
-- **Test files**: `*.test.tsx` / `*.test.ts`
-
-### Imports
-
-- Use `@/*` path alias for all imports (resolves to the app's `src/*`)
-- Prefer type imports: `import type { Foo } from "..."`
-- Never import across apps
-
-### i18n
-
-- All user-facing strings must use `t()` from `react-i18next`
-- Translation keys: `feature.section.key` (dot notation)
-- Locales: `en`, `es` — in `apps/sunfest2027/src/locales/` and `apps/moonfest2026/src/shared/infrastructure/i18n/locales/`
-- Always update both locale files when adding keys
-- **Tests assert i18n keys, not translated copy** — the test setup mocks `t()` to return its key, so tests reference keys (`getByRole("heading", { name: "about.title" })`), never wording. See `.claude/rules/i18n-testing.md`.
-
-### JSDoc
-
-- Every exported `function`, `const` (arrow/function expression), `type`, and `interface` **must** have a `/** ... */` block
-- **Keep docs current**: whenever you touch a file, update the JSDoc of every symbol you modified or that is affected by your change
-- Enforced by `eslint-plugin-jsdoc` — treat JSDoc warnings as errors and fix before committing
-- See `.claude/rules/jsdoc.md` for full format guide
-
-## Design Principles
-
-- **DRY**: Extract shared logic after 3 occurrences
-- **SOLID**: Single responsibility per module, depend on abstractions
-- **KISS**: Prefer readability over cleverness, avoid premature optimization
-
-## Quick Reference
-
-### Commands
-
-Unsuffixed commands act on **sunfest2027**. Moonfest equivalents are suffixed.
+Unsuffixed commands act on **sunfest2027**; Moonfest ones are suffixed. Everything else, including Links and Moonfest commands and the QR scripts, is in `docs/lessons/project-overview.md` (Quick Reference).
 
 ```bash
-# Active site — Sunfest 2027
-pnpm dev              # Start dev server (localhost:5173)
+pnpm dev              # dev server (localhost:5173)
 pnpm build            # TypeScript check + production build (single-file HTML)
-pnpm build:static     # Same build, emitted to dist-static/
-pnpm preview          # Preview production build
-pnpm typecheck        # TypeScript type checking only
-pnpm test             # Run unit tests (Vitest)
-pnpm check:overflow   # Fail if the built page scrolls sideways at any width
-pnpm deploy:sunfest   # Build + wrangler deploy --config wrangler.sunfest.toml
-
-# Workspace-wide
+pnpm build:static     # same build, emitted to dist-static/
+pnpm preview          # preview the production build
+pnpm typecheck        # type checking only
+pnpm test             # unit tests (Vitest)
 pnpm lint             # ESLint across the workspace
-pnpm format           # Prettier (write)
-pnpm format:check     # Prettier (check only)
-pnpm check:style      # Stylelint across all apps
-pnpm check:tools      # cspell + knip + jscpd + ls-lint
-pnpm sync:secrets     # Pull repo secrets into .secrets
-pnpm qr:sunfest2027   # Regenerate publicity/sunfest2027-qr.png (QR with the FC logo)
-pnpm qr:sunfest2027:print   # Same code as a 50 mm vector SVG + 600 dpi PNG for print
-pnpm qr:sunfest2027:plain   # No-logo 30 mm version (level M, smallest that scans from 30 cm)
-
-# Short links — fco.bz (apps/links)
-pnpm dev:links          # Dashboard dev server (proxies /api to dev:links:worker)
-pnpm dev:links:worker   # wrangler dev: Worker + local D1 (set DEV_ACCESS_EMAIL in .dev.vars)
-pnpm test:links         # Worker + dashboard tests
-pnpm typecheck:links
-pnpm build:links
-pnpm deploy:links       # Build + wrangler deploy --config apps/links/wrangler.toml
-pnpm links:migrate      # Apply D1 migrations to the remote fco-links database
-pnpm links:secrets      # Upload VISITOR_HASH_KEY + GOOGLE_SERVICE_ACCOUNT_JSON
-pnpm links:access       # Zero Trust app/policy/group for admin.fco.bz (writes ACCESS_AUD)
-pnpm links:sheet-setup  # Prepare the Google Sheet (tabs, validation, checkbox)
-pnpm links:waf          # fco.bz firewall rule: blocks scanner probes + RESERVED_SLUGS
-
-# Archived site — Moonfest 2026
-pnpm dev:moonfest
-pnpm build:moonfest
-pnpm typecheck:moonfest
-pnpm test:moonfest
-pnpm test:e2e:moonfest
-pnpm build:static:moonfest
-pnpm deploy:cloudflare:moonfest
-pnpm version:auto:moonfest        # Bump VITE_APP_VERSION in its .env.example
-pnpm sync:telegram:moonfest2026   # Telegram news sync (moonfest only)
+pnpm format           # Prettier (write); pnpm format:check to only check
+pnpm check:overflow   # fail if the built page scrolls sideways at any width
+pnpm deploy:sunfest   # build + wrangler deploy --config wrangler.sunfest.toml
+pnpm sync:secrets     # pull repo secrets into .secrets
 ```
 
-Sunfest has no Telegram sync, no E2E suite, and no env/version scheme — it is a
-static single-file site. Do not invent those commands for it. Its one
-browser-driven check is `pnpm check:overflow`
-(`apps/sunfest2027/scripts/check-overflow.mjs`), which loads the built artifact
-in headless Chromium and fails if the page scrolls sideways at any viewport
-width; run it after layout changes, and pass a URL to check a deployed build.
+## Conventions, as they apply here
 
-### Before Committing
+- **Components**: function components only, one per file, `readonly` props typed `NameProps`. `tid()` for test ids (stripped in production), `cn()` for class merging. → `docs/lessons/component-patterns.md`, `docs/lessons/one-component-per-file.md`
+- **i18n**: every display string uses `t()` from `react-i18next` (keys `feature.section.key`); add each key to both `en.json` and `es.json`. Tests assert keys, not copy. → `docs/lessons/i18n.md`, `docs/lessons/i18n-testing.md`
+- **JSDoc**: every exported `function`, `const` arrow/function expression, `type` and `interface` has a `/** ... */` block, and you update the JSDoc of every symbol you touch. `eslint-plugin-jsdoc` enforces it. → `docs/lessons/jsdoc.md`
+- **Imports**: `@/*` alias for anything beyond one level up (it resolves to the app's `src/*`), `import type` for types. Never `import.meta.env` outside `environment.ts` (Moonfest only; Sunfest reads no env vars). Variables are `VITE_`-prefixed. → `docs/lessons/portability.md`
+- **Naming**: files PascalCase for components and types, camelCase for utils and hooks, kebab-case for configs; hooks `use*`; types PascalCase with no `I` or `T` prefix; constants `UPPER_SNAKE_CASE`; tests `*.test.ts(x)`. → `docs/lessons/naming-conventions.md`
+- **pnpm only**: never npm or yarn, and never commit `package-lock.json` or `yarn.lock`. → `docs/lessons/portability.md`
+- **SOLID**: one reason to change per module; components render and never fetch; compose through props; depend on ports, not adapters. → `docs/lessons/solid-principles.md`
+- **DRY**: share knowledge, not look-alike code; extract at the third occurrence, and put shared types in the domain layer. → `docs/lessons/dry-principle.md`
+- **KISS**: readable over clever, no premature optimization, smallest prop surface, local state before lifted state. → `docs/lessons/kiss-principle.md`
+- **Single source of truth**: derive instead of storing a second copy; types come from the domain layer; configuration from one `environment.ts`. → `docs/lessons/single-source-of-truth.md`
+- **No hardcoding**: no display strings in JSX, no magic numbers (name the constant), no URLs outside config, no raw hex or rgb (use tokens). → `docs/lessons/no-hardcoding.md`
+- **Reviewing** (or self-checking before commit): no unjustified `any`; async errors handled and surfaced; keyboard access, `alt`, labels and WCAG AA contrast; i18n in `en` and `es`; tests for new behaviour at 85% coverage; no dead code or over-engineering. → `docs/lessons/code-review-standards.md`
 
-Always run these checks:
+## Where the rules live
 
-```bash
-pnpm typecheck && pnpm lint && pnpm build
-```
+**`.claude/rules/`**, loaded only when a matching file is read: `testing`, `i18n-testing`, `i18n`, `e2e-selectors`, `tailwind`, `component-patterns`, `one-component-per-file`, `architecture` (Moonfest only), `analytics-tracking`, `build-checks`. Each rule starts with `paths:` on line 1.
 
-The pre-commit hook runs `pnpm precommit` (lint-staged). It no longer bumps a
-version number — Moonfest's bump is manual now.
+**`.claude/skills/`**, loaded when invoked: `/create-feature`, `/create-component`, `/start-task`, `/submit-pr`, `/full-review`, `/run-tests`, `/run-e2e` and others.
 
-### Environment Variables
-
-Environment config applies to **moonfest2026 only**; sunfest2027 reads no env
-vars.
-
-- Safe defaults live in `apps/moonfest2026/.env.example`
-- Keep analytics keys out of `.env.example`
-- Local overrides and secrets go in `.env.local` or `.env.development` (gitignored)
-- Access via `src/shared/infrastructure/config/environment.ts`
-- All Vite env vars must be prefixed with `VITE_`
-
-### Adding a Section to Sunfest 2027
-
-1. Create `apps/sunfest2027/src/sections/[Name].tsx` and `[Name].test.tsx`
-2. Give the root element `className={cn("section", "section-[name]", revealed && "is-revealed")}` and wire `useScrollReveal()`
-3. Add `data-content-section` and `data-testid={tid("[name]")}` (see `.claude/rules/analytics-tracking.md`)
-4. Add any new styles to `index.css` using the existing `@theme` tokens
-5. Add translation keys to `src/locales/en.json` and `es.json`
-6. Compose it into `src/App.tsx` in scroll order, with a `<GarlandDivider />` between sections
-
-### Creating a New Feature (moonfest2026)
-
-1. Create directory: `apps/moonfest2026/src/features/[name]/`
-2. Add subdirs: `domain/`, `application/`, `infrastructure/`, `presentation/`
-3. Create barrel export: `index.ts`
-4. Add page component in `presentation/`
-5. Register route in `src/app/router.tsx`
-6. Add translation keys to `en.json` and `es.json`
-
-## Claude Rules & Skills
-
-- See `.claude/rules/` for detailed coding standards (~18 rules)
-- See `.claude/skills/` for task-specific workflows (~14 skills)
+**`docs/lessons/`**, read when relevant: the full text of every rule, plus `project-overview.md` (layout, deployment, per-site architecture, every command, the section and feature how-tos). Never `@`-import a lesson; that loads it at launch. Budget, measured at bytes divided by 3: at most 10,000 tokens at session start and 25,000 in a task; root under 200 lines, each rule under 100.
