@@ -1,46 +1,16 @@
-# i18n Testing — Assert Keys, Not Copy
+---
+paths:
+  - "**/*.test.{ts,tsx}"
+  - "**/test-setup.ts"
+  - "**/locales/**"
+---
 
-## Rule
+# i18n Testing
 
-Component tests assert against **i18n label keys**, never translated text. Copy and locale change constantly; text-based assertions are brittle and break on every wording edit. Keys are the stable contract.
+Loaded when a test or a locale file is read. Each line is the rule; the link is the full text.
 
-```tsx
-// Wrong — asserts translated copy (breaks when wording or locale changes)
-screen.getByRole("heading", { name: "Sunfest 2027" });
-screen.getByText(/Coffee culture|Cultura cafetera/);
-
-// Correct — asserts the i18n key
-screen.getByRole("heading", { name: "teaser.wordmark" });
-screen.getByText("highlights.coffee");
-```
-
-## How It Works
-
-The test setup mocks `react-i18next` so `useTranslation().t` returns the key it is given (`t("about.title") === "about.title"`). Components therefore render their keys in tests, and assertions name those keys.
-
-```ts
-// src/test-setup.ts
-vi.mock("react-i18next", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("react-i18next")>();
-  return {
-    ...actual,
-    useTranslation: () => ({
-      t: (key: string) => key,
-      i18n: {
-        language: "es",
-        changeLanguage: () => Promise.resolve(undefined),
-      },
-    }),
-  };
-});
-```
-
-## Selecting Elements
-
-- **Text / labels / alt**: assert the key (`getByText("footer.rights")`, `alt === "teaser.bannerAlt"`).
-- **Interpolated or duplicated labels** (e.g. every gallery card shares `showcase.openItem`): select by `data-testid` (`tid()`) or `data-content-id` instead — the key alone is not unique.
-- **Data constants** that are not i18n copy (e.g. `SOCIALS[].label` = `"Instagram"`) may be matched directly; they are not translated strings.
-
-## Key Existence
-
-Do not test rendered translations for coverage. `copy.test.ts` and `i18n-parity.test.ts` already assert every key exists in both `es` and `en`. Component tests only verify the right key is wired to the right element.
+- **Assert i18n keys, never translated copy**: `getByRole("heading", { name: "about.title" })`, not the English or Spanish wording. Copy changes constantly and every wording edit would break the test. → `docs/lessons/i18n-testing.md` (Rule)
+- **The test setup mocks `react-i18next` so `t(key)` returns the key** (`src/test-setup.ts` in each app), so components render keys in tests. Do not render real translations. → `docs/lessons/i18n-testing.md` (How It Works)
+- **When a key repeats (every gallery card shares `showcase.openItem`), select by `data-testid` (`tid()`) or `data-content-id`**, because the key alone is not unique. → `docs/lessons/i18n-testing.md` (Selecting Elements)
+- **Data constants that are not copy (`SOCIALS[].label` = `"Instagram"`) may be matched directly.** → `docs/lessons/i18n-testing.md` (Selecting Elements)
+- **Do not test that keys exist**: `copy.test.ts` and `i18n-parity.test.ts` already check `en` and `es` carry every key. A component test only checks the right key reaches the right element. → `docs/lessons/i18n-testing.md` (Key Existence)

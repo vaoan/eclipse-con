@@ -5,7 +5,7 @@ Skill for creating a new feature module following Clean Architecture principles.
 > **Scope: `apps/moonfest2026` only** — that app is archived, so you will rarely
 > need this. The active site, `apps/sunfest2027`, is a single scrolling page with
 > no feature modules: add a section under `src/sections/` instead (see the
-> "Adding a Section" steps in `CLAUDE.md`). All paths below are relative to
+> "Adding a Section" steps in `docs/lessons/project-overview.md`). All paths below are relative to
 > `apps/moonfest2026/`.
 
 ## Steps

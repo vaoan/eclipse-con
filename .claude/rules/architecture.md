@@ -1,69 +1,17 @@
-# Clean Architecture for SPA
+---
+paths:
+  - "apps/moonfest2026/src/features/**"
+  - "apps/moonfest2026/src/shared/**"
+  - "apps/moonfest2026/src/app/**"
+---
 
-> **Scope: `apps/moonfest2026` only.** That app is archived but still built, so
-> keep to these rules when editing it. The active site, `apps/sunfest2027`, is a
-> single scrolling page with a deliberately flat layout
-> (`src/sections/`, `src/components/`, `src/lib/`, `src/locales/`) — do not
-> restructure it into feature modules. See `CLAUDE.md` for both layouts.
+# Clean Architecture (Moonfest 2026 only)
 
-## Feature-Based Module Structure
+Loaded when Moonfest source is read. Moonfest is archived but still built. **Sunfest 2027 and Links are deliberately flat: do not restructure them into feature modules.** Each line is the rule; the link is the full text.
 
-Each feature lives under `src/features/[name]/` with four layers:
-
-```
-src/features/[name]/
-  domain/          # Entities, value objects, repository interfaces
-  application/     # Use cases, DTOs, port interfaces
-  infrastructure/  # API clients, adapters, repository implementations
-  presentation/    # Components, hooks, pages
-  index.ts         # Barrel export (public API of the feature)
-```
-
-## Dependency Rule
-
-Dependencies flow **inward only**:
-
-```
-presentation → application → domain
-infrastructure → application → domain
-```
-
-- `domain/` has zero internal imports from other layers.
-- `application/` imports only from `domain/`.
-- `presentation/` imports from `application/` and `domain/`.
-- `infrastructure/` implements interfaces defined in `application/` or `domain/`.
-
-Never import from `presentation/` or `infrastructure/` inside `domain/` or `application/`.
-
-## Shared Code
-
-Shared code follows the same layer structure:
-
-```
-src/shared/
-  domain/          # Shared entities, value objects
-  application/     # Shared use cases, ports
-  infrastructure/  # Shared adapters (i18n, HTTP client, storage)
-  presentation/    # Shared UI components, hooks, layouts
-```
-
-## App Shell
-
-```
-src/app/
-  providers/       # Context providers, dependency injection
-  router/          # Route definitions, guards
-  layouts/         # App-level layout components
-```
-
-## Barrel Exports
-
-Every feature exposes its public API through `index.ts`:
-
-```ts
-// src/features/auth/index.ts
-export { LoginPage } from "./presentation/pages/LoginPage";
-export type { User } from "./domain/entities/User";
-```
-
-Consumers import from the barrel, never from internal paths.
+- **Lay each feature out as `src/features/[name]/{domain,application,infrastructure,presentation}` plus an `index.ts` barrel.** → `docs/lessons/architecture.md` (Feature-Based Module Structure)
+- **Dependencies point inward only**: presentation to application to domain, infrastructure to application to domain. `domain/` imports no other layer, `application/` imports only `domain/`. → `docs/lessons/architecture.md` (Dependency Rule)
+- **Never import `presentation/` or `infrastructure/` from `domain/` or `application/`.** → `docs/lessons/architecture.md` (Dependency Rule)
+- **Features never import another feature's internals**; consume its public API through `index.ts`, never an internal path. → `docs/lessons/architecture.md` (Barrel Exports)
+- **App-wide code in `src/shared/` follows the same four layers**; `src/app/` holds providers, router and layouts. → `docs/lessons/architecture.md` (Shared Code, App Shell)
+- **Treat Moonfest as read-only maintenance**: add no features to it unasked, and do not port its structure onto Sunfest. → `CLAUDE.md`

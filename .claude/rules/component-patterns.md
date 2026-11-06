@@ -1,88 +1,19 @@
-# React Component Patterns
+---
+paths:
+  - "**/presentation/**/*.tsx"
+  - "apps/*/src/components/**"
+  - "apps/*/src/sections/**"
+---
 
-## Function Components Only
+# Component Patterns
 
-Never use class components. All components must be function components.
+Loaded when a component is read. Each line is the rule; the link is the full text.
 
-```tsx
-// Correct
-export function UserCard({ name, role }: Readonly<UserCardProps>) {
-  return <div>...</div>;
-}
-
-// Wrong - no class components
-class UserCard extends React.Component { ... }
-```
-
-## Props Interface
-
-- Define a props interface with the `Props` suffix.
-- Mark all properties as `readonly`.
-
-```tsx
-interface UserCardProps {
-  readonly name: string;
-  readonly role: string;
-  readonly onSelect?: (id: string) => void;
-}
-```
-
-## One Component Per File
-
-Each file exports exactly one React component. See `one-component-per-file.md` for details.
-
-## Colocation
-
-Keep related files together:
-
-```
-UserCard/
-  UserCard.tsx
-  UserCard.test.tsx
-  UserCard.types.ts    # Only if types are complex
-  useUserCard.ts       # Component-specific hook
-```
-
-## Composition Over Inheritance
-
-Build complex UI by composing smaller components, never by extending them.
-
-```tsx
-// Correct
-function ProfileCard({ user }: Readonly<ProfileCardProps>) {
-  return (
-    <Card>
-      <Avatar src={user.avatar} />
-      <UserInfo name={user.name} />
-    </Card>
-  );
-}
-```
-
-## Size Limit
-
-Keep components under **100 lines**. If a component exceeds this limit:
-
-1. Extract logic into a custom hook.
-2. Break the JSX into smaller sub-components.
-3. Move complex conditionals into helper functions.
-
-## Extract Logic Into Custom Hooks
-
-Stateful logic, side effects, and complex computations belong in custom hooks, not in the component body.
-
-```tsx
-// useUserCard.ts
-export function useUserCard(userId: string) {
-  const [user, setUser] = useState<User | null>(null);
-  // ... fetch logic
-  return { user, isLoading };
-}
-
-// UserCard.tsx
-export function UserCard({ userId }: Readonly<UserCardProps>) {
-  const { user, isLoading } = useUserCard(userId);
-  if (isLoading) return <Skeleton />;
-  return <div>{user.name}</div>;
-}
-```
+- **Function components only, never classes.** Type props as `Readonly<NameProps>`. → `docs/lessons/component-patterns.md` (Function Components Only)
+- **Declare a `Props` interface with every property `readonly`.** → `docs/lessons/component-patterns.md` (Props Interface)
+- **Export one component per file** (see `one-component-per-file`). → `docs/lessons/component-patterns.md` (One Component Per File)
+- **Keep a component's own files together** (`UserCard.tsx`, `UserCard.test.tsx`, `useUserCard.ts`; `.types.ts` only when types are complex). → `docs/lessons/component-patterns.md` (Colocation)
+- **Compose smaller components; never extend one.** → `docs/lessons/component-patterns.md` (Composition Over Inheritance)
+- **Keep a component under 100 lines**: extract a hook, split the JSX, or move conditionals into helpers. → `docs/lessons/component-patterns.md` (Size Limit)
+- **Put state, effects and heavy computation in a custom hook**, not the component body. → `docs/lessons/component-patterns.md` (Extract Logic Into Custom Hooks)
+- **Use `tid()` for test ids and `cn()` for class merging**, and import by the `@/*` alias (the app's `src/*`), with `import type` for types. Never import across apps. → `CLAUDE.md` (Conventions)

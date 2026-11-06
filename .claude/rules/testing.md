@@ -1,74 +1,21 @@
-# Testing Standards
+---
+paths:
+  - "**/*.test.{ts,tsx}"
+  - "**/vitest.*"
+  - "**/test-setup.ts"
+  - "apps/links/worker/test/**"
+  - "apps/moonfest2026/src/test/**"
+---
 
-## Unit Tests — Vitest + Testing Library
+# Testing
 
-- Use **Vitest** as the test runner.
-- Use **React Testing Library** for component tests.
-- Test **behavior**, not implementation details. Never assert on internal state or implementation.
+Loaded when a test or vitest config is read. Each line is the rule; the link is the full text. Test selectors for Playwright live in `e2e-selectors`; assertions on translated text live in `i18n-testing`.
 
-## Preferred Queries (in priority order)
-
-1. `getByRole` — accessible role queries (best).
-2. `getByText` — visible text content.
-3. `getByLabelText` — form elements by label.
-4. `getByTestId` — fallback using `tid()` utility.
-
-Avoid `querySelector`, `getByClassName`, or other DOM-structure queries.
-
-## Test IDs
-
-Use the `tid()` utility to generate `data-testid` attributes:
-
-```tsx
-<button data-testid={tid("submit-button")}>Submit</button>
-```
-
-## Coverage Thresholds
-
-Maintain a minimum of **85%** coverage across:
-
-- Statements
-- Branches
-- Functions
-- Lines
-
-## File Placement
-
-Test files live **next to** the source file they test:
-
-```
-UserCard.tsx
-UserCard.test.tsx
-```
-
-## Mocking Rules
-
-- **Do** mock external dependencies (API clients, third-party libraries).
-- **Do not** mock internal modules (hooks, utils within the same feature).
-- Use `vi.mock()` for module mocks and `vi.fn()` for function mocks.
-
-## E2E Tests — Playwright
-
-- E2E tests exist for `apps/moonfest2026` only; the active `apps/sunfest2027` site has no E2E suite.
-- E2E tests live in the `e2e/` directory at that app's root, run with `pnpm test:e2e:moonfest`.
-- Use Playwright for browser-based end-to-end testing.
-- Use `page.getByTestId()` for element selection.
-- See `e2e-selectors.md` for selector rules.
-
-## Test Structure
-
-Follow Arrange-Act-Assert (AAA) pattern:
-
-```ts
-it('should display user name after loading', async () => {
-  // Arrange
-  const user = createMockUser({ name: 'Zenos' });
-  mockGetUser.mockResolvedValue(user);
-
-  // Act
-  render(<UserCard userId={user.id} />);
-
-  // Assert
-  expect(await screen.findByText('Zenos')).toBeInTheDocument();
-});
-```
+- **Use Vitest and React Testing Library, and test behaviour, never internal state**, so a refactor does not break the suite. → `docs/lessons/testing.md` (Unit Tests)
+- **Query by `getByRole` first, then `getByText`, `getByLabelText`, and `getByTestId` (with `tid()`) last.** Never `querySelector` or class-name queries. → `docs/lessons/testing.md` (Preferred Queries)
+- **Put the test file next to its source** (`UserCard.tsx`, `UserCard.test.tsx`), named `*.test.ts` or `*.test.tsx`. → `docs/lessons/testing.md` (File Placement)
+- **Mock external dependencies (API clients, third-party libraries) with `vi.mock()` / `vi.fn()`; do not mock internal hooks or utils of the same feature**, or nothing real is under test. → `docs/lessons/testing.md` (Mocking Rules)
+- **Hold coverage at 85% for statements, branches, functions and lines.** → `docs/lessons/testing.md` (Coverage Thresholds)
+- **Structure each test as Arrange, Act, Assert**, and `await screen.findBy*` for anything async. → `docs/lessons/testing.md` (Test Structure)
+- **Playwright exists for `apps/moonfest2026` only** (`e2e/`, `pnpm test:e2e:moonfest`); Sunfest has no E2E suite, so do not write one for it. → `docs/lessons/testing.md` (E2E Tests)
+- **Worker tests in `apps/links/worker/` run in Node against `worker/test/d1.ts`** (`node:sqlite` standing in for D1, real migrations applied): extend that helper rather than mocking D1. → `docs/lessons/project-overview.md` (links)

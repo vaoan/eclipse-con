@@ -1,42 +1,15 @@
+---
+paths:
+  - "**/presentation/**/*.tsx"
+  - "apps/*/src/components/**"
+  - "apps/*/src/sections/**"
+---
+
 # One Component Per File
 
-## Rule
+Loaded when a component is read. Each line is the rule; the link is the full text.
 
-Each file exports **exactly one React component**. This makes components easy to find, test, and refactor.
-
-```
-// UserCard.tsx — exports UserCard
-// UserAvatar.tsx — exports UserAvatar
-```
-
-## Private Helpers Are OK
-
-Helper functions that are only used within the same file and are not React components may coexist:
-
-```tsx
-function formatDisplayName(first: string, last: string): string {
-  return `${first} ${last}`;
-}
-
-export function UserCard({ user }: Readonly<UserCardProps>) {
-  return <span>{formatDisplayName(user.firstName, user.lastName)}</span>;
-}
-```
-
-## Component-Specific Types
-
-Types and interfaces that are used only by the component in the same file may be defined there:
-
-```tsx
-interface UserCardProps {
-  readonly user: User;
-}
-
-export function UserCard({ user }: Readonly<UserCardProps>) { ... }
-```
-
-If the type is used by other files, move it to a dedicated `.types.ts` file or to the domain layer.
-
-## Extracting Reusable Sub-Elements
-
-If a styled sub-element is used in more than one component, extract it into its own file. If it is only used within the parent component, it may be a private helper in the same file — but it should **not** be exported.
+- **Each file exports exactly one React component**, so it is easy to find, test and refactor. → `docs/lessons/one-component-per-file.md` (Rule)
+- **Non-component helpers used only in the same file may stay private** (`formatDisplayName`). → `docs/lessons/one-component-per-file.md` (Private Helpers Are OK)
+- **A props type used only by this component lives in its file; one used elsewhere moves to a `.types.ts` file or the domain layer.** → `docs/lessons/one-component-per-file.md` (Component-Specific Types)
+- **A styled sub-element used by more than one component gets its own file; one used only by its parent stays a private, unexported helper.** → `docs/lessons/one-component-per-file.md` (Extracting Reusable Sub-Elements)

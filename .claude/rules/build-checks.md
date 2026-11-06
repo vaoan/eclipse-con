@@ -1,37 +1,16 @@
+---
+paths:
+  - "scripts/**"
+  - ".github/workflows/**"
+  - ".husky/**"
+  - "apps/*/scripts/**"
+---
+
 # Build Checks
 
-## Before Committing
+Loaded when a script, workflow or hook is read. The checks to run before calling work finished are in `CLAUDE.md`, always loaded. Each line is the rule; the link is the full text.
 
-Run the following checks and ensure they all pass before creating a commit:
-
-```bash
-pnpm typecheck    # TypeScript type checking
-pnpm lint         # ESLint
-pnpm build        # Production build
-```
-
-All three must succeed with zero errors.
-
-## CI Pipeline Order
-
-The CI pipeline runs checks in this sequence:
-
-1. **typecheck** — Verify type correctness.
-2. **lint** — Enforce code style and quality rules.
-3. **test** — Run Vitest unit and integration tests.
-4. **build** — Ensure the production bundle compiles.
-
-A failure at any stage blocks subsequent stages.
-
-## Quick Feedback Loop
-
-For rapid iteration during development, run individual checks:
-
-```bash
-pnpm typecheck    # Fast — checks types only
-pnpm lint         # Checks code quality
-pnpm test         # Runs unit tests
-pnpm build        # Full production build
-```
-
-Run the full suite before pushing to ensure the CI pipeline will pass.
+- **Before a commit, `pnpm typecheck`, `pnpm lint` and `pnpm build` must all pass with zero errors.** → `docs/lessons/build-checks.md` (Before Committing)
+- **CI runs typecheck, lint, test, then build, and a failure at any stage blocks the later ones.** Keep a changed script or workflow consistent with that order. → `docs/lessons/build-checks.md` (CI Pipeline Order)
+- **Run the whole suite before pushing**, using the single checks for quick iteration. → `docs/lessons/build-checks.md` (Quick Feedback Loop)
+- **`.github/workflows/deploy-sunfest.yml` deploys Sunfest on every push to `main` unless only ignored paths changed** (`apps/moonfest2026/**`, `apps/links/**`, `packages/**`, `docs/**`, `publicity/**`, `**/*.md`): keep its `paths-ignore` in step with the layout. → `docs/lessons/project-overview.md` (Deployment)
