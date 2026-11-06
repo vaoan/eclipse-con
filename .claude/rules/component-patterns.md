@@ -16,4 +16,4 @@ Loaded when a component is read. Each line is the rule; the link is the full tex
 - **Compose smaller components; never extend one.** → `docs/lessons/component-patterns.md` (Composition Over Inheritance)
 - **Keep a component under 100 lines**: extract a hook, split the JSX, or move conditionals into helpers. → `docs/lessons/component-patterns.md` (Size Limit)
 - **Put state, effects and heavy computation in a custom hook**, not the component body. → `docs/lessons/component-patterns.md` (Extract Logic Into Custom Hooks)
-- **Use `tid()` for test ids and `cn()` for class merging**, and import by the `@/*` alias (the app's `src/*`), with `import type` for types. Never import across apps. → `CLAUDE.md` (Components, Imports)
+- **Use `tid()` for test ids and `cn()` for class merging**, and import by the `@/*` alias (the app's `src/*`), with `import type` for types. Never import across apps. → `CLAUDE.md` (Conventions)

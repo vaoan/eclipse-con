@@ -27,7 +27,7 @@ The apps are deliberately structured differently: match the app you are editing,
 
 ## Before calling work finished
 
-Run `pnpm typecheck && pnpm lint && pnpm build`, all with zero errors, and `pnpm test`; CI runs typecheck, lint, test, build in that order and a failure blocks the rest. JSDoc warnings count as errors. After a layout change to Sunfest also run `pnpm check:overflow`. Other gates: `pnpm format:check`, `pnpm check:style`, `pnpm check:tools` (cspell, knip, jscpd, ls-lint). The pre-commit hook runs `pnpm precommit` (lint-staged) and does not bump versions. → `docs/lessons/build-checks.md`
+Run `pnpm typecheck && pnpm lint --max-warnings 0 && pnpm build`, all with zero errors and zero warnings (plain `pnpm lint` can pass while the commit hook, which runs `eslint --max-warnings 0`, fails), and `pnpm test`; CI runs typecheck, lint, test, build in that order and a failure blocks the rest. JSDoc warnings count as errors. After a layout change to Sunfest also run `pnpm check:overflow`. Other gates: `pnpm format:check`, `pnpm check:style`, `pnpm check:tools` (cspell, knip, jscpd, ls-lint). The pre-commit hook runs `pnpm precommit` (lint-staged) and does not bump versions. → `docs/lessons/build-checks.md`
 
 ## Commands
 
