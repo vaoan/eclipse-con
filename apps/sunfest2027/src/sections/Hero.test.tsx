@@ -18,11 +18,11 @@ describe("Hero", () => {
     expect(banner).toHaveAttribute("alt", "teaser.bannerAlt");
   });
 
-  it("renders the event month as a machine-readable date", () => {
+  it("renders the event year as a machine-readable date", () => {
     render(<Hero />);
     expect(screen.getByText("teaser.dates")).toHaveAttribute(
       "datetime",
-      "2027-09"
+      "2027"
     );
   });
 });

@@ -257,7 +257,7 @@
   padding-inline: 0;
   gap: clamp(0.9rem, 2.5vw, 1.4rem);
 
-  /* The slogan's size; the event month is pinned to 75% of it. */
+  /* The slogan's size; the event year is pinned to 75% of it. */
   --slogan-size: clamp(2.5rem, 9vw, 5.5rem);
 }
 

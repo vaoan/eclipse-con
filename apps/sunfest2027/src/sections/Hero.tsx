@@ -4,12 +4,12 @@ import bannerNarrowSrc from "@/assets/hero/banner-1280.webp";
 import { FollowCta } from "@/components/FollowCta";
 import { tid } from "@/lib/tid";
 
-/** The event is in September 2027; exact days are announced later (ISO 8601 month). */
-const EVENT_MONTH = "2027-09";
+/** Only the event year is shown for now; month and days are announced later (ISO 8601 year). */
+const EVENT_YEAR = "2027";
 
 /**
  * Full-screen hero: the Sunfest 2027 illustration fills the viewport, with the
- * wordmark, slogan, event month and CTA centered over it — the rest of the page
+ * wordmark, slogan, event year and CTA centered over it — the rest of the page
  * scrolls up beneath it. The slogan stays in Spanish in every locale, since a
  * translation changes its meaning.
  */
@@ -40,7 +40,7 @@ export function Hero() {
           {t("teaser.slogan")}
         </p>
         <p className="hero-dates">
-          <time dateTime={EVENT_MONTH}>{t("teaser.dates")}</time>
+          <time dateTime={EVENT_YEAR}>{t("teaser.dates")}</time>
         </p>
         <FollowCta
           testId="hero-follow"
